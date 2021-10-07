@@ -1,0 +1,19 @@
+Lista dotyczy zaznajomienia z podstawami GITa. Program do obsługi GITa jest dowolny, możecie używać terminala (uwaga - Windows wymaga doinstalowania git for windows), sourcetree lub innego graficznego GUI, jak i wbudowanego klienta GITa w swoim środowisku IDE (np Visual czy IntelliJ).
+
+1) Sforkować repozytorium pdgm21 na Wasze konto
+2) Przejść na Waszego forka
+3) Ściągnąć wasze repo na dysk i powiązać z repozytorium zdalnym (remote)
+4) Napisać 'HelloWorld' w Scali i Ocamlu. Dwie wersje hello napiszcie oczywiście w dwóch osobnych plikach, dodając je w dwóch osobnych commitach. Podpisujcie commity w j. ang. w sposób zwarty i zrozumiały. Pracujcie na branchu, stwórzcie na potrzeby zadania brancha i nazwijcie go np l1.
+5) Wypchnąć zmiany lokalne na repo zdalne.
+6) Utworzyć pull requesta z brancha l1 do brancha master mojego repo (oryginalnego repo, z którego powstał fork) i nazwijcie go L1.
+
+(5pkt)
+
+Nauka podstaw GITa:
+https://docs.github.com/en/get-started/quickstart
+
+Dla bardziej zaawansowanych kompendium wiedzy GIT Pro:
+https://play.google.com/books/reader?id=jVYnCgAAQBAJ&pg=GBS.PA1&hl=pl
+
+książka Scala for the impatient
+https://horstmann.com/scala/
