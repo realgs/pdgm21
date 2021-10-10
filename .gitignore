@@ -1,3 +1,6 @@
+# =============================================
+# SCALA
+
 # SBT
 target
 *.class
@@ -20,3 +23,37 @@ build
 .settings
 org.scala-ide.sdt.core/META-INF/MANIFEST.MF
 org.scala-ide.sdt.update-site/site.xml`
+
+
+# ===============================================
+# OCaml
+
+*.annot
+*.cmo
+*.cma
+*.cmi
+*.a
+*.o
+*.cmx
+*.cmxs
+*.cmxa
+
+# ocamlbuild working directory
+_build/
+
+# ocamlbuild targets
+*.byte
+*.native
+
+# oasis generated files
+setup.data
+setup.log
+
+# Merlin configuring file for Vim and Emacs
+.merlin
+
+# Dune generated files
+*.install
+
+# Local OPAM switch
+_opam/
