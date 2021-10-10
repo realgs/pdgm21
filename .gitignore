@@ -1,0 +1,22 @@
+# SBT
+target
+*.class
+
+# Intellij
+*.iml
+*.ipr
+*.iws
+.idea
+
+# VIM
+tags
+.*.swp
+.*.swo
+
+# Eclipse (you shouldnt use it anyway)
+build
+.classpath
+.project
+.settings
+org.scala-ide.sdt.core/META-INF/MANIFEST.MF
+org.scala-ide.sdt.update-site/site.xml`
