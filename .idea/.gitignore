@@ -6,3 +6,8 @@
 /dataSources.local.xml
 # Editor-based HTTP Client requests
 /httpRequests/
+
+# file: ~/.gitignore_global
+.DS_Store
+.idea
+
