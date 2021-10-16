@@ -12,7 +12,7 @@ let rec isSequenceCorrect list =
 ;;
 
 (*Task 2*)
-let rec concatenateStrings list =
+let concatenateStrings list =
   let rec appendWords list =
     if List.hd list = "." || List.hd list = "?" || List.hd list = "!" then List.hd list
     else " " ^ List.hd list ^ appendWords(List.tl list)
