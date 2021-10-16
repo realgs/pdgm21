@@ -5,6 +5,24 @@ object Main {
     else return list.head + sum(list.tail)
   }
 
+  // Helper for Task 2
+  def isSequenceCorrect(list: List[String]): Boolean = {
+    if list == Nil then return false
+    else if list.tail == List(".") || list.tail == List("?") || list.tail == List("!") then return true
+    else return isSequenceCorrect(list.tail)
+  }
+
+  // Task 2
+  def concatenateStrings(list: List[String]): String = {
+    def appendWords(list: List[String]): String = {
+      if list.head == "." || list.head == "?" || list.head == "!" then return list.head
+      return " " + list.head + appendWords(list.tail)
+    }
+
+    if !isSequenceCorrect(list) then throw new Exception("Incorrect sequence")
+    else return list.head + appendWords(list.tail)
+  }
+
   // Task 3
   def isPositive(list: List[Int]): Boolean = {
     if list == Nil then return true
@@ -23,6 +41,16 @@ object Main {
     println(sum(List(1, 3, 6)))
     println(sum(List(-4, 89, 1, -56)))
     println(sum(List()))
+    println()
+
+    println(concatenateStrings(List("Hello", "World", "!")))
+    println(concatenateStrings(List("Did", "I", "code", "this", "task", "properly", "?")))
+    println(concatenateStrings(List("You", "are", "wonderful", ".")))
+    // The calls below will throw an exception
+    //println(concatenateStrings(List()))
+    //println(concatenateStrings(List("HELLO")))
+    //println(concatenateStrings(List(".")))
+    //println(concatenateStrings(List("HELLO", ".", "WORLD")))
     println()
 
     println(isPositive(List(1, 5, 7)))
