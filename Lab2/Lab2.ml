@@ -6,14 +6,9 @@ zad1([]) = 0;;
 zad1([1; 2 ;0 ;3 ;4]) = 10;;
 zad1([1; -1; 2; -2]) = 0;;
 
-(*helper zad2*)
-let rec listLength xs =
-    if  xs = [] then 0
-    else 1 + listLength(List.tl xs);;
-
 let rec zad2 (list,c) =
-    if listLength(list) = 0 then c
-    else if listLength(list) = 1 then List.hd list ^ c
+    if  list = [] then c
+    else if List.tl list = [] then List.hd list ^ c
     else List.hd list ^ "_" ^ zad2(List.tl list,c);;
 
 zad2([],":") = ":";;

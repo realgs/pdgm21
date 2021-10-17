@@ -7,15 +7,9 @@ zad1(List()) == 0
 zad1(List(1, 2, 0, 3, 4)) == 10
 zad1(List(1, -1, 2 , -2)) == 0
 
-//helper zad2
-def listLength[A](list: List[A]): Int =
-  if (list != Nil) then
-    1 + listLength(list.tail)
-  else 0
-
 def zad2(l: List[String], c: String): String =
-    if listLength(l) == 0 then c
-    else if listLength(l) == 1 then l.head + c
+    if l == Nil then c
+    else if l.tail == Nil then l.head + c
     else l.head + "_" + zad2(l.tail, c)
 
 zad2(List(),";") == ";"
@@ -42,4 +36,5 @@ zad4(5) == 120
 zad4(0) == 1
 zad4(1) == 1
 zad4(-1)
+
 
