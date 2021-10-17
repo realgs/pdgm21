@@ -1,5 +1,3 @@
-import sun.font.TrueTypeFont
-
 def zad1(l:List[Int]): Int =
   if l != Nil then
     l.head + zad1(l.tail)
