@@ -13,11 +13,11 @@ val s2 = sumList(list2)
 val s3 = sumList(list3)
 
 //l2 zadanie 2.
-val words = "How"::"are"::"you"::"today"::Nil;;
-val words1 = "Have"::"a"::"nice"::"day"::Nil;;
-val words2 = "Oh"::"my"::Nil;;
-val words3 = Nil;;
-val space = " ";;
+val words = "How"::"are"::"you"::"today"::Nil
+val words1 = "Have"::"a"::"nice"::"day"::Nil
+val words2 = "Oh"::"my"::Nil
+val words3 = Nil
+val space = " "
 def createSentence (wordList:List[String], endMark:String) = {
   def recCreateSentence (wordList:List[String], endMark:String, sentence:String):String =
     if wordList.length < 1 then sentence + endMark
@@ -31,10 +31,10 @@ val sen4 = createSentence(words3, "")
 
 //l2 zadanie  3. - zakladam ze pusta lista tez ma zwracac true
 
-val numbers1 = 3::4::8::Nil;;
-val numbers2 = -3::5::1::Nil;;
-val numbers3 = Nil;;
-val numbers4 = 20::4::0::Nil;;
+val numbers1 = 3::4::8::Nil
+val numbers2 = -3::5::1::Nil
+val numbers3 = Nil
+val numbers4 = 20::4::0::Nil
 def isPositive (numbers:List[Int]):Boolean =
   if numbers.length <1 then true
   else if numbers.head >0 then isPositive (numbers.tail)
