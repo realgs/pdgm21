@@ -5,9 +5,9 @@ def sum(list: List[Int]): Int =
     if list == Nil then 0
     else list.head + sum(list.tail)
 
-println(sum(List(5, 1, 12, -5, 0)))
-println(sum(List()))
-println(sum(Nil))
+sum(List(5, 1, 12, -5, 0)) == 13
+sum(List()) == 0
+sum(Nil) == 0
 
 
 // stała hardkodowana
@@ -19,10 +19,10 @@ def join(list: List[String], end: String): String =
         if list.tail == Nil then list.head + end
         else list.head + SPACING + join(list.tail, end)
 
-join(List("To", "nie", "tak"), "!")
-join(List("Ala", "ma", "kota"), "?")
-join(List(), "wow!")
-join(Nil, "some string")
+join(List("To", "nie", "tak"), "!") == "To nie tak!"
+join(List("Ala", "ma", "kota"), "?") == "Ala ma kota?"
+join(List(), "ahoj!") == ""
+join(Nil, "some string") == ""
 
 /*
 Funkcja ma zwrócić True tylko gdy wszystkie liczby z listy są większe od 0.
@@ -35,10 +35,10 @@ def greater_than_zero(list: List[Double]): Boolean =
         if list.tail == Nil then list.head > 0
         else list.head > 0 && greater_than_zero(list.tail)
 
-greater_than_zero(List(1, -5, 3, 2))
-greater_than_zero(List(1, 2, 5, 7, 8))
-greater_than_zero(List())
-greater_than_zero(Nil)
+greater_than_zero(List(1, -5, 3, 2)) == false
+greater_than_zero(List(1, 2, 5, 7, 8)) == true
+greater_than_zero(List()) == false
+greater_than_zero(Nil) == false
 
 
 def factorial (n: Int): Int =
@@ -46,5 +46,5 @@ def factorial (n: Int): Int =
     else if n == 0 then 1 else n * factorial(n - 1)
 
 factorial(-5)
-factorial(0)
-factorial(6)
+factorial(0) == 1
+factorial(6) == 720
