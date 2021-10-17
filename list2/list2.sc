@@ -42,7 +42,7 @@ greater_than_zero(Nil)
 
 
 def factorial (n: Int): Int =
-    if n < 0 then 0
+    if n < 0 then throw new IllegalArgumentException("factorial argument must be greater or equal zero")
     else if n == 0 then 1 else n * factorial(n - 1)
 
 factorial(-5)

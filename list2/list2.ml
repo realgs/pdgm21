@@ -31,7 +31,7 @@ greater_than_zero([]);;
 
 
 let rec factorial n =
-    if n < 0 then 0
+    if n < 0 then raise (Invalid_argument "factorial argument must be greater or equal zero")
     else
         if n = 0 then 1
         else n * factorial(n - 1);;
