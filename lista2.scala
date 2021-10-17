@@ -1,8 +1,8 @@
 //zadanie 1
 
-val listSum: List[Int] => Int = (xs: List[Int]) =>
-  if xs == Nil then 0
-  else xs.head + listSum (xs.tail)
+val listSum: List[Int] => Int = (intList: List[Int]) =>
+  if intList == Nil then 0
+  else intList.head + listSum (intList.tail)
 
 listSum (Nil) == 0
 listSum (List(2)) == 2
@@ -10,21 +10,20 @@ listSum (List(-2, 3, -4, 1)) == -2
 
 //zadanie 2
 
-val sentenceFromList: List[String] => String = (xs: List[String]) =>
-  if xs == Nil then ""
-  else if xs.tail == Nil then xs.head
-  else xs.head + " " + sentenceFromList (xs.tail)
+val sentenceFromList: (List[String], String) => String = (stringList: List[String], endString: String) =>
+  if stringList == Nil then endString
+  else stringList.head + " " + sentenceFromList (stringList.tail, endString)
 
-sentenceFromList (Nil) == ""
-sentenceFromList (List("!")) == "!"
-sentenceFromList (List("zadanie", "drugie", ".")) == "zadanie drugie ."
+sentenceFromList (Nil, "") == ""
+sentenceFromList (Nil, "!") == "!"
+sentenceFromList (List("zadanie", "drugie"), ".") == "zadanie drugie ."
 
 //zadanie 3
 
-val listGreaterThanZero: List[Int] => Boolean = (xs: List[Int]) =>
-  if xs == Nil then throw new Exception("Empty list !")
-  else if xs.head <= 0 then false
-  else if xs.tail != Nil then listGreaterThanZero (xs.tail)
+val listGreaterThanZero: List[Int] => Boolean = (intList: List[Int]) =>
+  if intList == Nil then throw new Exception("Empty list !")
+  else if intList.head <= 0 then false
+  else if intList.tail != Nil then listGreaterThanZero (intList.tail)
   else true
 
 //listGreaterThanZero (Nil)

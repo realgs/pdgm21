@@ -1,8 +1,8 @@
 (*zadanie 1*)
 
-let rec listSum xs =
-  if xs = [] then 0
-  else List.hd xs + listSum (List.tl xs) ;;
+let rec listSum intList =
+  if intList = [] then 0
+  else List.hd intList + listSum (List.tl intList) ;;
 
 listSum [] = 0 ;;
 listSum [2] = 2 ;;
@@ -10,21 +10,20 @@ listSum [-2; 3; -4; 1] = -2 ;;
 
 (*zadanie 2*)
 
-let rec sentenceFromList xs =
-  if xs = [] then ""
-  else if List.tl xs = [] then List.hd xs
-  else List.hd xs ^ " " ^ sentenceFromList (List.tl xs) ;;
+let rec sentenceFromList (stringList, endString)  =
+  if stringList = [] then endString
+  else List.hd stringList ^ " " ^ sentenceFromList (List.tl stringList, endString) ;;
 
-sentenceFromList [] = "" ;;
-sentenceFromList ["!"] = "!" ;;
-sentenceFromList ["zadanie"; "drugie"; "."] = "zadanie drugie ." ;;
+sentenceFromList ([], "") = "" ;;
+sentenceFromList ([], "!") = "!" ;;
+sentenceFromList (["zadanie"; "drugie"], ".") = "zadanie drugie ." ;;
 
 (*zadanie 3*)
 
-let rec listGreaterThanZero xs =
-  if xs = [] then failwith("Empty list !")
-  else if List.hd xs <= 0 then false
-  else if List.tl xs <> [] then listGreaterThanZero (List.tl xs)
+let rec listGreaterThanZero intList =
+  if intList = [] then failwith("Empty list !")
+  else if List.hd intList <= 0 then false
+  else if List.tl intList <> [] then listGreaterThanZero (List.tl intList)
   else true ;;
 
 (*listGreaterThanZero [] ;;*)
