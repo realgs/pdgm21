@@ -60,3 +60,4 @@ let rec areBiggerThanZero xs =
   factorial(4);;
   factorial(-4);;
   factorial(0);;
+  
