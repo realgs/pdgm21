@@ -10,12 +10,12 @@ sumOfListNums([]) = 0;;
 sumOfListNums([-5;-3;-10]) = -18;;
 
 (* 2 *)
-let rec makeSentenceIn words  endChar result = 
+let makeSentence words endChar =
+  let rec makeSentenceIn words  endChar result = 
     if words = [] then raise(Failure "Sentence end char not found in words list!")
     else if List.hd words = endChar then result ^ endChar
     else if compare result "" = 0 then makeSentenceIn (List.tl words)(endChar)(List.hd words)
-    else makeSentenceIn (List.tl words)(endChar)( (result ^ " ") ^ (List.hd words) );;
-let makeSentence words endChar =
+    else makeSentenceIn (List.tl words)(endChar)( (result ^ " ") ^ (List.hd words) ) in
   if words = [] then ""
   else makeSentenceIn words endChar "";;
 
