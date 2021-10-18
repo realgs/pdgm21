@@ -11,11 +11,11 @@ sum[1] = 1;;
 (*zadanie 2*)
 let rec str(xs,chend) = 
     if xs <> [] then
-        List.hd xs ^ " " ^ str(List.tl xs)
+        List.hd xs ^ " " ^ str(List.tl xs,chend)
     else chend
 ;; 
-str[] = "."
-str["Ala";"ma";"Kota"] = "Ala ma Kota ."
+str[] = ""
+str(["Ala";"ma";"Kota"],".") = "Ala ma Kota ."
 
 (*Zadanie 3*)
 let rec more_then_0 xs =
