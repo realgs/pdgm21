@@ -7,13 +7,13 @@ sum(Nil)
 sum(List(1,2,3,4,5))
 
 //zadanie 2
-def str(xs: List[String]):String = {
-  if xs != Nil then xs.head ++ " " ++ str(xs.tail)
-  else "."
+def str(xs: List[String],x:String):String = {
+  if xs != Nil then xs.head ++ " " ++ str(xs.tail,x)
+  else x
 }
 
-str(List("Ala","ma","Kota"))
-str(List())
+str(List("Ala","ma","Kota"),".")
+str(List(),"")
 
 //zadanie 3
 def more_then_0(xs: List[Int]):Boolean = {
