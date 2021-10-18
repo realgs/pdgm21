@@ -39,3 +39,4 @@ let rec silnia n=
 silnia 4 = 24;;
 silnia 0 = 1;;
 silnia (-4);;
+
