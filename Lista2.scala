@@ -7,18 +7,18 @@ object Lista2 {
   
   //zadanie 1
   def summarize(xs:List[Int]):Int={
-  if len(xs)==0 then 0
+  if xs.isEmpty then 0
   else xs.head+summarize(xs.tail)
   }
   //zadanie 2
   def sentence(xs: List[String], x:String):String={
-    if len(xs)==0 then x
+    if xs.isEmpty then x
     else if len(xs)==1 then xs.head+x
     else xs.head+" "+sentence(xs.tail, x)
   }
   //zadanie 3
   def greaterThanZero(xs:List[Int]):Boolean={
-    if len(xs)==0 then true
+    if xs.isEmpty then true
     else if xs.head>0 then greaterThanZero(xs.tail)
     else false
   }
