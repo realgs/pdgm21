@@ -9,10 +9,10 @@ sum[] = 0;;
 sum[1] = 1;;
 
 (*zadanie 2*)
-let rec str xs = 
+let rec str(xs,chend) = 
     if xs <> [] then
         List.hd xs ^ " " ^ str(List.tl xs)
-    else "."
+    else chend
 ;; 
 str[] = "."
 str["Ala";"ma";"Kota"] = "Ala ma Kota ."
