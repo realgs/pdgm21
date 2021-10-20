@@ -14,3 +14,11 @@ let rec makeSentence (xs, x) =
 makeSentence (["Ala";"ma";"kota"], ".") = "Ala ma kota.";;
 makeSentence (["ya";"like";"jazz"], "?") = "ya like jazz?";;
 makeSentence ([], "!") = "!";;
+
+let rec gtz (xs) =
+  if xs = [] then true
+  else (List.hd xs > 0) && gtz(List.tl xs);;
+
+gtz([1;2;9]) = true;;
+gtz([1;0;3;4]) = false;;
+gtz([]) = true;;
