@@ -13,3 +13,11 @@ def makeSentence(xs: List[String], x:Char): String =
 makeSentence(List("Ala", "ma", "kota"), '.') == "Ala ma kota."
 makeSentence(List("ya", "like", "jazz"), '?') == "ya like jazz?"
 makeSentence(List(), '!') == "!"
+
+def gtz(xs: List[Double]): Boolean =
+  if xs == List() then true
+  else (xs.head > 0) && gtz(xs.tail)
+
+gtz(List(1, 2, 9)) == true
+gtz(List(1, 0, 3, 4)) == false
+gtz(List()) == true
