@@ -22,3 +22,12 @@ let rec gtz (xs) =
 gtz([1;2;9]) = true;;
 gtz([1;0;3;4]) = false;;
 gtz([]) = true;;
+
+let rec factorial (x) =
+  if x < 0 then failwith "factorial of a negative number"
+  else if x = 0 then 1
+  else x * factorial (x - 1);;
+
+factorial(4) = 24;;
+factorial(5) = 120;;
+factorial(0) = 1;;
