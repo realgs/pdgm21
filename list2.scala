@@ -49,7 +49,7 @@ checkListPositivity(List(2, 3, 5)) == true
 // fourth task
 
 val factorial: Int => Int = num =>
-  if num < 0 then throw new Exception(s"Ujemny argument silni: $num")
+  if num < 0 then throw new Exception(s"Ujemny argument silni: $num!")
   else if num == 0 then 1
   else if num == 1 then 1
   else num * factorial(num - 1)
