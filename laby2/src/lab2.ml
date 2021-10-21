@@ -8,9 +8,10 @@ sumList([]);;
 sumList([2]);;
 
 (*zadanie2*)
+let space = " ";;
 let rec sentenceList xs =
     if xs = [] then ""
-    else List.hd xs ^ " " ^ sentenceList(List.tl xs);;
+    else List.hd xs ^ space ^ sentenceList(List.tl xs);;
 
 sentenceList(["Ala"; "ma"; "kota"; "."]);;
 sentenceList(["?"]);;

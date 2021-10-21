@@ -8,9 +8,10 @@ sumList(List())
 sumList(List(1))
 
 //zadanie2
+val space = " "
 def sentenceList (xs: List[String]): String =
   if xs == Nil then ""
-  else xs.head + " " + sentenceList(xs.tail)
+  else xs.head + space + sentenceList(xs.tail)
 
 sentenceList(List("ala", "ma", "kota", "."))
 sentenceList(List())
