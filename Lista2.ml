@@ -1,4 +1,4 @@
-(*Stanis³aw Izdebski*)
+(*Stanisï¿½aw Izdebski*)
 
 (*Zad. 1*)
 
@@ -62,5 +62,4 @@ let rec factorial n=
 factorial(0);;
 factorial(20);;
 (*factorial(-5);;*)
-	
-	
+ 	
