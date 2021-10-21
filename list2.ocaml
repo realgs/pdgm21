@@ -1,0 +1,45 @@
+(* first task *)
+
+let rec sumListElements list =
+  if list = [] then 0
+  else List.hd list + sumListElements(List.tl list);;
+
+sumListElements([0; 3; 5]) = 8;;
+sumListElements([]) = 0;;
+sumListElements([2; -3; 5; -4; -2]) = -2;;
+
+(* second task *)
+
+let rec createString (list, endingChar) =
+  if list = [] then endingChar
+  else if List.tl list = [] then List.hd list ^ endingChar
+  else List.hd list ^ " " ^ createString(List.tl list, endingChar);;
+
+createString(["Ocaml"; "<"; "Scala"], "...") = "Ocaml < Scala...";;
+createString([], "...") = "...";;
+createString(["..."], "") = "...";;
+
+(* third task *)
+(* zalozylem ze jesli lista jest pusta na wejsciu to zwracam true *)
+
+let rec checkListPositivity list =
+  if list = [] then true
+  else if List.hd list < 0 then false
+  else checkListPositivity(List.tl list);;
+
+checkListPositivity([]) = true;;
+checkListPositivity([2; 3; -4]) = false;;
+checkListPositivity([2; 3; 5]) = true;;
+
+(* fourth task *)
+
+let rec factorial num =
+  if num < 0 then failwith("Ujemny argument silni!")
+  else if num = 0 then 1
+  else if num = 1 then 1
+  else num * factorial(num - 1);;
+
+factorial(5) = 120;;
+factorial(0) = 1;;
+factorial(1) = 1;;
+(* factorial(-1);; rzuca wyjątkiem - ujemny argument *)
