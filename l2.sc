@@ -8,11 +8,13 @@ suma(List(1,2,3,4,5)) == 15
 suma(List(-5,0,7,-3)) == -1
 
 //zadanie 2
+val space = " "
+val dot = "."
 def zdanie(xs: List[String]): String =
   if xs==Nil then ""
-  else if xs.head=="." then xs.head
-  else if xs.tail==List(".") then xs.head + xs.tail.head
-  else xs.head + " " + zdanie(xs.tail)
+  else if xs.head==dot then xs.head
+  else if xs.tail==List(dot) then xs.head + xs.tail.head
+  else xs.head + space + zdanie(xs.tail)
 
 zdanie(List()) == ""
 zdanie(List("Ala","ma","kota",".")) == "Ala ma kota."
