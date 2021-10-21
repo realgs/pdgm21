@@ -1,5 +1,8 @@
 (*Filip Brzeziak 260400*)
 
+let space=" ";;
+let dot= ".";;
+
 (*Zadanie 1*)
 let rec sumOfInts(list) =
   if list=[] then 0
@@ -13,9 +16,9 @@ sumOfInts([])=0;;
 (*Zadanie 2*)
 let rec listOfStrings(list)=
     if list=[] then ""
-    else if List.hd list="$" then "."
+    else if List.hd list="$" then dot
     else
-        " " ^ List.hd list ^ listOfStrings(List.tl list)
+        space ^ List.hd list ^ listOfStrings(List.tl list)
 ;;
 
 listOfStrings(["Filip";"ma";"psa";"$"])= " Filip ma psa.";;
