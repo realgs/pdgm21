@@ -12,7 +12,10 @@ suma(-9, -9);;
 
 
 (* zadanie 2 *)
-let zdanie (s1, s2) = s1 ^ " " ^ s2 ^ ".";;
+let sp = " ";;
+let dot = ".";;
+let zdanie (s1, s2) = s1 ^ sp ^ s2 ^ dot;;
+
 
 (* testy do 2 *)
 zdanie("Ala ma", "kota");;

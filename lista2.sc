@@ -12,7 +12,9 @@ suma(-9, -9)
 
 
 // zadanie 2
-val zdanie = (p:(String, String)) => p._1+" "+p._2+"."
+val sp = " "
+val dot = "."
+val zdanie = (p:(String, String)) => p._1+sp+p._2+dot
 
 //testy do 2
 zdanie("Ala ma", "kota")
