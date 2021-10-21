@@ -1,5 +1,8 @@
 (*Justyna Stankiewicz*)
 
+let separator=" ";;
+let dot=".";;
+
 (*Zadanie 1*)
 let rec sum(list)=
     if list=[] then 0
@@ -12,8 +15,8 @@ sum([])=0;;
 (*Zadanie 2*)
 let rec sentence(list)=
     if list=[] then ""
-    else if List.hd list="?" then "."
-    else " "^List.hd list^sentence(List.tl list)
+    else if List.hd list="?" then dot
+    else separator^List.hd list^sentence(List.tl list)
 ;;
 sentence(["Ala";"ma";"kota";"?"])=" Ala ma kota.";;
 sentence([])="";;
