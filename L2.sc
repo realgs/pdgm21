@@ -9,11 +9,13 @@ sum(List(-2,-1,0,1,2)) == 0
 
 
 //zadanie 2
+val space = " "
+
 def makeSentence(xs: List[String]): String =
   if xs == Nil then "" else
     if xs.tail == Nil then xs.head else
       if xs.tail.tail == Nil then xs.head + makeSentence(xs.tail) else
-        xs.head + " " + makeSentence(xs.tail)
+        xs.head + space + makeSentence(xs.tail)
 
 makeSentence(List("Ala","ma","kota",".")) == "Ala ma kota."
 makeSentence(Nil) == ""
