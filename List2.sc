@@ -1,4 +1,4 @@
-import scala.annotation.tailrec
+// Author: Jakub Szwedowicz
 
 // Task 1
 val sum: List[Int] => Int = xs =>
@@ -42,9 +42,7 @@ val factorial: Int => Int = x =>
     else if x == 0 then 1
     else x * factorial(x - 1)
 
-
-
-print_string(string_of_bool(factorial(5) = 120)^"\n");;
+factorial(5) == 120
 factorial(0) == 1
 factorial(1) == 1
 //factorial(-2)
