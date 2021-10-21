@@ -1,5 +1,8 @@
 //Justyna Stankiewicz
 
+val separator=" "
+val dot="."
+
 /*Zadanie 1*/
 def sum(xs:List[Int]):Int=
   if xs==Nil then 0
@@ -11,8 +14,8 @@ sum(List(1,2,3))==6
 /*Zadanie 2*/
 def sentence(xs:List[String]):String=
   if xs==Nil then ""
-  else if xs.head=="?" then "."
-  else " "+xs.head +sentence(xs.tail)
+  else if xs.head=="?" then dot
+  else separator+xs.head +sentence(xs.tail)
 sentence(List("Ala","ma","kota","?"))==" Ala ma kota."
 sentence(List())==""
 sentence(List("Ala?","ma","kota","?"))==" Ala? ma kota."
