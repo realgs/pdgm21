@@ -18,12 +18,12 @@ let rec listOfStrings(list)=
     if list=[] then ""
     else if List.hd list="$" then dot
     else
-        space ^ List.hd list ^ listOfStrings(List.tl list)
+        List.hd list ^ space ^ listOfStrings(List.tl list)
 ;;
 
-listOfStrings(["Filip";"ma";"psa";"$"])= " Filip ma psa.";;
-listOfStrings(["Filip";"ma";"psa";"$"])= " Filip ma psa.";;
-listOfStrings(["Filip";"ma";"psa";"$"])= " Filip ma psa.";;
+listOfStrings(["Filip";"ma";"psa";"$"])= "Filip ma psa.";;
+listOfStrings(["Filip";"ma";"psa";"$"])= "Filip ma psa.";;
+listOfStrings(["Filip";"ma";"psa";"$"])= "Filip ma psa.";;
 
 (*Zadanie 3*)
 let rec greaterThanZero(list) =
