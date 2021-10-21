@@ -9,11 +9,13 @@ sum [-2;-1;0;1;2] = 0;;
 
 
 (*zadanie 2*)
+let space = " "
+
 let rec makeSentence xs =
   if xs = [] then "" else
     if List.tl xs = [] then List.hd xs else
       if List.tl (List.tl xs) = [] then List.hd xs ^  makeSentence (List.tl xs) else
-        List.hd xs ^ " " ^ makeSentence (List.tl xs);;
+        List.hd xs ^ space ^ makeSentence (List.tl xs);;
 
 makeSentence ["Ala";"ma";"kota";"."] = "Ala ma kota.";;
 makeSentence [] = "";;
