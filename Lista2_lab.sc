@@ -1,5 +1,8 @@
 //Filip Brzeziak 260400
 
+val space: String = " "
+val dot: String = "."
+
 //Zadanie 1
 def sumOfInts(list: List[Int]): Int=
   if list==Nil then 0
@@ -13,9 +16,9 @@ sumOfInts(List())==0;
 //Zadanie 2
 def listOfStrings(list: List[String]): String=
     if list==Nil then ""
-    else if list.head=="$" then "."
+    else if list.head=="$" then dot
     else
-        " " + list.head + listOfStrings(list.tail)
+      space + list.head + listOfStrings(list.tail)
 
 listOfStrings(List("Filip","ma","psa","$")) == " Filip ma psa.";
 listOfStrings(List()) == "";
