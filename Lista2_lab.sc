@@ -18,11 +18,11 @@ def listOfStrings(list: List[String]): String=
     if list==Nil then ""
     else if list.head=="$" then dot
     else
-      space + list.head + listOfStrings(list.tail)
+      list.head + space + listOfStrings(list.tail)
 
-listOfStrings(List("Filip","ma","psa","$")) == " Filip ma psa.";
+listOfStrings(List("Filip","ma","psa","$")) == "Filip ma psa.";
 listOfStrings(List()) == "";
-listOfStrings(List("Filip","ma","54$","$")) == " Filip ma 54$.";
+listOfStrings(List("Filip","ma","54$","$")) == "Filip ma 54$.";
 
 //Zadanie 3
 def greaterThanZero(list: List[Double]): Boolean =
