@@ -12,17 +12,23 @@ class lab2 {
     }
 
     splitBySignIn(xs, List(), List())
+    
   }
 
   splitBySign(List(1, 2, -5, -2, 6, 5))
+  splitBySign(List())
+  splitBySign(List(1))
 
   //task 2
   def listLength[A](xs: List[A]): Int = {
-    if xs != null && xs.nonEmpty then {
+    if xs != Nil then {
       1 + listLength(xs.tail)
     }
     else 0
   }
+  listLength(List(1,2,3,4,5))
+  listLength(List())
+  listLength(List("Ale","Ma","Kote"))
   //task 3
   def concatLists[A](xs: List[A],ys: List[A]): List[A] = {
     (xs,ys) match  {
@@ -32,4 +38,6 @@ class lab2 {
     }
   }
   concatLists(List(1,2,3,4,5),List(6,7,8,9))
+  concatLists(List(1,2,3,4,5),List())
+  concatLists(List(),List("Ale","Kot"))
 }
