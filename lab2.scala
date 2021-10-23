@@ -41,3 +41,5 @@ class lab2 {
   concatLists(List(1,2,3,4,5),List())
   concatLists(List(),List("Ale","Kot"))
 }
+
+
