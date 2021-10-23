@@ -1,3 +1,16 @@
+let splitBySign list =
+    let rec splitBySignIn (number,list1, list2 ) =
+        if number != [] then match (List.hd number < 0, List.hd number mod 2 != 0) with
+            (true, _) -> splitBySignIn(List.tl number,list1 @ [List.hd number], list2)
+           |(false, true) -> splitBySignIn(List.tl number, list1, list2 @ [List.hd number])
+           |(_, _) -> splitBySignIn(List.tl number, list1, list2)
+        else (list1, list2)
+    in splitBySignIn(list, [], []);;
+
+splitBySign([-3; -6; 7; -9; 13]) = ([-3; -6; -9], [7; 13]);;
+splitBySign([-5; -10; -20; 2; 4; 8; 11]) = ([-5; -10; -20], [11]);;
+splitBySign([]) = ([], []);;
+
 let rec listLength xs =
     if  xs = [] then 0
     else 1 + listLength(List.tl xs);;
