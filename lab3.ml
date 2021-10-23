@@ -9,7 +9,11 @@ let splitBySign xs =
     in splitBySignIn (xs, [], [])
 
 ;;
+
 splitBySign[1;2;-3;-5;-6;-7];;
+splitBySign[];;
+splitBySign[-1];;
+
 
 (*task 2*)
 
@@ -17,6 +21,10 @@ let rec listLength xs =
     if xs <> [] then 1+listLength(List.tl xs)
     else 0
 ;;
+
+listLength["Ale";"Kot"];;
+listLength[1;2;3;4;5];;
+listLength[];
 
 (*task 3*)
 let rec concatLists (xs, ys) =
@@ -28,3 +36,4 @@ let rec concatLists (xs, ys) =
 concatLists([6;7;8;9],[1;2;3;4]);;
 concatLists([],[]);;
 concatLists([],[5;6;2;1]);;
+
