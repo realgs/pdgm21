@@ -9,6 +9,7 @@ let twoListCreator xs =
 
 twoListCreator [-3; -6; 7; -9; 13];;
 twoListCreator [-3; -6; 7; -9; 13; 4; 9];;
+twoListCreator [8; 10; 4; 12];;
 
 
 (*Zadanie 2*)
@@ -27,4 +28,7 @@ let zip (xs, ys) =
         else recZip (ys, List.tl xs, resultList @ [List.hd xs])
     in recZip (xs, ys, []);;
 
-zip([5;4;3;2],[1;2;3;4;5;6]);;
+zip([5;4;3;2], [1;2;3;4;5;6]);;
+zip(['a';'b';'c'], []);;
+zip([], [2;7;14;17]);;
+zip([],[]);;
