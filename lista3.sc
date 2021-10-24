@@ -33,5 +33,6 @@ def zip[A](xs: List[A], ys: List[A]): List[A] =
 
   recZip(xs, ys, Nil)
 
-zip(List(1, 2, 3), List('a', 'b', 'c'))
 zip(List(5, 4, 3, 2), List(1, 2, 3, 4, 5, 6))
+zip(List('a', 'b', 'c'), List())
+zip(List(), List(2, 7, 14, 17))
