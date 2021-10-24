@@ -3,8 +3,8 @@ import scala.annotation.tailrec
 def reverseList [A](list: List[A]): List[A] =
   @tailrec
   def reverseListIter [A](list: List[A], listReverse: List[A]): List[A] =
-    if list == Nil then listReverse
-    else reverseListIter(list.tail, list.head :: listReverse)
+    if list == Nil then listReverse else
+      reverseListIter(list.tail, list.head::listReverse)
   reverseListIter(list, Nil)
 
 //zadanie 1
@@ -14,10 +14,9 @@ def splitBySign (intList: List[Int]): (List[Int], List[Int]) =
   def splitBySignIter(intList: List[Int], negativeValues: List[Int], positiveOddValues: List[Int]): (List[Int], List[Int]) =
     intList match
       case (Nil) => (negativeValues, positiveOddValues)
-      case (head::tail) if head < 0 => splitBySignIter(tail, head :: negativeValues, positiveOddValues)
-      case (head::tail) if head % 2 == 1 => splitBySignIter(tail, negativeValues, head :: positiveOddValues)
+      case (head::tail) if head < 0 => splitBySignIter(tail, head::negativeValues, positiveOddValues)
+      case (head::tail) if head % 2 == 1 => splitBySignIter(tail, negativeValues, head::positiveOddValues)
       case (_) => splitBySignIter(intList.tail, negativeValues, positiveOddValues)
-
   splitBySignIter(reverseList(intList), Nil, Nil)
 
 splitBySign(List(-3, -6, 7, -9, 13)) == (List(-3, -6, -9), List(7, 13))
@@ -30,8 +29,9 @@ splitBySign(List(2, 3, 5, 10)) == (Nil, List(3, 5))
 
 def lengthOfList [A](list: List[A]): Int =
   @tailrec
-  def lengthOfListIter [A](list: List[A], length: Int): Int =
-    if list == Nil then lenght else lengthOfListIter(list.tail, length + 1)
+  def lengthOfListIter [A](list: List[A], lenght: Int): Int =
+    if list == Nil then lenght else
+      lengthOfListIter(list.tail, lenght + 1)
   lengthOfListIter(list, 0)
 
 lengthOfList(List(5, 4, 3, 2)) == 4
@@ -45,7 +45,7 @@ def joinLists [A](firstList: List[A], secondList: List[A]): List[A] =
   @tailrec
   def joinListsIter [A](firstList: List[A], secondList: List[A], finalList: List[A]): List[A] =
     (firstList, secondList) match
-      case(head1::tail1, head2::tail2) => joinListsIter(tail1, tail2, head2 :: head1 :: finalList)
+      case(head1::tail1, head2::tail2) => joinListsIter(tail1, tail2, head2::head1::finalList)
       case(Nil, head::tail) => joinListsIter(Nil, tail, head::finalList)
       case(head::tail, Nil) => joinListsIter(tail, Nil, head::finalList)
       case(Nil, Nil) => finalList
