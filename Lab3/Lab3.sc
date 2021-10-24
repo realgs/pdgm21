@@ -1,3 +1,4 @@
+//n^2
 def splitBySign(list: List[Int]): (List[Int], List[Int]) =
   def splitBySignIn(number: List[Int], list1: List[Int], list2: List[Int]): (List[Int], List[Int]) =
     if number != Nil then (number.head < 0, number.head % 2 != 0) match
@@ -5,12 +6,13 @@ def splitBySign(list: List[Int]): (List[Int], List[Int]) =
       case (false, true) => splitBySignIn(number.tail, list1, list2 ::: List(number.head))
       case (_, _) => splitBySignIn(number.tail, list1, list2)
     else (list1, list2)
-
-  splitBySignIn(list, List(), List())
+ splitBySignIn(list, List(), List())
 
 splitBySign(List(-3, -6, 7, -9, 13)) == (List(-3, -6, -9), List(7, 13))
 splitBySign(List(-5, -10, -20, 2, 4, 8, 11)) == (List(-5, -10, -20), List(11))
 splitBySign(List()) == (List(), List())
+
+//n
 
 def listLength[A](xs: List[A]): Int =
   if (xs != Nil) then
@@ -20,6 +22,8 @@ def listLength[A](xs: List[A]): Int =
 listLength(List(1, 3, 2)) == 3
 listLength(List("msms", "qwqwqw", "pool", "asdopkasdo")) == 4
 listLength(List()) == 0
+
+//n^2
 
 def joinLists[A](list1: List[A], list2: List[A]): List[A] =
   (list1, list2) match
