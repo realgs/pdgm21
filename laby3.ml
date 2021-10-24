@@ -14,3 +14,20 @@ let splitBySign xs =
   else (negative(xs), positiveAndOdd(xs));;
 (* complexity = O(n), n = xs.length *)
 
+
+(* zadanie 2 *)
+let rec lengthOfList xs =
+  if xs = [] then 0
+  else 1 + lengthOfList(List.tl xs);;
+(* complexity = O(n), n = xs.length *)
+
+
+(* zadanie 3 *)
+let rec joinLists (xs, ys) =
+  if xs = [] && ys = [] then []
+  else if xs = [] && ys <> [] then
+    List.hd ys :: joinLists ([], List.tl ys)
+  else if xs <> [] && ys = [] then
+    List.hd xs :: joinLists (List.tl xs, [])
+  else List.hd xs :: List.hd ys :: joinLists (List.tl xs, List.tl ys);;
+(* complexity = O(n), n = max(as.length, bs.length) *)
