@@ -1,8 +1,15 @@
 (*1*)
+let reverseList list =
+	let rec reverseListHelper acc l =
+		if l=[] then acc
+		else reverseListHelper ((List.hd l)::acc) (List.tl l)
+	in reverseListHelper [] list
+;;
+			
 let splitBySign list =
 	let rec splitBySignHelper list (l1, l2) =
 		match list with
-			[] -> (List.rev l1, List.rev l2)
+			[] -> (reverseList l1, reverseList l2)
 			| (h::t) when h < 0 -> splitBySignHelper t (h::l1, l2)
 			| (h::t) when h > 0 && h mod 2 <> 0 -> splitBySignHelper t (l1, h::l2)
 			| (h::t) -> splitBySignHelper t (l1, l2)
@@ -26,9 +33,8 @@ lengthOfList [] = 0;;
 (*3*)
 let rec joinLists l1 l2 =
 	match (l1, l2) with
-		([], []) -> []
-		| (h::t, []) -> h::joinLists t l2
-		| ([], h::t) -> h::joinLists l1 t
+		(_, []) -> l1
+		| ([], _) -> l2
 		| (h1::t1, h2::t2) -> h1::h2::joinLists t1 t2
 ;;
 
