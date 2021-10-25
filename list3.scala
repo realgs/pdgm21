@@ -31,12 +31,9 @@ lenghtOfList(List()) == 0
 
 // 3
 def joinLists[A](list1 : List[A], list2 : List[A]) : List[A] = {
-    def joinListsIn(resultList : List[A], list1 : List[A], list2 : List[A]) : List[A] = {
-        if list1 == List() then resultList ::: list2
-        else if list2 == List() then resultList ::: list1
-        else joinListsIn(resultList ::: ((list1.head) :: List(list2.head)), list1.tail, list2.tail)
-    }
-    joinListsIn(List(), list1, list2)
+    if list1 == List() then list2
+    else if list2 == List() then list1
+    else list1.head :: list2.head :: joinLists(list1.tail, list2.tail)
 }
 
 joinLists(List(5,4,3,2), List(1,2,3,4,5,6)) == List(5,1,4,2,3,3,2,4,5,6)
