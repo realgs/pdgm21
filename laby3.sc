@@ -42,12 +42,11 @@ lengthOfList(List(true, false, true))
 
 //zadanie 3
 def joinLists[A](as: List[A], bs: List[A]): List[A] = {
-  if as == Nil && bs == Nil then Nil
-  else if as == Nil && bs != Nil then
-    bs.head :: joinLists(Nil, bs.tail)
-  else if as != Nil && bs == Nil then
-    as.head :: joinLists(as.tail, Nil)
-  else as.head :: bs.head :: joinLists(as.tail, bs.tail)
+    (as, bs) match
+        case (Nil, Nil) => Nil
+        case (_, Nil) => as
+        case (Nil, _) => bs
+        case (_, _) => as.head :: bs.head :: joinLists(as.tail, bs.tail)
 }
 //complexity = O(n), n = max(as.length, bs.length)
 

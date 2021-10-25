@@ -38,12 +38,11 @@ lengthOfList [true; false; true];;
 
 (* zadanie 3 *)
 let rec joinLists (xs, ys) =
-  if xs = [] && ys = [] then []
-  else if xs = [] && ys <> [] then
-    List.hd ys :: joinLists ([], List.tl ys)
-  else if xs <> [] && ys = [] then
-    List.hd xs :: joinLists (List.tl xs, [])
-  else List.hd xs :: List.hd ys :: joinLists (List.tl xs, List.tl ys);;
+    match (xs, ys) with
+    | ([],[]) -> []
+    | ([],_) -> ys
+    | (_,[]) -> xs
+    | (_,_) -> List.hd xs :: List.hd ys :: joinLists (List.tl xs, List.tl ys);;
 (* complexity = O(n), n = max(as.length, bs.length) *)
 
 (* tests *)
