@@ -1,9 +1,10 @@
 object l3 {
   //1
   //O(n^2)
+  //Memory O(n)
   def splitBySign[A](xs: List[Int])={
     def split(xs: List[Int], negativeList:List[Int], positiveList:List[Int]):(List[Int], List[Int])={
-      if xs ==List() then (negativeList, positiveList)
+      if xs ==Nil then (negativeList, positiveList)
       else if xs.head<0 then split(xs.tail, negativeList:::List(xs.head), positiveList)
       else if xs.head>0 && xs.head %2==1 then split(xs.tail, negativeList, positiveList:::List(xs.head))
       else split(xs.tail, negativeList,  positiveList)
@@ -13,17 +14,19 @@ object l3 {
 
   //2
   //O(n)
+  //Memory O(1)
   def lengthOfList[A](xs: List[A]): Int={
-    if xs!=List() then 1+lengthOfList(xs.tail)
+    if xs!=Nil then 1+lengthOfList(xs.tail)
     else 0
   }
 
   //3
   //O(n)
+  //Memory O(n)
   def joinList[A](xs: List[A], ys: List[A]): List[A]={
-    if xs!=List() && ys!=List() then xs.head::ys.head::joinList(xs.tail, ys.tail)
-    else if xs!=List() && ys==List() then xs
-    else if xs==List() && ys!=List() then ys
+    if xs!=Nil && ys!=Nil then xs.head::ys.head::joinList(xs.tail, ys.tail)
+    else if xs!=Nil && ys==Nil then xs
+    else if xs==Nil && ys!=Nil then ys
     else Nil
   }
 
@@ -42,4 +45,3 @@ object l3 {
     println(" ")
   }
 }
-
