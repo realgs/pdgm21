@@ -3,14 +3,10 @@ let rec append (list, elem) =
   else List.hd list :: append (List.tl list, elem)
 ;;  
 
-append([1;1;1],2);;
-
 let rec marge (list1, list2) =
   if list1 = [] then list2
   else List.hd list1 :: marge(List.tl list1, list2)
 ;;  
-
-marge([1;1;1],[2;2]);;
 
 let splitBySign list =
   let rec splitBySignHlp (list, neg, pos) = 
@@ -21,7 +17,9 @@ let splitBySign list =
   in splitBySignHlp(list, [], [])
 ;;
 splitBySign [-3;-6;7;-9;13];;
-splitBySign [1;-1;3;-4;9];;
+splitBySign [-2;-6;-4];;
+splitBySign [1;3;9];;
+splitBySign [];;
 
 let listLength list =
   let rec listLengthIter(list, length) =
@@ -30,7 +28,9 @@ let listLength list =
   in listLengthIter(list,0)
 ;;
 
+listLength [];;
 listLength [1;1;1;1;1];;
+listLength ['a';'a'];;
 
 let conectLists(list1, list2) =
   let rec conectListsHlp (list1, list2, res) =
@@ -42,3 +42,6 @@ let conectLists(list1, list2) =
 ;;  
 
 conectLists ([1;1;1;1],[2;2;2;2;2]);;
+conectLists ([],[]);;
+conectLists ([],[1;2;3]);;
+conectLists ([9;8;7],[]);;

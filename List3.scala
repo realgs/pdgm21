@@ -20,6 +20,9 @@ object List3 {
       splitHlp(list,List(),List())
 
     println(splitBySign(List(-1,1,-3,3,-5,9,7)));
+    println(splitBySign(List(1,3,5,7,9)));
+    println(splitBySign(List()));
+    println(splitBySign(List(-1,-2,-3)));
 
     def listLength[A] (list: List[A]): Int =
       def listLengthIter (list: List[A], length: Int): Int =
@@ -40,6 +43,9 @@ object List3 {
       conectListsHlp(list1, list2, List())
 
     println(conectLists(List(1,3,5,7,9),List(2,4,6,8,0,8,6,4)));
+    println(conectLists(List(),List()));
+    println(conectLists(List(),List(1,2,3,4)));
+    println(conectLists(List('a','a','a'),List()));
 
   }
 }
