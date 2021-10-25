@@ -3,7 +3,6 @@
 import scala.annotation.tailrec
 
 // 1
-// O(n^2)
 def splitBySign(nums : List[Int]) : List[List[Int]] = 
     def splitBySignIn(nums : List[Int], negativeNums : List[Int], postiveOddNums : List[Int]) : List[List[Int]] = 
         if nums == List() then List(negativeNums, postiveOddNums) 
@@ -17,7 +16,6 @@ splitBySign(List(-3,-6,0,8,7,-9,13)) == List(List(-3,-6,-9), List(7, 13))
 splitBySign(List()) == List(List(), List())
 
 // 2
-// O(n)
 def lenghtOfList[A](list : List[A]) : Int = {
     @tailrec
     def lenghtOfListTailRec(list : List[A], i: Int) : Int = {
@@ -32,7 +30,6 @@ lenghtOfList(List("Lech", "Poznan", "Mistrzem", "Polski")) == 4
 lenghtOfList(List()) == 0
 
 // 3
-// O(n^2)
 def joinLists[A](list1 : List[A], list2 : List[A]) : List[A] = {
     def joinListsIn(resultList : List[A], list1 : List[A], list2 : List[A]) : List[A] = {
         if list1 == List() then resultList ::: list2
