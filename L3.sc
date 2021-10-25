@@ -1,4 +1,4 @@
-//o(n^2) bo ++ jest o(n)
+//o(n^2)
 def splitBySign(nums : List[Int]) : List[List[Int]] = {
   def splitBySignIn(numbers: List[Int], positiveOdd: List[Int], negative: List[Int]): List[List[Int]] = {
     if numbers == List() then List(positiveOdd, negative)
@@ -8,6 +8,7 @@ def splitBySign(nums : List[Int]) : List[List[Int]] = {
   }
   splitBySignIn(nums, List(), List())
 }
+
 //o(N)
 def lengthOfList[A](list:List[A]): Int = {
     def lengthOfListIter[A](list: List[A],iter:Int):Int={
