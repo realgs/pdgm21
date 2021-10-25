@@ -3,17 +3,17 @@
 import scala.annotation.tailrec
 
 // 1
-def splitBySign(nums : List[Int]) : List[List[Int]] = 
-    def splitBySignIn(nums : List[Int], negativeNums : List[Int], postiveOddNums : List[Int]) : List[List[Int]] = 
-        if nums == List() then List(negativeNums, postiveOddNums) 
+def splitBySign(nums : List[Int]) : (List[Int], List[Int]) = 
+    def splitBySignIn(nums : List[Int], negativeNums : List[Int], postiveOddNums : List[Int]) : (List[Int], List[Int]) = 
+        if nums == List() then (negativeNums, postiveOddNums) 
         else if nums.head < 0 then splitBySignIn(nums.tail, negativeNums ::: List(nums.head), postiveOddNums)
         else if ((nums.head > 0) && (nums.head % 2 != 0)) then splitBySignIn(nums.tail, negativeNums, postiveOddNums ::: List(nums.head))
         else splitBySignIn(nums.tail, negativeNums, postiveOddNums)
     splitBySignIn(nums, List(), List())
         
-splitBySign(List(-3,-6,7,-9,13)) == List(List(-3,-6,-9), List(7, 13))
-splitBySign(List(-3,-6,0,8,7,-9,13)) == List(List(-3,-6,-9), List(7, 13))
-splitBySign(List()) == List(List(), List())
+splitBySign(List(-3,-6,7,-9,13)) == (List(-3,-6,-9), List(7, 13))
+splitBySign(List(-3,-6,0,8,7,-9,13)) == (List(-3,-6,-9), List(7, 13))
+splitBySign(List()) == (List(), List())
 
 // 2
 def lenghtOfList[A](list : List[A]) : Int = {
