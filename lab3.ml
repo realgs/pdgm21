@@ -32,3 +32,4 @@ joinLists([-3;-6;7;-9;13], [55;80;15;20;30;15;25;45]);;
 joinLists([], ["Ala";"ma";"kota"]);;
 joinLists(["Ala";"ma";"kota"], []);;
 joinLists([], []);;
+
