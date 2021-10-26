@@ -2,10 +2,9 @@ def splitBySign(xs: List[Int]): (List[Int], List[Int]) =
     def splitBySignIter(xs: List[Int], pos: List[Int], neg: List[Int]): (List[Int], List[Int]) =
         xs match {
             case List() => (neg, pos)
-            case h::t => if h < 0
-                then splitBySignIter(t, pos, neg ::: List(h))
-                else if h % 2 != 0
-                then splitBySignIter(t, pos ::: List(h), neg)
+            case h::t =>
+                if h < 0 then splitBySignIter(t, pos, neg ::: List(h))
+                else if h % 2 != 0 then splitBySignIter(t, pos ::: List(h), neg)
                 else splitBySignIter(t, pos, neg)
         }
     splitBySignIter(xs, List(), List())
@@ -16,7 +15,8 @@ splitBySign(List()) == (List(), List())
 
 def lengthOfList[A](xs: List[A]): Int =
     def lengthOfListIter(xs: List[A], acc: Int): Int =
-        if xs == List() then acc else lengthOfListIter(xs.tail, acc + 1)
+        if xs == List() then acc
+        else lengthOfListIter(xs.tail, acc + 1)
     lengthOfListIter(xs, 0)
 
 lengthOfList(List(5, 4, 3, 2)) == 4
@@ -36,4 +36,5 @@ def joinLists[A](xs: List[A], ys: List[A]): List[A] =
 joinLists(List(5, 4, 3, 2), List(1, 2, 3, 4, 5, 6)) == List(5, 1, 4, 2, 3, 3, 2, 4, 5, 6)
 joinLists(List(), List(1, 2, 3)) == List(1, 2, 3)
 joinLists(List(1, 2, 3), List()) == List(1, 2, 3)
+joinLists(List(), List()) == List()
 joinLists(List(1), List(1)) == List(1, 1)

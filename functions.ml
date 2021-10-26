@@ -2,10 +2,9 @@ let splitBySign xs =
     let rec splitBySignIter xs pos neg =
         match xs with
         | [] -> (neg, pos)
-        | h::t -> if h < 0
-            then splitBySignIter t pos (neg @ [h])
-            else if h mod 2 <> 0
-            then splitBySignIter t (pos @ [h]) neg
+        | h::t ->
+            if h < 0 then splitBySignIter t pos (neg @ [h])
+            else if h mod 2 <> 0 then splitBySignIter t (pos @ [h]) neg
             else splitBySignIter t pos neg
         in
     splitBySignIter xs [] [];;
@@ -16,7 +15,8 @@ splitBySign [] = ([], []);;
 
 let lengthOfList xs =
     let rec lengthOfListIter xs acc =
-        if xs = [] then acc else lengthOfListIter (List.tl xs) (acc + 1)
+        if xs = [] then acc
+        else lengthOfListIter (List.tl xs) (acc + 1)
         in
     lengthOfListIter xs 0;;
 
@@ -37,4 +37,5 @@ let joinLists xs ys =
 joinLists [5;4;3;2] [1;2;3;4;5;6] = [5;1;4;2;3;3;2;4;5;6];;
 joinLists [] [1;2;3] = [1;2;3];;
 joinLists [1;2;3] [] = [1;2;3];;
+joinLists [] [] = [];;
 joinLists [1] [1] = [1;1];;
