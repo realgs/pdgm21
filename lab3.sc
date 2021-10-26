@@ -4,8 +4,6 @@ def reverseList[A](list :List[A]) = {
   def reverseListHelper[A](srcList :List[A], destList :List[A]):List[A] =
     if srcList == Nil then destList
     else reverseListHelper(srcList.tail, srcList.head::destList)
-
-
   reverseListHelper(list,Nil)
 }
 
@@ -50,6 +48,7 @@ def joinLists[A](first :List[A], second :List[A]):List[A] =
 joinLists(List(5,4,3,2),List(1,2,3,4,5,6))
 joinLists(List(),List(1,2,3,4))
 joinLists(List("A","B","C"),List())
+
 
 
 
