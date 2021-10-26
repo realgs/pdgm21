@@ -24,7 +24,7 @@ def splitBySign(list :List[Int]) = {
 
 splitBySign(List())
 splitBySign(List(-3,-6,7,-9,13))
-//splitBySign(List(-3,-6,7,-9,13,14))
+splitBySign(List(1,2,3,4,5,6))
 
 
 def listLength[A](list :List[A]) = {
@@ -36,21 +36,16 @@ def listLength[A](list :List[A]) = {
 }
 
 listLength(List(1,2,3,4,5,6,7))
-listLength(List(Nil))
+listLength(Nil)
 listLength(List("A","B","C"))
 
 
-def joinLists[A](first :List[A], second :List[A]) = {
-  def joinListsHelper[A](first :List[A], second :List[A], result :List[A]):List[A] =
+def joinLists[A](first :List[A], second :List[A]):List[A] =
     (first,second) match
-      case (Nil,Nil) => result
-      case (Nil,_) => reverseList(second) ::: result
-      case (_,Nil) => reverseList(first) ::: result
-      case _ =>  joinListsHelper(first.tail,second.tail,second.head :: first.head :: result)
+      case (Nil,_) => second
+      case (_,Nil) => first
+      case (hFirst::tFirst,hSecond::tSecond) => hFirst :: hSecond :: joinLists(first.tail, second.tail)
 
-
-  reverseList(joinListsHelper(first,second,Nil))
-}
 
 joinLists(List(5,4,3,2),List(1,2,3,4,5,6))
 joinLists(List(),List(1,2,3,4))
