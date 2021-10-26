@@ -1,10 +1,16 @@
+def reverse[A](xs: List[A]): List[A] =
+    def reverseIter(xs: List[A], result: List[A]): List[A] =
+        if xs == List() then result
+        else reverseIter(xs.tail, xs.head :: result)
+    reverseIter(xs, List())
+
 def splitBySign(xs: List[Int]): (List[Int], List[Int]) =
     def splitBySignIter(xs: List[Int], pos: List[Int], neg: List[Int]): (List[Int], List[Int]) =
         xs match {
-            case List() => (neg, pos)
+            case List() => (reverse(neg), reverse(pos))
             case h::t =>
-                if h < 0 then splitBySignIter(t, pos, neg ::: List(h))
-                else if h % 2 != 0 then splitBySignIter(t, pos ::: List(h), neg)
+                if h < 0 then splitBySignIter(t, pos, h :: neg)
+                else if h % 2 != 0 then splitBySignIter(t, h :: pos, neg)
                 else splitBySignIter(t, pos, neg)
         }
     splitBySignIter(xs, List(), List())
@@ -26,10 +32,10 @@ lengthOfList(List()) == 0
 def joinLists[A](xs: List[A], ys: List[A]): List[A] =
     def joinListsIter(xs: List[A], ys: List[A], result: List[A]): List[A] =
         (xs, ys) match {
-            case (List(), List()) => result
-            case (List(), ys) => result ::: ys
-            case (xs, List()) => result ::: xs
-            case (h1::t1, h2::t2) => joinListsIter(t1, t2, result ::: List(h1, h2))
+            case (List(), List()) => reverse(result)
+            case (List(), ys) => reverse(result) ::: ys
+            case (xs, List()) => reverse(result) ::: xs
+            case (h1::t1, h2::t2) => joinListsIter(t1, t2, h2 :: h1 :: result)
         }
     joinListsIter(xs, ys, List())
 

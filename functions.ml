@@ -1,10 +1,17 @@
+let reverse xs =
+    let rec reverseIter xs result =
+        if xs = [] then result
+        else reverseIter (List.tl xs) (List.hd xs :: result)
+        in
+    reverseIter xs [];;
+
 let splitBySign xs =
     let rec splitBySignIter xs pos neg =
         match xs with
-        | [] -> (neg, pos)
+        | [] -> (reverse neg, reverse pos)
         | h::t ->
-            if h < 0 then splitBySignIter t pos (neg @ [h])
-            else if h mod 2 <> 0 then splitBySignIter t (pos @ [h]) neg
+            if h < 0 then splitBySignIter t pos (h :: neg)
+            else if h mod 2 <> 0 then splitBySignIter t (h :: pos) neg
             else splitBySignIter t pos neg
         in
     splitBySignIter xs [] [];;
@@ -27,10 +34,10 @@ lengthOfList [] = 0;;
 let joinLists xs ys =
     let rec joinListsIter xs ys result =
         match (xs, ys) with
-        | ([], []) -> result
-        | ([], ys) -> result @ ys
-        | (xs, []) -> result @ xs
-        | (h1::t1, h2::t2) -> joinListsIter t1 t2 (result @ [h1;h2])
+        | ([], []) -> reverse result
+        | ([], ys) -> (reverse result) @ ys
+        | (xs, []) -> (reverse result) @ xs
+        | (h1::t1, h2::t2) -> joinListsIter t1 t2 (h2::h1::result)
         in
     joinListsIter xs ys [];;
 
