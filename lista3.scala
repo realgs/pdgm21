@@ -38,7 +38,7 @@ object lista3 {
       xs match
         case Nil => (reverseList(negList), reverseList(posOddList))
         case hd::tl if hd < 0 => splitRec(tl, hd::negList, posOddList)
-        case hd::tl if hd > 0 && hd % 2 != 0 => splitRec(tl, negList, hd::posOddList)
+        case hd::tl if hd % 2 != 0 => splitRec(tl, negList, hd::posOddList)
         case hd::tl => splitRec(tl, negList, posOddList)
 
     splitRec(xs, Nil, Nil)

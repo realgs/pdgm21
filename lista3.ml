@@ -10,7 +10,7 @@ let splitBySign xs =
     match xs with
       [] -> (reverseList negList, reverseList posOddList)
       |hd::tl when hd < 0 -> splitRec (tl, hd::negList, posOddList)
-      |hd::tl when hd > 0 && hd mod 2 != 0 -> splitRec (tl, negList, hd::posOddList)
+      |hd::tl when hd mod 2 != 0 -> splitRec (tl, negList, hd::posOddList)
       |hd::tl -> splitRec (tl, negList, posOddList)
   in splitRec (xs, [], [])
 ;;
