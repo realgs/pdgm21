@@ -4,11 +4,24 @@ object lista3 {
 
   def main(args: Array[String]): Unit = {
     println(splitBySign(List(-3,-6,7,-9,13)))
+    println(splitBySign(List(-2,-1,0,1,2,3,4,5)))
+    println(splitBySign(List(-5,-4,-3)))
+    println(splitBySign(List(1,3,5,7)))
+    println(splitBySign(List(0,2,4,6,8)))
 
+    println("---------")
 
     println(lengthOfList(List(5,4,3,2)))
+    println(lengthOfList(List("foo")))
+    println(lengthOfList(Nil))
+
+    println("----------")
 
     println(joinLists(List(5,4,3,2), List(1,2,3,4,5,6)))
+    println(joinLists(List(1,2,3,4,5), Nil))
+    println(joinLists(Nil, List(1,2,3,4,5)))
+    println(joinLists(List('a','b','c'), List('x','y','z')))
+    println(joinLists(Nil, Nil))
   }
 
   def reverseList[A](xs: List[A]): List[A] =

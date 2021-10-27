@@ -16,6 +16,10 @@ let splitBySign xs =
 ;;
 
 splitBySign [-3;-6;7;-9;13];;
+splitBySign [-2;-1;0;1;2;3;4;5];;
+splitBySign [-5;-4;-3];;
+splitBySign [1;3;5;7];;
+splitBySign [0;2;4;6;8];;
 
 let lengthOfList xs =
   let rec lengthRec (acc, xs) =
@@ -25,6 +29,8 @@ let lengthOfList xs =
 ;;
 
 lengthOfList [5;4;3;2];;
+lengthOfList ["foo"];;
+lengthOfList [];;
 
 let joinLists (asList, bsList) =
   let rec joinRec (acc, switch, asList, bsList) =
@@ -38,3 +44,7 @@ let joinLists (asList, bsList) =
 ;;
 
 joinLists ([5;4;3;2], [1;2;3;4;5;6]);;
+joinLists ([1;2;3;4;5], []);;
+joinLists ([], [1;2;3;4;5]);;
+joinLists (['a';'b';'c'], ['x';'y';'z']);;
+joinLists ([], []);;
