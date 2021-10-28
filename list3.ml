@@ -14,6 +14,9 @@ let splitNumbers xs =
     else splitNumbersRec(List.tl xs, x, y)
   in splitNumbersRec(reverse(xs), [], []);;
 
+splitNumbers([])=([],[]);;
+splitNumbers([0;2;4;6;8;10])=([],[]);;
+splitNumbers([0;1;2;3;4;5;6;7;8;9;-1;-2;-3;-4;-5])= ([-1; -2; -3; -4; -5], [1; 3; 5; 7; 9]);;
 
 (*Zadanie 2*)
 let lenght xs=
@@ -22,6 +25,9 @@ let lenght xs=
     else lenghtRec(List.tl xs, x+1)
   in lenghtRec(xs, 0);;
 
+lenght([])=0;;
+lenght([1;2;3;4;5])=5;;
+lenght(["a";"b";"c";"d"])=4;;
 
 
 (*Zadanie 3*)
@@ -33,4 +39,9 @@ let rec joinLists (xs1, xs2) =
       | ([], _) -> xs2
       | ([], [])-> []
 ;;
+
+joinLists([],[]) = [] ;;
+joinLists([],["1"]) = ["1"] ;;
+joinLists(["1"],[]) = ["1"] ;;
+joinLists([1;2;3],[4;5;6]) = [1;4;2;5;3;6] ;;
 
