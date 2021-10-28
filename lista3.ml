@@ -1,4 +1,4 @@
-(*So³tysiak Magdalena*)
+(*Soï¿½tysiak Magdalena*)
 
 (*zadanie 1*)
 let rec splitBySign list =
@@ -53,3 +53,6 @@ joinLists1([],[1;2;3]);;
 joinLists1([4;5;6],[]);;
 joinLists1([5;4;3;2],[1;2;3;4;5;6]);;
 joinLists1([],[]);;
+
+
+
