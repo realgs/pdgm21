@@ -46,5 +46,4 @@ object l3 {
     println(joinList(List("a","b"),List("c","d")) == List("a","c","b","d"));
     println(joinList(List(1,3,5,7),List(2,4)) == List(1, 2, 3, 4, 5, 7));
   }
-
 }
