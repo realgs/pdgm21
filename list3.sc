@@ -14,6 +14,9 @@ def splitNumbers(xs: List[Int]): (List[Int],List[Int]) =
     else splitNumbersRec(xs.tail, x, y)
   splitNumbersRec(reverse(xs), List(), List())
 
+splitNumbers(List()) == (List(),List())
+splitNumbers(List(2,4,6,8,0)) == (List(),List())
+splitNumbers(List(0,1,2,3,4,5,6,7,8,9,-1,-2,-3,-4,-5)) == (List(-1, -2, -3, -4, -5), List(1, 3, 5, 7, 9))
 
 
 //Zadanie 2
@@ -24,7 +27,9 @@ def lenght [A](xs: List[A]): Int=
     else lenghtRec(xs.tail, x+1)
   lenghtRec(xs, 0)
 
-
+lenght(List())==0
+lenght(List(1,2,3,4,5))==5
+lenght(List("a","b","c","d"))==4
 
 //Zadanie 3
 
@@ -35,3 +40,7 @@ def joinLists[A](xs1: List[A], xs2: List[A]) : List[A] =
     case (Nil, _) => xs2
     case _ => Nil
 
+joinLists(List(),List()) == List()
+joinLists(List(),List("a")) == List("a")
+joinLists(List("a"),List()) == List("a")
+joinLists(List(1,2,3),List(4,5,6)) == List(1,4,2,5,3,6)
