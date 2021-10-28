@@ -45,3 +45,4 @@ joinLists([],[]) = [];;
 
 (* zlozonosc obliczeniowa - kwadratowa od dlugosci listy
    zlozonosc pamieciowa - kwadratowa od dlugosci listy  *)
+   
