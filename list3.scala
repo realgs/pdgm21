@@ -5,11 +5,11 @@ import scala.annotation.tailrec
 
 def splitBySign(list: List[Int]): (List[Int], List[Int]) =
   @tailrec
-  def splitBySignIter(list: List[Int], firstResultList: List[Int], secondResultList: List[Int]): (List[Int], List[Int]) =
-    if list == Nil then (firstResultList, secondResultList)
-    else if (list.head < 0) then splitBySignIter(list.tail, firstResultList ::: List(list.head), secondResultList)
-    else if (list.head % 2 == 1) then splitBySignIter(list.tail, firstResultList, secondResultList ::: List(list.head))
-    else splitBySignIter(list.tail, firstResultList, secondResultList)
+  def splitBySignIter(list: List[Int], negativeList: List[Int], positiveList: List[Int]): (List[Int], List[Int]) =
+    if list == Nil then (negativeList, positiveList)
+    else if (list.head < 0) then splitBySignIter(list.tail, negativeList ::: List(list.head), positiveList)
+    else if (list.head % 2 == 1) then splitBySignIter(list.tail, negativeList, positiveList ::: List(list.head))
+    else splitBySignIter(list.tail, negativeList, positiveList)
   splitBySignIter(list, List(), List())
 
 splitBySign(List(-3, -6, 7, -9, 13)) == (List(-3, -6, -9), List(7, 13))
@@ -23,9 +23,9 @@ splitBySign(List(2, 4, 6, 8, -1)) == (List(-1), List())
 
 def lengthOfList[A](list: List[A]): Int =
   @tailrec
-  def lengthOfListIter[A](list: List[A], accum: Int): Int =
-    if list == Nil then accum
-    else lengthOfListIter(list.tail, accum + 1)
+  def lengthOfListIter[A](list: List[A], lengthAccum: Int): Int =
+    if list == Nil then lengthAccum
+    else lengthOfListIter(list.tail, lengthAccum + 1)
   lengthOfListIter(list, 0)
 
 lengthOfList(List(5, 4, 3, 2)) == 4
