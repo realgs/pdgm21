@@ -6,8 +6,10 @@
  */
 
 def reverse(l: List[Int]): List[Int] =
-  if l == Nil then Nil
-  else reverse(l.tail) ::: List(l.head)
+  def rev(l: List[Int], acc: List[Int]): List[Int] =
+    if l == Nil then acc
+    else rev(l.tail, l.head :: acc)
+  rev(l, List())
 
 // Task 1
 def splitBySign(l: List[Int]): (List[Int], List[Int]) =
