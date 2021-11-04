@@ -137,6 +137,4 @@ object Lista4 {
     println(joinLists(List(), List(), List()))
 
   }
-
-
 }
