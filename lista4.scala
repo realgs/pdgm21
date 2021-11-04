@@ -15,6 +15,7 @@ def find (queriedList: List[String], queryList: List[String]): List[String] =
       wordIter(queried.tail, query.tail, foundWord + query.head)
     else
       wordIter(queried.tail, query, foundWord)
+
   def findIter (queried: String, queryList: List[String]): List[String] =
     if queryList != Nil && queryList.head != "" then
       if wordIter(queried, queryList.head, "") == queryList.head then
@@ -22,6 +23,7 @@ def find (queriedList: List[String], queryList: List[String]): List[String] =
       else
         findIter(queried, queryList.tail)
     else Nil
+
   if queriedList != Nil then
     findIter(queriedList.head, queryList) ::: find(queriedList.tail, queryList)
   else
