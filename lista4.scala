@@ -3,6 +3,10 @@ import scala.annotation.tailrec
 
 //First task
 
+// I realise that its not an optimal approach and I will gladly try to optimise it
+// I used list concatenation because otherwise my ending list would have empty strings in it
+// Will try to fix it
+
 def find (queriedList: List[String], queryList: List[String]): List[String] =
   def wordIter (queried: String, query: String, foundWord: String): String =
     if queried == "" || query == "" then
@@ -11,7 +15,6 @@ def find (queriedList: List[String], queryList: List[String]): List[String] =
       wordIter(queried.tail, query.tail, foundWord + query.head)
     else
       wordIter(queried.tail, query, foundWord)
-
   def findIter (queried: String, queryList: List[String]): List[String] =
     if queryList != Nil && queryList.head != "" then
       if wordIter(queried, queryList.head, "") == queryList.head then
@@ -19,7 +22,6 @@ def find (queriedList: List[String], queryList: List[String]): List[String] =
       else
         findIter(queried, queryList.tail)
     else Nil
-
   if queriedList != Nil then
     findIter(queriedList.head, queryList) ::: find(queriedList.tail, queryList)
   else
@@ -28,6 +30,10 @@ def find (queriedList: List[String], queryList: List[String]): List[String] =
 find(List("ABCD", "CADS", "BBB", "CCC"), List("A", "B", "AB", ""))
 
 //Second task
+
+// n is the summed length of lists
+// Computational complexity = O(n)
+// Memory complexity = O(n)
 
 def connectLists[A] (firstList: List[A], secondList: List[A], thirdList: List[A]): List[A] =
   if firstList != Nil then
@@ -38,6 +44,9 @@ def connectLists[A] (firstList: List[A], secondList: List[A], thirdList: List[A]
     thirdList.head :: connectLists(firstList, secondList, thirdList.tail)
   else
     Nil
+
+// Computational complexity = O(n)
+// Memory complexity = O(1)
 
 def connectListsTail[A] (firstList: List[A], secondList: List[A], thirdList: List[A]): List[A] =
   @tailrec
