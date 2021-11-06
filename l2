@@ -20,3 +20,6 @@ Na wyjściu zwraca zdanie czyli string będący połączeniem napisów wejściow
 4) Funkcja, która liczy silnię z danej liczby.
 
     Punkty: 2.5
+
+Definicje w scala:
+https://www.journaldev.com/11930/scala-val-var-lazyval-def-constructs

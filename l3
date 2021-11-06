@@ -27,3 +27,6 @@ Implementacja Scala oraz Ocaml.
    wynik    : [5;1;4;2;3;3;2;4;5;6]
 
    Punkty: 3 
+
+Pomocniczo przypominam z poprzedniej listy różnice w definicjach:
+https://www.journaldev.com/11930/scala-val-var-lazyval-def-constructs
