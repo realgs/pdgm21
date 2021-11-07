@@ -1,0 +1,21 @@
+Nie wolno stosować funkcji bibliotecznych (np. "length", "reverse", "append") o złożoności większej, niż O(1).
+Napisz funkcje przy użyciu rekurencji ogonowej i nieogonowej. Porównaj. Poproszę o konkretne złożoności do każdej implementacji z uzasadnieniem.
+
+1) Napisz funkcję wyszukującą po/w elementach listy wejściowej. Przyjmuje dwa argumenty wejściowe - lista, w której szukamy wartości. Drugi argument - element, którego szukamy. Zwracamy listę elementów, które zawierają w sobie lub są równe szukanej frazie. Dodatkowo, zaprojektuj funkcję tak, by przyjmowała N fraz wejściowych i zwracała wyniki, które zawierają którąkolwiek z fraz.
+
+   Przykład:
+   wywołanie: find ['index0169';'iindex0168202';'iindex0168211';'iindex0168210';'iindex0169222';'index0169224'] 'index0168';;
+   wynik    : (['iindex0168202';'index0168211';'index0168210'])
+
+   Punkty: 4 (+3 za N fraz) Scala
+
+2) Napisz funkcję łączącą trzy listy. Elementy drugiej listy mają znaleźć się po elementach pierwszej listy. Elementy trzeciej po drugiej.
+   Zwróć szczególną uwagę na optymalność złożoności obliczeniowej i pamięciowej.
+
+   Przykład:
+   wywołanie: joinLists [5;4;3;2] [1;0] [9];;
+   wynik    : [5;4;3;2;1;0;9]
+
+   Punkty: 3 Scala
+
+   Zadanie domowe poczytać o grze logicznej Kalaha, przykładowe źródło https://en.wikipedia.org/wiki/Kalah
