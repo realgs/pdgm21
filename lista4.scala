@@ -21,27 +21,18 @@ case object lista4{
     }
     myReverseHelper(list, List())
   }
-
+  
   // checks if a phrase contains a pattern
-  val containsString: (String, String) => Boolean = (phrase, pattern) => {
-    // time complexity: n + m + (n-m) * m,
-    // where n is length of a text, m is size of a pattern we try to find in said text
-
-    val n = myLength(phrase)
-    val m = myLength(pattern)
-
-    // i is position in the phrase, j is position in the pattern
-    @tailrec
-    def containsStringHelper(phrase:String, pattern:String, i:Int, j:Int):Boolean = {
-      if(i > n-m) then false  // checked the entire phrase, didn't find a match
-      else
-        if j==m then true // found a match!
-        else if (phrase.charAt(i + j) != pattern.charAt(j)) then
-          containsStringHelper(phrase, pattern, i+1, 0) // it is not a match, move one letter right in the phrase
-        else containsStringHelper(phrase, pattern, i, j+1)  // check another letter in the pattern
+  @ tailrec
+  def containsString(phrase: String, pattern :String):Boolean = {
+    // complexity: n where n is min(phrase.length, pattern.length)
+    (phrase, pattern) match {
+      case ("","") => true
+      case ("",_) => false
+      case (_,"") => true
+      case (_, _) => if phrase.head == pattern.head then containsString(phrase.tail, pattern.tail)
+        else containsString(phrase.tail, pattern)
     }
-    containsStringHelper(phrase, pattern, 0, 0) // gets called (n-m)*m times
-
   }
 
   // checks if a list contains a value (elem)
@@ -55,17 +46,17 @@ case object lista4{
 
   // searches for just one pattern in a list of strings, no tail recursion
   val findNoTail: (List[String], String) => List[String ] = (list, elem) => {
-    // time complexity: n * complexity of containsString() = n * [(p + q + (p-q)*q)],
-    //   where n is length of the list, p is size of a word in list, q is size of elem
-    if(list.isEmpty) List()
+    // time complexity: n * complexity of containsString() = n * m,
+    //   where n is length of the list, m is ?
+    if(list.isEmpty) list
     else if(containsString(list.head, elem)) list.head::findNoTail(list.tail, elem)
     else findNoTail(list.tail, elem)
   }
 
   // makes use of tail recursion, searches for just one pattern in a list of strings
   val findTail: (List[String], String) => List[String ] = (list, elem) => {
-    // time complexity: n * complexity of containsString() = n * [(p + q + (p-q)*q)],
-    //   where n is length of the list, p is size of a word in list, q is size of elem
+    // time complexity: n * complexity of containsString() = n * m,
+    //   where n is length of the list, m is ?
     @tailrec
     def findHelper (list: List[String], elem: String, results:List[String]):List[String] = {
       if(list.isEmpty) myReverse(results)
@@ -80,18 +71,15 @@ case object lista4{
   val findMultiple: (List[String], List[String]) => List[String] = (list, patterns) => {
     // time complexity:
     // complexity of myReverse() + n * m * (complexity of containsString() + complexity of containsList())
-    //   == n + n * m * [(p+q + (p-q)*q) + n],
-    //   where: n - size of list of texts, m - size of the list of patterns,
-    //      p - word size in list, q - pattern size in patterns
+    //   == n + n * m * p,
+    //   where: n - size of list of texts, m - size of the list of patterns, p - size of phrases and patterns ?
     @tailrec
     def findHelper (list: List[String], results:List[String], currentPattern:List[String]):List[String] = {
 
       if(list.isEmpty) then myReverse(results) // complexity of list.length
 
-      else if (currentPattern.isEmpty) then
-        findHelper(list.tail, results, patterns)
-      else if (!containsString(list.head, currentPattern.head))
-        findHelper(list, results, currentPattern.tail)
+      else if (currentPattern.isEmpty) then findHelper(list.tail, results, patterns)
+      else if (!containsString(list.head, currentPattern.head)) findHelper(list, results, currentPattern.tail)
       else
         findHelper(
           list.tail,
