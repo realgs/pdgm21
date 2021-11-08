@@ -14,7 +14,7 @@ object L4 {
     myLenghtIn(list, 0)
   }
 
-  // time complexity: O(n)
+  // time complexity: O(n*m)
   // space complexity: O(1)
   @tailrec
   def myContains(word : String, value : String) : Boolean = {
@@ -65,7 +65,7 @@ object L4 {
     findMultipleValuesIn(list, searchValues, List())
   }
 
-  // time complexity: O(n^3)
+  // time complexity: O(n^4)
   // space complexity: n + n(n + 1)/2 + n * m = 0,5n^2 + n(0,5 + m) => polynominal,
   //                   where n - length of list, m - length of searchValues
   def findMultipleValues2(list : List[String], searchValues : List[String]) : List[String] = {
