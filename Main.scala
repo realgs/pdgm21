@@ -12,6 +12,7 @@ object Main {
       case head :: tail => if containsPattern(head, pattern) then head :: findPattern(tail, pattern) else findPattern(tail, pattern)
   }
 
+
   def findPatternTail(listOfTexts: List[String], pattern: String): List[String] = {
     @tailrec
     def findPatternTailInner(listOfTexts: List[String], resultList: List[String]): List[String] =
@@ -21,12 +22,14 @@ object Main {
     reverseList(findPatternTailInner(listOfTexts, List()))
   }
 
+
   def findPatterns(listOfTexts: List[String], patterns: List[String]): List[String] = {
       listOfTexts match
         case Nil => List()
         case head :: tail => if containsPatterns(head, patterns) then head :: findPatterns(tail, patterns) else findPatterns(tail, patterns)
   }
 
+ 
   def findPatternsTail(listOfTexts: List[String], patterns: List[String]): List[String] = {
     @tailrec
       def findPatternsTailInner(listOfTexts: List[String], resultList: List[String]): List[String] =
@@ -36,12 +39,14 @@ object Main {
       reverseList(findPatternsTailInner(listOfTexts, List()))
   }
 
+
   def containsPatterns(investigatedText: String, patterns: List[String]): Boolean = {
     patterns match
       case Nil => false
       case head :: tail => if !containsPattern(investigatedText, head) then containsPatterns(investigatedText, tail) else true
   }
 
+ 
   def containsPattern(investigatedText: String, patternText: String): Boolean = {
     if patternText.isEmpty then false else {
       @tailrec
@@ -54,6 +59,7 @@ object Main {
     }
   }
 
+
   def reverseList[A](list: List[A]): List[A] = {
     @tailrec
     def reverseListInner(newList: List[A], oldList: List[A]): List[A] =
@@ -62,6 +68,47 @@ object Main {
         case head :: tail => reverseListInner(head :: newList, tail)
     reverseListInner(Nil, list)
   }
+
+//KNP
+
+def KNPAlgorithm(text: String, pattern: String): Int = {
+  val KNP = createKNPTable(pattern)
+
+  def indicatePattern(prefixLength: Int, position: Int): Int =
+    if prefixLength + position < text.length then
+      if pattern(position) == text(prefixLength + position) then
+        if position == pattern.length - 1 then prefixLength else indicatePattern(prefixLength, position + 1)
+      else
+        if KNP(position) > -1 then indicatePattern(prefixLength + position - KNP(position), KNP(position)) else indicatePattern(prefixLength + 1, 0)
+    else -1
+  indicatePattern(0, 0)
+}
+
+def createKNPTable(pattern: String): Array[Int] = {
+  val KNPTable = fillWithZero(pattern.length)
+  KNPTable(0) = -1
+
+  def findKNPValues(position: Int, length: Int): Array[Int] =
+    if position >= pattern.length then KNPTable else
+      if pattern(position - 1) == pattern(length) then
+        KNPTable(position) = length + 1
+        findKNPValues(position + 1, length + 1)
+      else if length > 0 then findKNPValues(position, KNPTable(length))
+      else
+        KNPTable(position) = 0
+        findKNPValues(position + 1, length)
+  findKNPValues(2, 0)
+}
+
+def fillWithZero(length: Int): Array[Int] = {
+  val array = Array.ofDim[Int](length)
+  def fill(remainingNumberOfZerosToAdd: Int, arrayOfZero: Array[Int]): Array[Int] =
+    remainingNumberOfZerosToAdd match
+      case 0 => arrayOfZero
+      case _ =>  arrayOfZero(remainingNumberOfZerosToAdd) = 0
+                 fill(remainingNumberOfZerosToAdd - 1, arrayOfZero)
+  fill(length - 1, array)
+}
 
 
   //task 2
@@ -73,6 +120,7 @@ object Main {
         case (Nil, Nil) => list3
   }
 
+	
   def add3ListsTail[T](list1: List[T], list2: List[T], list3: List[T]): List[T] = {
       @tailrec
       def add[T](newList: List[T], list1: List[T], list2: List[T], list3: List[T]): List[T] =
