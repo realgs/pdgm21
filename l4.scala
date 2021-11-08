@@ -1,5 +1,7 @@
 import scala.annotation.tailrec
 object l4 {
+  //obliczeniowa O(n), n- długość listy wejściowej
+  //pamięciowa O(1)
   def reverse[A](list: List[A]): List[A] =
     @tailrec
     def iter(list: List[A], revlist: List[A]): List[A] =
@@ -7,7 +9,9 @@ object l4 {
       else iter(list.tail, list.head :: revlist)
     iter(list, Nil)
 
-
+  //obliczeniowa O(n), n- długość krótszego patternu
+  //pamięciowa O(1)
+  @tailrec
   def contain(string: String, pattern :String): Boolean =
     (string, pattern) match
       case ("", "") => true
@@ -16,7 +20,9 @@ object l4 {
       case (_, _) =>  if string.head == pattern.head then contain(string.tail, pattern.tail)
                       else contain(string.tail, pattern)
 
-
+  //obliczeniowa O(n^2), n- długość krótszego patternu wraz z wywołaniem contain
+  // pamięciowa O(1)
+  @tailrec
   def containAll(string: String, patterns :List[String]): Boolean =
     patterns match
       case Nil => false
