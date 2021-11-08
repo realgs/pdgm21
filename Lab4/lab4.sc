@@ -16,6 +16,16 @@ def joinLists[A](first: List[A], second: List[A], third: List[A]): List[A] = {
     case (Nil, Nil) => third
 }
 
+def reverseList[A](list: List[A]): List[A] ={
+  @tailrec
+  def innerReverse[A](list: List[A], reversedList: List[A]): List[A] ={
+    list match
+      case h1:: t1 => innerReverse(t1, h1 :: reversedList)
+      case Nil => reversedList
+  }
+  innerReverse(list, List())
+}
+
 def joinListsTail[A](first: List[A], second: List[A], third: List[A]): List[A] = {
   @tailrec
   def iter[A](first: List[A], second: List[A], third: List[A], finalList: List[A]): List[A] ={
@@ -25,8 +35,10 @@ def joinListsTail[A](first: List[A], second: List[A], third: List[A]): List[A] =
       case (Nil, Nil, h3::t3) => iter(Nil, Nil, t3, h3 :: finalList)
       case(Nil, Nil, Nil) => finalList
   }
-  iter(first, second, third, List())
+  reverseList(iter(first, second, third, List()))
 }
+
+
 
 val a = List(1,2,3,4,5,6)
 val b = List(7,8,9)
