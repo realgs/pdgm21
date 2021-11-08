@@ -55,17 +55,17 @@ object Lab4
 
   def joinLists[A](list1: List[A], list2: List[A], list3: List[A]): List[A] =
     (list1, list2) match
-      case (Nil, Nil) => list3
-      case (Nil, h :: t) => h :: joinLists(Nil, t, list3)
       case (h :: t, list2) => h :: joinLists(t, list2, list3)
+      case (Nil, h :: t) => h :: joinLists(Nil, t, list3)
+      case (Nil, Nil) => list3
 
   def joinListsTail[A](list1: List[A], list2: List[A], list3: List[A]): List[A] =
     @tailrec
     def join(list1: List[A], list2: List[A], joined: List[A]): List[A] =
       (list1, list2) match
-        case (Nil, Nil) => joined
         case (h :: t, list2) => join(t, list2, h :: joined)
         case (Nil, h :: t) => join(Nil, t, h :: joined)
+        case (Nil, Nil) => joined
     join(reverse(list2), reverse(list1), list3)
 
   def main(args: Array[String]) : Unit =
