@@ -3,25 +3,33 @@ import scala.annotation.tailrec
 /**
  * Metody pomocnicze
  */
-
-def myConcat(first: List[Any], second: List[Any]): List[Any] =
+def myConcat(first: List[Any], second: List[Any]): List[Any] =  // rekursja nieogonowa, zlozonosc pamieciowa i obliczeniowa liniowa wzgledem first
     if first == Nil then second
     else first.head :: myConcat(first.tail, second)
 
-def isSubstring(word: String, substr: String, i: Int, wordOffset: Int): Boolean =
-        if i == substr.length() then true
+@tailrec
+def isSubstring(word: String, substr: String, i: Int, wordOffset: Int): Boolean =  // rekursja ogonowa, zlozonosc stala pamieciowa i kwadratowa obliczeniowa (n*n)/2 wzgledem substr
+        if substr == "" then false
+        else if i == substr.length() then true
         else if i == word.length() - wordOffset then false
         else if word(i+wordOffset) != substr(i) then 
             if substr.length() + wordOffset == word.length() then false
             else isSubstring(word, substr, 0, wordOffset+1)
         else isSubstring(word, substr, i+1, wordOffset)
+/*
+    W  O  R  D  X  X    offset = 0
+       W  O  R  D  X    offset = 1
+          W  O  R  D    offset = 2
+             W  O  R   ...itd
+*/
 
-def isSubstringOfAny(word: String, substrs: List[String]): Boolean =
+@tailrec
+def isSubstringOfAny(word: String, substrs: List[String]): Boolean =  // rekursja ogonowa, zlozonosc stala pamieciowa i liniowa obliczeniowa wzgledem substrs
         if substrs == Nil then false
         else if isSubstring(word, substrs.head, 0, 0) then true
         else isSubstringOfAny(word, substrs.tail)
 
-def myReverse[A](inputList: List[A]): List[A] =
+def myReverse[A](inputList: List[A]): List[A] =  // rekursja ogonowa, zlozonosc stala pamieciowa i liniowa obliczeniowa
         @tailrec
         def myReverseTailrec(inputList: List[A], accumulator: List[A]): List[A] =
             if inputList == Nil then accumulator
@@ -31,7 +39,7 @@ def myReverse[A](inputList: List[A]): List[A] =
 /** 
  * Zadanie 1, jedna fraza, rekursja nieogonowa
  */
-val find: ((List[String], String) => List[String]) = (words, phrase) =>
+val find: ((List[String], String) => List[String]) = (words, phrase) =>  // zlozonosc obliczeniowa n^3 (n^2 dla isSubstring * n dla listy words), pamieciowa liniowa
     if words == Nil then Nil
     else if isSubstring(words.head, phrase, 0, 0) then words.head :: find(words.tail, phrase)
     else find(words.tail, phrase)
@@ -44,7 +52,7 @@ find (List("aaa", "bbb", "ccc", "", "   "), "") == List("aaa", "bbb", "ccc", "",
 /** 
  * Zadanie 1, jedna fraza, rekursja ogonowa
  */
-val findTailrec: ((List[String], String) => List[String]) = (words, phrase) =>
+val findTailrec: ((List[String], String) => List[String]) = (words, phrase) =>  // zlozonosc obliczeniowa n^3 (n^2 dla isSubstring * n dla listy words), pamieciowa stala
     @tailrec
     def findTailrecHelper(words: List[String], phrase: String, accumulator: List[String]): List[String] =
         if words == Nil then myReverse(accumulator)
@@ -60,7 +68,7 @@ findTailrec (List("aaa", "bbb", "ccc", "", "   "), "") == List("aaa", "bbb", "cc
 /** 
  * Zadanie 1, wiele fraz, rekursja nieogonowa
  */
-val findMany: ((List[String], List[String]) => List[String]) = (words, phrases) =>
+val findMany: ((List[String], List[String]) => List[String]) = (words, phrases) =>  // zlozonosc obliczeniowa n^4 (n^3 dla isSubstringOfAny * n dla listy words), pamieciowa liniowa
     if words == Nil then Nil
     else if isSubstringOfAny(words.head, phrases) then words.head :: findMany(words.tail, phrases)
     else findMany(words.tail, phrases)
@@ -74,7 +82,7 @@ findMany (List("aaa", "bbb", "ccc"), Nil) == Nil
 /** 
  * Zadanie 1, wiele fraz, rekursja ogonowa
  */
- val findManyTailrec: ((List[String], List[String]) => List[String]) = (words, phrases) =>
+ val findManyTailrec: ((List[String], List[String]) => List[String]) = (words, phrases) =>  // zlozonosc obliczeniowa n^4 (n^3 dla isSubstringOfAny * n dla listy words), pamieciowa stala
     @tailrec
     def findManyTailrecHelper(words: List[String], phrases: List[String], accumulator: List[String]): List[String] =
         if words == Nil then myReverse(accumulator)
@@ -91,7 +99,7 @@ findManyTailrec (List("aaa", "bbb", "ccc"), Nil) == Nil
 /** 
  * Zadanie 2, rekursja nieogonowa
  */
-val joinLists: ((List[Any], List[Any], List[Any]) => List[Any]) = (firstList, secondList, thirdList) =>
+val joinLists: ((List[Any], List[Any], List[Any]) => List[Any]) = (firstList, secondList, thirdList) =>  // zlozonosc obliczeniowa liniowa wzgledem first + second, pamieciowa tak samo
     if firstList == Nil then
         if secondList == Nil then thirdList
         else secondList.head :: joinLists(firstList, secondList.tail, thirdList)
@@ -104,7 +112,7 @@ joinLists (Nil, Nil, Nil) == Nil
 /** 
  * Zadanie 2, rekursja ogonowa
  */
-val joinListsTailrec: ((List[Any], List[Any], List[Any]) => List[Any]) = (firstList, secondList, thirdList) =>
+val joinListsTailrec: ((List[Any], List[Any], List[Any]) => List[Any]) = (firstList, secondList, thirdList) =>  // zlozonosc obliczeniowa liniowa wzgledem first + second + third, pamieciowa stala
     @tailrec
     def joinListsTailrecHelper(firstList: List[Any], secondList: List[Any], thirdList: List[Any], accumulator: List[Any]): List[Any] =
         if firstList == Nil then
