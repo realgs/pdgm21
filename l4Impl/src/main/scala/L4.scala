@@ -4,7 +4,7 @@ object L4 {
 
   // 1
   // time complexity: O(n)
-  // space complexity: O(n)
+  // space complexity: O(1)
   def myLength[A](list : List[A]) : Int = {
     @tailrec
     def myLenghtIn(list : List[A], i: Int) : Int = {
@@ -25,7 +25,7 @@ object L4 {
   }
 
   // time complexity: O(n^2) - myContains is O(n)
-  // space complexity: O(n + 1) = O(n)
+  // space complexity: O(1)
   @tailrec
   def containsValues(word : String, searchValues : List[String]) : Boolean = {
     if searchValues == List() then false
@@ -34,7 +34,7 @@ object L4 {
   }
 
   // time complexity: O(n^2) - myContains is O(n)
-  // space complexity: O(2n + 1) = O(n)
+  // space complexity: O(n)
   def findValue(list : List[String], searchValue : String) : List[String] = {
     @tailrec
     def findValueIn(list : List[String], searchValue : String, result : List[String]) : List[String] = {
@@ -54,8 +54,7 @@ object L4 {
   }
 
   // time complexity: O(n^3) - containsValues is O(n^2)
-  // space complexity: O(2n + m),
-  //                   where n - length of list, m - length of searchValues
+  // space complexity: O(n)
   def findMultipleValues(list : List[String], searchValues : List[String]) : List[String] = {
     @tailrec
     def findMultipleValuesIn(list : List[String], searchValues : List[String], result : List[String]) : List[String] = {
@@ -79,7 +78,7 @@ object L4 {
   // 2
 
   // time complexity: O(n)
-  // space complexity: O(2n) = O(n)
+  // space complexity: O(n)
   def myReverse[A](list : List[A]) : List[A] = {
     @tailrec
     def myReverseIn(list : List[A], resultList : List[A]) : List[A] = {
@@ -104,7 +103,7 @@ object L4 {
   }
 
   // time complexity: O(n + m)
-  // space complexity: O(2(n + m + l))
+  // space complexity: O(n)
   def joinLists2[A](list1 : List[A], list2 : List[A], list3 : List[A]) : List[A] = {
     @tailrec
     def joinList2In[A](list1 : List[A], list2 : List[A], list3 : List[A], acc : List[A]) : List[A] = {
