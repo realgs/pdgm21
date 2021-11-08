@@ -24,10 +24,12 @@ object list4 {
 
     reversing(finding(List(), list, toFind))
   }
+  //zlozonosc obliczeniowa O(n^2)
+  //ze wzgledu na mnozenie dlugosci listy i dlugosci slowa
+  //zlozonosc pamieciowa O(1)
+  //ze wzgledu na rekursje ogonowa
 
-  find(List("index0169", "iindex0168202", "iindex0168211", "iindex0168210", "iindex0169222", "index0169224"), "index0168")
-
-  //bezrekursji
+  //without tailrec
   def find2(list: List[String], toFind: String): List[String] = {
     def pattern(elm: String, patt: String): Boolean = {
       if patt.length == 0 then true
@@ -39,6 +41,10 @@ object list4 {
     if list != Nil then if pattern(list.head, toFind) then list.head :: find2(list.tail, toFind) else find2(list.tail, toFind)
     else Nil
   }
+  //zlozonosc obliczeniowa O(n^2)
+  //taki sam przypadek co powyzej
+  //zlozonosc pamieciowa O(n)
+  //ze wzgledu na ::
 
   //tailrec
   def joinList[A](list1: List[A], list2: List[A], list3: List[A]): List[A] ={
@@ -48,34 +54,43 @@ object list4 {
       else if list3a!=Nil then joining(result:+list3a.head, list2a, list3a.tail)
       else result
     }
-    def add(toBeAdded:A, result:List[A]):List[A]={
-      if result==Nil then List(toBeAdded)
-      else result.head::add(toBeAdded, result.tail)
-    }
     joining(list1, list2, list3)
   }
+  //zlozonosc obliczeniowa O(n)
+  //bedzie to suma dlugosci list2 i list3
+  //zlozonosc pamieciowa O(1)
+  //ze wzgledu na rekursje ogonowa
+
   //without tailrec
   def joinList2[A](list1: List[A], list2: List[A], list3: List[A]): List[A] ={
     if list2!=Nil then joinList2(list1:+list2.head, list2.tail, list3)
     else if list3!=Nil then joinList2(list1:+list3.head, list2, list3.tail)
     else list1
   }
+  //zlozonosc obliczeniowa O(n)
+  //tak jak powyzej
+  //zlozonosc pamieciowa O(n)
+  //ze wzgledu na laczenie list2 i list3
 
   def main(args: Array[String]): Unit = {
     println("Find in list:")
     println("tail rec")
     println(find(List("index0169", "iindex0168202", "iindex0168211", "iindex0168210", "iindex0169222", "index0169224"), "index0168"))
     println(find(List("12", "12578", "11123", "9012334"), "123"))
+    println(find(List("k", "l", "m"), "m"))
     println("rec")
     println(find2(List("index0169", "iindex0168202", "iindex0168211", "iindex0168210", "iindex0169222", "index0169224"), "index0168"))
     println(find2(List("12", "12578", "11123", "9012334"), "123"))
+    println(find2(List("k", "l", "m"), "m"))
     println()
     println("Join list:")
     println("tail rec")
     println(joinList(List(5, 4, 3, 2), List(1, 0), List(9, 8)))
     println(joinList(List("a", "b", "c", "d"), List("e", "f", "g"), List("h", "i", "j", "k")))
+    println(joinList(List(Nil),List(Nil), List(Nil)))
     println("rec")
     println(joinList2(List(5, 4, 3, 2), List(1, 0), List(9, 8)))
     println(joinList2(List("a", "b", "c", "d"), List("e", "f", "g"), List("h", "i", "j", "k")))
+    println(joinList(List(Nil),List(Nil), List(Nil)))
   }
 }
