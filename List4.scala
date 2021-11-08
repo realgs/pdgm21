@@ -41,16 +41,25 @@ object List4 {
     help(s.toList)
 
   def splitBySign(exp: String, sign: Char): List[String] =
-    def help(list: List[Char], res: String): List[String] =
+    def help(list: List[Char], res: StringBuilder): List[String] =
       list match {
-        case Nil => List(res)
-        case h::t => if h == sep then res :: help(t,"")
-                     else help(t, res.appended(h))
+        case Nil => List(res.toString())
+        case h::t => if h == sep then res.toString() :: help(t, new StringBuilder(""))
+                     else help(t, res += h )
       }
-    help(exp.toList, "")
+    help(exp.toList, new StringBuilder(""))
+
+  def deleteElems[A](list: List[A], elem: A): List[A] =
+    def help(list: List[A], res: List[A]): List[A] =
+      list match {
+        case Nil => reverseList(res)
+        case h::t => if h == elem then help(t, res)
+                     else help(t, h:: res)
+      }
+    help(list, List())
 
   def findTail(list: List[String], elem: String): List[String] =
-    val elemsSplited = splitBySign(elem, sep)
+    val elemsSplited = deleteElems(splitBySign(elem, sep),"")
     def help(list: List[String], res: List[String], elemList: List[String]): List[String] =
       (list, elemList) match {
         case (Nil, _) => res.reverse
@@ -61,13 +70,13 @@ object List4 {
     help(list, List(), elemsSplited)
 
   def find(list: List[String], elem: String): List[String] =
-    val elemsSplited = splitBySign(elem, sep)
+    val elemsSplited = deleteElems(splitBySign(elem, sep),"")
     def help(list: List[String], elemList: List[String]): List[String] =
       (list, elemList) match {
         case (Nil, _) => List()
         case (h::t, Nil) => help(t, elemsSplited)
         case (h::t,he::te) => if include(he, h) then h :: help(t, elemsSplited)
-        else help(h::t, te)
+                              else help(h::t, te)
       }
     help(list, elemsSplited)
 
