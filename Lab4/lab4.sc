@@ -1,6 +1,15 @@
 import scala.annotation.tailrec
 
 
+def reverseList[A](list: List[A]): List[A] ={
+  @tailrec
+  def innerReverse[A](list: List[A], reversedList: List[A]): List[A] ={
+    list match
+      case h1:: t1 => innerReverse(t1, h1 :: reversedList)
+      case Nil => reversedList
+  }
+  innerReverse(list, List())
+}
 
 def containsFrase(inputString: String, frase: String): Boolean={
   if frase.isBlank then true
@@ -31,7 +40,7 @@ def findTail(list: List[String], frases: List[String]): List[String]= {
         else iterlist(t, frases, result)
       case Nil => result
   }
-  iterlist(list, frases, List())
+  reverseList(iterlist(list, frases, List()))
 }
 
 find(List("index0169","iindex0168202","iindex0168211","iindex0168210","iindex0169222","index0169224"), List("index0168"))
@@ -49,15 +58,6 @@ def joinLists[A](first: List[A], second: List[A], third: List[A]): List[A] = {
     case (Nil, Nil) => third
 }
 
-def reverseList[A](list: List[A]): List[A] ={
-  @tailrec
-  def innerReverse[A](list: List[A], reversedList: List[A]): List[A] ={
-    list match
-      case h1:: t1 => innerReverse(t1, h1 :: reversedList)
-      case Nil => reversedList
-  }
-  innerReverse(list, List())
-}
 
 def joinListsTail[A](first: List[A], second: List[A], third: List[A]): List[A] = {
   @tailrec
