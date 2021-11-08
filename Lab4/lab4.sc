@@ -1,9 +1,31 @@
 import scala.annotation.tailrec
 
 
-def find(list: List[String], frases: String): List[String] ={
 
+def containsFrase(inputString: String, frase: String): Boolean={
+  if frase.isBlank then true
+  else if inputString.isBlank then false
+  else if inputString.head == frase.head then
+    containsFrase(inputString.tail, frase.tail)
+  else containsFrase(inputString.tail, frase)
 }
+
+def containsFrases(inputString: String, frases: List[String]): Boolean={
+  if frases == Nil then false
+  else containsFrase(inputString, frases.head) || containsFrases(inputString, frases.tail)
+}
+
+
+def find(list: List[String], frases: List[String]): List[String] ={
+  list match
+    case h::t => if containsFrases(h, frases) then h :: find(t, frases)
+                          else find(t, frases)
+    case Nil => Nil
+}
+//StringSeq doesn't work
+
+find(List("index0169","iindex0168202","iindex0168211","iindex0168210","iindex0169222","index0169224"), List("index0168"))
+
 
 
 
@@ -37,8 +59,6 @@ def joinListsTail[A](first: List[A], second: List[A], third: List[A]): List[A] =
   }
   reverseList(iter(first, second, third, List()))
 }
-
-
 
 val a = List(1,2,3,4,5,6)
 val b = List(7,8,9)
