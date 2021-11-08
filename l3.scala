@@ -1,7 +1,7 @@
 object l3 {
   //1
   //O(n^2)
-  //Memory O(n)
+  //Memory O(1)
   def splitBySign[A](xs: List[Int])={
     def split(xs: List[Int], negativeList:List[Int], positiveList:List[Int]):(List[Int], List[Int])={
       if xs ==Nil then (negativeList, positiveList)
