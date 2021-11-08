@@ -15,7 +15,6 @@ def containsFrases(inputString: String, frases: List[String]): Boolean={
   else containsFrase(inputString, frases.head) || containsFrases(inputString, frases.tail)
 }
 
-
 def find(list: List[String], frases: List[String]): List[String] ={
   list match
     case h::t => if containsFrases(h, frases) then h :: find(t, frases)
@@ -24,7 +23,19 @@ def find(list: List[String], frases: List[String]): List[String] ={
 }
 //StringSeq doesn't work
 
+def findTail(list: List[String], frases: List[String]): List[String]= {
+  @tailrec
+  def iterlist(list: List[String], frases: List[String], result: List[String]): List[String]={
+    list match
+      case h::t => if containsFrases(h, frases) then iterlist(t, frases, h :: result)
+        else iterlist(t, frases, result)
+      case Nil => result
+  }
+  iterlist(list, frases, List())
+}
+
 find(List("index0169","iindex0168202","iindex0168211","iindex0168210","iindex0169222","index0169224"), List("index0168"))
+findTail(List("index0169","iindex0168202","iindex0168211","iindex0168210","iindex0169222","index0169224"), List("index0168"))
 
 
 
