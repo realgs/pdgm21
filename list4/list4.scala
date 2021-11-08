@@ -28,7 +28,7 @@ object Lista4 {
     @tailrec
     def contains(string: String, substring: String): Boolean =
         (string, substring) match
-            case (_, "") => true
+            case (_, "") => false
             case ("", _) => false
             case (_, _) =>
                 if startsWith(string, substring) then true
@@ -111,6 +111,12 @@ object Lista4 {
     def main(args: Array[String]): Unit = {
         // Tests from task
         println(findSubstringed(List("index0169", "iindex016802", "iindex0168211", "iindex0168210", "iindex0169222",
+            "index0169224"), ""))
+
+        println(findAllSubstringed(List("index0169", "iindex016802", "iindex0168211", "iindex0168210", "iindex0169222",
+            "index0169224"), List("")))
+
+        println(findSubstringed(List("index0169", "iindex016802", "iindex0168211", "iindex0168210", "iindex0169222",
             "index0169224"), "index0168") == List("iindex016802", "iindex0168211", "iindex0168210"))
 
         println(findAllSubstringed(List("index0169", "iindex016802", "iindex0168211", "iindex0168210", "iindex0169222",
@@ -129,11 +135,13 @@ object Lista4 {
 
         // tests for findAllSubstringedTailrec
         println("\nTests for findAllSubstringedTailrec:")
+        println(findAllSubstringedTailrec(List("abcd", "abcdddaa", "aa", "aabcda", "bcdaabcdaa"), List("aa")))
         println(findAllSubstringedTailrec(List("abcd", "abcdddaa", "aa", "aabcda", "bcdaabcdaa"), List("aa", "bcd")))
         println(findAllSubstringedTailrec(List("abcd", "abcdddaa", "aa", "aabcda", "bcdaabcdaa"), List("aa", "bcd", "abc")))
 
         // tests for findAllSubstringed
         println("\nTests for findAllSubstringed:")
+        println(findAllSubstringed(List("abcd", "abcdddaa", "aa", "aabcda", "bcdaabcdaa"), List("aa")))
         println(findAllSubstringed(List("abcd", "abcdddaa", "aa", "aabcda", "bcdaabcdaa"), List("aa", "bcd")))
         println(findAllSubstringed(List("abcd", "abcdddaa", "aa", "aabcda", "bcdaabcdaa"), List("aa", "bcd", "abc")))
 
