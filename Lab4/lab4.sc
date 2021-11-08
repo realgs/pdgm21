@@ -1,6 +1,8 @@
 import scala.annotation.tailrec
 
-
+//used for tail recursion functions
+//complexity  O(n) where n is list.length
+//memory (n^2)/2 + 1 because n, n-1, n-2, ... 1 and
 def reverseList[A](list: List[A]): List[A] ={
   @tailrec
   def innerReverse[A](list: List[A], reversedList: List[A]): List[A] ={
@@ -11,6 +13,8 @@ def reverseList[A](list: List[A]): List[A] ={
   innerReverse(list, List())
 }
 
+
+//
 def containsFrase(inputString: String, frase: String): Boolean={
   if frase.isBlank then true
   else if inputString.isBlank then false
@@ -30,7 +34,6 @@ def find(list: List[String], frases: List[String]): List[String] ={
                           else find(t, frases)
     case Nil => Nil
 }
-//StringSeq doesn't work
 
 def findTail(list: List[String], frases: List[String]): List[String]= {
   @tailrec
@@ -49,6 +52,17 @@ findTail(List("index0169","iindex0168202","iindex0168211","iindex0168210","iinde
 
 
 
+//complexity O(n) where n is first.length + second.length
+//linear complexity
+//memory
+//doesn't make copies, memory needed for arguments and result
+//so (first.length + second.length + third.length)*2
+// multiply by 2 because remember result
+
+//tail recursion reduce stack depth
+//complexity in tail recursion function is O(2n) still linear
+//because it needs to be iterate once to reverse
+// memory
 
 
 def joinLists[A](first: List[A], second: List[A], third: List[A]): List[A] = {
@@ -57,7 +71,6 @@ def joinLists[A](first: List[A], second: List[A], third: List[A]): List[A] = {
     case (Nil, h2::t2) => h2 :: joinLists(Nil, t2, third)
     case (Nil, Nil) => third
 }
-
 
 def joinListsTail[A](first: List[A], second: List[A], third: List[A]): List[A] = {
   @tailrec
