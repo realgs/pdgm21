@@ -109,32 +109,13 @@ object Lista4 {
             case (_, _, head :: tail) => head :: joinThreeLists(Nil, Nil, tail)
 
     def main(args: Array[String]): Unit = {
-//         function that generates list of random lowercase strings, takes length of list and length of strings
-//        def generateRandomList(length: Int, stringLength: Int): List[String] = {
-//            import scala.util.Random
-//            val random = new Random()
-//            def generateRandomString(length: Int): String = {
-//                val sb = new StringBuilder()
-//                for (i <- 1 to length) {
-//                    val randomChar = random.nextInt(26) + 'a'.toInt
-//                    sb.append(randomChar.toChar)
-//                }
-//                return sb.toString
-//            }
-//            return List.fill(length)(generateRandomString(stringLength))
-//        }
-//
-//        // time speed of findSubstringedTailrec and findSubstringed for same list
-//        val list = generateRandomList(10000, 300)
-//        val substrings = generateRandomList(20, 3)
-//        val startTime = System.currentTimeMillis()
-//        val result = findAllSubstringedTailrec(list, substrings)
-//        val endTime = System.currentTimeMillis()
-//        println(s"findSubstringedTailrec: ${endTime - startTime}")
-//        val startTime2 = System.currentTimeMillis()
-//        val result2 = findAllSubstringed(list, substrings)
-//        val endTime2 = System.currentTimeMillis()
-//        println(s"findSubstringed: ${endTime2 - startTime2}")
+        // Tests from task
+        println(findSubstringed(List("index0169", "iindex016802", "iindex0168211", "iindex0168210", "iindex0169222",
+            "index0169224"), "index0168") == List("iindex016802", "iindex0168211", "iindex0168210"))
+
+        println(findAllSubstringed(List("index0169", "iindex016802", "iindex0168211", "iindex0168210", "iindex0169222",
+            "index0169224"), List("index0168", "index0169")) ==
+            List("index0169", "iindex016802", "iindex0168211", "iindex0168210", "iindex0169222", "index0169224"))
 
         // tests for findSubstringedTailrec
         println("\nTests for findSubstringedTailrec:")
