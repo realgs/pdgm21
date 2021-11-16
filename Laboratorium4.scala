@@ -41,9 +41,9 @@ object Lista4 {
     def joinListHelp[A](xs: List[A], ys: List[A], zs: List[A], result: List[A]): List[A] = {
       (xs, ys, zs) match {
         case (Nil, Nil, Nil) => result
-        case (Nil, Nil, _) => result ::: zs.head :: joinListHelp(xs, ys, zs.tail, result)
-        case (Nil, _, _) => result ::: ys.head :: joinListHelp(xs, ys.tail, zs, result)
-        case (_, _, _) => result ::: xs.head :: joinListHelp(xs.tail, ys, zs, result)
+        case (Nil, Nil, _) => joinListHelp(xs, ys, zs.tail, result :+ zs.head)
+        case (Nil, _, _) => joinListHelp(xs, ys.tail, zs, result :+ ys.head)
+        case (_, _, _) => joinListHelp(xs.tail, ys, zs, result :+ xs.head)
       }
     }
 
