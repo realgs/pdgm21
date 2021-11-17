@@ -1,7 +1,6 @@
 package Lab4
 import scala.annotation.tailrec
 
-
 object lab4 {
 
   //Zadanie 1
@@ -12,21 +11,16 @@ object lab4 {
     else if containsList(list.head, elements) then list.head :: find(list.tail, elements)
     else find(list.tail, elements)
 
-
-
   def contains(string : String, element : String) : Boolean =
     (element, string) match
       case ("", _) => true
       case (_, "") => false
       case (_, _) => if  string.head == element.head then contains(string.tail, element.tail) else contains(string.tail, element)
 
-
   def containsList(string: String, elements : List[String]) : Boolean =
     elements match
       case Nil => false
       case h :: t => if contains(string, h) then true else containsList(string, t)
-
-
 
   def reverse[A](list : List[A]) : List[A] =
     @tailrec
@@ -35,7 +29,6 @@ object lab4 {
         case Nil => acc
         case h :: t => helper(t, h :: acc)
     helper(list, Nil)
-
 
   def findTail(list : List[String], elements : List[String]) : List[String] =
     @tailrec
@@ -100,9 +93,6 @@ object lab4 {
     println(findTail(List("index0169" ,"iindex0168202", "iindex0168211", "iindex0168210", "iindex0169222"), List("index0168")) == List("iindex0168202", "iindex0168211", "iindex0168210"))
     println(findTail(List("index0169" ,"iindex0168202", "iindex0168211", "iindex0168210", "iindex0169222"), List("211", "69")) == List("index0169", "iindex0168211", "iindex0169222"))
     println(findTail(List("index0169" ,"iindex0168202", "iindex0168211", "iindex0168210", "iindex0169222"), Nil) == List("index0169" ,"iindex0168202", "iindex0168211", "iindex0168210", "iindex0169222"))
-
-
-
   }
-
 }
+
