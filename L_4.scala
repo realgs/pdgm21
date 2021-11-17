@@ -70,7 +70,10 @@ object L_4 {
       else if str.charAt(i) == substr.charAt(j) then
         if j != 0 then isSubstring(str, substr, i + 1, j + 1)
         else isSubstring(str, substr, i + 1, j + 1) || isSubstring(str, substr, i + 1, 0)
-      else isSubstring(str, substr, i + 1, 0)
+      else 
+        if j > 0 then false;
+        else isSubstring(str, substr, i + 1, 0)
+
 
     def querry_rek(querries_copy: List[String], data_element: String): Boolean =
       querries_copy match
