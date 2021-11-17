@@ -62,7 +62,7 @@ object lab4 {
     (string, element) match
       case (_, "") => true
       case ("", _) => false
-      case (_, _) => if string.head == element.head then iterator(string.tail, element.tail) else false
+      case (_, _) => if string.head == element.head then iteratorTail(string.tail, element.tail) else false
 
   //Zadanie 2
 
