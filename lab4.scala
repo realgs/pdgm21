@@ -68,15 +68,11 @@ object Main {
     }
 
     def joinListsTailRec[A](list1: List[A], list2: List[A], list3: List[A]): List[A] = {
-        def reverse(list: List[A], acc: List[A]): List[A] = {
-            if list != Nil then reverse(list.tail, list.head :: acc)
-            else acc
-        }
         def iter(l1: List[A], l2: List[A], l3: List[A], acc: List[A]): List[A] = {
             if l1 != Nil then iter(l1.tail, l2, l3, l1.head :: acc)
             else if l2 != Nil then iter(Nil, l2.tail, l3, l2.head :: acc)
             else if l3 != Nil then iter(Nil, Nil, l3.tail, l3.head :: acc)
-            else reverse(acc, Nil)
+            else reverse(acc)
         }
         iter(list1, list2, list3, Nil)
     }
