@@ -6,16 +6,22 @@ object lab4 {
   //Zadanie 1
 
   def find(list : List[String], elements : List[String]) : List[String] =
-    if list == Nil then Nil
-    else if elements == Nil then list
-    else if containsList(list.head, elements) then list.head :: find(list.tail, elements)
-    else find(list.tail, elements)
+    (list, elements) match
+      case (Nil, _) => Nil
+      case (_, Nil) => list
+      case (h :: t, _) => if containsList(h, elements) then h :: find(t, elements) else find(t, elements)
 
   def contains(string : String, element : String) : Boolean =
     (element, string) match
       case ("", _) => true
       case (_, "") => false
-      case (_, _) => if  string.head == element.head then contains(string.tail, element.tail) else contains(string.tail, element)
+      case (_, _) => iterator(string, element) || contains(string.tail, element)
+
+  def iterator(string : String, element : String) : Boolean =
+    (string, element) match
+      case (_, "") => true
+      case ("", _) => false
+      case (_, _) => if string.head == element.head then iterator(string.tail, element.tail) else false
 
   def containsList(string: String, elements : List[String]) : Boolean =
     elements match
@@ -33,10 +39,10 @@ object lab4 {
   def findTail(list : List[String], elements : List[String]) : List[String] =
     @tailrec
     def findHelper(list : List[String], elements : List[String], acc : List[String]) : List[String] =
-      if list == Nil then acc.reverse
-      else if elements == Nil then list
-      else if containsListTail(list.head, elements) then findHelper(list.tail, elements, list.head :: acc)
-      else findHelper(list.tail, elements, acc)
+      (list, elements) match
+        case (Nil, _) => acc.reverse
+        case (_, Nil) => list
+        case (h :: t, _) => if containsListTail(h, elements) then findHelper(t, elements, h :: acc) else findHelper(t, elements, acc)
     findHelper(list, elements, Nil)
 
   @tailrec
@@ -44,13 +50,19 @@ object lab4 {
     (element, string) match
       case ("", _) => true
       case (_, "") => false
-      case (_, _) => if  string.head == element.head then containsTail(string.tail, element.tail) else containsTail(string.tail, element)
+      case (_, _) => iteratorTail(string, element) || containsTail(string.tail, element)
 
   @tailrec
   def containsListTail(string: String, elements : List[String]) : Boolean =
     elements match
       case Nil => false
       case h :: t => if containsTail(string, h) then true else containsListTail(string, t)
+
+  def iteratorTail(string : String, element : String) : Boolean =
+    (string, element) match
+      case (_, "") => true
+      case ("", _) => false
+      case (_, _) => if string.head == element.head then iterator(string.tail, element.tail) else false
 
   //Zadanie 2
 
@@ -86,13 +98,14 @@ object lab4 {
 
     println("\nfind")
     println(find(List("index0169" ,"iindex0168202", "iindex0168211", "iindex0168210", "iindex0169222"), List("index0168")) == List("iindex0168202", "iindex0168211", "iindex0168210"))
-    println(find(List("index0169" ,"iindex0168202", "iindex0168211", "iindex0168210", "iindex0169222"), List("211", "69")) == List("index0169", "iindex0168211", "iindex0169222"))
+    println(find(List("index0169" ,"iindex0168202", "iindex0168211", "iindex0168210", "iindex0169222"), List("22", "21")) == List("iindex0168211", "iindex0168210", "iindex0169222"))
     println(find(List("index0169" ,"iindex0168202", "iindex0168211", "iindex0168210", "iindex0169222"), Nil) == List("index0169" ,"iindex0168202", "iindex0168211", "iindex0168210", "iindex0169222"))
 
     println("\nfindTail")
     println(findTail(List("index0169" ,"iindex0168202", "iindex0168211", "iindex0168210", "iindex0169222"), List("index0168")) == List("iindex0168202", "iindex0168211", "iindex0168210"))
-    println(findTail(List("index0169" ,"iindex0168202", "iindex0168211", "iindex0168210", "iindex0169222"), List("211", "69")) == List("index0169", "iindex0168211", "iindex0169222"))
+    println(findTail(List("index0169" ,"iindex0168202", "iindex0168211", "iindex0168210", "iindex0169222"), List("22", "21")) == List("iindex0168211", "iindex0168210", "iindex0169222"))
     println(findTail(List("index0169" ,"iindex0168202", "iindex0168211", "iindex0168210", "iindex0169222"), Nil) == List("index0169" ,"iindex0168202", "iindex0168211", "iindex0168210", "iindex0169222"))
+
   }
 }
 
