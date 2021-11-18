@@ -18,7 +18,7 @@ object Lista4 {
       case _ => checker(word, wanted, wanted, true)
 
   // n- długoś word, m- długość wanted
-  // złożoność pamięciowa: n^2/2 + m^2/2 + m + 1
+  // złożoność pamięciowa: O(1)
   // złożoność czasowa: W(n)
 
 
@@ -35,7 +35,7 @@ object Lista4 {
     removeSpaceHelper(list, list.head, Nil)
 
   // k- długość listy "list"    m- długość string
-  // złożoność pamięciowa: 2l
+  // złożoność pamięciowa: W(k)
   // złożoność czasowa: W(m*k)
 
 //////////
@@ -73,7 +73,7 @@ object Lista4 {
     findHelper(xs, removeSpace(List(wanted)).head)
 
   // l- długość listy xs      m- długość wanted    n- długość string w liście xs
-  // złożoność pamięciowa: (n^2/2 + m^2/2 + m + 1) + (2l) + l^2/2
+  // złożoność pamięciowa: k + l^2/2
   // złożoność czasowa: W(m + n*l)
 
 
@@ -89,7 +89,7 @@ object Lista4 {
     findHelper(xs, removeSpace(List(wanted)).head, Nil)
 
   // l- długość listy xs      m- długość wanted    n- długość string w liście xs
-  // złożoność pamięciowa: W((n^2/2 + m^2/2 + m + 1) + (2l) + l^2/2 +l)
+  // złożoność pamięciowa: W(k + k + l + l)
   // złożoność czasowa: W(m + n*l)
 
 
@@ -102,10 +102,10 @@ object Lista4 {
         case (Nil, _) => Nil
 
     val wanted = removeSpace(wantedList)
-    findHelper(xs, removeSpace(wanted), wanted)
+    findHelper(xs, wanted, wanted)
 
   // l- długość listy xs    k- długość listy wantedList     m- długość wanted     n- długość string w liście xs
-  // złożoność pamięciowa: W((n^2/2 + m^2/2 + m + 1) + (2l) + l*(k^2))
+  // złożoność pamięciowa: W(k + k + l*(l+2k))
   // złożoność czasowa: W(m*k + n*l*k)
 
 
@@ -122,7 +122,7 @@ object Lista4 {
     findHelper(xs, wanted, wanted, Nil)
 
   // l- długość listy xs    k- długość listy wantedList     m- długość wanted     n- długość string w liście xs
-  // złożoność pamięciowa: W((n^2/2 + m^2/2 + m + 1) + (2l) + l*(k^2) + l)
+  // złożoność pamięciowa: W(k + k + l+k + l)
   // złożoność czasowa: W(m*k + n*l*k)
 
 
@@ -152,7 +152,7 @@ object Lista4 {
         case (_) => reverse(acc)
 
     joinListsHelper(xs, ys, zs, Nil)
-  //złożoność pamięciowa: n^2 + m^2 + l^2 + (n+m+l)^2/2
+  //złożoność pamięciowa: W(n + m + l + (n + m + l)^2/2)
   //złożoność czasowa: 2(n+m+l)
 
 
