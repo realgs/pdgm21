@@ -1,3 +1,5 @@
+import scala.annotation.tailrec
+
 object l4 {
 
   //custom reverse function
@@ -35,6 +37,7 @@ object l4 {
 
 
   def find_T[A](wordsList: List[String], patternsList: List[String]): List[String] =
+    @tailrec
     def iter[A](wordsList: List[String], patternsList: List[String], acc: List[String]): List[String] =
       (wordsList, patternsList) match
         case(Nil, _)    => reverse(acc)
@@ -52,6 +55,7 @@ object l4 {
       case(h :: t, _, _)     => h :: joinLists(t, l2, l3)
 
   def joinLists_T[A](l1: List[A], l2: List[A], l3: List[A]): List[A] =
+    @tailrec
     def iter[A](l1: List[A], l2: List[A], l3: List[A], acc: List[A]): List[A] =
       (l1, l2, l3) match
         case(Nil, Nil, Nil)    => reverse(acc)
