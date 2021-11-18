@@ -45,7 +45,7 @@ def connectLists[A] (firstList: List[A], secondList: List[A], thirdList: List[A]
   else
     Nil
 
-// Computational complexity = O(n)
+// Computational complexity = O(n^2) ???
 // Memory complexity = O(1)
 
 def connectListsTail[A] (firstList: List[A], secondList: List[A], thirdList: List[A]): List[A] =
