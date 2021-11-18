@@ -76,8 +76,7 @@ def listConcatenation[A] (firstList: List[A], secondList: List[A]): List[A] =
 // where n - first list lenght, m - second list lenght, k - third list lenght, r - result list lenght
 // Memory complexity = O(1)
 
-// But also doesnt it count function argument as memory too? so isnt it O(n + m + k + r) anyway?
-// I dont really understand memory complexity :(
+// But isn't listConcatenation call saved on stack too? so shouldn't it be O(n + m + k)?
 
 def connectListsTail[A] (firstList: List[A], secondList: List[A], thirdList: List[A]): List[A] =
   @tailrec
