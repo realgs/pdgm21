@@ -1,3 +1,5 @@
+import scala.annotation.tailrec
+
 object L4 {
 
   //obliczeniowa o(a+b+c)
@@ -81,15 +83,21 @@ object L4 {
     if pattern == "" then Nil
     else helper(phraseList, pattern, Nil)
   }
+
+
+
 //nFraz
+
+
+
 // obliceniowa n* o(contains)
 //pamieciowa o(1)
 //n- keyList
-  def contains2(word: String, keyList: List[String]): Boolean =
+  def containsNPhases(word: String, keyList: List[String]): Boolean =
   {
     keyList match {
       case Nil => false
-      case head :: tail => if head != "" && contains1(word, head,0,0) then true else contains2(word, tail)
+      case head :: tail => if head != "" && contains1(word, head,0,0) then true else containsNPhases(word, tail)
     }
   }
 
@@ -98,13 +106,13 @@ object L4 {
   // n - wordlist
 
 
-  def find2(wordList: List[String], keyList: List[String]): List[String] =
+  def findNPhases(wordList: List[String], keyList: List[String]): List[String] =
   {
     (wordList, keyList) match {
       case (Nil, _) => Nil
       case (_, Nil) => Nil
-      case (headWord :: tailWord, _) => if contains2(headWord, keyList) then headWord :: find2(tailWord, keyList)
-      else find2(tailWord, keyList)
+      case (headWord :: tailWord, _) => if containsNPhases(headWord, keyList) then headWord :: findNPhases(tailWord, keyList)
+      else findNPhases(tailWord, keyList)
     }
   }
 
@@ -113,14 +121,15 @@ object L4 {
   //n - wordList
 
 
-  def find2Tail(wordList: List[String], keyList: List[String]): List[String] =
+  def findNPhasesTail(wordList: List[String], keyList: List[String]): List[String] =
   {
+    @tailrec
     def helper(wordList: List[String], keyList: List[String], res: List[String]): List[String] =
     {
       (wordList, keyList) match {
         case (Nil, _) => reverse1(res)
         case (_, Nil) => reverse1(res)
-        case (headWord :: tailWord, _) => if contains2(headWord, keyList) then helper(tailWord, keyList, headWord::res)
+        case (headWord :: tailWord, _) => if containsNPhases(headWord, keyList) then helper(tailWord, keyList, headWord::res)
         else helper(tailWord, keyList, res)
       }
     }
@@ -130,9 +139,10 @@ object L4 {
 
 
   def main (args:Array[String]): Unit = {
-    print(joinListsTail(List(5,4,3,2),List(1,0),List(9)))
+    println(joinListsTail(List(5,4,3,2),List(1,0),List(9))==List(5, 4, 3, 2, 1, 0, 9))
     //print(contains1("aaabcaa","abc",0,0))
-    print(find1Tail(List("ala","lala","lalal","AKSwqdwdwdwdala","alslaleewew"),"ala")==List("ala", "lala", "lalal", "AKSwqdwdwdwdala"))
-    println(find2Tail(List("Stal", "Gorzów", "mistrzem", "Polski"), List("Gorzów", "mistrz")) == List("Gorzów", "mistrzem"))
+    println(find1Tail(List("ala","lala","lalal","AKSwqdwdwdwdala","alslaleewew"),"ala")==List("ala", "lala", "lalal", "AKSwqdwdwdwdala"))
+    println(findNPhasesTail(List("Gorzów", "to", "stolica","polski"), List("Gorzów", "stolica")) == List("Gorzów", "stolica"))
+    println(findNPhases(List("Ala", "ma", "kota", "a", "kot", "ma", "kuwete"), List("k", "e")) == List("kota", "kot", "kuwete"))
   }
 }
