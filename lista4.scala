@@ -3,10 +3,6 @@ import scala.annotation.tailrec
 
 //First task
 
-// I realise that its not an optimal approach and I will gladly try to optimise it
-// I used list concatenation because otherwise my ending list would have empty strings in it
-// Will try to fix it
-
 def find (queriedList: List[String], queryList: List[String]): List[String] =
   def wordIter (queried: String, query: String, foundWord: String): String =
     if queried == "" || query == "" then
@@ -16,16 +12,18 @@ def find (queriedList: List[String], queryList: List[String]): List[String] =
     else
       wordIter(queried.tail, query, foundWord)
 
-  def findIter (queried: String, queryList: List[String]): List[String] =
+  def findIter (queried: String, queryList: List[String]): String =
     if queryList != Nil && queryList.head != "" then
       if wordIter(queried, queryList.head, "") == queryList.head then
-        List(queried)
+        queried
       else
         findIter(queried, queryList.tail)
-    else Nil
+    else ""
 
   if queriedList != Nil then
-    findIter(queriedList.head, queryList) ::: find(queriedList.tail, queryList)
+    val found = findIter(queriedList.head, queryList)
+    if found != "" then found :: find(queriedList.tail, queryList)
+    else find(queriedList.tail, queryList)
   else
     Nil
 
@@ -54,11 +52,11 @@ def connectListsTail[A] (firstList: List[A], secondList: List[A], thirdList: Lis
   @tailrec
   def connectListsIter[A] (firstList: List[A], secondList: List[A], thirdList: List[A], resultList: List[A]): List[A] =
     if firstList != Nil then
-      connectListsIter(firstList.tail, secondList, thirdList, firstList.head :: resultList)
+      connectListsIter(firstList.tail, secondList, thirdList, resultList ::: firstList.head :: List())
     else if secondList != Nil then
-      connectListsIter(firstList, secondList.tail, thirdList, secondList.head :: resultList)
+      connectListsIter(firstList, secondList.tail, thirdList, resultList ::: secondList.head :: List())
     else if thirdList != Nil then
-      connectListsIter(firstList, secondList, thirdList.tail, thirdList.head :: resultList)
+      connectListsIter(firstList, secondList, thirdList.tail, resultList ::: thirdList.head :: List())
     else
       resultList
 
