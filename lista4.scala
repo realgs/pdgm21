@@ -6,8 +6,16 @@ import scala.annotation.tailrec
 // Computational complexity of wordIter O(n + m)
 // where n - queried word lenght, m - query word lenght
 // Memory complexity = O(n + m)
-// Computational complexity of findIter O(n + m)
+// Pesimistic approximate complexity of findIter O((n + m) * l)
+// where n - queried word lenght, m - query word lenght (will differ between iterations)
+// l - queryList lenght
+// Pesimistic approximate memory complexity O((n + m) * l)
 
+// Pesimistic approximate complexity of find O(((n + m) * l) * k + k)
+// where n - queried word lenght, m - query word lenght (will differ between iterations)
+// l - queryList lenght k - queriedList length
+// Pesimistic approximate memory complexity O(((n + m) * l) * k + k) + k
+// + k because of found variable but im not sure
 
 def find (queriedList: List[String], queryList: List[String]): List[String] =
   def wordIter (queried: String, query: String, foundWord: String): String =
@@ -19,7 +27,7 @@ def find (queriedList: List[String], queryList: List[String]): List[String] =
       wordIter(queried.tail, query, foundWord)
 
   def findIter (queried: String, queryList: List[String]): String =
-    if queryList != Nil then
+    if queryList != Nil && queryList.head != "" then
       if wordIter(queried, queryList.head, "") == queryList.head then
         queried
       else
@@ -68,6 +76,8 @@ def listConcatenation[A] (firstList: List[A], secondList: List[A]): List[A] =
 // where n - first list lenght, m - second list lenght, k - third list lenght, r - result list lenght
 // Memory complexity = O(1)
 
+// But also doesnt it count function argument as memory too? so isnt it O(n + m + k + r) anyway?
+// I dont really understand memory complexity :(
 
 def connectListsTail[A] (firstList: List[A], secondList: List[A], thirdList: List[A]): List[A] =
   @tailrec
