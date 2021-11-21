@@ -5,43 +5,53 @@ object list4 {
     if list!=Nil then reversing(list.tail):+list.head
     else Nil
   }
-  //tailrec
-  def find(list: List[String], toFind: String): List[String] = {
-    @tailrec
-    def finding(result: List[String], list1: List[String], toFind: String): List[String] = {
-      if list1 == Nil then result
-      else if list1.head.length >= toFind.length then if pattern(list1.head, toFind, 0) == toFind.length then finding(list1.head :: result, list1.tail, toFind) else finding(result, list1.tail, toFind)
-      else finding(result, list1.tail, toFind)
+  def find(list: List[String], patternList: List[String]): List[String]={
+    def checkElement(elem: String, pattern: String, orginalPattern: String): Boolean={
+      if elem.length < pattern.length then false
+      else if pattern=="" then true
+      else if elem.head==pattern.head then checkElement(elem.tail, pattern.tail, orginalPattern)
+      else if elem.head==orginalPattern.head then checkElement(elem.tail, orginalPattern.tail, orginalPattern)
+      else checkElement(elem.tail, orginalPattern, orginalPattern)
     }
-
-    def pattern(elm: String, patt: String, result: Int): Int = {
-      if patt.length == 0 then result
-      else if elm.length == 0 then result
-      else if elm.head == patt.head then pattern(elm.tail, patt.tail, result + 1)
-      else if elm.head == toFind.head then pattern(elm.tail, toFind.tail, 1)
-      else pattern(elm.tail, toFind, 0)
+    def checkElementwithPatterns(elem: String, patterns: List[String]): Boolean={
+      if patterns==Nil then false
+      else if checkElement(elem, patterns.head, patterns.head)==true then true
+      else checkElementwithPatterns(elem, patterns.tail)
     }
-
-    reversing(finding(List(), list, toFind))
+    def checkAllElements(toCheckList: List[String], patternList2: List[String], resultList: List[String]): List[String]={
+      toCheckList match {
+        case Nil=> resultList
+        case h::t =>if checkElementwithPatterns(h, patternList2)==true then checkAllElements(t, patternList2, h::resultList) else checkAllElements(t, patternList2, resultList)
+      }
+    }
+    checkAllElements(list, patternList, List())
   }
-  //zlozonosc obliczeniowa O(n^2)
-  //ze wzgledu na mnozenie dlugosci listy i dlugosci slowa
-  //zlozonosc pamieciowa O(1)
+  //zlozonosc obliczeniowa O(n^3)
+  //ze wzgledu na mnozenie dlugosci listy do sprawdzenia, dlugosc listy wzorcow i dlugosci slowa
+  //zlozonosc pamieciowa O(n)
   //ze wzgledu na rekursje ogonowa
 
   //without tailrec
-  def find2(list: List[String], toFind: String): List[String] = {
-    def pattern(elm: String, patt: String): Boolean = {
-      if patt.length == 0 then true
-      else if elm.length == 0 then false
-      else if elm.head == patt.head then pattern(elm.tail, patt.tail)
-      else if elm.head == toFind.head then pattern(elm.tail, toFind.tail)
-      else pattern(elm.tail, toFind)
+  def findNoTail(toCheckList: List[String], patternList: List[String]): List[String]={
+    def checkElement(elem: String, pattern: String, orginalPattern: String): Boolean={
+      if elem.length < pattern.length then false
+      else if pattern=="" then true
+      else if elem.head==pattern.head then checkElement(elem.tail, pattern.tail, orginalPattern)
+      else if elem.head==orginalPattern.head then checkElement(elem.tail, orginalPattern.tail, orginalPattern)
+      else checkElement(elem.tail, orginalPattern, orginalPattern)
     }
-    if list != Nil then if pattern(list.head, toFind) then list.head :: find2(list.tail, toFind) else find2(list.tail, toFind)
-    else Nil
+    def checkElementwithPatterns(elem: String, patterns: List[String]): Boolean={
+      if patterns==Nil then false
+      else if checkElement(elem, patterns.head, patterns.head)==true then true
+      else checkElementwithPatterns(elem, patterns.tail)
+    }
+    toCheckList match{
+      case Nil => Nil
+      case h::t =>if checkElementwithPatterns(h, patternList)==true then h::findNoTail(toCheckList.tail, patternList) else findNoTail(toCheckList.tail, patternList)
+    }
+
   }
-  //zlozonosc obliczeniowa O(n^2)
+  //zlozonosc obliczeniowa O(n^3)
   //taki sam przypadek co powyzej
   //zlozonosc pamieciowa O(n)
   //ze wzgledu na ::
@@ -75,13 +85,13 @@ object list4 {
   def main(args: Array[String]): Unit = {
     println("Find in list:")
     println("tail rec")
-    println(find(List("index0169", "iindex0168202", "iindex0168211", "iindex0168210", "iindex0169222", "index0169224"), "index0168"))
-    println(find(List("12", "12578", "11123", "9012334"), "123"))
-    println(find(List("k", "l", "m"), "m"))
+    println(find(List("index0169", "iindex0168202", "iindex0168211", "iindex0168210", "iindex0169222", "index0169224"), List("index0168")))
+    println(find(List("12", "12578", "11123", "9012334"), List("125", "34")))
+    println(find(List("anakonda", "kot", "ania", "oto", "mania"), List("ania", "ana")))
     println("rec")
-    println(find2(List("index0169", "iindex0168202", "iindex0168211", "iindex0168210", "iindex0169222", "index0169224"), "index0168"))
-    println(find2(List("12", "12578", "11123", "9012334"), "123"))
-    println(find2(List("k", "l", "m"), "m"))
+    println(findNoTail(List("index0169", "iindex0168202", "iindex0168211", "iindex0168210", "iindex0169222", "index0169224"), List("index0168")))
+    println(findNoTail(List("12", "12578", "11123", "9012334"), List("125", "34")))
+    println(findNoTail(List("anakonda", "kot", "ania", "oto", "mania"), List("ania", "ana")))
     println()
     println("Join list:")
     println("tail rec")
