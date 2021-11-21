@@ -1,3 +1,4 @@
+Termin oddania 18/22 listopada w zależności od grupy zajęciowej.
 Nie wolno stosować funkcji bibliotecznych (np. "length", "reverse", "append") o złożoności większej, niż O(1).
 Napisz funkcje przy użyciu rekurencji ogonowej i nieogonowej. Porównaj. Poproszę o konkretne złożoności do każdej implementacji z uzasadnieniem.
 
