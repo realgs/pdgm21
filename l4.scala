@@ -4,15 +4,15 @@ object l4 {
   def main(args: Array[String]): Unit = {}
 
   // 1
-  def subStr(originalSearched: String, originalWwanted: String): Boolean =
+  def subStr(originalSearched: String, originalWanted: String): Boolean =
     def subStrHelper(searched: String, wanted: String, nextToBeChecked: String): Boolean =
       (searched, wanted) match
         case (_, "") => true
         case ("", _) => false
         case (searched, wanted) => if searched.head == wanted.head then subStrHelper(searched.tail, wanted.tail, (if nextToBeChecked != "" then nextToBeChecked else searched.tail))
-                                   else if nextToBeChecked != "" then subStrHelper(nextToBeChecked, originalWwanted, "")
+                                   else if nextToBeChecked != "" then subStrHelper(nextToBeChecked, originalWanted, "")
                                    else subStrHelper(searched.tail, wanted, "")
-    subStrHelper(originalSearched, originalWwanted, "")
+    subStrHelper(originalSearched, originalWanted, "")
 
   def reverseList[A](list: List[A]): List[A] =
     def reverseListHelper[A](acc: List[A], l: List[A]): List[A] =
@@ -36,4 +36,21 @@ object l4 {
         case (indexesHead :: indexesTail, matchersHead :: matchersTail) => if matchersTail == Nil then findTHelper(indexesTail, originalMatchers, result) else findTHelper(indexes, matchersTail, result)
         case _ => reverseList(result)
     findTHelper(indexes, originalMatchers, Nil)
+
+  //2
+  def joinLists[A] (list1: List[A], list2: List[A], list3: List[A]): List[A] =
+    (list1, list2, list3) match
+      case (Nil, Nil, Nil) => Nil
+      case (h1::t1, _, _) => h1::joinLists(t1, list2, list3)
+      case (_, h2::t2, _) => h2::joinLists(Nil, t2, list3)
+      case (_, _, h3::t3) => h3::joinLists(Nil, Nil, t3)
+
+  def joinListsT[A] (list1: List[A], list2: List[A], list3: List[A]) =
+    def joinListsTHelper[A] (list1: List[A], list2: List[A], list3: List[A], joined: List[A]): List[A] =
+      (list1, list2, list3) match
+        case (Nil, Nil, Nil) => reverseList(joined)
+        case (h1::t1, _, _) => joinListsTHelper(t1, list2, list3, h1::joined)
+        case (_, h2::t2, _) => joinListsTHelper(Nil, t2, list3, h2::joined)
+        case (_, _, h3::t3) => joinListsTHelper(Nil, Nil, t3, h3::joined)
+    joinListsTHelper(list1, list2, list3, Nil)
 }
