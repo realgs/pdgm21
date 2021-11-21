@@ -115,14 +115,14 @@ object Lista4 {
 
   def joinListsTailrec[A](list1: List[A], list2: List[A], list3: List[A]): List[A] = {
     @tailrec
-    def tailrecHelper(list1: List[A], list2: List[A], list3: List[A], result: List[A]): List[A] = {
+    def helper(list1: List[A], list2: List[A], list3: List[A], result: List[A]): List[A] = {
       (list1, list2, list3) match
-        case (h::t, _, _) => tailrecHelper(t, list2, list3, h::result)
-        case (Nil, h::t, _) => tailrecHelper(Nil, t, list3, h::result)
-        case (Nil, Nil, h::t) => tailrecHelper(Nil, Nil, t, h::result)
+        case (h::t, _, _) => helper(t, list2, list3, h::result)
+        case (Nil, h::t, _) => helper(Nil, t, list3, h::result)
+        case (Nil, Nil, h::t) => helper(Nil, Nil, t, h::result)
         case (Nil, Nil, Nil) => result
     }
-    reverseList(tailrecHelper(list1, list2, list3, Nil))
+    reverseList(helper(list1, list2, list3, Nil))
   }
   /*
   n -> długość pierwszej listy, m -> długość drugiej listy, o -> długość trzeciej listy
