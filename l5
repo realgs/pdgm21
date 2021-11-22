@@ -14,7 +14,7 @@ Kolejnych pięć punktów uzyskasz przygotowując funkcję do przekształcenia l
 
    Punkty łącznie: 5 + 5
    
-3) Napisz funkcję generującą drzewo o głębokości N (liczba poziomów drzewa), zawierającą losowe liczby całkowite. Drzewo pełne.
+3) Napisz funkcję generującą drzewo o głębokości N (liczba poziomów drzewa), zawierającą losowe liczby rzeczywiste z przedziału (0,1). Drzewo pełne, proponuje binarne.
 
    Punkty: 3
 
