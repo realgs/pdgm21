@@ -6,6 +6,7 @@ object list4 {
     else Nil
   }
   def find(list: List[String], patternList: List[String]): List[String]={
+    @tailrec
     def checkElement(elem: String, pattern: String, orginalPattern: String): Boolean={
       if elem.length < pattern.length then false
       else if pattern=="" then true
@@ -29,7 +30,7 @@ object list4 {
   //zlozonosc obliczeniowa O(n^3)
   //ze wzgledu na mnozenie dlugosci listy do sprawdzenia, dlugosc listy wzorcow i dlugosci slowa
   //zlozonosc pamieciowa O(n)
-  //ze wzgledu na rekursje ogonowa
+  //ze wzgledu na rekursje ogonowa n- dlugosc listy wyjsciowej
 
   //without tailrec
   def findNoTail(toCheckList: List[String], patternList: List[String]): List[String]={
@@ -53,7 +54,7 @@ object list4 {
   }
   //zlozonosc obliczeniowa O(n^3)
   //taki sam przypadek co powyzej
-  //zlozonosc pamieciowa O(n)
+  //zlozonosc pamieciowa O(n^2)
   //ze wzgledu na ::
 
   //tailrec
@@ -68,7 +69,7 @@ object list4 {
   }
   //zlozonosc obliczeniowa O(n)
   //bedzie to suma dlugosci list2 i list3
-  //zlozonosc pamieciowa O(1)
+  //zlozonosc pamieciowa O(n)
   //ze wzgledu na rekursje ogonowa
 
   //without tailrec
@@ -79,7 +80,7 @@ object list4 {
   }
   //zlozonosc obliczeniowa O(n)
   //tak jak powyzej
-  //zlozonosc pamieciowa O(n)
+  //zlozonosc pamieciowa O(n^2)
   //ze wzgledu na laczenie list2 i list3
 
   def main(args: Array[String]): Unit = {
