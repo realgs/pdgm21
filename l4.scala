@@ -27,7 +27,7 @@ def findNTail(list: List[String], elements: List[String]): List[String] = {
       case Nil => false
   def checkElement(queue: List[String], matchList: List[String]): List[String] =
     queue match
-      case h :: t => if patternTail(h, elements.head) then checkElement(t, h :: matchList)
+      case h :: t => if patterns(h, elements) then checkElement(t, h :: matchList)
         else checkElement(t, matchList)
       case Nil => matchList
   if elements == Nil then Nil
