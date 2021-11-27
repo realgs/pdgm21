@@ -32,6 +32,87 @@ object List5 {
             case Empty => 1
     }
 
+    def reverse[A](list: List[A]): List[A] = {
+        def iter(list: List[A], acc: List[A]): List[A] = {
+            if list == Nil
+                then acc
+                else iter(list.tail, list.head :: acc)
+        }
+        iter(list, Nil)
+    }
+
+    def filter[A](list: List[A], predicate: A => Boolean): List[A] = {
+        def iter(list: List[A], acc: List[A]): List[A] = {
+            if list == Nil
+                then acc
+                else
+                    if predicate(list.head)
+                        then iter(list.tail, list.head :: acc)
+                        else iter(list.tail, acc)
+        }
+        reverse(iter(list, Nil))
+    }
+
+    def insert_elements[A](list: List[(A, Int)], index: Int): BT[A] = {
+        filter(list, (element, id) => id == index) match
+            case Nil => Empty
+            case (element, id) :: t =>
+                Node(
+                    element,
+                    insert_elements(list, index * 2),
+                    insert_elements(list, index * 2 + 1)
+                    )
+    }
+    
+    def reduce_indexes[A](list: List[(A, Int)], result: List[(A, Int)], indexes: Set[Int]): List[(A, Int)] = {
+        list match
+            case Nil => reverse(result)
+            case (element, 1) :: t => reduce_indexes(t, (element, 1) :: result, indexes + 1)
+            case (element, index) :: t =>
+                if indexes(index / 2)
+                    then reduce_indexes(t, (element, index) :: result, indexes + index)
+                    else reduce_indexes((element, index / 2) :: t, result, indexes)
+    }
+
+    def remove_duplicates[A](list: List[(A, Int)], result: List[(A, Int)], duplicates: Set[A]): List[(A, Int)] = {
+        list match
+            case Nil => reverse(result)
+            case (element, index) :: t =>
+                if duplicates(element)
+                    then remove_duplicates(t, result, duplicates)
+                    else remove_duplicates(t, (element, index) :: result, duplicates + element)
+    }
+
+    def remove_duplicates_bfs[A](tree: BT[A]): BT[A] = {
+        def bfs(subtree: (BT[A], Int), queue: List[(BT[A], Int)], result: List[(A, Int)]): List[(A, Int)] = {
+            (subtree, queue) match
+                case ((Node(v, left, right), id), h :: t) =>
+                    bfs(h, t ::: List((left, id * 2), (right, id * 2 + 1)), (v, id) :: result)
+                case ((Node(v, left, right), id), Nil) =>
+                    bfs((left, id * 2), List((right, id * 2 + 1)), (v, id) :: result)
+                case ((Empty, id), h :: t) =>
+                    bfs(h, t, result)
+                case ((Empty, id), Nil) =>
+                    reverse(result)
+        }
+        val tmp1 = bfs((tree, 1), Nil, Nil)
+        val tmp2 = remove_duplicates(tmp1, Nil, Set())
+        val tmp3 = reduce_indexes(tmp2, Nil, Set())
+        insert_elements(tmp3, 1)
+    }
+
+    def remove_duplicates_dfs[A](tree: BT[A]): BT[A] = {
+        def dfs(subtree: BT[A], result: List[(A, Int)], index: Int): List[(A, Int)] = {
+            subtree match
+                case Node(v, left, right) => (v, index) :: dfs(left, Nil, index * 2) ::: dfs(right, Nil, index * 2 + 1)
+                case Empty => Nil
+        }
+        val tmp1 = dfs(tree, Nil, 1)
+        val tmp2 = remove_duplicates(tmp1, Nil, Set())
+        val tmp3 = reduce_indexes(tmp2, Nil, Set())
+        insert_elements(tmp3, 1)
+    }
+
     def main(args: Array[String]): Unit = {
         println("test 1:")
         println(int_to_hex(16) == List(1, 0))
@@ -51,5 +132,44 @@ object List5 {
         val tree2 = generate_random_tree(2)
         val Node(v1, Node(v2, _, _), Node(v3, _, _)) = tree2
         println(v1 * v2 * v3 == tree_product(tree2))
+
+        println("test 5:")
+        println(remove_duplicates_dfs(Empty) == Empty)
+        println(remove_duplicates_bfs(Empty) == Empty)
+        val tree3 =
+            Node(1,
+                Node(1,
+                    Node(6, Empty, Empty),
+                    Node(5, Empty, Empty)),
+                Node(5,
+                    Node(6, Empty, Empty),
+                    Node(4, Empty, Empty))
+                )
+        println(remove_duplicates_dfs(tree3) == Node(1, Node(6, Empty, Node(5, Empty, Empty)), Node(4, Empty, Empty)))
+        println(remove_duplicates_bfs(tree3) == Node(1, Node(6, Empty, Empty), Node(5, Empty, Node(4, Empty, Empty))))
+        val tree4 =
+            Node(6,
+                Node(3,
+                    Node(4,
+                        Node(1, Empty, Empty),
+                        Node(5, Empty, Empty)
+                    ),
+                    Node(6,
+                        Node(6, Empty, Empty),
+                        Empty
+                    )
+                ),
+                Node(3,
+                    Node(2,
+                        Node(3, Empty, Empty),
+                        Node(1, Empty, Empty)
+                    ),
+                    Node(6,
+                        Node(3, Empty, Empty),
+                        Empty
+                    )
+                )
+            )
+        println(remove_duplicates_bfs(tree4) == remove_duplicates_dfs(tree4))
     }
 }
