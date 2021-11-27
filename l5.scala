@@ -1,3 +1,5 @@
+import scala.annotation.tailrec
+
 object List5 {
 
     sealed trait BT[+A]
@@ -5,6 +7,7 @@ object List5 {
     case class Node[+A](elem: A, left: BT[A], right: BT[A]) extends BT[A]
 
     def int_to_hex(number: Int): List[Int] = {
+        @tailrec
         def iter(num: Int, list: List[Int]): List[Int] =
             if num == 0
                 then list
@@ -13,6 +16,7 @@ object List5 {
     }
 
     def int_to_base(number: Int, base: Int): List[Int] = {
+        @tailrec
         def iter(num: Int, list: List[Int]): List[Int] =
             if num == 0
                 then list
@@ -33,6 +37,7 @@ object List5 {
     }
 
     def reverse[A](list: List[A]): List[A] = {
+        @tailrec
         def iter(list: List[A], acc: List[A]): List[A] = {
             if list == Nil
                 then acc
@@ -42,6 +47,7 @@ object List5 {
     }
 
     def filter[A](list: List[A], predicate: A => Boolean): List[A] = {
+        @tailrec
         def iter(list: List[A], acc: List[A]): List[A] = {
             if list == Nil
                 then acc
@@ -52,18 +58,19 @@ object List5 {
         }
         reverse(iter(list, Nil))
     }
-
-    def insert_elements[A](list: List[(A, Int)], index: Int): BT[A] = {
+    
+    def make_tree[A](list: List[(A, Int)], index: Int): BT[A] = {
         filter(list, (element, id) => id == index) match
             case Nil => Empty
             case (element, id) :: t =>
                 Node(
                     element,
-                    insert_elements(list, index * 2),
-                    insert_elements(list, index * 2 + 1)
+                    make_tree(list, index * 2),
+                    make_tree(list, index * 2 + 1)
                     )
     }
     
+    @tailrec
     def reduce_indexes[A](list: List[(A, Int)], result: List[(A, Int)], indexes: Set[Int]): List[(A, Int)] = {
         list match
             case Nil => reverse(result)
@@ -74,6 +81,7 @@ object List5 {
                     else reduce_indexes((element, index / 2) :: t, result, indexes)
     }
 
+    @tailrec
     def remove_duplicates[A](list: List[(A, Int)], result: List[(A, Int)], duplicates: Set[A]): List[(A, Int)] = {
         list match
             case Nil => reverse(result)
@@ -82,8 +90,9 @@ object List5 {
                     then remove_duplicates(t, result, duplicates)
                     else remove_duplicates(t, (element, index) :: result, duplicates + element)
     }
-
+    
     def remove_duplicates_bfs[A](tree: BT[A]): BT[A] = {
+        @tailrec
         def bfs(subtree: (BT[A], Int), queue: List[(BT[A], Int)], result: List[(A, Int)]): List[(A, Int)] = {
             (subtree, queue) match
                 case ((Node(v, left, right), id), h :: t) =>
@@ -98,7 +107,7 @@ object List5 {
         val tmp1 = bfs((tree, 1), Nil, Nil)
         val tmp2 = remove_duplicates(tmp1, Nil, Set())
         val tmp3 = reduce_indexes(tmp2, Nil, Set())
-        insert_elements(tmp3, 1)
+        make_tree(tmp3, 1)
     }
 
     def remove_duplicates_dfs[A](tree: BT[A]): BT[A] = {
@@ -110,7 +119,7 @@ object List5 {
         val tmp1 = dfs(tree, Nil, 1)
         val tmp2 = remove_duplicates(tmp1, Nil, Set())
         val tmp3 = reduce_indexes(tmp2, Nil, Set())
-        insert_elements(tmp3, 1)
+        make_tree(tmp3, 1)
     }
 
     def main(args: Array[String]): Unit = {
