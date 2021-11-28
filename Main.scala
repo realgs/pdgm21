@@ -1,67 +1,141 @@
-package mb
-
-import scala.annotation.tailrec
+import scala.util.Random
 
 object Main {
 
-  //task 1
-
-  def findPattern(listOfTexts: List[String], pattern: String): List[String] = {
-    listOfTexts match
-      case Nil => List()
-      case head :: tail => if containsPattern(head, pattern) then head :: findPattern(tail, pattern) else findPattern(tail, pattern)
-  }
-
-
-  def findPatternTail(listOfTexts: List[String], pattern: String): List[String] = {
-    @tailrec
-    def findPatternTailInner(listOfTexts: List[String], resultList: List[String]): List[String] =
-      listOfTexts match
-        case Nil => resultList
-        case head :: tail => if containsPattern(head, pattern) then findPatternTailInner(tail, head :: resultList) else findPatternTailInner(tail, resultList)
-    reverseList(findPatternTailInner(listOfTexts, List()))
-  }
-
-
-  def findPatterns(listOfTexts: List[String], patterns: List[String]): List[String] = {
-      listOfTexts match
-        case Nil => List()
-        case head :: tail => if containsPatterns(head, patterns) then head :: findPatterns(tail, patterns) else findPatterns(tail, patterns)
-  }
-
- 
-  def findPatternsTail(listOfTexts: List[String], patterns: List[String]): List[String] = {
-    @tailrec
-      def findPatternsTailInner(listOfTexts: List[String], resultList: List[String]): List[String] =
-        listOfTexts match
-          case Nil => resultList
-          case head :: tail => if containsPatterns(head, patterns) then findPatternsTailInner(tail, head :: resultList) else findPatternsTailInner(tail, resultList)
-      reverseList(findPatternsTailInner(listOfTexts, List()))
-  }
-
-
-  def containsPatterns(investigatedText: String, patterns: List[String]): Boolean = {
-    patterns match
-      case Nil => false
-      case head :: tail => if !containsPattern(investigatedText, head) then containsPatterns(investigatedText, tail) else true
-  }
-
- 
-  def containsPattern(investigatedText: String, patternText: String): Boolean = {
-    if patternText.isEmpty then false else {
-      @tailrec
-      def containsPatternInner(text: String, pattern: String, textTail: String): Boolean =
-        (text, pattern) match
-          case (_, "") => true
-          case ("", _) => false
-          case _ => if text.head == pattern.head then containsPatternInner(text.tail, pattern.tail, textTail) else containsPatternInner(textTail.tail, patternText, textTail.tail)
-      containsPatternInner(investigatedText, patternText, investigatedText)
+/*
+  def findNumberList(number: Int): List[Any] = {
+    def findList(number: Int, numberList: List[Any]): List[Any] = {
+      number match
+        case 0 => numberList
+        case _ => number % 16 match
+          case 10 => findList(number/16, "A" :: numberList)
+          case 11 => findList(number/16, "B" :: numberList)
+          case 12 => findList(number/16, "C" :: numberList)
+          case 13 => findList(number/16, "D" :: numberList)
+          case 14 => findList(number/16, "E" :: numberList)
+          case 15 => findList(number/16, "F" :: numberList)
+          case _ => findList(number/16, java.lang.Math.floorMod(number, 16) :: numberList)
     }
+    findList(number, List())
+  }
+*/
+
+  //zadanie 1
+
+  def findNumber16(number: Int): List[Any] = {
+    def findList(number: Int, numberList: List[Any]): List[Any] =
+      number match
+        case 0 => numberList
+        case _ => findList(number/16, (number % 16) :: numberList)
+    findList(number/16, (number % 16) :: List())
   }
 
+  //zadanie 2
+
+  def findNumberAnySystem(number: Int, system: Int): List[Any] = {
+    def findList(number: Int, numberList: List[Any]): List[Any] =
+      number match
+        case 0 => numberList
+        case _ => findList(number/system, (number%system) :: numberList)
+    findList(number/system, (number%system) :: List())
+  }
+
+  // zadanie 3
+
+  sealed trait BinaryTree[+A]
+    case object Empty extends BinaryTree[Nothing]
+    case class Node[+A](element: A, left: BinaryTree[A], right: BinaryTree[A]) extends BinaryTree[A]
+
+  val r = scala.util.Random
+
+  def generateBinaryTree(depth : Int): BinaryTree[Double] = {
+    depth match
+      case 0 => Empty
+      case _ => Node(r.nextFloat, generateBinaryTree(depth - 1), generateBinaryTree(depth - 1))
+  }
+
+  // zadanie 4
+
+  def treeElementsMultiplication(tree: BinaryTree[Double]): Double = {
+    def treeElementsMultiplicationInner(toVisit: BinaryTree[Double], result: Double): Double =
+      toVisit match
+        case Empty => result
+        case Node(value, leftSubtree, rightSubtree) => treeElementsMultiplicationInner(leftSubtree, treeElementsMultiplicationInner(rightSubtree, value * result))
+    treeElementsMultiplicationInner(tree, 1.0)
+  }
+
+  /*
+  def treeElementsMultiplication(tree: BinaryTree[Double]): Double = {
+    tree match
+      case Node(value, Empty, Empty) => value
+      case Node(value, leftSubtree, rightSubtree) => value * treeElementsMultiplication2(leftSubtree) * treeElementsMultiplication2(rightSubtree)
+      case Empty => 1.0
+  }
+  */
+
+  // zadanie 5
+
+  def deleteDuplicateDfs(tree: BinaryTree[Double]): BinaryTree[Double]  = {
+    def deleteDuplicateInner(toVisit: List[(Double, Int)], visited: List[(Double, Int)], nodeValues: List[Double], visitedNodesSum: Double): List[(Double, Int)] =
+      toVisit match
+        case Nil => visited
+        case (head, id) :: tail => if nodeValues contains head then deleteDuplicateInner(tail, (visitedNodesSum, id) :: visited, visitedNodesSum :: nodeValues, visitedNodesSum + head) else deleteDuplicateInner(tail, (head, id) :: visited, head :: nodeValues, visitedNodesSum + head)
+    buildTreeFromList(deleteDuplicateInner(dfs(tree), List(), List(),0), 1)
+  }
+
+  def dfs(tree: BinaryTree[Double]): List[(Double, Int)]  = {
+    def dfsInner(toVisit: BinaryTree[Double], visited: List[(Double, Int)], id: Int): List[(Double, Int)] =
+      toVisit match
+        case Empty => visited
+        case Node(value, leftSubtree, rightSubtree) => dfsInner(rightSubtree, dfsInner(leftSubtree, (value, id) :: visited, id*2), 2*id + 1)
+    dfsInner(tree, Nil, 1)
+  }
+
+
+
+  def deleteDuplicateBfs(tree: BinaryTree[Double]): BinaryTree[Double]  = {
+    def deleteDuplicateInner(toVisit: List[(Double, Int)], visited: List[(Double, Int)], nodeValues: List[Double], visitedNodesSum: Double): List[(Double, Int)] =
+      toVisit match
+        case Nil => visited
+        case (head, id) :: tail => if nodeValues contains head then deleteDuplicateInner(tail, (visitedNodesSum, id) :: visited, visitedNodesSum :: nodeValues, visitedNodesSum + head) else deleteDuplicateInner(tail, (head, id) :: visited, head :: nodeValues, visitedNodesSum + head)
+    buildTreeFromList(deleteDuplicateInner(bfs(tree), List(), List(), 0), 1)
+  }
+
+  def bfs(tree: BinaryTree[Double]): List[(Double, Int)] = {
+    def bfsInner(treeNodesList: List[BinaryTree[Double]], visited: List[(Double, Int)], id: Int): List[(Double, Int)] =
+      treeNodesList match
+        case Nil => visited
+        case Empty :: tail => bfsInner(tail, visited, id + 1)
+        case Node(value, leftSubtree, rightSubtree) :: tail => bfsInner(tail ::: List(leftSubtree, rightSubtree), (value, id) :: visited, id + 1)
+    reverseList(bfsInner(List(tree), Nil, 1))
+  }
+
+  /*
+  def bfs(tree: BinaryTree[Double]): List[(Double, Int)] = {
+    def bfsInner(treeNodesList: List[BinaryTree[Double]], id: Int): List[(Double, Int)] =
+      treeNodesList match
+        case Nil => Nil
+        case Empty :: tail => bfsInner(tail, id + 1)
+        case Node(value, leftSubtree, rightSubtree) :: tail => (value, id) :: bfsInner(tail ::: List(leftSubtree, rightSubtree), id + 1)
+    bfsInner(List(tree), 1)
+  }
+*/
+
+
+
+  def buildTreeFromList(nodeList: List[(Double, Int)], index: Int): BinaryTree[Double] = {
+    findNextNode(nodeList, (value, id) => id == index) match
+      case -1 => Empty
+      case value => Node(value, buildTreeFromList(nodeList, index*2), buildTreeFromList(nodeList, index*2 + 1))
+  }
+
+  def findNextNode(nodeList: List[(Double, Int)], predicate: (Double, Int) => Boolean): Double = {
+    nodeList match
+      case Nil => -1
+      case (value, id) :: tail => if predicate(value, id) then value else findNextNode(tail, predicate)
+  }
 
   def reverseList[A](list: List[A]): List[A] = {
-    @tailrec
     def reverseListInner(newList: List[A], oldList: List[A]): List[A] =
       oldList match
         case Nil => newList
@@ -69,114 +143,41 @@ object Main {
     reverseListInner(Nil, list)
   }
 
-//KNP
 
-def KNPAlgorithm(text: String, pattern: String): Int = {
-  val KNP = createKNPTable(pattern)
+  def main(args: Array[String]): Unit = {
+    println("test 1")
+    println(findNumber16(31) == List(1, 15))
+    println(findNumber16(5) == List(5))
+    println(findNumber16(50) == List(3, 2))
+    println(findNumber16(0) == List(0))
 
-  def indicatePattern(prefixLength: Int, position: Int): Int =
-    if prefixLength + position < text.length then
-      if pattern(position) == text(prefixLength + position) then
-        if position == pattern.length - 1 then prefixLength else indicatePattern(prefixLength, position + 1)
-      else
-        if KNP(position) > -1 then indicatePattern(prefixLength + position - KNP(position), KNP(position)) else indicatePattern(prefixLength + 1, 0)
-    else -1
-  indicatePattern(0, 0)
-}
+    println("\ntest 2")
+    println(findNumberAnySystem(0, 5) == List(0))
+    println(findNumberAnySystem(31, 16) == List(1, 15))
+    println(findNumberAnySystem(9, 2) == List(1, 0, 0, 1))
+    println(findNumberAnySystem(10, 3) == List(1, 0, 1))
 
-def createKNPTable(pattern: String): Array[Int] = {
-  val KNPTable = fillWithZero(pattern.length)
-  KNPTable(0) = -1
+    println("\ntest 3")
+    println(generateBinaryTree(0))
+    println(generateBinaryTree(1))
+    println(generateBinaryTree(2))
+    println(generateBinaryTree(3))
 
-  def findKNPValues(position: Int, length: Int): Array[Int] =
-    if position >= pattern.length then KNPTable else
-      if pattern(position - 1) == pattern(length) then
-        KNPTable(position) = length + 1
-        findKNPValues(position + 1, length + 1)
-      else if length > 0 then findKNPValues(position, KNPTable(length))
-      else
-        KNPTable(position) = 0
-        findKNPValues(position + 1, length)
-  findKNPValues(2, 0)
-}
+    println("\ntest 4")
+    println(treeElementsMultiplication(Node(0.5, Node(0.5, Empty, Empty), Node(0.5, Empty, Empty))) == 0.125)
+    println(treeElementsMultiplication(Node(0.5, Node(0.5, Node(0.5, Empty, Empty), Node(0.5, Empty, Empty)), Node(0.5, Node(0.5, Empty, Empty), Node(0.5, Empty, Empty)))) == 0.0078125)
+    println(treeElementsMultiplication(Node(0.5, Empty, Empty)) == 0.5)
 
-def fillWithZero(length: Int): Array[Int] = {
-  val array = Array.ofDim[Int](length)
-  def fill(remainingNumberOfZerosToAdd: Int, arrayOfZero: Array[Int]): Array[Int] =
-    remainingNumberOfZerosToAdd match
-      case 0 => arrayOfZero
-      case _ =>  arrayOfZero(remainingNumberOfZerosToAdd) = 0
-                 fill(remainingNumberOfZerosToAdd - 1, arrayOfZero)
-  fill(length - 1, array)
-}
+    println("\ntest 5 dfs")
+    println(deleteDuplicateDfs(Node(1, Node(2, Node(4, Empty, Empty), Node(5, Empty, Empty)), Node(5, Node(2, Empty, Empty), Node(6, Empty, Empty)))) == Node(1.0,Node(22.0,Node(4.0,Empty,Empty),Node(13.0,Empty,Empty)),Node(5.0,Node(2.0,Empty,Empty),Node(6.0,Empty,Empty))))
+    println(deleteDuplicateDfs(Node(1, Node(2, Node(4, Empty, Empty), Node(7, Empty, Empty)), Node(3, Node(2, Empty, Node(6, Empty, Empty)), Empty))) == Node(1.0,Node(22.0,Node(4.0,Empty,Empty),Node(7.0,Empty,Empty)),Node(3.0,Node(2.0,Empty,Node(6.0,Empty,Empty)),Empty)))
+    println(deleteDuplicateDfs(Node(1, Node(2, Node(4, Node(5, Empty, Empty), Empty), Node(7, Empty, Empty)), Node(5, Node(2, Empty, Node(6, Empty, Empty)), Empty))) == Node(1.0,Node(29.0,Node(4.0,Node(20.0,Empty,Empty),Empty),Node(7.0,Empty,Empty)),Node(5.0,Node(2.0,Empty,Node(6.0,Empty,Empty)),Empty)))
+    println(deleteDuplicateDfs(Node(1, Empty, Empty)) == Node(1.0,Empty,Empty))
 
-
-  //task 2
-
-  def add3Lists[T](list1: List[T], list2: List[T], list3: List[T]): List[T] = {
-      (list1, list2) match
-        case (head1 :: tail1, list2) => head1 :: add3Lists(tail1, list2, list3)
-        case (Nil, head2 :: tail2) => head2 :: add3Lists(Nil, tail2, list3)
-        case (Nil, Nil) => list3
+    println("\ntest 5 bfs")
+    println(deleteDuplicateBfs(Node(1, Node(2, Node(4, Empty, Empty), Node(5, Empty, Empty)), Node(5, Node(2, Empty, Empty), Node(6, Empty, Empty)))) == Node(1.0,Node(2.0,Node(4.0,Empty,Empty),Node(12.0,Empty,Empty)),Node(5.0,Node(17.0,Empty,Empty),Node(6.0,Empty,Empty))))
+    println(deleteDuplicateBfs(Node(1, Node(2, Node(4, Empty, Empty), Node(7, Empty, Empty)), Node(3, Node(2, Empty, Node(6, Empty, Empty)), Empty))) == Node(1.0,Node(2.0,Node(4.0,Empty,Empty),Node(7.0,Empty,Empty)),Node(3.0,Node(17.0,Empty,Node(6.0,Empty,Empty)),Empty)))
+    println(deleteDuplicateBfs(Node(1, Node(2, Node(4, Node(5, Empty, Empty), Empty), Node(7, Empty, Empty)), Node(5, Node(2, Empty, Node(6, Empty, Empty)), Empty))) == Node(1.0,Node(2.0,Node(4.0,Node(21.0,Empty,Empty),Empty),Node(7.0,Empty,Empty)),Node(5.0,Node(19.0,Empty,Node(6.0,Empty,Empty)),Empty)))
+    println(deleteDuplicateBfs(Node(1, Empty, Empty)) == Node(1.0,Empty,Empty))
   }
-
-	
-  def add3ListsTail[T](list1: List[T], list2: List[T], list3: List[T]): List[T] = {
-      @tailrec
-      def add[T](newList: List[T], list1: List[T], list2: List[T], list3: List[T]): List[T] =
-        (list1, list2, list3) match
-          case (head1 :: tail1, list2, list3) => add(head1 :: newList, tail1, list2, list3)
-          case (Nil, head2 :: tail2, list3) => add(head2 :: newList, Nil, tail2, list3)
-          case (Nil, Nil, head3 :: tail3) => add(head3 :: newList, Nil, Nil, tail3)
-          case _ => newList
-      reverseList(add(List(), list1, list2, list3))
-  }
-
-   def main(args: Array[String]): Unit = {
-
-     //task 1a tests
-     println(findPattern(List("ABCD", "ADCD"), "") == List())
-     println(findPattern(List("ABCD", ""), "BC") == List("ABCD"))
-     println(findPattern(List("ABCD", "ADCD"), "BC") == List("ABCD"))
-     println(findPattern(List("ABCD", "ADBC", "A", "BC"), "BC") == List("ABCD", "ADBC", "BC"))
-     println(findPattern(List("ABCD", "ADBC"), "LD") == List())
-     println(findPattern(List("ABCD", "ADBC"), "LD") == List())
-     println(findPattern(List("index0169", "index0168202", "index0168211", "index0168210", "index0169222", "index0169224"), "index0168") == List("index0168202", "index0168211", "index0168210"))
-     println()
-
-     println(findPatternTail(List("ABCD", "ADCD"), "BC") == List("ABCD"))
-     println(findPatternTail(List("ABCD", "ADBC", "A", "BC"), "BC") == List("ABCD", "ADBC", "BC"))
-     println(findPatternTail(List("ABCD", "ADBC"), "LD") == List())
-     println(findPatternTail(List("ABCD", "ADBC"), "LD") == List())
-     println(findPatternTail(List("index0169", "index0168202", "index0168211", "index0168210", "index0169222", "index0169224"), "index0168") == List("index0168202", "index0168211", "index0168210"))
-     println()
-
-     //task 1b tests
-     println(findPatterns(List("ABCD", "ADCD"), List("BC")) == List("ABCD"))
-     println(findPatterns(List("ABCD", "ADBC", "A", "BC", "ADA"), List("BC", "AD")) == List("ABCD", "ADBC", "BC", "ADA"))
-     println(findPatterns(List("ABCD", "ADBC"), List("BC", "AD")) == List("ABCD", "ADBC"))
-     println(findPatterns(List("ABCD", "ADBC"), List("LD", "GB")) == List())
-     println()
-
-     println(findPatternsTail(List("ABCD", "ADCD"), List("BC")) == List("ABCD"))
-     println(findPatternsTail(List("ABCD", "ADBC", "A", "BC", "ADA"), List("BC", "AD")) == List("ABCD", "ADBC", "BC", "ADA"))
-     println(findPatternsTail(List("ABCD", "ADBC"), List("BC", "AD")) == List("ABCD", "ADBC"))
-     println(findPatternsTail(List("ABCD", "ADBC"), List("LD", "GB")) == List())
-     println()
-
-     //task 2a tests
-     println(add3Lists(List(), List(), List()) == List())
-     println(add3Lists(List(1, 2), List(), List(3)) == List(1, 2,3))
-     println(add3Lists(List(1), List(2, 3), List(4)) == List(1, 2, 3, 4))
-     println(add3Lists(List(5, 4, 3, 2), List(1, 0), List(9)) == List(5, 4, 3, 2, 1, 0, 9))
-     println()
-
-     //task 2b tests
-     println(add3ListsTail(List(), List(), List()) == List())
-     println(add3ListsTail(List(1, 2), List(), List(3)) == List(1, 2, 3))
-     println(add3ListsTail(List(1), List(2, 3), List(4)) == List(1, 2, 3, 4))
-     println(add3ListsTail(List(5, 4, 3, 2), List(1, 0), List(9)) == List(5, 4, 3, 2, 1, 0, 9))
-   }
 }
-
-
