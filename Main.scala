@@ -81,17 +81,12 @@ object Main {
         case Empty => Empty
         case Node(key, leftNode, rightNode) =>
           if duplicates.contains(key) then {
-            val lNode = findReplacement(node)
-            val rNode = findReplacement(node)
+            val replaceNode = findReplacement(node, 0)(0)
             // We add keys to duplicates to avoid multiplying nodes later
-            (lNode, rNode) match {
-              case (Empty, Empty) => Empty
-              case (Empty, Node(key, _, _)) => {
-                duplicates.add(key)
-                Node(key, removeDuplicates(leftNode), removeDuplicates(rightNode))
-              }
-              case (Node(key, _, _), _) => {
-                duplicates.add(key)
+            replaceNode match {
+              case Empty => Empty
+              case Node(key, _, _) => {
+                duplicates += key
                 Node(key, removeDuplicates(leftNode), removeDuplicates(rightNode))
               }
             }
@@ -100,20 +95,20 @@ object Main {
       }
     }
 
-    // Find a replacement value (we go down to the leaf while trying to avoid duplicate values)
-    // Rewrite this function
-    def findReplacement(node: BT[A]): BT[A] = {
+    // Find a replacement value (the replaced value will be the lowest located leaf below the node)
+    def findReplacement(node: BT[A], depth: Int): (BT[A], Int) = {
       node match {
-        case Empty => Empty
+        case Empty => (Empty, -1)
+        case Node(key, Empty, Empty) if duplicates.contains(key) => (Empty, -1)
+        case Node(key, Empty, Empty) => (node, depth)
+        case Node(key, Empty, rightNode) => findReplacement(rightNode, depth+1)
+        case Node(key, leftNode, Empty) => findReplacement(leftNode, depth+1)
         case Node(key, leftNode, rightNode) => {
-          val lNode = findReplacement(leftNode)
-          val rNode = findReplacement(rightNode)
-          if duplicates.contains(key) && lNode == Empty && rNode == Empty then Empty
-          else if lNode == Empty && rNode == Empty then node
-          else if lNode == Empty then rNode
-          else lNode
+          val lNodeWithDepth = findReplacement(leftNode, depth+1)
+          val rNodeWithDepth = findReplacement(rightNode, depth+1)
+          if rNodeWithDepth(1) > lNodeWithDepth(1) then rNodeWithDepth
+          else lNodeWithDepth
         }
-
       }
     }
 
@@ -142,17 +137,12 @@ object Main {
         case Empty => Empty
         case Node(key, leftNode, rightNode) =>
           if duplicates.contains(key) then {
-            val lNode = findReplacement(node)
-            val rNode = findReplacement(node)
+            val replaceNode = findReplacement(node, 0)(0)
             // We add keys to duplicates to avoid multiplying nodes later
-            (lNode, rNode) match {
-              case (Empty, Empty) => Empty
-              case (Empty, Node(key, _, _)) => {
-                duplicates.add(key)
-                Node(key, removeDuplicates(leftNode), removeDuplicates(rightNode))
-              }
-              case (Node(key, _, _), _) => {
-                duplicates.add(key)
+            replaceNode match {
+              case Empty => Empty
+              case Node(key, _, _) => {
+                duplicates += key
                 Node(key, removeDuplicates(leftNode), removeDuplicates(rightNode))
               }
             }
@@ -161,20 +151,20 @@ object Main {
       }
     }
 
-    // Find a replacement value (we go down to the leaf while trying to avoid duplicate values)
-    // Rewrite this function
-    def findReplacement(node: BT[A]): BT[A] = {
+    // Find a replacement value (the replaced value will be the lowest located leaf below the node)
+    def findReplacement(node: BT[A], depth: Int): (BT[A], Int) = {
       node match {
-        case Empty => Empty
+        case Empty => (Empty, -1)
+        case Node(key, Empty, Empty) if duplicates.contains(key) => (Empty, -1)
+        case Node(key, Empty, Empty) => (node, depth)
+        case Node(key, Empty, rightNode) => findReplacement(rightNode, depth+1)
+        case Node(key, leftNode, Empty) => findReplacement(leftNode, depth+1)
         case Node(key, leftNode, rightNode) => {
-          val lNode = findReplacement(leftNode)
-          val rNode = findReplacement(rightNode)
-          if duplicates.contains(key) && lNode == Empty && rNode == Empty then Empty
-          else if lNode == Empty && rNode == Empty then node
-          else if lNode == Empty then rNode
-          else lNode
+          val lNodeWithDepth = findReplacement(leftNode, depth+1)
+          val rNodeWithDepth = findReplacement(rightNode, depth+1)
+          if rNodeWithDepth(1) > lNodeWithDepth(1) then rNodeWithDepth
+          else lNodeWithDepth
         }
-
       }
     }
 
@@ -209,7 +199,7 @@ object Main {
     val tree4 = Node(1, Node(2, Node(3, Node(4, Node(10, Node(3, Empty, Empty), Node(15, Empty, Empty)),
       Node(11, Empty, Empty)), Node(7, Empty, Empty)), Node(9, Node(5, Empty, Empty), Node(6, Empty, Empty))),
       Node(3, Node(3, Empty, Empty), Empty))
-    val tree5 = Node(1, Node(1, Empty, Empty), Empty)
+    val tree5 = Node(1, Node(2, Empty, Empty), Node(1, Node(3, Empty, Empty), Node(4, Empty, Empty)))
     val tree6 = Empty
 
     println(removeDuplicatesDFS(tree4))
