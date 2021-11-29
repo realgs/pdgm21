@@ -12,6 +12,15 @@ object list5 {
     }
     decToHexHelp(dec).reverse
   }
+
+  def decToHexBetter(dec: Int): List[Int]={
+    @tailrec
+    def decToHexBetterHel(dec2: Int, list: List[Int]): List[Int]={
+      if dec2<16 then list
+      else decToHexBetterHel(dec2/16, dec2%16::list)
+    }
+    decToHexBetterHel(dec, List()).reverse
+  }
   //zadanie 1 - mod
   def decToAny(dec:Int, sys:Int):List[Int]={
     def decToAnyHelp(dec:Int):List[Int]={
@@ -19,6 +28,15 @@ object list5 {
       else dec % sys ::decToAnyHelp(dec / sys)
     }
     decToAnyHelp(dec).reverse
+  }
+
+  def decToAnyBetter(dec:Int, sys:Int):List[Int]={
+    @tailrec
+    def decToAnyHelp(dec2:Int, list: List[Int]):List[Int]={
+      if dec2<sys then list
+      else decToAnyHelp(dec2/sys, dec2%sys::list)
+    }
+    decToAnyHelp(dec, List()).reverse
   }
   //zadanie 3
   sealed trait BT[+A]
@@ -151,10 +169,10 @@ object list5 {
   }
 
   def main(args: Array[String]): Unit = {
-    println(decToHex(31))
-    println(decToHex(100))
-    println(decToAny(31, 16))
-    println(decToAny(100,4))
+    println(decToHexBetter(31))
+    println(decToHexBetter(100))
+    println(decToAnyBetter(31, 16))
+    println(decToAnyBetter(100,4))
     println(breadthBT(createTree(3, 0, 1)))
     val t = createTree(3, 0, 1)
     println(breadthBT(t))
