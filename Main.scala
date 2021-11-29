@@ -22,12 +22,14 @@ object Main {
   }
 
   def convertFromDecimalToOtherSystem(decimalNumberAndSystem: List[Int]): List[Int] = {
+    @tailrec
     def convertFromDecimalToOtherSystemInner(decimalNumber: Int, system: Int, number: List[Int]): List[Int] = {
       if decimalNumber == 0 then number
       else convertFromDecimalToOtherSystemInner(decimalNumber / system, system, decimalNumber % system :: number)
     }
 
-    if decimalNumberAndSystem(0) == 0 then List(0)
+    if decimalNumberAndSystem(0) < 0 then -1 :: convertFromDecimalToOtherSystemInner(-1 * decimalNumberAndSystem(0), decimalNumberAndSystem(1), Nil)
+    else if decimalNumberAndSystem(0) == 0 then List(0)
     else convertFromDecimalToOtherSystemInner(decimalNumberAndSystem(0), decimalNumberAndSystem(1), Nil)
   }
 
@@ -180,6 +182,7 @@ object Main {
     println(convertFromDecimalToOtherSystem(List(31, 16)) == List(1, 15))
     println(convertFromDecimalToOtherSystem(List(12, 3)) == List(1, 1, 0))
     println(convertFromDecimalToOtherSystem(List(0, 2)) == List(0))
+    println(convertFromDecimalToOtherSystem(List(-31, 16)) == List(-1, 1, 15))
     println()
 
     val tree1 = generateTree(1)
