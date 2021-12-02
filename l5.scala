@@ -4,18 +4,37 @@ object Main {
   def main(args: Array[String]): Unit = {
 
     println(convertTo16(31))
-    println(convertNumber(31, 16))
+    println(convertNumber(29, 2))
 
-    val treeTest = Node(1.0, Node(2.0,Leaf,Leaf), Node(3.0,Leaf,Leaf))
+    println()
+    println()
+
+    val treeTest = Node(1.0 ,Node(2.0,Node(2.0,Leaf,Leaf),Node(4.0,Leaf,Node(6.0,Leaf,Leaf))) ,Node(3.0,Node(4.0,Leaf,Leaf),Node(5.0,Node(6.0,Leaf,Leaf),Leaf)))
+
+
     val tree = createTree(4)
+    println("Przejście wszerz " + breadthPrint(tree))
+    println("Iloczyn " + preorderProduct(tree))
+    println()
 
-    println(breadthPrint(treeTest))
-    println(inorderProduct(treeTest))
-
-    println(breadthPrint(tree))
-    println(inorderProduct(tree))
+    println("Przejście wszerz " + breadthPrint(treeTest))
+    println("Iloczyn " + preorderProduct(treeTest))
+    println()
 
 
+
+
+    val listOfValuesBFS = ValuesWithoutDuplicatesBFS(treeTest)
+    println("Lista wartosci: " + listOfValuesBFS)
+    val treeWithoutDuplicatesBFS = createTreeFromValues(listOfValuesBFS)
+    println("Przejscie wszerz: " +  breadthPrint(treeWithoutDuplicatesBFS))
+    println()
+
+    val listOfValuesDFS = ValuesWithoutDuplicatesDFS(treeTest)
+    println("Lista wartosci: " + listOfValuesDFS)
+    val treeWithoutDuplicatesDFS = createTreeFromValues(listOfValuesDFS)
+    println("Przejscie wszerz: " +  breadthPrint(treeWithoutDuplicatesDFS))
+    println()
 
 
   }
@@ -61,14 +80,13 @@ def createTree(height :Int):BinaryTree[Double] =
   createTreeNext(0)
 
 
-def inorderProduct(tree: BinaryTree[Double]) =
-  def inorderHelper(node: BinaryTree[Double]):Double =
+def preorderProduct(tree: BinaryTree[Double]) =
+  def prerderHelper(node: BinaryTree[Double]):Double =
     node match
       case Leaf => 1;
-      case Node(value, left, right) => value * inorderHelper(left) * inorderHelper(right)
+      case Node(value, left, right) => value * prerderHelper(left) * prerderHelper(right)
 
-  inorderHelper(tree)
-
+  prerderHelper(tree)
 
 //numbers are printed with 2 dig after comma
 def breadthPrint(tree: BinaryTree[Double]) =
@@ -83,14 +101,41 @@ def breadthPrint(tree: BinaryTree[Double]) =
 
 
 
+def ValuesWithoutDuplicatesBFS(tree: BinaryTree[Double]) =
+  def removeDuplicates(queue: List[BinaryTree[Double]], values: List[Double]):List[Double] =
+    queue match
+      case Nil => values
+      case Leaf :: tail => removeDuplicates(tail,values)
+      case Node(value, left , right) :: tail => {
+        if values.contains(value) then removeDuplicates(tail ::: (List(left,right)), values)
+        else removeDuplicates(tail ::: (List(left,right)), value :: values)
+      }
+
+  removeDuplicates(List(tree),Nil).reverse
 
 
 
 
+def ValuesWithoutDuplicatesDFS(tree: BinaryTree[Double]) =
+  def removeDuplicates(list: List[BinaryTree[Double]], values: List[Double]):List[Double] =
+    list match
+      case Nil => values
+      case Leaf :: tail => removeDuplicates(tail,values)
+      case Node(value, left , right) :: tail => {
+        if values.contains(value) then removeDuplicates(left :: right :: tail, values)
+        else removeDuplicates(left :: right :: tail, value :: values)
+      }
+
+  removeDuplicates(List(tree),Nil).reverse
 
 
-
-
+def createTreeFromValues(values: List[Double]): BinaryTree[Double] =
+  values match
+    case Nil => Leaf
+    case value :: tail => {
+      val(lower,upper) = tail.splitAt((tail.size + 1) / 2 )
+      Node(value, createTreeFromValues(lower), createTreeFromValues(upper))
+    }
 
 
 
