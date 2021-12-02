@@ -19,7 +19,7 @@ object lab5 {
   def dec_to_system (number : Int, system : Int) : List[Int] =
     @tailrec
     def helper(number : Int, system : Int, list : List[Int]) : List[Int] =
-      if number < 0 then Nil
+      if number < 0 || system < 0 then Nil
       else number match
             case 0 => list
             case _ => helper(number / system, system, number % system :: list)
@@ -66,6 +66,8 @@ object lab5 {
     println("\nZadanie 2")
     println(dec_to_system(31, 16))
     println(dec_to_system(31, 2))
+    println(dec_to_system(-2, 2))
+    println(dec_to_system(20, -1))
 
     println("\nZadanie 3 + 4")
 
