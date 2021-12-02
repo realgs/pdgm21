@@ -3,19 +3,33 @@ import scala.util.Random
 
 object lab5 extends App
 {
-  //ZADANIE 1 ORAZ 2
-  val toDigits: ((Int, Int) => List[Int]) = (number, base) =>
+  //ZADANIE 1
+  val toDigits: (Int => List[Int]) = number =>
     @tailrec
     def toDigitsIter(number: Int, accumulator: List[Int]): List[Int] =
       if number == 0 then accumulator
-      else toDigitsIter(number / base, (number % base) :: accumulator)
+      else toDigitsIter(number / 16, (number % 16) :: accumulator)
     if number < 0 then toDigitsIter(-number, List(-1))
-    else if base < 0 then throw IllegalArgumentException("Base cannot be negative!")
     else toDigitsIter(number, Nil)
 
-  println(toDigits(31, 16) == List(1, 15))
-  println(toDigits(13, 10) == List(1, 3))
-  println(toDigits(37, 2) == List(1, 0, 0, 1, 0, 1))
+  //ZADANIE 2
+  val toDigitsExtended: ((Int, Int) => List[Int]) = (number, base) =>
+    @tailrec
+    def toDigitsExtendedIter(number: Int, accumulator: List[Int]): List[Int] =
+      if number == 0 then accumulator
+      else toDigitsExtendedIter(number / base, (number % base) :: accumulator)
+    if number < 0 then toDigitsExtendedIter(-number, List(-1))
+    else if base < 0 then throw IllegalArgumentException("Base cannot be negative!")
+    else toDigitsExtendedIter(number, Nil)
+
+  println(toDigits(31) == List(1, 15))
+  println(toDigits(7) == List(7))
+
+  println()
+
+  println(toDigitsExtended(31, 16) == List(1, 15))
+  println(toDigitsExtended(13, 10) == List(1, 3))
+  println(toDigitsExtended(37, 2) == List(1, 0, 0, 1, 0, 1))
   //OPTYMALIZACJA: REKURSJA OGONOWA (OPTYMALIZACJA PAMIECIOWA), OPERATOR :: DOŁĄCZENIA DO LISTY
   //ZLOZONOSC OBLICZENIOWA: O(N/M + 1), GDZIE N - LICZBA POCZATKOWA, M - PODSTAWA SYSTEMU LICZBOWEGO
   //ZLOZONOSC PAMIECIOWA: O(1)
