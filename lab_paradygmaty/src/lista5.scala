@@ -3,18 +3,8 @@ object lista5 {
   import scala.annotation.tailrec
 
   //Zadanie 1
-  def decimalToHexdecimal(decimalNumber: Int): List[Int] =
-    @tailrec
-    def recHelper(decimalNumber: Int, resultList: List[Int]): List[Int] =
-      decimalNumber match
-        case 0 => resultList
-        case _ => recHelper(decimalNumber / 16, (decimalNumber % 16) :: resultList)
-
-    if decimalNumber == 0 then List(0)
-    else if decimalNumber < 0 then
-      print("Podana liczba jest ujemna!\n")
-      return List()
-    else recHelper(decimalNumber, List())
+  def decimalToHex(decimalNumber: Int): List[Int] =
+    decimalToAnySystem(List(decimalNumber, 16))
 
   //Zadanie 2
   def decimalToAnySystem(decimalNumberAndSystem: List[Int]): List[Int] =
@@ -118,9 +108,9 @@ object lista5 {
   }
 
   println("Zadanie 1")
-  println(decimalToHexdecimal(31))
-  println(decimalToHexdecimal(121))
-  println(decimalToHexdecimal(-31))
+  println(decimalToHex(31))
+  println(decimalToHex(121))
+  println(decimalToHex(-31))
   println("\nZadanie 2")
   println(decimalToAnySystem(List(31, 16)))
   println(decimalToAnySystem(List(31, 2)))
