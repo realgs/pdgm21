@@ -18,6 +18,9 @@ object lista5 {
     else if decimalNumberAndSystem.head < 0 then
       print("Podana liczba jest ujemna!\n")
       return List()
+    else if decimalNumberAndSystem.tail.head <= 0 then
+      println("Podana liczba systemu jest <= 0!")
+      return List()
     else recHelper(decimalNumberAndSystem.head, decimalNumberAndSystem.tail.head, List())
 
   sealed trait BT[+A]
@@ -116,6 +119,8 @@ object lista5 {
   println(decimalToAnySystem(List(31, 2)))
   println(decimalToAnySystem(List(-31, 2)))
   println(decimalToAnySystem(List(31, 8)))
+  println(decimalToAnySystem(List(31, 0)))
+  println(decimalToAnySystem(List(31, -2)))
   println("\nZadanie 3 i 4")
   val tree1 = generateTree(4)
   println("drzewo wygenerowane: " + tree1)
