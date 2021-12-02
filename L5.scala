@@ -119,6 +119,7 @@ object L5 {
     string+"(1)"
   }
   def replaceDuplicates(list: List[String]):List[String] = {
+    @tailrec
     def helper(list:List[String],resList:List[String]):List[String]={
       list match {
         case Nil => resList.reverse
@@ -128,8 +129,26 @@ object L5 {
     helper(list,List())
   }
 
+  def countDuplicates[A](list: List[A]):Int = {
+    def helper[A](list: List[A],res:Int):Int = {
+      list match {
+        case Nil => res
+        case h::t => if list.contains(h) then helper(t,res+1) else helper(t,res)
+      }
+    }
+    helper(list,0)
+  }
+
+  def replaceduplicates2(list:List[String]):List[String] = {
+    def helper(list: List[String],left:Int):List[String] = {
+      if left>0 then helper(replaceDuplicates(list),left-1)
+      else list
+    }
+    helper(list,countDuplicates(list))
+  }
+
   def replaceBreadth(tree:BT[String]):BT[String] = {
-    val treeList = replaceDuplicates(breadthBT(tree))
+    val treeList = replaceduplicates2(breadthBT(tree))
     buildTree(treeList,1,sizeOfTree(treeList))
   }
 
@@ -154,10 +173,12 @@ object L5 {
     val tree4 = Node(1, Node(2, Node(4,Empty,Empty), Node(3,Empty,Empty)), Node(4, Node(5, Empty, Empty), Node(6, Empty, Empty)))
     println(tree4)
     println(deleteDepth(tree4))
-    val tree5 = Node("szkola",Node("pracaDomowa",Empty,Empty),Node("pracaDomowa",Empty,Empty))
+    val tree5 = Node("szkola",Node("pracaDomowa",Node("pracaDomowa",Empty,Empty),Node("pracaDomowa",Empty,Empty)),Node("pracaDomowa",Empty,Empty))
     println()
     println(tree5)
     println(replaceBreadth(tree5))
+
+    //println(replaceBreadth(tree5))
 
 
 
