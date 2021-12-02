@@ -5,7 +5,7 @@ object lista5 {
   //2
   def toBase(base: Int)(number: Int): List[Int] =
     if base <= 1 then throw new Exception("base must be greater than 1")
-    else if number < 0 then throw new Exception("number must be non-negative")
+    else if number < 0 then throw new Exception("number must be positive")
     else if number == 0 then List(0)
     else
       def toBaseRec(acc: List[Int])(number: Int): List[Int] =
