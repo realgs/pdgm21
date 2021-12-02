@@ -10,17 +10,13 @@ object ListLab5 {
   case object mEmpty extends mBT[Nothing]
   case class mNode[+A](elem: A, children: List[mBT[A]]) extends mBT[A]
 
-//  sealed trait mBT
-//  case object mEmpty extends mBT
-//  case class mNode(elem: Any, children: List[mBT]) extends mBT
 
   def main(args: Array[String]): Unit = {
-//    println(firstLessNumber(4, 2));
     println(numberSystemChange16Final(-260))
     println(numberSystemChangeFinal(8,-2))
-//
-//    val tree = createTree(3)
-//    println(tree)
+
+    val tree = createTree(3)
+    println(tree)
 //    println(breadthSearchBinaryDeleteTail(tree))
 //    println(mulitilyTreeElements(tree))
 //    println(mulitilyTreeElementsTail(tree))
@@ -153,7 +149,7 @@ object ListLab5 {
         case Empty::t => search(t)
         case Node(v,l,r)::t => v::search(List(l,r):::t) }
     search (List(tree))
-//
+
   def depthSearchBinaryDelete[A](tree: BT[A]):  BT[A] =
     def search(stack: List[BT[A]], containsValues: List[A]):  (BT[A],List[A]) =
       stack match{
@@ -197,7 +193,6 @@ object ListLab5 {
         (x._1:::y._1,y._2)
       else (List(),containsValues)
     def search(stack: List[mBT[A]], containsValues: List[A]):  ( List[mBT[A]],List[A]) =
-     // println(stack)
       stack match{
         case Nil => (List(),containsValues)
         case mNode(v,l)::t => if containsValues.contains(v)
@@ -302,3 +297,4 @@ object ListLab5 {
 
 
 }
+
