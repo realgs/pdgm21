@@ -47,6 +47,7 @@ object lab5 {
       case Empty => 1
 
 
+
   def treeBFS[A](tree : BT[A]) : List[A] =
     def bfs[A](queue : List[BT[A]]) : List[A] =
       queue match {
