@@ -9,7 +9,9 @@ object lab5 extends App
     def toDigitsIter(number: Int, accumulator: List[Int]): List[Int] =
       if number == 0 then accumulator
       else toDigitsIter(number / base, (number % base) :: accumulator)
-    toDigitsIter(number, Nil)
+    if number < 0 then toDigitsIter(-number, List(-1))
+    else if base < 0 then throw IllegalArgumentException("Base cannot be negative!")
+    else toDigitsIter(number, Nil)
 
   println(toDigits(31, 16) == List(1, 15))
   println(toDigits(13, 10) == List(1, 3))
