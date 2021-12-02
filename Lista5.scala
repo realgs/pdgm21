@@ -11,6 +11,7 @@ object Lista5 {
 
   //Zadanie 1
   def hex(number: Int): List[Int] =
+    if number <0 then throw new Exception("blad! Zla liczba")
     @tailrec
     def hexIn(n: Int, result: List[Int]): List[Int] =
       if n == 0 then result
@@ -21,6 +22,8 @@ object Lista5 {
 
   //2
   def randomSystem(number: Int, system: Int): List[Int] =
+   if system <=1 then throw new Exception("blad! Zly system")
+   if number <0 then throw new Exception("blad! Zla liczba")
     @tailrec
     def randomSystemIn(n: Int, s: Int, result: List[Int]): List[Int] =
       if n == 0 then result
@@ -65,7 +68,7 @@ object Lista5 {
         case Nil => Nil
         case Empty :: tail => breadthNoDuplicateIn(visited, tail)
         case Node(v, l, r) :: tail =>
-          if (contains(visited, v)) then breadthNoDuplicateIn(visited, tail)
+          if (contains(visited, v)) then breadthNoDuplicateIn(visited, tail ::: List(l, r))
           else v :: breadthNoDuplicateIn(v :: visited, tail ::: List(l, r))
 
     breadthNoDuplicateIn(Nil, List(bt))
