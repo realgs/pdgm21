@@ -12,7 +12,7 @@ object List5 {
             if num == 0
                 then list
                 else iter(num / 16, (num % 16) :: list)
-        if number <= 0 then List() else iter(number, Nil)
+        if number <= 0 then List(0) else iter(number, Nil)
     }
 
     def int_to_base(number: Int, base: Int): List[Int] = {
@@ -21,7 +21,7 @@ object List5 {
             if num == 0
                 then list
                 else iter(num / base, (num % base) :: list)
-        if number <= 0 then List() else iter(number, Nil)
+        if number <= 0 then List(0) else iter(number, Nil)
     }
 
     def generate_random_tree(depth: Int): BT[Double] = {
