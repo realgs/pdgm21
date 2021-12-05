@@ -39,20 +39,18 @@ object Main {
         case Nil => false
         case h::t => if h == elem then true else contains(t, elem)
 
-    def depthFirstSearch[A](node: BT[A], list: List[A], parent: BT[A]): Unit= //todo rozbicie na przejscie oraz sprawdzenie powtorzen
+    def depthFirstSearch[A](node: BT[A]): List[BT[A]]=
       node match
-        case Empty() =>
-        case Node(elem, left, right) =>
-          depthFirstSearch(left, list, node)
-          if contains(list, elem) then println() //node jest niepotrzebny i parentowi przypisujemy jakieś dziecko, childmovem
-          else
-            depthFirstSearch(right, elem :: list, node)
-/*
-    def childMove[A](current: Node[A], parent: Node[A]): Unit=
-      current match
-        case Node(_, left: Node[A], _) =>if parent.left==current then parent.left=left else parent.right=left; childMove(left, current)
-        case Node(_, Empty(), right: Node[A])=> println("pass"); childMove(right, current)
-        case Node(_, Empty(), Empty()) => //done*/
+        case Empty() => Nil
+        case Node(elem, left, right) => depthFirstSearch(left) ::: List(node) ::: depthFirstSearch(right) //inorder traversal
+
+    def breadthFirstSearch[A](queue: List[BT[A]]): List[BT[A]] =
+      queue match
+        case h::t =>
+          h match
+            case Node(elem, left, right) => h :: breadthFirstSearch(nodeEnqueue(nodeEnqueue(t, left), right))
+            case Empty() => Nil
+        case Nil => Nil
 
     def printTree[A](node: Node[A]): Unit=
       node match
@@ -61,20 +59,16 @@ object Main {
         case Node(elem, Empty(), right: Node[A])=> println(elem); printTree(right);
         case Node(elem, _, _) => println(elem)
 
-    def nodeEnqueue[A](list: List[BT[A]], elem: BT[A]): List[BT[A]] =
-      list match
+    def nodeEnqueue[A](queue: List[BT[A]], elem: BT[A]): List[BT[A]] =
+      queue match
         case h::t => h :: nodeEnqueue(t, elem)
         case Nil => List(elem)
 
-    def nodeDequeue[A](list: List[BT[A]]): BT[A] =
-      list match
+    def nodeDequeue[A](queue: List[BT[A]]): BT[A] =
+      queue match
         case h::t => h
         case Nil => throw new Exception("Empty queue exception")
 
-    def breadthFirstSearch[A](tree: BT[A], queue: List[BT[A]]): List[A] =
-      tree match
-        case Empty() => Nil
-        case Node(elem, left, right) =>
 
     def main(args: Array[String]): Unit =
       println(toHex(31))
@@ -82,5 +76,7 @@ object Main {
       //val tree = createNLevelTree(2)
       val tree = Node(9, Node(4, Node(2, Empty(), Empty()), Node(1, Empty(), Empty())), Node(8, Node(6, Empty(), Empty()), Node(5, Empty(), Empty())))
       printTree(tree)
+      val dfs = depthFirstSearch(tree)
+      val bfs = breadthFirstSearch(List(tree))
       //println(treeProduct(tree))
   }
