@@ -1,5 +1,5 @@
 import scala.annotation.tailrec
-import scala.collection.mutable
+import scala.collection.{GenMap, mutable}
 import scala.util.Random
 
 object Main {
@@ -52,6 +52,18 @@ object Main {
         case Empty() => Nil
         case Node(elem, left, right) => depthFirstSearch(left) ::: List(node) ::: depthFirstSearch(right) //inorder traversal
 
+    def dfsWithoutDuplicates[A](node: BT[A]): List[A]=
+      var finalList: List[A] = List()
+      def helperDFS(node: BT[A]): Unit=
+        node match
+          case Empty() =>
+          case Node(elem, left, right) =>
+            helperDFS(left)
+            if !contains(finalList, elem) then finalList = finalList:::List(elem)
+            helperDFS(right)
+      helperDFS(node)
+      finalList
+
     def breadthFirstSearch[A](queue: List[BT[A]]): List[BT[A]] =
       queue match
         case h::t =>
@@ -59,6 +71,20 @@ object Main {
             case Node(elem, left, right) => h :: breadthFirstSearch(nodeEnqueue(nodeEnqueue(t, left), right))
             case Empty() => Nil
         case Nil => Nil
+
+    def bfsWithoutDuplicates[A](node: BT[A]): List[A]=
+      var result: List[A] = List()
+      def bfsHelper(queue: List[BT[A]]): Unit=
+        queue match
+          case h::t =>
+            h match
+              case Node(elem, left, right) =>
+                if !contains(result, elem) then result = result ::: List(elem)
+                bfsHelper(nodeEnqueue(nodeEnqueue(t,left), right))
+              case Empty() =>
+          case Nil =>
+      bfsHelper(List(node))
+      result
 
     def printTree[A](node: Node[A]): Unit=
       node match
@@ -89,14 +115,19 @@ object Main {
       Empty()
 
     def main(args: Array[String]): Unit =
-      println(toHex(31))
-      println(changeBase(128, 2))
+//      println(toHex(31))
+//      println(changeBase(128, 2))
       //val tree = createNLevelTree(2)
       val tree = Node(9, Node(4, Node(2, Empty(), Empty()), Node(1, Empty(), Empty())), Node(8, Node(6, Empty(), Empty()), Node(5, Empty(), Empty())))
-      printTree(tree)
-      val dfs = depthFirstSearch(tree)
-      val bfs = breadthFirstSearch(List(tree))
-      println(btListToValues(dfs))
-      println(btListToValues(bfs))
+      val treeWithDups = Node(9, Node(4, Node(9, Empty(), Empty()), Node(1, Empty(), Empty())), Node(3, Node(1, Empty(), Empty()), Node(5, Empty(), Empty())))
+//      printTree(tree)
+//      val dfs = depthFirstSearch(tree)
+//      val bfs = breadthFirstSearch(List(tree))
+
+      val dfsWithouDups = dfsWithoutDuplicates(treeWithDups)
+      val bfsWithouDups = bfsWithoutDuplicates(treeWithDups)
+      println(dfsWithouDups)
+      println(bfsWithouDups)
+//      println(btListToValues(bfs))
       //println(treeProduct(tree))
   }
