@@ -111,8 +111,23 @@ object Main {
             case Empty() => Nil
             case Node(elem, left, right) => elem:: btListToValues(t)
 
-    def createTreeFromList[A](list: List[BT[A]]): BT[A]=
-      Empty()
+    def getElemAtPos[A](list: List[A], pos: Int): A =
+      (pos, list) match
+        case (1,  h::t) => h
+        case (_, h::t) => getElemAtPos(t, pos-1)
+        case (_, Nil) => throw  new Exception("Out of bounds exception")
+
+    def length[A](list: List[A]): Int=
+      list match
+        case Nil => 0
+        case h::t => 1+length(t)
+
+    def createTreeFromList[A](list: List[A]): Node[A] =
+      def createTree(pos: Int): Node[A] =
+        Node(getElemAtPos(list, pos),
+          if pos*2 > length(list) then Empty() else createTree(pos*2),
+          if pos*2+1 > length(list) then Empty() else createTree(pos*2+1))
+      createTree(1)
 
     def main(args: Array[String]): Unit =
 //      println(toHex(31))
@@ -128,6 +143,11 @@ object Main {
       val bfsWithouDups = bfsWithoutDuplicates(treeWithDups)
       println(dfsWithouDups)
       println(bfsWithouDups)
-//      println(btListToValues(bfs))
+
+      val newTree1 = createTreeFromList(dfsWithouDups)
+      printTree(newTree1)
+      val newTree2 = createTreeFromList(bfsWithouDups)
+      printTree(newTree2)
+  //      println(btListToValues(bfs))
       //println(treeProduct(tree))
   }
