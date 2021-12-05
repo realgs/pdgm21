@@ -39,6 +39,14 @@ object Main {
         case Nil => false
         case h::t => if h == elem then true else contains(t, elem)
 
+    def nodeContains[A](list: List[BT[A]], elem: A): Boolean =
+      list match
+        case Nil => false
+        case h::t =>
+          h match
+            case Empty() => false
+            case Node(value, _, _) => if value == elem then true else nodeContains(t, elem)
+
     def depthFirstSearch[A](node: BT[A]): List[BT[A]]=
       node match
         case Empty() => Nil
@@ -69,6 +77,16 @@ object Main {
         case h::t => h
         case Nil => throw new Exception("Empty queue exception")
 
+    def btListToValues[A](list: List[BT[A]]): List[A] =
+      list match
+        case Nil => Nil
+        case h::t =>
+          h match
+            case Empty() => Nil
+            case Node(elem, left, right) => elem:: btListToValues(t)
+
+    def createTreeFromList[A](list: List[BT[A]]): BT[A]=
+      Empty()
 
     def main(args: Array[String]): Unit =
       println(toHex(31))
@@ -78,5 +96,7 @@ object Main {
       printTree(tree)
       val dfs = depthFirstSearch(tree)
       val bfs = breadthFirstSearch(List(tree))
+      println(btListToValues(dfs))
+      println(btListToValues(bfs))
       //println(treeProduct(tree))
   }
