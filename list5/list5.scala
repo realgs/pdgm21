@@ -77,7 +77,7 @@ object Lista5 {
                 case Empty :: t => treeToQueue(t, visitedValues)
                 case Node(value, lTree, rTree) :: t =>  if visitedValues contains value then treeToQueue(t ::: List(lTree, rTree), visitedValues)
                                                         else treeToQueue(t ::: List(lTree, rTree), value :: visitedValues)
-        listToTree(treeToQueue(tree :: Nil, Nil))
+        listToTree(treeToQueue(tree :: Nil, Nil).reverse)
 
     def removeDuplicatesDfs[A](tree: BT[A]): BT[A] =
         // Remove duplicates in a tree using DFS
@@ -87,7 +87,7 @@ object Lista5 {
                 case Empty => visitedValues
                 case Node(value, leftSubtree, rightSubtree) =>  if visitedValues contains value then walk(rightSubtree, walk(leftSubtree, visitedValues))
                                                                 else walk(rightSubtree, walk(leftSubtree, value :: visitedValues))
-        listToTree(walk(tree, Nil))
+        listToTree(walk(tree, Nil).reverse)
 
     def main(args: Array[String]): Unit = {
         println("Convert dec to hex tests: ")
