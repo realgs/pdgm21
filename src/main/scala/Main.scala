@@ -4,8 +4,9 @@ import scala.util.Random
 
 object Main {
     sealed trait BT[A]
-  case class Empty[A]() extends BT[A]
-  case class Node[A](elem: A, left: BT[A], right: BT[A]) extends BT[A]
+    case class Empty[A]() extends BT[A]
+    case class Node[A](elem: A, left: BT[A], right: BT[A]) extends BT[A]
+
 
 
     def toHex(number: Int): List[Int]=
@@ -130,24 +131,47 @@ object Main {
       createTree(1)
 
     def main(args: Array[String]): Unit =
-//      println(toHex(31))
-//      println(changeBase(128, 2))
-      //val tree = createNLevelTree(2)
-      val tree = Node(9, Node(4, Node(2, Empty(), Empty()), Node(1, Empty(), Empty())), Node(8, Node(6, Empty(), Empty()), Node(5, Empty(), Empty())))
-      val treeWithDups = Node(9, Node(4, Node(9, Empty(), Empty()), Node(1, Empty(), Empty())), Node(3, Node(1, Empty(), Empty()), Node(5, Empty(), Empty())))
-//      printTree(tree)
-//      val dfs = depthFirstSearch(tree)
-//      val bfs = breadthFirstSearch(List(tree))
+      //zadanie 1
+      println("EX 1")
+      println(toHex(31))
+      println(toHex(124))
+      println(toHex(21563))
 
-      val dfsWithouDups = dfsWithoutDuplicates(treeWithDups)
-      val bfsWithouDups = bfsWithoutDuplicates(treeWithDups)
-      println(dfsWithouDups)
-      println(bfsWithouDups)
+      //zadanie 2
+      println("\nEX 2")
+      println(changeBase(128, 2))
 
-      val newTree1 = createTreeFromList(dfsWithouDups)
-      printTree(newTree1)
-      val newTree2 = createTreeFromList(bfsWithouDups)
-      printTree(newTree2)
-  //      println(btListToValues(bfs))
-      //println(treeProduct(tree))
+      //zadanie 3
+      println("\nEX 3")
+      val tree = createNLevelTree(4)
+      println(tree)
+
+      //zadanie 4
+      println("\nEX 4")
+      println(treeProduct(tree))
+
+      //zadanie 5
+      println("\nEX 5")
+      val treeWithoutDuplicates = Node(9, Node(4, Node(2, Empty(), Empty()), Node(1, Empty(), Empty())), Node(8, Node(6, Empty(), Empty()), Node(5, Empty(), Empty())))
+      //printTree(treeWithoutDuplicates)
+
+      val treeWithDuplicates = Node(9, Node(4, Node(9, Empty(), Empty()), Node(1, Empty(), Empty())), Node(3, Node(1, Empty(), Empty()), Node(5, Empty(), Empty())))
+      printTree(treeWithDuplicates)
+
+      /*
+      val dfs = depthFirstSearch(tree)
+      val bfs = breadthFirstSearch(List(tree))
+      val dfsWithoutDups = dfsWithoutDuplicates(treeWithDuplicates)
+      val bfsWithoutDups = bfsWithoutDuplicates(treeWithDuplicates)
+      println("\nDFS\n")
+      println(dfsWithoutDups)
+      println("\nBFS\n")
+      println(bfsWithoutDups)*/
+
+      val newTreeDFS = createTreeFromList(dfsWithoutDuplicates(treeWithDuplicates))
+      println("\nDFS")
+      print(newTreeDFS)
+      val newTreeBFS = createTreeFromList(bfsWithoutDuplicates(treeWithDuplicates))
+      println("\nBFS")
+      print(newTreeBFS)
   }
