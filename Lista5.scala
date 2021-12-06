@@ -47,6 +47,38 @@ object Lista5 {
     if tree == Empty then 0
     else helper(tree)
 
+  //Zadanie 5 niedk.
+  def breadthBT[A](bt: BT[A]) = {
+    def helpFun[A](queue: List[BT[A]]): List[A] = queue match
+      case Nil => Nil
+      case Empty :: tail => helpFun(tail)
+      case Node(value, leftSubtree, rightSubtree) :: tail => value :: helpFun(tail ::: List(leftSubtree, rightSubtree))
+
+    helpFun(List(bt))
+  }
+
+  def depthBT[A](bt: BT[A]) = {
+    def helpFun[A](stack: List[BT[A]]): List[A] = stack match
+      case Nil => Nil
+      case Empty :: tail => helpFun(tail)
+      case Node(value, leftSubtree, rightSubtree) :: tail => value :: helpFun(leftSubtree :: rightSubtree :: tail)
+
+    helpFun(List(bt))
+  }
+  @tailrec
+  def find[A](valueList: List[A], index: Int):A= {
+    (valueList, index) match
+      case (head :: _, 0) => head
+      case (_ :: tail, _) => find(tail, index-1)
+  }
+
+  def listLength[A](list: List[A]): Int =
+    @tailrec
+    def helper(list: List[A], length: Int): Int =
+      list match
+        case Nil => length
+        case head :: tail => helper(tail, length + 1)
+    helper(list, 0)
 
   def main(aargs: Array[String]): Unit = {
     //zadanie 1
@@ -85,6 +117,19 @@ object Lista5 {
     println(ElementsOfTree(t1))
     println(ElementsOfTree(t2))
     println(ElementsOfTree(t3))
+
+    //zadanie 5
+    println(breadthBT(t0))
+    println(breadthBT(t1))
+    println(breadthBT(t2))
+    println(breadthBT(t3))
+
+    println(depthBT(t0))
+    println(depthBT(t1))
+    println(depthBT(t2))
+    println(depthBT(t3))
+
+    println(find(depthBT(t2), 2))
+    println(listLength(depthBT(t2)))
   }
 }
-
