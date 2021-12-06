@@ -1,11 +1,6 @@
 Termin oddania listy: 15 / 16 grudnia 2021 w zależności od grupy zajęciowej.
 Łączna liczba punktów: 20
 
-W zadaniach użyj następującej definicji listy oraz listy leniwej:
-
-type 'a nlist = Koniec | Element of 'a * ('a nlist);;
-type 'a llist = LKoniec | LElement of 'a * (unit -> 'a llist);;
-
 1) Zdefiniuj funkcję "eachNElement" wybierającą co n-ty element listy leniwej,
    zaczynając od elementu pierwszego kończąc na elemencie numer m(indeks m dotyczy listy pierwotnej, nie wynikowej).
    Czy w zadaniu warto użyć strumieni jako reprezentację danych? Jakie są ich zalety w tym przypadku?
