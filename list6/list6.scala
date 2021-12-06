@@ -1,5 +1,6 @@
 import java.lang.reflect.Field
 import scala.annotation.tailrec
+import scala.collection.mutable.HashMap
 import scala.collection.mutable.ListBuffer
 import scala.collection.mutable.LinkedHashMap
 
@@ -23,22 +24,27 @@ object Lista6 {
         if last < 0 then throw new IllegalArgumentException("'last' argument must be greater or equal 0")
         eachNElementHelper(list, 0)
 
+    // LinkedHashMap which each operator (char) maps to a function that accepts two doubles and applies the operator to them
+    val operators = HashMap[Char, (Double, Double) => Double](
+        '+' -> ((a, b) => a + b),
+        '-' -> ((a, b) => a - b),
+        '*' -> ((a, b) => a * b),
+        '/' -> ((a, b) => a / b),
+        '^' -> ((a, b) => Math.pow(a, b))
+    )
+
     //Zadanie 2
-    def lExecute(list1: LazyList[Double], list2: LazyList[Double], operator: Char): LazyList[Double] =
-        def lExecuteHelper(operation: (Double, Double) => Double, l1: LazyList[Double], l2: LazyList[Double]): LazyList[Double] =
+    def lExecute(list1: LazyList[Double], list2: LazyList[Double], operator: Char): LazyList[Double] = {
+        def lExecuteHelper(operation: (Double, Double) => Double, l1: LazyList[Double], l2: LazyList[Double]): LazyList[Double] = {
             (l1, l2) match
-                case (h1 #:: t1, h2 #:: t2) => operation(h1, h2) #:: lExecuteHelper(operation, t1, t2)
-                case (LazyList(), _) => l2
-                case (_, LazyList()) => l1
-        operator match
-            case '+' => lExecuteHelper((x: Double, y: Double) => x + y, list1, list2)
-            case '-' => lExecuteHelper((x: Double, y: Double) => x - y, list1, list2)
-            case '/' => lExecuteHelper((x: Double, y: Double) => x / y, list1, list2)
-            case '*' => lExecuteHelper((x: Double, y: Double) => x * y, list1, list2)
-            case _ => throw new NotImplementedError("unsupported operation: '" + operator + "'")
-
-
-
+            case (h1 #:: t1, h2 #:: t2) => operation(h1, h2) #:: lExecuteHelper(operation, t1, t2)
+            case (LazyList(), _) => l2
+            case (_, LazyList()) => l1
+        }
+        if operators.contains(operator) then lExecuteHelper(operators(operator), list1, list2)
+        else throw new IllegalArgumentException("Operator '" + operator + "' is not supported")
+    }
+    
     //Zadanie 3
     def duplicate[A](elements: List[A], count: List[Int]): List[A] =
         // Given a list of elements and a list of counts, duplicate the elements
