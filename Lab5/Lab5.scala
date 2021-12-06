@@ -20,7 +20,7 @@ object Lab5 {
     def conversion_to_other_in(rest: Int, new_System: Int, other_number: List[Int]): List[Int] =
       if rest == 0 then other_number
       else conversion_to_other_in(rest / new_System, new_System, rest % new_System :: other_number)
-    if decimal_number <= 0 then List(0) else conversion_to_other_in(decimal_number, new_System, Nil)
+    if decimal_number <= 0 then List(0):::conversion_to_other_in((-1)*decimal_number,new_System,Nil) else conversion_to_other_in(decimal_number, new_System, Nil)
 
   //3
 
@@ -96,7 +96,7 @@ object Lab5 {
 
   def main(args: Array[String]): Unit = {
 
-    println(conversion_to_hex(31) == List(1, 15))
+    println(conversion_to_hex(-31) == List(1, 15))
     println(conversion_to_hex(2121) == List(8, 4, 9))
     println(conversion_to_hex(0) == List(0))
     println(conversion_to_other(256, 2) == List(1, 0, 0, 0, 0, 0, 0, 0, 0))
