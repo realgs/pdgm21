@@ -56,6 +56,10 @@ object lista5 {
     }
 
     decToHecIter(Math.abs(decNum), List())
+
+    // 1 at 1st position means a positive number, -1 means negative, 0 means 0
+    (Math.signum(decNum).toInt) :: decToHecIter(Math.abs(decNum), List())
+
   }
 
   // ---- ---- task 2 ---- ----
@@ -87,7 +91,9 @@ object lista5 {
       else iter(d / base, (d % base) :: result)
     }
 
-    iter(Math.abs(decNum), List())
+    // 1 at 1st position means a positive number, -1 means negative, 0 means 0
+    (Math.signum(decNum).toInt) :: iter(Math.abs(decNum), List())
+
   }
 
   // trait descriptiong binary trees
@@ -116,8 +122,8 @@ object lista5 {
   // ---- ---- task 4 ---- ----
   // returns product of all elements in a binary tree
   def product(tree: BT[Double]): Double = {
-    // time complexity: n
-    // memory complexity: n * current_tree_size = n * 0.5 * n * (n-1)
+    // time complexity: n // explanation: gets called for every node
+    // memory complexity: n * tree_size = n * 0.5 * n * (n-1)
     //    explanation: n calls of product(), each containing some subtree in argument
     // where n = [2 ^ (N + 1) - 1] is number of elements in the tree from input and N is depth of said tree
 
@@ -127,8 +133,7 @@ object lista5 {
   }
 
   // ---- ---- task 5 ---- ----
-
-  // creates fairly balanced binary tree from values passed in a list
+  // creates a fairly balanced binary tree from values passed in a list
   def createTreeFromList[A](elements: List[A]): BT[A] = {
     elements match
       case Nil => Empty
@@ -160,7 +165,7 @@ object lista5 {
     def iter(treeQueue: List[BT[A]], elements: List[A]): List[A] =
       treeQueue match
         case Nil => elements
-        case Empty :: t=> iter(t, elements) // finished traversing the (sub)tree
+        case Empty :: t => iter(t, elements) // finished traversing the (sub)tree
         case Node(x, left, right) :: t =>
           if myContains(x, elements) then
             iter(t:::List(left, right), elements)
