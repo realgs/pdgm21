@@ -52,17 +52,14 @@ object Listt7 {
     def debugName(): String =
       this.getClass.getName
 
-    def debugVars(): List[(String, String, String)] =
+    def debugVars(): List[(String, String, _)] =
       var fields = this.getClass.getDeclaredFields
+      var listBuffer = new ListBuffer[(String, String, _)]()
       for(x <- fields)
         x.setAccessible(true)
-
-      var listBuffer = new ListBuffer[(String, String, String)]()
-
-      for(x <- fields)
-        listBuffer += Tuple3(x.getName, x.getType.getSimpleName, x.get(this).toString)
-
+        listBuffer += Tuple3(x.getName, x.getType.getSimpleName, x.get(this))
       listBuffer.toList
+      
   }
 
   class Point(xv: Int, yv: Int) extends Debug {
