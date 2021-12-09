@@ -18,7 +18,8 @@ def changeNumberSystemToHex(number: Int): List[Int] =
 
 def changeNumberSystem(number: Int, system: Int): List[Int] =
   def changeNumberSystemInner(number: Int, list: List[Int], system: Int): List[Int] =
-    if system <= 0 then throw new Exception("Number system cannot be zero or lower!")
+    if system == 0 then throw new Exception("Number system cannot be zero!")
+    if system < 0 then -1 :: changeNumberSystemInner(-number, list, system)
     else if number == 0 then list
     else changeNumberSystemInner(number / system, number % system :: list, system)
   changeNumberSystemInner(number, List(), system)
