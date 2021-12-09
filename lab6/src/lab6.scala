@@ -47,12 +47,12 @@ object lab6 {
 
     def debugVars() =
       val list = this.getClass.getDeclaredFields.toList
-      def debugVarsHelper[A](list: List[java.lang.reflect.Field]): List[List[String]] =
+      def debugVarsHelper(list: List[java.lang.reflect.Field]): List[Any] =
         list match
           case Nil => Nil
           case(head :: tail) =>{
             list.head.setAccessible(true)
-            List(list.head.getName.toString, list.head.getType.toString, list.head.get(this).toString) :: debugVarsHelper(tail)
+            List(list.head.getName, list.head.getType, list.head.get(this)) ::: debugVarsHelper(tail)
           }
       debugVarsHelper(list)
   }
