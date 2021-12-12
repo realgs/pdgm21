@@ -21,10 +21,10 @@ object l6 {
     def inner(list1: LazyList[Int])(list2: LazyList[Int])(result: LazyList[Int]): LazyList[Int] =
       (list1, list2) match
         case (h1 #:: t1, h2 #:: t2) => inner(t1)(t2)(operator(h1, h2) #:: result)
-        case (list1, LazyList()) => (list1.reverse #::: result).reverse
-        case (LazyList(), list2) => (list2.reverse #::: result).reverse
+        case (list1, LazyList()) => list1.reverse #::: result
+        case (LazyList(), list2) => list2.reverse #::: result
 
-    inner(list1)(list2)(LazyList())
+    inner(list1)(list2)(LazyList()).reverse
 
   // Task 3
 
@@ -32,12 +32,11 @@ object l6 {
     @tailrec
     def inner(list1: LazyList[A])(list2: LazyList[Int])(i: Int)(result: LazyList[A]): LazyList[A] =
       (list1, list2, i) match
-        case (LazyList(), _, _) => result.reverse
-        case (_, LazyList(), _) => result.reverse
         case (h1 #:: t1, h2 #:: t2, i) => if i == 0 then inner(t1)(t2)(h2)(result)
                                           else inner(list1)(list2)(i - 1)(h1 #:: result)
+        case(_, _, _) => result //if one of lazy lists is empty
 
-    inner(list1)(list2.tail)(list2.head)(LazyList())
+    inner(list1)(list2.tail)(list2.head)(LazyList()).reverse
 
   //Task 4 Task 5
 
@@ -50,9 +49,9 @@ object l6 {
         list match
           case h :: t => h.setAccessible(true) // otherwise IllegalAccessException thrown
                          inner(t)(List(h.getName, h.getType, h.get(this)) :: result)
-          case Nil => result.reverse
+          case Nil => result
 
-      inner(getClass.getDeclaredFields.toList)(Nil)
+      inner(getClass.getDeclaredFields.toList)(Nil).reverse
   }
 
   class Point(xv: Int, yv: Int) extends Debug {
@@ -89,6 +88,7 @@ object l6 {
     val - = (a: Int, b: Int) => a - b
     val * = (a: Int, b: Int) => a * b
     val / = (a: Int, b: Int) => if b != 0 then a / b else 0 //throw new Exception("lazyExecute: division by 0!")
+    println(lazyExecute(llist1)(llist3)((a: Int, b: Int) => a + b).take(12).toList)
     println(lazyExecute(llist1)(llist2)(+).take(10).toList)
     println(lazyExecute(llist1)(llist2)(-).take(10).toList)
     println(lazyExecute(llist1)(llist2)(*).take(10).toList)
