@@ -1,6 +1,3 @@
-import scala.collection.mutable.HashMap
-import scala.collection.mutable.Queue
-
 object Main {
   // Zadanie 1
   def eachNElement[A](elements: LazyList[A], step: Int, endIndex: Int): LazyList[A] = {
