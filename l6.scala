@@ -37,14 +37,14 @@ object l6 {
   // task 4 & 5
   trait Debug {
     def debugName(): String =
-      this.getClass.getName;
+      this.getClass().getName();
 
     def displayVar(arg: java.lang.reflect.Field) =
       arg.setAccessible(true)
-      (arg.getName, arg.getType, arg.get(this))
+      (arg.getName(), arg.getType(), arg.get(this))
 
     def debugVars() =
-      this.getClass.getDeclaredFields.toList.map(arg => displayVar(arg))
+      this.getClass().getDeclaredFields().toList.map(arg => displayVar(arg))
   }
 
   def main() = {
