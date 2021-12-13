@@ -1,12 +1,12 @@
 import java.lang.reflect.Field
 
 object Main {
-  def eachNElement[A](lazyList: LazyList[A], n: Int, m: Int): List[A]=
-    def jumper(currentPos: Int): List[A]=
-      lazyList(currentPos) :: (if currentPos+n >= m then Nil else jumper(currentPos+n))
+  def eachNElement[A](lazyList: LazyList[A], n: Int, m: Int): LazyList[A]=
+    def jumper(currentPos: Int): LazyList[A]=
+      lazyList(currentPos) #:: (if currentPos+n >= m then LazyList() else jumper(currentPos+n))
 
     if n > 0 && m>=0 then
-      if lazyList == LazyList() then List()
+      if lazyList == LazyList() then LazyList()
       else jumper(0)
     else
       throw new Exception("Invalid n,m values")
