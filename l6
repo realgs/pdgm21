@@ -54,7 +54,7 @@ Zwróci: Point
 
 Punkty: 2
 
-5) Do trait dopisz metodę "debugVars", która zwraca
+    5) Do trait dopisz metodę "debugVars", która zwraca
    listę nazw, typów pól, wartości pól, do której cecha została dołączona.
 
 var p : Point = new Point(3, 4);

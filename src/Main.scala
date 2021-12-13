@@ -20,6 +20,8 @@ object Main {
           case '*' => (hF*hS) #:: lazyExecute(tF, tS, operation)
           case '/' => (if hF !=0 then (hF/hS) else hS) #:: lazyExecute(tF, tS, operation)
           case _ => throw new  Exception("Invalid operator")
+      case (h#::t,LazyList()) => h#::t
+      case (LazyList(),h#::t) => h#::t
       case (_, _) => LazyList()
 
 
@@ -38,7 +40,7 @@ object Main {
 
     println("\nTesty zad 2")
     val ll2 = LazyList(1,2,3,4,5,6,0)
-    val ll3 = LazyList(1,2,3,4,5,7,0)
+    val ll3 = LazyList(1,2,3,4,5,7,0,1,2)
     println(lazyExecute(ll2, ll3, '+').toList)
     println(lazyExecute(ll2, ll3, '-').toList)
     println(lazyExecute(ll2, ll3, '*').toList)
@@ -48,7 +50,6 @@ object Main {
     val l1 = List(1,2,3,4)
     val l2 = List(0,3,1,4)
     println(duplicate(l1,l2))
-
 
     println("\nTesty zad 4")
     val p = Point(3,4)
