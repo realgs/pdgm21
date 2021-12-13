@@ -48,6 +48,7 @@ object L6 {
         case _ => duplicateHelper(inCounter - 1, element, element :: tail)
 
     if list == List() then list
+    else if duplicateNumberList.head < 0 then duplicateHelper(0, list.head, duplicate(list.tail, duplicateNumberList.tail))
     else duplicateHelper(duplicateNumberList.head, list.head, duplicate(list.tail, duplicateNumberList.tail))
   }
 
@@ -73,7 +74,7 @@ object L6 {
     println(pickEachNElem(LazyList(5,6,3,2,1), 2, 3).toList)
     println(pickEachNElem(LazyList(5,6,3,2,1), 2, 4).toList)
     println(lazyExecute(LazyList(1,2,3), LazyList(2,3,4,5), '+').toList)
-    println(duplicate(List(1,2,3), List(0,3,1,4)))
+    println(duplicate(List(1,2,3), List(-1,3,1,4)))
     val point = Point(1,2)
     println(point.debugName())
     println(point.debugVars())
