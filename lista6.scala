@@ -1,3 +1,4 @@
+import java.lang.reflect.Type
 import scala.collection.mutable.ListBuffer
 
 object Lista6 {
@@ -12,15 +13,15 @@ object Lista6 {
     helper(list,1,lastElement)
 
   //zadanie 2
-  def operation(firstValue: Double, secondValue: Double, operation: Char) =
-    operation match
-      case '+' => firstValue + secondValue
-      case '-' => firstValue - secondValue
-      case '*' => firstValue * secondValue
-      case '/' => firstValue / secondValue
-      case _ => throw new Exception("unsupported math operation !")
-
   def lazyExecute(firstList: LazyList[Double], secondList: LazyList[Double], operationSymbol: Char) =
+    def operation(firstValue: Double, secondValue: Double, operation: Char) =
+      operation match
+        case '+' => firstValue + secondValue
+        case '-' => firstValue - secondValue
+        case '*' => firstValue * secondValue
+        case '/' => firstValue / secondValue
+        case _ => throw new Exception("unsupported math operation !")
+
     def helper(firstList: LazyList[Double], secondList: LazyList[Double]): LazyList[Double] =
       (firstList, secondList) match
         case (LazyList(), l2) => l2
@@ -44,13 +45,13 @@ object Lista6 {
 
   //zadanie 4 i 5
   trait Debug {
-    def debugName() = getClass.getSimpleName
+    def debugName() = getClass().getSimpleName()
 
     def debugVars() =
-      var fields = new ListBuffer[(String, String, Any)]()
-      for (field <- getClass.getDeclaredFields)
+      val fields = new ListBuffer[(String, Type, Any)]()
+      for (field <- getClass().getDeclaredFields())
         field.setAccessible(true)
-        fields += ((field.getName, field.getType.getSimpleName, field.get(this)))
+        fields += ((field.getName(), field.getGenericType(), field.get(this)))
         field.setAccessible(false)
       fields.toList
   }
