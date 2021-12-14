@@ -1,5 +1,3 @@
-import oldList6.nlist
-
 import scala.annotation.tailrec
 
 object Lista6 {
@@ -31,11 +29,11 @@ object Lista6 {
   // returns each n-th element of llist up to the nth element
   def eachNElement[A](list: LazyList[A], n: Int, m: Int): LazyList[A] = {
 
-    def helper(counter: Int, leftToIgnore: Int, currentList: LazyList[A]): LazyList[A] = {
+    def helper(counter: Int, toIgnore: Int, currentList: LazyList[A]): LazyList[A] = {
       if counter <= 0 then LazyList()
       else if currentList.isEmpty then currentList
-      else if leftToIgnore > 1 then
-        helper(counter - 1, leftToIgnore - 1, currentList.tail)
+      else if toIgnore > 1 then
+        helper(counter - 1, toIgnore - 1, currentList.tail)
       else currentList.head #:: helper(counter - 1, n, currentList.tail)
     }
 
@@ -68,6 +66,21 @@ object Lista6 {
     }
 
     iter(listOfElems.zip(listOfReps))
+
+  }
+
+  // alternative solution: this time returns a LazyList
+  // repeats elements from first list accordingly to values in second list
+  def lazyDuplicate[A](listOfElems: LazyList[A], listOfReps: LazyList[Int]): LazyList[A] = {
+
+    def repeatElemNTimes(elem: A, reps: Int): LazyList[A] = {
+      if reps <= 0 then LazyList()
+      else {
+        println("!"); elem #:: repeatElemNTimes(elem, reps - 1)
+      }
+    }
+
+    listOfElems.zip(listOfReps).map((elem, reps) => repeatElemNTimes(elem, reps)).flatten
 
   }
 
@@ -125,6 +138,12 @@ object Lista6 {
     println(duplicate(LazyList('a', 'b', 'c'), LazyList(2, 0, 2))) // ['a', 'a', 'c', 'c']
     println(duplicate(LazyList('a', 'b'), LazyList(-1, -2, -3, -4))) // []
 
+    println("\n---- ---- task 3 another solution ---- ----")
+    printLazy(lazyDuplicate(LazyList(1, 2, 3), LazyList(0, 3, 1, 4))) // [2, 2, 2, 3]
+    printLazy(lazyDuplicate(LazyList(1, 2, 3, 4, 5), LazyList(2, -1, 3))) // [1, 1, 3, 3, 3]
+    printLazy(lazyDuplicate(LazyList('a', 'b', 'c'), LazyList(2, 0, 2))) // ['a', 'a', 'c', 'c']
+    printLazy(lazyDuplicate(LazyList('a', 'b'), LazyList(-1, -2, -3, -4))) // []
+
     // ---- ---- task 4 and 5 ---- ----
     println("\n---- ---- tasks 4 and 5 ---- ----")
     println(new Point(3, 4).debugName()) // Point
@@ -138,4 +157,3 @@ object Lista6 {
   }
 
 }
-
