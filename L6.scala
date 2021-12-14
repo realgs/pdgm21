@@ -5,13 +5,18 @@ trait Debug{
         println(getClass.getSimpleName)
     }
 
-    def debugVars(): Unit = {
-        val list = ListBuffer[List[Object]]()
-        for(field<- getClass.getDeclaredFields){
-            field.setAccessible(true)
-            list+=List(field.getName,field.getType,field.get(this))
+    def debugVars(): List[Any] = {
+        def helper(list: List[java.lang.reflect.Field], res: List[Any]): List[Any] =
+        {
+            list match {
+                case head :: tail =>  head.setAccessible(true)
+                    val temp = List(head.getName(), head.getType().getName(), head.get(this))
+                    head.setAccessible(false)
+                    helper(tail, temp :: res)
+                case Nil => res.reverse
+            }
         }
-        println(list.toList)
+        helper(getClass.getDeclaredFields.toList, Nil)
     }
 
 }
@@ -49,7 +54,20 @@ object L6 {
             case(LazyList(),LazyList())=>LazyList()
         }
     }
-    //TODO zad 3 raczej z kolejka
+
+
+    def duplicate(list: List[Int],list2: List[Int]):List[Int] = {
+        def helper[A](list: List[A], list2: List[Int], res: List[A]): List[A] = {
+            (list, list2) match {
+                case (h1 :: t1, h2 :: t2) => if h2 > 0 then helper(list, (h2-1) :: t2, h1 :: res) else helper(t1, t2, res)
+                case (Nil, _) => res.reverse
+                case (_, Nil) => res.reverse
+            }
+        }
+        helper(list, list2, Nil)
+    }
+
+
     def main(args: Array[String]): Unit = {
        // val l =  LazyList(5,6,3,2,1)
         //println(eachNElement(l,2,4).toList)
@@ -57,7 +75,7 @@ object L6 {
        // val l2 = LazyList(2,3,4,5)
        // println(lazyExecute(l1,l2,'/').toList)
        var p: Point = new Point(3,4)
-       p.debugVars()
-
+       println(p.debugVars())
+       //println(duplicate(List(1,2,3,4,5,6),List(0,3,1,4)))
     }
 }
