@@ -34,7 +34,7 @@ object List6 {
             case "-" => (list1.head - list2.head) #:: lazyExecute(list1.tail, list2.tail, op)
             case "*" => (list1.head * list2.head) #:: lazyExecute(list1.tail, list2.tail, op)
             case "/" => (list1.head / list2.head) #:: lazyExecute(list1.tail, list2.tail, op)
-            case _ => list1.head #:: lazyExecute(list1.tail, list2.tail, op)
+            case _ => LazyList()
 
     def duplicate[A](values: LazyList[A], counts: LazyList[Int]): LazyList[A] =
         if values.isEmpty then LazyList()
@@ -55,7 +55,7 @@ object List6 {
         println(lazyExecute(LazyList(1, 2, 3), LazyList(2, 3, 4, 5), "+").toList == List(3, 5, 7, 5))
         println(lazyExecute(LazyList(1, 2, 3), LazyList(3, 3, 3), "/").toList == List(0, 0, 1))
         println(lazyExecute(LazyList(0, 1, -1), LazyList(1, 1, 1), "-").toList == List(-1, 0, -2))
-        println(lazyExecute(LazyList(), LazyList(), "").toList == List())
+        println(lazyExecute(LazyList(0, 1, -1), LazyList(1, 1, 1), "").toList == List())
         // test duplicate()
         println("test duplicate()")
         println(duplicate(LazyList(1, 2, 3), LazyList(0, 3, 1, 4)).toList == List(2, 2, 2, 3))
