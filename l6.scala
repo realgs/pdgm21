@@ -1,5 +1,9 @@
 object l6 {
 
+  // W zadaniach od 1 do 3 użyłem listy leniwej, ponieważ nie ma powodu żeby gorliwie ewaluować głowę (tak by było w przypadku użycia strumieni). Poza tym strumienie w Scali 3 są deprecated.
+  // Użycie w poniższych struktur leniwych, które nie są w całości ewaluowane gorliwie jest uzasadnione, ponieważ nie zawsze ewaluacja całych kolekcji będzie wymagana.
+  // Na przykład w zadaniu 1, po przekroczeniu indeksu otatniego przetwarzanego elementu, reszta listy jest ignorowana.
+
   def eachNElement[A](list: LazyList[A], interval: Int, lastIndex: Int): LazyList[A] =
     (list, lastIndex) match
       case (LazyList(), _) => list
