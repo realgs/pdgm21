@@ -18,7 +18,8 @@ object L5 {
       if number == 0 && list == Nil then List(0)
       else if number == 0 then list
       else helper(number/systemNr, systemNr, (number%systemNr) :: list)
-    helper(number, systemNr, Nil)
+    if number >= 0 then helper(number, systemNr, Nil)
+    else -1 :: helper(number, systemNr, Nil)
 
   //define binary tree
   sealed trait BT[+A]
