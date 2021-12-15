@@ -1,3 +1,4 @@
+//Szymon Bak, 260431
 object Lista6 {
   //zadanie 1
   def eachNElement[A](list: LazyList[A], n: Int, m: Int): LazyList[A] =
