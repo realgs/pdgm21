@@ -1,4 +1,36 @@
 object Main {
+
+  //-------------------------------Introduction-------------------------------+
+  // LAZYLIST ------> głowa oraz ogoń są ewaluowane leniwe!                   |
+  // STREAM (Depricated) ---------> tylko ogoń jest ewaluowane leniwe.        |
+  //                                                                          |
+  // *LENIWE ---> to znaczy że wyrażenie w których inicjalizatory             |
+  // nie są obliczane dopóki nie zostanie użyta val.                          |
+  //                                                                          |
+  //Ze względu na to, że z wersji Scali 2.13 kolekcja Stream stała depricated,|
+  // z tego powodu w zadaniach zamiast Stream korzystałem z kolekcji LazyList |
+  // z wersji 2.13.                                                           |
+  //--------------------------------------------------------------------------+
+
+
+  //----------------------------------Czemu LazyList, a nie coś innego??????----------------------------------------+
+  //                                                                                                                |
+  // [+] >>>>> LazyList może mieć nieskonczoną długość                                                              |
+  // [+] >>>>> immutable                                                                                            |
+  // [+] >>>>> Elementy LazyList są "memoized"; to znaczy, że wartość każdego elementu jest obliczana tylko raz.    |
+  // [+] >>>>> Zmniejsza złożoność czasową algorytmu poprzez odrzucenie obliczeń tymczasowych i warunkowych.        |
+  //                                                                                                                |
+  // [-] >>>>> Zmusza on runtime języka do wstrzymania oceny podwyrażeń do momentu,                                 |
+  //            gdy jest to wymagane w końcowym wyniku poprzez tworzenie thunks (obiektów opóźnionych).             |
+  //                                                                                                                |
+  //----------------------------------------------------------------------------------------------------------------+
+  //source = [
+  // 'https://en.wikipedia.org/wiki/Lazy_evaluation',
+  // 'https://www.scala-lang.org/api/2.13.x/scala/collection/immutable/LazyList.html',
+  // ]
+
+
+
   def eachNElement[A](llist: LazyList[A], whichIndex: Int, lastIndex: Int): LazyList[A] =
     def eachNElementHelper(llist: LazyList[A], indexCount: Int, pivotIndex: Int): LazyList[A] =
       (llist, indexCount == whichIndex, pivotIndex) match
