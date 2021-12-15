@@ -29,7 +29,10 @@ object List6 {
         case (h#::tail, LazyList()) => iterator(tail, rightTail, operation(h, 0)#::res)
         case (lh#::ltail, rh#::rtail) => iterator(ltail, rtail, operation(lh, rh)#::res)
     iterator(left, right, LazyList())
-
+/*W zadaniu 1 i 2 wykorzystuje LazyList zamiast Stream poniewaz Stream jest przestarzaly.
+* LazyList zostalo wprowadzone zamiast Stram, poniewaz Stram skladalo sie z leniwej listy instancji klasy Cons,
+* ktora jest ewaluowana gorliwie dlatego glowa stream nie byla leniwa, co prowadzilo do bledow przepelniena stosu
+* co nie powinno miec miejsca przy strukturze leniwej*/
   def multiplicate[A](elemList: List[A], timesList: List[Int]): List[A] =
     @tailrec
     def tailExtractor(elemTail: List[A], timesTail: List[Int], res:List[A]): List[A] =
@@ -43,7 +46,8 @@ object List6 {
         case (_, List()) => res.reverse
         case (eh::etail, tt::ttail) => tailExtractor(etail, ttail, duplicator(eh, tt, res))
     tailExtractor(elemList, timesList, List())
-
+/*W zadaniu 3 korzustam z Listy poniewaz wykorzystuje wszystkie elementy po kolei wiec wystarczy mi dostep do glowy
+* ktory zapewnie lista, zamiast tworzyc tablice z dostepem do wszystkich komorek kosztem zajmowania pojedynczego duzego bloku pamieci*/
 
   def main(args: Array[String]): Unit = {
 
