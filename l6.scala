@@ -47,6 +47,16 @@ object l6 {
         case _  => LazyList()
     duplicateIter(listToDuplicate, instructionList)
 
+  /*
+  W zadanich 1.-3. uzylam list leniwych - LazyList. Nie uzylam strumieni, poniewaz sa przestarzale i nie są w pełni leniwe - ich glowa jest wartosciowana gorliwie, a ogon leniwie.
+  LazyList gwarantuje wartosciowanie w pelni leniwe, tzn. wartosc kolejnego elementu jest wyznaczana, jezeli jest to konieczne.
+  W zadaniu 1. jezeli podany do funkcji indeks konczacy jest maly, a podana lista leniwa zawiera bardzo duzo elementow,
+  to wartosci powyzej indeksu konczacego, ktore nie beda nam potrzebne, nie zostana zewaluowane i bedzie to bardziej optymalne rozwiazanie. 
+  Podobnie w 2. zadaniu, uzycie list leniwych m.in. oszczedza uzywana pamiec. Jezeli jedna lista sie konczy, dalsza czesc drugiej nie jest ewaluowana.
+  W zadaniu 3. jesli znalabym ilosc danych wejsciowych zastanowilabym sie nad uzyciem innej struktury.
+  Np. jezeli lista instrucionList zawierajaca ilosc powtorzen danych elementow jest krotka, to zyskujemy uzywajac listy leniwej, poniewaz nie ewaluujemy niepotrzebnych wartosci.
+  */
+  
   //task4;5
   trait Debug {
     def debugName(): String =
