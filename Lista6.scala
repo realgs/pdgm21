@@ -87,7 +87,7 @@ object Lista6 {
     println(duplicateList(list0, duplicateList0).force)
 
     val list1 = LazyList(1, 2, 3, 4, 5)
-    def duplicateList1 : LazyList[Int] = 1 #:: 3 #:: 1 #:: 4 #:: duplicateList1
+    lazy val duplicateList1 : LazyList[Int] = 1 #:: 3 #:: 1 #:: 4 #:: duplicateList1
     println(duplicateList(list1, duplicateList1).force)
 
     val list2 = LazyList(1, 2, 3, 4, 5)
