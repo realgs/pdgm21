@@ -2,12 +2,14 @@ import scala.annotation.tailrec
 
 object Lista6 {
 
-  // creates a lazyList filled with ints obeying pattern defined in function next()
+  // USEFUL FUNCTIONS
+
+  // returns a lazyList filled with a sequence of integers generated with next()
   def createLlist(length: Int, first: Int, next: Int => Int): LazyList[Int] =
     if length <= 0 then LazyList()
     else first #:: createLlist(length - 1, next(first), next)
 
-  // prints lazy list on the screen
+  // calculates and prints lazyList on the screen in readable format
   def printLazy[A](list: LazyList[A]): Unit = {
     if list.isEmpty then print("[]\n")
     else
@@ -26,7 +28,17 @@ object Lista6 {
   }
 
   // ---- ---- task 1 ---- ----
-  // returns each n-th element of llist up to the nth element
+
+  /*
+    Streams in scala are deprecated, but they work very much like lazyLists,
+    except that streams calculate the head of the list, while a lazyList is entirely lazy, head included.
+
+    What are advantages of using lazy evaluation in task 1?
+    - We avoid calculating values we don't need - we just need values up to m-th, nothing more.
+    - Using lazyLists allows us to process potentially infinite lists.
+  */
+
+  // returns every n-th element of lazyList starting with first and going up to the m-th element
   def eachNElement[A](list: LazyList[A], n: Int, m: Int): LazyList[A] = {
 
     def helper(counter: Int, toIgnore: Int, currentList: LazyList[A]): LazyList[A] = {
@@ -41,6 +53,14 @@ object Lista6 {
   }
 
   // ---- ---- task 2 ---- ----
+
+  /*
+    What are advantages of using lazy evaluation in task 2?
+    Similarly to task 1:
+    - using lazyLists allows us to process potentially infinite lists
+    - we avoid calculating values we might never need
+  */
+
   // performs operations on lists
   def lazyExecute(list1: LazyList[Int], list2: LazyList[Int], operation: String): LazyList[Int] = {
     operation match
@@ -51,6 +71,16 @@ object Lista6 {
   }
 
   // ---- ---- task 3 ---- ----
+
+  /*
+    In the duplicate method below, arguments are lazyLists in case there was a big size difference
+    between two lists that we pass to the method. On to of that, we are prepared for receiving potentially
+    infinite lists and we avoid processing unnecessary elements in general.
+    Then why return a normal, eager list? We process all of elements elements of output list anyway,
+    and since we care about number of repetitions of each element it's likely that we're going to access
+    those elements later on - in such case there's no need to slow our program down by using lazyLists.
+  */
+
   // repeats elements from first list accordingly to values in second list
   def duplicate[A](listOfElems: LazyList[A], listOfReps: LazyList[Int]): List[A] = {
 
@@ -69,7 +99,7 @@ object Lista6 {
 
   }
 
-  // alternative solution: this time returns a LazyList
+  // alternative solution: returns a LazyList
   // repeats elements from first list accordingly to values in second list
   def lazyDuplicate[A](listOfElems: LazyList[A], listOfReps: LazyList[Int]): LazyList[A] = {
 
@@ -84,12 +114,12 @@ object Lista6 {
 
   }
 
-  // ---- ---- task 4 and 5 ---- ----
-  trait Debug:
-    def debugName() = this.getClass.getSimpleName
+  // ---- ---- tasks 4 and 5 ---- ----
+  sealed trait Debug:
+    def debugName():String = this.getClass.getSimpleName
 
     // doesn't display inherited fields
-    def debugVars() = {
+    def debugVars():List[String] = {
       // getDeclaredFields returns an array of Field objects declared in this class.
       this.getClass.getDeclaredFields().toList.map(
         field => {
@@ -105,7 +135,7 @@ object Lista6 {
   }
 
   class Pixel(xv: Int, yv: Int, intensity: Int) extends Point(xv, yv) {
-    var in = intensity
+    var in: Int = intensity
   }
 
   def main(args: Array[String]): Unit = {
