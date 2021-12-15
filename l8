@@ -1,0 +1,20 @@
+Deadline 17 / 20 stycznia 2022
+Liczba punktów: 20
+
+W tym zadaniu wykorzystacie zarówno umiejętności nabyte podczas nauki samych struktur danych jak i programowania równoległego. Zadanie polega na tym, by zaprojektować symulację rozgrywki gry logicznej Kalaha (2 graczy - 1 na 1). Opis gry:
+https://pl.wikipedia.org/wiki/Kalaha
+
+a) przeprowadzić symulację gry po obu stronach automatycznie (4pkt)
+b) wprowadzić możliwość gry z przeciwnikiem - komputer vs użytkownik (6pkt)
+c) napisać interfejs umożliwiający komunikację dwóch silników gry w Kalaha. Załóżcie pewne standardy i zasady np. mamy 3 aplikacje nazwane: serwer + 2 klientów. Wszystkie mogą działać lokalnie na Waszym komputerze. "Serwer" przyjmuje od klientów polecenia (kolejne numery pól, z których klient chce ruszyć pionki). Klient na podjęcie takiej decyzji ma maksymalnie 30 sekund. Czasu pilnuje "serwer". Serwer pilnuje kolejności ruchów (na przemian). Załóżcie czy klient może wskazać nieprawidłowe pole (np puste) i co wtedy się stanie. Serwer może ignorować niepoprawne wartości i czekać 30 sekund na poprawną. I tak dalej. (9pkt)
+d) interfejs komunikacji w podstawowej wersji: printowanie w konsoli stanu gry i pobieranie inputów (ruchów) od użytkownika (0pkt - wymaganie konieczne)
+e) podstawowy interfejs graficzny GUI (1pkt)
+
+
+Wskazówka. Wasz "silnik" gry logicznej powinien podejmować racjonalne decyzje, na podstawie określonego algorytmu. 
+Typowym podejściem w rozwiązywaniu takich problemów jest rozpisywanie drzewa decyzyjnego. W drzewie rozpisujemy kolejne opcje- ruchy, które możemy wykonać. 
+Niech to będzie 0,1,2,3,4,5 symbolizujące kolejne pule, które możemy wybrać na początku. Mamy 6 węzłów symbolizujących to co możemy zrobić, schodząc poziomy niżej
+musimy rozpisać co może się stać potem - czyli jak my ruszymy się z puli 2 to nasz przeciwnik może ruszyć się z 0,1,2,3,4,5 itd. 
+Proponuję razem z ruchem zapisywanym w węźle drzewa przechowywać również stan punktów, do którego dany ruch was prowadzi (w Kalaha jest to suma pionków w Waszej bazie). 
+Zwróćcie uwagę, że to co chcemy maksymalizować to nie sama suma pionków a różnica pomiędzy Wami a przeciwnikiem. Pionki nazywane są kamieniami, a pule dołkami-
+różne tłumaczenia można znaleźć w internecie.

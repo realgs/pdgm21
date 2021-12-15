@@ -1,0 +1,25 @@
+Nie wolno stosować funkcji bibliotecznych (np. "length", "reverse", "append") o złożoności większej, niż O(1). W przypadku, gdy zachodzi konieczność ich użycia należy przygotować własną implementację.
+
+Implementacja wszystkich programów w Scala oraz Ocaml. Do każdego zadania przygotuj co najmniej 3 sprawdzających poprawność działania w wybranych przypadkach skrajnych.
+
+Termin oddania zadania 18 / 21 października w zależności od grupy zajęciowej na którą uczęszczacie.
+
+1) Funkcja, która przyjmuje listę liczb całkowitych i zwraca ich sumę.
+
+    Punkty: 2.5
+
+2) Funkcja przyjmująca listę stringów - słów oraz znak kończący zdanie. 
+Na wyjściu zwraca zdanie czyli string będący połączeniem napisów wejściowych oddzielonych od siebie separatorem (hardcodowanym, zdefiniowanym na stałe w programie! np. spacja) i zakończony określonym znakiem (np. kropka, wykrzyknik, znak zapytania).
+
+    Punkty: 2.5 
+
+3) Funkcja sprawdzająca czy liczby z podanej na wejściu listy są większe od zera. Zwraca true jeśli tak, false w przeciwnym przypadku.
+
+    Punkty: 2.5
+
+4) Funkcja, która liczy silnię z danej liczby.
+
+    Punkty: 2.5
+
+Definicje w scala:
+https://www.journaldev.com/11930/scala-val-var-lazyval-def-constructs

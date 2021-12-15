@@ -1,0 +1,67 @@
+Termin oddania listy: 15 / 16 grudnia 2021 w zależności od grupy zajęciowej.
+Łączna liczba punktów: 20
+
+1) Zdefiniuj funkcję "eachNElement" wybierającą co n-ty element listy leniwej,
+   zaczynając od elementu pierwszego kończąc na elemencie numer m(indeks m dotyczy listy pierwotnej, nie wynikowej).
+   Czy w zadaniu warto użyć strumieni jako reprezentację danych? Jakie są ich zalety w tym przypadku?
+
+   Przykłady:
+   [5;6;3;2;1], 2, 3 -> [5;3]
+   [5;6;3;2;1], 2, 4 -> [5;3]
+   Wyniki powinny być zapisane w postaci leniwej
+
+   Punkty: 4
+
+2) Zdefiniuj funkcję "lazyExecute" przyjmującą dwie listy leniwe i wykonującą podane działanie na elementach list. Obsłuż 4 podstawowe operacje matematyczne. Wynikiem jest lista leniwa.
+   Czy w zadaniu warto użyć strumieni jako reprezentację danych? Jakie są ich zalety w tym przypadku?
+
+   Przykład:
+   [1;2;3], [2;3;4;5] oraz + daje [3;5;7;5]
+   Wyniki powinny być zapisane w postaci leniwej
+
+   Punkty: 4
+
+3) Napisz funkcję powielającą elementy w kolekcji na podstawie drugiej kolekcji
+   określającej ile razy elementy mają być powielone. Użyj dogodnej reprezentacji kolekcji i uzasadnij swój wybór. Tablice nie są optymalnym wyborem, można je potraktować jako absolutne minimum.
+
+   przykład: wywołanie duplicate dla [1;2;3] oraz [0;3;1;4] daje wynik [2;2;2;3]
+
+   Punkty: 4
+
+Lista metod potencjalnie przydatnych do poniższych zadań:
+
+- getClass
+- getDeclaredFields
+- setAccessible
+- getName
+- get
+
+4) Napisz cechę (trait) "Debug" z metodą "debugName", która zwraca nazwę klasy,
+   do której cecha została dołączona.
+
+Przykładowo:
+
+class Point(xv: Int, yv: Int) extends Debug {
+    var x: Int = xv
+    var y: Int = yv
+    var a: String = "test"
+}
+
+var p : Point = new Point(3, 4);
+p.debugName();
+
+Zwróci: Point
+
+Punkty: 2
+
+5) Do trait dopisz metodę "debugVars", która zwraca
+   listę nazw, typów pól, wartości pól, do której cecha została dołączona.
+
+var p : Point = new Point(3, 4);
+p.debugVars();
+
+Zwróci:
+
+[[x, int, 3], [y, int, 4], [a, java.lang.String, test]]
+
+Punkty: 6
