@@ -1,5 +1,23 @@
 object Main {
 
+  /*
+    W zadaniach 1-3 uzylem LazyList, poniewaz przechowywane w niej wartosci sa ewaluowane leniwie(sa obliczane tylko wtedy, kiedy sa potrzebne)
+    Dlaczego nie Stream, ktory dalby bardzo podobny efekt?
+    Glownie dlatego, ze Stream jest @deprecated. To oznacza, ze w przyszlosci moze zostac usuniety.
+    Pozatym Lazylist jest bardziej leniwa i w przeciwienstwie do Stream'a nie ma obliczonej wartosci glowy, co moze zmniejszyc ilosc bledow/pomylek podczas
+    operowania na tej strukturze.
+
+    Spojrzmy teraz na konkretne zadania i zalety plynace z uzycia w nich LazyList:
+    -Zadanie 1:
+    Jesli otrzymana lista jest bardzo duza, a element konczacy maly, w stosunku do tej list, to nie potrzebujemy znac calej list. Przeprowadzimy
+    operacje tylko na poczatkowych elementach oszczedzajac czas i pamiec.
+    -Zadanie 2:
+    Poniewaz w tym zadaniu dochodza pewne obliczenie(co prawda proste, ale jednak), to zleniwienie oznacza, ze nie musimy zuzywac zasobow na liczenie
+    nieuzywanych elementow.
+    -Zadanie 3:
+    Podobnie jak w zadaniu 1, lista moze byc bardzo dluga, a lista z iloscia powtorzen krotka. Dzieki liscie leniwej nie operujemy na zbednych wartosciach.
+  */
+
   def main(args: Array[String]): Unit =
 
     //task 1 - test
