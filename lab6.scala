@@ -1,3 +1,10 @@
+//W swoich rozwiązaniach użyłem LazyList ze względu na korzyści, które oferuje, mianowicie fakt bycia strukturą niemutowalną, 
+//o potencjalnie nieskończonej długości, pozwalającą nam jednak na wykorzystanie dokładnie takiej ilości danych, 
+//jaką potrzebujemy, reszta nie jest ewaluowana bez potrzeby, a doskonałym przykładem tego jest zadanie 1, 
+//gdzie ewaluowanie wartości powyżej indeksu "m" jest bezsensowne.
+//Przeciwko użyciu strumieni przemawia fakt, że zostały one oznaczone jako "depricated" i fakt, że ewaluowany w nich leniwie jest jedynie ogon,
+//podczas gdy głowa pozostaje ewaluowana gorliwie, co może być w niektórych sytuacjach mylące i co z resztą doprowadziło do zastąpienia strumieni przez LazyList.
+
 import java.lang.reflect.Field
 
 object lab6 {
