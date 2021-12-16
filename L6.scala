@@ -1,4 +1,5 @@
 package pdgm21
+import scala.annotation.tailrec
 import scala.collection.mutable.ListBuffer
 trait Debug{
     def debugName(): Unit ={
@@ -31,6 +32,7 @@ class Point(xv: Int, yv: Int) extends Debug {
 object L6 {
 
     def eachNElement[A](lazyList: LazyList[A],n:Int,end:Int):LazyList[A] = {
+        @tailrec
         def helper[A] (lazyList: LazyList[A],n:Int,end:Int,iter:Int,res:LazyList[A]):LazyList[A] = {
            lazyList match {
                case head #::tail => if iter >end then res.reverse
@@ -57,6 +59,7 @@ object L6 {
 
 
     def duplicate(llist: LazyList[Int], llist2: LazyList[Int]):LazyList[Int] = {
+        @tailrec
         def helper[A](llist: LazyList[A], llist2: LazyList[Int], res: LazyList[A]): LazyList[A] = {
             (llist, llist2) match {
                 case (h1 #:: t1, h2 #:: t2) => if h2 > 0 then helper(llist, (h2-1) #:: t2, h1 #:: res) else helper(t1, t2, res)
@@ -69,13 +72,13 @@ object L6 {
 
 
     def main(args: Array[String]): Unit = {
-       // val l =  LazyList(5,6,3,2,1)
-        //println(eachNElement(l,2,4).toList)
-       // val l1 = LazyList(1,2,3)
-       // val l2 = LazyList(2,3,4,5)
-       // println(lazyExecute(l1,l2,'/').toList)
-      // var p: Point = new Point(3,4)
-       //println(p.debugVars())
-       println(duplicate(LazyList(1,2,3),LazyList(0,3,1,4)).toList())
+        val l =  LazyList(5,6,3,2,1)
+        println(eachNElement(l,2,4).toList)
+        val l1 = LazyList(1,2,3)
+        val l2 = LazyList(2,3,4,5)
+        println(lazyExecute(l1,l2,'+').toList)
+        var p: Point = new Point(3,4)
+        println(p.debugVars())
+        println(duplicate(LazyList(1,2,3),LazyList(0,3,1,4)).toList)
     }
 }
