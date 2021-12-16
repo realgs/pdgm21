@@ -45,6 +45,7 @@ object L6 {
     def debugName(): String =
       getClass.getSimpleName
 
+        //zadanie 5
     def debugVars(): List[Any] =
       getClass.getDeclaredFields.toList.map(f => {f.setAccessible(true); (f.getName, f.getType, f.get(this))})
 
