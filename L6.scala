@@ -56,15 +56,15 @@ object L6 {
     }
 
 
-    def duplicate(list: List[Int],list2: List[Int]):List[Int] = {
-        def helper[A](list: List[A], list2: List[Int], res: List[A]): List[A] = {
-            (list, list2) match {
-                case (h1 :: t1, h2 :: t2) => if h2 > 0 then helper(list, (h2-1) :: t2, h1 :: res) else helper(t1, t2, res)
-                case (Nil, _) => res.reverse
-                case (_, Nil) => res.reverse
+    def duplicate(llist: LazyList[Int], llist2: LazyList[Int]):LazyList[Int] = {
+        def helper[A](llist: LazyList[A], llist2: LazyList[Int], res: LazyList[A]): LazyList[A] = {
+            (llist, llist2) match {
+                case (h1 #:: t1, h2 #:: t2) => if h2 > 0 then helper(llist, (h2-1) #:: t2, h1 #:: res) else helper(t1, t2, res)
+                case (LazyList(), _) => res.reverse
+                case (_, LazyList()) => res.reverse
             }
         }
-        helper(list, list2, Nil)
+        helper(llist, llist2, LazyList())
     }
 
 
@@ -74,8 +74,8 @@ object L6 {
        // val l1 = LazyList(1,2,3)
        // val l2 = LazyList(2,3,4,5)
        // println(lazyExecute(l1,l2,'/').toList)
-       var p: Point = new Point(3,4)
-       println(p.debugVars())
-       //println(duplicate(List(1,2,3,4,5,6),List(0,3,1,4)))
+      // var p: Point = new Point(3,4)
+       //println(p.debugVars())
+       println(duplicate(LazyList(1,2,3),LazyList(0,3,1,4)).toList())
     }
 }
