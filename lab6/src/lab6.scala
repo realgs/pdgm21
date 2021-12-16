@@ -61,7 +61,7 @@ object lab6 {
         list match
           case (head :: tail) =>
             head.setAccessible(true)
-            (head.getName, head.getType, head.get(this)) :: debugVarsHelper(tail)
+            (head.getName(), head.getType(), head.get(this)) :: debugVarsHelper(tail)
           case Nil => Nil
 
       debugVarsHelper(list)
