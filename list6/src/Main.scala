@@ -16,17 +16,17 @@ object Main {
   //task 2
   def lazyExecute(firstl: LazyList[Int], secl: LazyList[Int], oper: Char) : LazyList[Int] = {
     def executeIn(f: LazyList[Int], s: LazyList[Int]) : LazyList[Int] = {
-      (firstl, secl) match {
+      (f, s) match {
         case (h1 #:: t1, h2 #::t2) =>
           oper match{
-            case '+' => (h1 + h2) #:: lazyExecute(t1, t2, oper)
-            case '-' => (h1 - h2) #:: lazyExecute(t1, t2, oper)
-            case '*' => (h1 * h2) #:: lazyExecute(t1, t2, oper)
-            case '/' => if h2 != 0 then (h1 / h2) #:: lazyExecute(t1, t2, oper)
+            case '+' => (h1 + h2) #:: executeIn(t1, t2)
+            case '-' => (h1 - h2) #:: executeIn(t1, t2)
+            case '*' => (h1 * h2) #:: executeIn(t1, t2)
+            case '/' => if h2 != 0 then (h1 / h2) #:: executeIn(t1, t2)
                         else throw new ArithmeticException("Division by zero")
           }
-        case (LazyList(), h2 #::t2) => secl
-        case (h1 #:: t1, LazyList()) => firstl
+        case (LazyList(), h2 #::t2) => s
+        case (h1 #:: t1, LazyList()) => f
         case _ => LazyList()
       }
     }
@@ -75,22 +75,6 @@ object Main {
     list
   }
 
-  //task 4-5
-  trait Debug{
-    def debugName(): String = getClass.getSimpleName
-
-    def debugVars(): List[List[String]]= {
-      var fields :Array[java.lang.reflect.Field] = this.getClass.getDeclaredFields
-      var buffer = ListBuffer[List[String]]()
-
-      for( f <- fields){
-        f.setAccessible(true)
-        buffer += List(f.getName, f.getType.toString, f.get(this).toString)
-      }
-      buffer.toList
-    }
-  }
-
   def main(args: Array[String]): Unit ={
     val l = LazyList(1,2,3,4,5,6,7,8,9)
     val m = LazyList(5,6,3,2,0)
@@ -116,13 +100,6 @@ object Main {
     println(duplicate(list1, listNumbers).toList)
     println(duplicate(list2, listNumbers2).toList)
 
-
-    class Point(xv: Int, yv: Int) extends Debug {
-      var x: Int = xv
-      var y: Int = yv
-      var a: String = "test"
-    }
-
     var p : Point = new Point(3, 4);
     var d : Point = new Point(0, 4);
     //task 4
@@ -133,6 +110,26 @@ object Main {
     println(d.debugVars());
 
   }
+  //task 4-5
+  trait Debug{
+    def debugName(): String = getClass().getName()
 
+    def debugVars(): List[List[String]]= {
+      var fields :Array[java.lang.reflect.Field] = this.getClass.getDeclaredFields
+      var buffer = ListBuffer[List[String]]()
+
+      for( f <- fields){
+        f.setAccessible(true)
+        buffer += List(f.getName, f.getType.toString, f.get(this).toString)
+      }
+      buffer.toList
+    }
+  }
+
+  class Point(xv: Int, yv: Int) extends Debug {
+    var x: Int = xv
+    var y: Int = yv
+    var a: String = "test"
+  }
 
 }
