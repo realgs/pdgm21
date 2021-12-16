@@ -18,8 +18,10 @@ def eachNElement[T](n: Int, m: Int, lazyList: LazyList[T]): LazyList[T] =
 
   eachNElementInner(0, LazyList(), lazyList)
 
-eachNElement(2, 3, LazyList(5, 6, 3, 2, 1)).toList == List(5, 3)
-eachNElement(2, 4, LazyList(5, 6, 3, 2, 1)).toList == List(5, 3)
+val lazyList = LazyList(5, 6, 3, 2, 1)
+
+eachNElement(2, 3, lazyList).toList == List(5, 3)
+eachNElement(2, 4, lazyList).toList == List(5, 3)
 eachNElement(5, 10, LazyList("A", "B", "C", "D", "E", "F", "G", "H", "I", "J")).toList == List("A", "F")
 eachNElement(2, 4, LazyList()).toList == List()
 eachNElement(100, 5, LazyList(5, 6, 3, 2, 1)).toList == List(5)
