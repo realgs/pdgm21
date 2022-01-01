@@ -1,0 +1,105 @@
+Output konsoli:
+
+Correct output matrix
+ 301 322 343 364
+ 697 754 811 868
+ 1093 1186 1279 1372
+ 1489 1618 1747 1876
+
+ 301 322 343 364
+ 697 754 811 868
+ 1093 1186 1279 1372
+ 1489 1618 1747 1876
+
+Correct determinant
+true
+true
+true
+true
+
+Correct sum
+true
+true
+
+Tests on task 1 - multiplying matrices
+Matrices 10 x 10
+Time without paraller: 248100
+Time with paraller: 55300
+
+Matrices 100 x 100
+Time without paraller: 26498600
+Time with paraller: 53200
+
+Matrices 1000 x 1000
+Time without paraller: 3904842500
+Time with paraller: 411200
+
+Matrices 2000 x 2000
+Time without paraller: 68414701800
+Time with paraller: 1253600
+
+Tests on task 2 - calculate determinant
+Matrices 3 x 3
+Time without paraller: 88600
+Time with paraller: 491500
+
+Matrices 6 x 6
+Time without paraller: 2980400
+Time with paraller: 604800
+
+Matrices 10 x 10
+Time without paraller: 3069902900
+Time with paraller: 728767100
+
+Tests on task 3 - sum elements in the array
+Array of length 10
+Time without paraller: 6100
+Time with paraller: 177500
+
+Array of length 100
+Time without paraller: 24500
+Time with paraller: 181400
+
+Array of length 1000
+Time without paraller: 126000
+Time with paraller: 212300
+
+Array of length 10000
+Time without paraller: 278900
+Time with paraller: 366900
+
+Array of length 100000
+Time without paraller: 2254900
+Time with paraller: 2475600
+
+Array of length 1000000
+Time without paraller: 35324900
+Time with paraller: 5016000
+
+Array of length 10000000
+Time without paraller: 367311400
+Time with paraller: 78311000
+
+Wnioski:
+Na potrzeby testów odciąłem wszelakie niepotrzebne procesy na komputerze
+Niestety nie udało mi się uniknąć lagów, więc niektóre czasy wyżej podane mogą być zawyżone
+
+Normalnie powinnyśmy przeprowadzić ileś symulacji (np. 100) i porównywać średnie, jednak uznałem, że
+na potrzeby tego zadania nie jest to potrzebne
+
+Patrząc na wyniki możemy zauważyć, że tym większy rozmiar danych tym lepszy czas osiągamy.
+Warto jednak zauważyć kilka rzeczy:
+1. W zadaniu 1 widać bardzo mocną przewagę programowania równoległego. Dzięki temu, że przekazujemy
+referencję na tablicę jesteśmy w stanie w łatwy sposób manipulować wartościami w niej
+2. W zadaniu 2 ta przewaga wciąż jest silna, ale troszkę zaczyna słabnąć. Należy zauważyć, że w procesie
+wyznaczania wyznacznika dużo jest wywołań rekursywnych i tworzenia nowych tablic, które zajmuja dużo pamięci i czasu,
+więc nie było nam dane przetestować liczenia wyznacznika dla dużych macierzy
+3. W zadaniu 3 ta przewaga jest widoczna tylko dla bardzo dużych tablic. Dla mniejszych nie ma sensu
+fatygować się z programowaniem równoległym
+
+Warto zauważyć, że programowanie równoległe użyte odpowiednio może bardzo przyspieszyć działanie programu.
+Nie należy używać programowanie równoległego do prostych problemów gdyż duża szansa, że w większości
+przypadków będzie to spowalniało pracę programu.
+Programowanie równoległe w trudniejszych problemach przeważnie przyspiesza pracę programu. Należy jednak
+zauważyć, że programowaniem równoległym nie rozwiążemy wszystkich problemów na jakie możemy napotkać
+(np. generowanie dużej liczby tablic)
