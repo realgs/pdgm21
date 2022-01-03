@@ -218,7 +218,7 @@ object Lab7 {
     println("Time without paraller: " + (System.nanoTime() - time).toString)
     time = System.nanoTime()
     multiplyMatricesParaller(matrix1, matrix2)
-    println("Time with paraller: " + (System.nanoTime() - time).toString)
+    println("Time with paraller:    " + (System.nanoTime() - time).toString)
 
     println("\nMatrices 100 x 100")
     matrix1 = createMatrix(100, 100)
@@ -228,7 +228,7 @@ object Lab7 {
     println("Time without paraller: " + (System.nanoTime() - time).toString)
     time = System.nanoTime()
     multiplyMatricesParaller(matrix1, matrix2)
-    println("Time with paraller: " + (System.nanoTime() - time).toString)
+    println("Time with paraller:    " + (System.nanoTime() - time).toString)
 
     println("\nMatrices 1000 x 1000")
     matrix1 = createMatrix(1000, 1000)
@@ -238,7 +238,7 @@ object Lab7 {
     println("Time without paraller: " + (System.nanoTime() - time).toString)
     time = System.nanoTime()
     multiplyMatricesParaller(matrix1, matrix2)
-    println("Time with paraller: " + (System.nanoTime() - time).toString)
+    println("Time with paraller:    " + (System.nanoTime() - time).toString)
 
     println("\nMatrices 2000 x 2000")
     matrix1 = createMatrix(2000, 2000)
@@ -248,7 +248,7 @@ object Lab7 {
     println("Time without paraller: " + (System.nanoTime() - time).toString)
     time = System.nanoTime()
     multiplyMatricesParaller(matrix1, matrix2)
-    println("Time with paraller: " + (System.nanoTime() - time).toString)
+    println("Time with paraller:    " + (System.nanoTime() - time).toString)
 
     println("\nTests on task 2 - calculate determinant")
     println("Matrices 3 x 3")
@@ -258,7 +258,7 @@ object Lab7 {
     println("Time without paraller: " + (System.nanoTime() - time).toString)
     time = System.nanoTime()
     calculateDeterminantParaller(matrix)
-    println("Time with paraller: " + (System.nanoTime() - time).toString)
+    println("Time with paraller:    " + (System.nanoTime() - time).toString)
 
     println("\nMatrices 6 x 6")
     matrix = createMatrix(6, 6)
@@ -267,7 +267,7 @@ object Lab7 {
     println("Time without paraller: " + (System.nanoTime() - time).toString)
     time = System.nanoTime()
     calculateDeterminantParaller(matrix)
-    println("Time with paraller: " + (System.nanoTime() - time).toString)
+    println("Time with paraller:    " + (System.nanoTime() - time).toString)
 
     println("\nMatrices 10 x 10")
     matrix = createMatrix(10, 10)
@@ -276,7 +276,7 @@ object Lab7 {
     println("Time without paraller: " + (System.nanoTime() - time).toString)
     time = System.nanoTime()
     calculateDeterminantParaller(matrix)
-    println("Time with paraller: " + (System.nanoTime() - time).toString)
+    println("Time with paraller:    " + (System.nanoTime() - time).toString)
 
     println("\nTests on task 3 - sum elements in the array")
     println("Array of length 10")
@@ -286,7 +286,7 @@ object Lab7 {
     println("Time without paraller: " + (System.nanoTime() - time).toString)
     time = System.nanoTime()
     sumArrayParaller(arr)
-    println("Time with paraller: " + (System.nanoTime() - time).toString)
+    println("Time with paraller:    " + (System.nanoTime() - time).toString)
 
     println("\nArray of length 100")
     arr = createArray(100)
@@ -295,7 +295,7 @@ object Lab7 {
     println("Time without paraller: " + (System.nanoTime() - time).toString)
     time = System.nanoTime()
     sumArrayParaller(arr)
-    println("Time with paraller: " + (System.nanoTime() - time).toString)
+    println("Time with paraller:    " + (System.nanoTime() - time).toString)
 
     println("\nArray of length 1000")
     arr = createArray(1000)
@@ -304,7 +304,7 @@ object Lab7 {
     println("Time without paraller: " + (System.nanoTime() - time).toString)
     time = System.nanoTime()
     sumArrayParaller(arr)
-    println("Time with paraller: " + (System.nanoTime() - time).toString)
+    println("Time with paraller:    " + (System.nanoTime() - time).toString)
 
     println("\nArray of length 10000")
     arr = createArray(10000)
@@ -313,7 +313,7 @@ object Lab7 {
     println("Time without paraller: " + (System.nanoTime() - time).toString)
     time = System.nanoTime()
     sumArrayParaller(arr)
-    println("Time with paraller: " + (System.nanoTime() - time).toString)
+    println("Time with paraller:    " + (System.nanoTime() - time).toString)
 
     println("\nArray of length 100000")
     arr = createArray(100000)
@@ -322,7 +322,7 @@ object Lab7 {
     println("Time without paraller: " + (System.nanoTime() - time).toString)
     time = System.nanoTime()
     sumArrayParaller(arr)
-    println("Time with paraller: " + (System.nanoTime() - time).toString)
+    println("Time with paraller:    " + (System.nanoTime() - time).toString)
 
     println("\nArray of length 1000000")
     arr = createArray(1000000)
@@ -331,7 +331,7 @@ object Lab7 {
     println("Time without paraller: " + (System.nanoTime() - time).toString)
     time = System.nanoTime()
     sumArrayParaller(arr)
-    println("Time with paraller: " + (System.nanoTime() - time).toString)
+    println("Time with paraller:    " + (System.nanoTime() - time).toString)
 
     println("\nArray of length 10000000")
     arr = createArray(10000000)
@@ -340,6 +340,6 @@ object Lab7 {
     println("Time without paraller: " + (System.nanoTime() - time).toString)
     time = System.nanoTime()
     sumArrayParaller(arr)
-    println("Time with paraller: " + (System.nanoTime() - time).toString)
+    println("Time with paraller:    " + (System.nanoTime() - time).toString)
   }
 }
