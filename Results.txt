@@ -1,0 +1,268 @@
+
+// Czas wykonywania programów został podany w nanosekundach. Są to na tyle małe wartości, że pomimo zabicia niepotrzebnych procesów w tle inne działania komputera mogły mieć wpływ na uzyskane wyniki.
+// Skupiłam się na badaniu algorytmów pod względem wpływu liczby tworzonych Future na szybkość działania programu. Testowałam również wpływ sposobu spawnu tasków i ich planowania na szybkość działania 
+// programu. Zrównoleglenie opłaca się wprowadzać w algorytmach dzielących się na mniejsze podproblemy. Koszt utworzenia nowego zadania i planowania jest niepomijalny, 
+// co czyni programownie współbieżne mniej oplacalnym od algorytmów sekwencyjncyh na małych zbiorach danych.
+// Niezależnie od algorytmu prawie zawsze szybciej wykonywały się programy, które uzyskiwały zrównoleglenie przez spawning tasków uzyskany przez funkcję parallel przekazującą zadania jakoa rgumenty przez wartość.
+// Należy pamiętać o tym, że koszt tworzenia Future jest niepomijalny, a hardware ma swoje ogarniczenia. Nie ma zatem sensu tworzenie wątków w nieskończoność, bo tylko spowalnia to obliczenia.
+ 
+
+// Szukanie minimum w drzewie binarnym
+// Dopiero dla większych drzew o głębokości 20 zrównoleglenie stało się opłacalne, dla drzew mniejszych koszt tworzenia nowych wątków przeważał korzyści.
+// Wyniki nie były jednoznaczne, jednak najczęściej najkorzystniejsze wychodziło zaprzestanie tworzenia nowych future na 2 poziomie drzewa.
+
+// Mergesort
+// Dla mergesortu bardziej opłacalne stało się wykorzystanie algorytmów ze zrównolegleniem juz dla 10 000 elementów. Korzystniejsze było zaprzestanie tworzenia nowych wątków dla głębokości 2.
+
+// Quicksort
+// Lepszy od 10 000 elementów. Parallel lepszy niż future.
+
+// Suma dwóch sekwencji
+// Parallel niejednoznacznie lepsze od future. Zrównoleglenie korzystniejsze już dla 10 elementów.
+
+
+Finding min in binary tree, depth to split: 4
+
+tree, depth: 1
+normal: 27000
+future: 47231000
+parallel: 1582100
+
+tree, depth: 5
+normal: 14400
+future: 2165100
+parallel: 369200
+
+tree, depth: 10
+normal: 363300
+future: 688400
+parallel: 334400
+
+tree, depth: 15
+normal: 886500
+future: 8975500
+parallel: 344100
+
+tree, depth: 20
+normal: 5894000
+future: 3005600
+parallel: 1867700
+
+
+Finding min in binary tree, depth to split: 2
+
+tree, depth: 1
+normal: 6700
+future: 118500
+parallel: 103100
+
+tree, depth: 5
+normal: 3800
+future: 244200
+parallel: 90800
+
+tree, depth: 10
+normal: 11600
+future: 145100
+parallel: 116300
+
+tree, depth: 15
+normal: 222300
+future: 277800
+parallel: 160600
+
+tree, depth: 20
+normal: 5473400
+future: 2685400
+parallel: 2335300
+
+
+Finding min in binary tree, depth to split: 1
+
+tree, depth: 1
+normal: 3200
+future: 94700
+parallel: 82900
+
+tree, depth: 5
+normal: 3300
+future: 94900
+parallel: 38600
+
+tree, depth: 10
+normal: 9100
+future: 80700
+parallel: 62100
+
+tree, depth: 15
+normal: 201800
+future: 205300
+parallel: 144300
+
+tree, depth: 20
+normal: 5500800
+future: 2721700
+parallel: 2994300
+
+
+Mergesort, depth 4
+
+list, elements: 10
+normal: 90800
+always future: 623200
+mixed future: 1155500
+mixed parallel: 818000
+
+list, elements: 100
+normal: 445400
+always future: 577800
+mixed future: 885300
+mixed parallel: 409900
+
+list, elements: 1 000
+normal: 5416500
+always future: 4236600
+mixed future: 3544800
+mixed parallel: 3578800
+
+list, elements: 10 000
+normal: 11095100
+always future: 11720000
+mixed future: 9490500
+mixed parallel: 74746300
+
+list, elements: 100 000
+normal: 87865200
+always future: 64483100
+mixed future: 40956500
+mixed parallel: 41149000
+
+list, elements: 1 000 000
+normal: 901909600
+always future: 510628800
+mixed future: 352724400
+mixed parallel: 342228500
+
+list, elements: 10 000 000
+normal: 12416549900
+always future: 9231892700
+mixed future: 11214832700
+mixed parallel: 9136578800
+
+
+Mergesort, depth 2
+
+list, elements: 10
+normal: 4800
+always future: 67600
+mixed future: 84600
+mixed parallel: 45500
+
+list, elements: 100
+normal: 28000
+always future: 63200
+mixed future: 126500
+mixed parallel: 79900
+
+list, elements: 1 000
+normal: 229800
+always future: 248900
+mixed future: 212500
+mixed parallel: 201300
+
+list, elements: 10 000
+normal: 3241500
+always future: 9619900
+mixed future: 4160200
+mixed parallel: 4028400
+
+list, elements: 100 000
+normal: 53980500
+always future: 34975000
+mixed future: 27007500
+mixed parallel: 28068800
+
+list, elements: 1 000 000
+normal: 949117000
+always future: 562363800
+mixed future: 520110700
+mixed parallel: 438792100
+
+list, elements: 10 000 000
+normal: 12270034700
+always future: 10147952500
+mixed future: 9302223900
+mixed parallel: 10560967100
+
+
+Quicksort
+
+array, elements: 10
+normal: 2413200
+always future: 2262600
+mixed future: 556700
+mixed parallel: 227400
+
+array, elements: 100
+normal: 84400
+always future: 5965900
+mixed future: 148700
+mixed parallel: 1123600
+
+array, elements: 1 000
+normal: 557500
+mixed future: 664500
+mixed parallel: 414900
+
+array, elements: 10 000
+normal: 3681900
+mixed future: 2464100
+mixed parallel: 891100
+
+array, elements: 100 000
+normal: 16104100
+mixed future: 15584900
+mixed parallel: 1141800
+
+array, elements: 1 000 000
+normal: 82713700
+mixed future: 524803700
+mixed parallel: 6728700
+
+array, elements: 10 000 000
+normal: 1077146600
+mixed future: 654861900
+mixed parallel: 57990100
+
+
+Sum of two sequences
+
+sequence, index: 10
+normal: 1544200
+future: 1285500
+parallel through name: 799000
+
+sequence, index: 100
+normal: 828100
+future: 686000
+parallel through name: 822100
+
+sequence, index: 1 000
+normal: 3149000
+future: 1483400
+parallel through name: 1646700
+
+sequence, index: 10 000
+normal: 17014900
+future: 7061200
+parallel through name: 6516700
+
+sequence, index: 100 000
+normal: 438496600
+future: 323070200
+parallel through name: 314371800
+
+sequence, index: 1 000 000
+normal: 32754699100
+future: 28561672700
+parallel through name: 28606053300
