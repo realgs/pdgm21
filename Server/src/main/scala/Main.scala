@@ -12,6 +12,9 @@ object Main extends MainRoutes:
         WsHandler { channel =>
             WsActor {
                 case Ws.Text("") => channel.send(Ws.Close())
+                case Ws.Text("disconnect") => 
+                    channel.send(Ws.Close())
+                    controller.timerThread.interrupt()
                 case Ws.Text(data) =>
                     if controller == null then controller = new KalahaController(channel)
                     if data.startsWith("connect") then

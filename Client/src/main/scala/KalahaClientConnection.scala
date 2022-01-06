@@ -34,4 +34,4 @@ class KalahaClientConnection:
         conn.send(Ws.Text(s"makeMove$holeNumber"))
 
     def disconnect =
-        conn.send(Ws.Close())
+        conn.send(Ws.Text("disconnect"))

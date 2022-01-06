@@ -7,6 +7,7 @@ import cask.*
 class KalahaController(channel: WsChannelActor):
 
     val service = new KalahaService
+    var timerThread: Thread = null
 
     def onConnect(name: String) =
         try
@@ -15,11 +16,17 @@ class KalahaController(channel: WsChannelActor):
         catch
             case e => channel.send(Ws.Text(e.getMessage))
 
-    def onMakeMove(name: String, holeNumber: Int) =
+    def onMakeMove(name: String, holeNumber: Int): Unit =
         try
             makeMove(name, holeNumber)
             service.printBoard
             channel.send(Ws.Text(name + " made his move\n" + service.boardToString))
+            if service.turn == "JohnnyAI" then
+                var ai = service.secondPlayer.asInstanceOf[KalahaAI]
+                service.updatePredictions(ai)
+                val aiBestMove = ai.selectBestMove
+                println("JohnnyAI making move, number = " + aiBestMove)
+                onMakeMove("JohnnyAI", aiBestMove)
         catch
             case e => channel.send(Ws.Text(e.getMessage))
 
@@ -30,8 +37,8 @@ class KalahaController(channel: WsChannelActor):
         try
             service.startGame
             channel.send(Ws.Text("Game started with players: " + service.firstPlayer.name + ", " + service.secondPlayer.name))
-            val thread = new Thread(new TimerRunnable(channel, this))
-            thread.start
+            timerThread = new Thread(new TimerRunnable(channel, this))
+            timerThread.start
         catch
             case e: IllegalStateException => channel.send(Ws.Text(e.getMessage))
 
