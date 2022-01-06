@@ -4,21 +4,23 @@ import cask.Logger.Console.globalLogger
 import castor.Context.Simple.global
 
 class KalahaClientConnection:
-
     var name = ""
     var conn: WsClient = _
 
     def connectToServer =
-        if name == "" then throw new IllegalStateException("Enter your name first!")
         if conn != null then throw new IllegalStateException("You are already connected!")
-        conn = WsClient.connect(s"ws://localhost:8080/connect/$name") {
+        conn = WsClient.connect("ws://localhost:8080/kalaha-websocket/1") {
             case Ws.Text(s) =>
                 if s.startsWith(s"$name, you lose") then
                     name = ""
                     conn.send(Ws.Close())
                 println(s)
         }
-        conn.send(Ws.Text(s"connect$name"))
+        conn.send(Ws.Text("connect"))
+
+    def joinGame =
+        if name == "" then throw new IllegalStateException("Enter your name first!")
+        conn.send(Ws.Text(s"joinGame$name"))
 
     def getPlayers =
         if conn == null then throw new IllegalStateException("Establish your connection first!")
@@ -31,7 +33,7 @@ class KalahaClientConnection:
     def makeMove(holeNumber: Int) =
         if conn == null then throw new IllegalStateException("Establish your connection first!")
         if holeNumber < 0 || holeNumber > 5 then throw new IllegalArgumentException("Illegal hole number!")
-        conn.send(Ws.Text(s"makeMove$holeNumber"))
+        conn.send(Ws.Text(s"makeMove$name $holeNumber"))
 
     def disconnect =
         conn.send(Ws.Text("disconnect"))

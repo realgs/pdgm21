@@ -5,11 +5,13 @@ import service.{KalahaService, TimerRunnable}
 import cask.*
 
 class KalahaController(channel: WsChannelActor):
-
     val service = new KalahaService
     var timerThread: Thread = null
 
-    def onConnect(name: String) =
+    def onConnect =
+        channel.send(Ws.Text("Connected succesfully"))
+
+    def onJoinGame(name: String) =
         try
             service.registerPlayer(name)
             channel.send(Ws.Text("Registered " + name + ", players registered: " + service.firstPlayer.name + ", " + service.secondPlayer.name))
@@ -21,12 +23,17 @@ class KalahaController(channel: WsChannelActor):
             makeMove(name, holeNumber)
             service.printBoard
             channel.send(Ws.Text(name + " made his move\n" + service.boardToString))
-            if service.turn == "JohnnyAI" then
-                var ai = service.secondPlayer.asInstanceOf[KalahaAI]
+            if service.checkGameOver then
+                channel.send(Ws.Text("Game over!"))
+                val winner = service.getWinner
+                if winner == "draw" then channel.send(Ws.Text("Result: draw"))
+                else channel.send(Ws.Text(s"$winner wins!"))
+            else if service.turn.endsWith("AI") then
+                var ai = service.getPlayerByUsername(service.turn).asInstanceOf[KalahaAI]
                 service.updatePredictions(ai)
                 val aiBestMove = ai.selectBestMove
-                println("JohnnyAI making move, number = " + aiBestMove)
-                onMakeMove("JohnnyAI", aiBestMove)
+                println(s"${service.turn} making move, number = $aiBestMove")
+                onMakeMove(service.turn, aiBestMove)
         catch
             case e => channel.send(Ws.Text(e.getMessage))
 
@@ -37,8 +44,15 @@ class KalahaController(channel: WsChannelActor):
         try
             service.startGame
             channel.send(Ws.Text("Game started with players: " + service.firstPlayer.name + ", " + service.secondPlayer.name))
-            timerThread = new Thread(new TimerRunnable(channel, this))
-            timerThread.start
+            if service.turn.endsWith("AI") then
+                var ai = service.getPlayerByUsername(service.turn).asInstanceOf[KalahaAI]
+                service.updatePredictions(ai)
+                val aiBestMove = ai.selectBestMove
+                println(s"${service.turn} making move, number = $aiBestMove")
+                onMakeMove(service.turn, aiBestMove)
+            else
+                timerThread = new Thread(new TimerRunnable(channel, this))
+                timerThread.start
         catch
             case e: IllegalStateException => channel.send(Ws.Text(e.getMessage))
 

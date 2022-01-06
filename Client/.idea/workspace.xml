@@ -7,9 +7,10 @@
     <list default="true" id="9dcd2a58-7913-4203-ac33-494dbeffdc59" name="Changes" comment="Add server and client communicating over websocket">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/scala/KalahaClientConnection.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/KalahaClientConnection.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/KalahaUserInterface.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/KalahaUserInterface.scala" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Server/src/main/scala/Main.scala" beforeDir="false" afterPath="$PROJECT_DIR$/../Server/src/main/scala/Main.scala" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Server/src/main/scala/controller/KalahaController.scala" beforeDir="false" afterPath="$PROJECT_DIR$/../Server/src/main/scala/controller/KalahaController.scala" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Server/src/main/scala/service/TimerRunnable.scala" beforeDir="false" afterPath="$PROJECT_DIR$/../Server/src/main/scala/service/TimerRunnable.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Server/src/main/scala/service/KalahaService.scala" beforeDir="false" afterPath="$PROJECT_DIR$/../Server/src/main/scala/service/KalahaService.scala" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Server/target/scala-3.0.2/classes/Main$$anon$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Server/target/scala-3.0.2/classes/Main$$anon$1.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Server/target/scala-3.0.2/classes/Main$.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Server/target/scala-3.0.2/classes/Main$.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Server/target/scala-3.0.2/classes/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Server/target/scala-3.0.2/classes/Main.class" afterDir="false" />
@@ -79,7 +80,7 @@
       <workItem from="1641329149487" duration="1700000" />
       <workItem from="1641381459705" duration="1657000" />
       <workItem from="1641413584468" duration="630000" />
-      <workItem from="1641469225143" duration="3361000" />
+      <workItem from="1641469225143" duration="6276000" />
     </task>
     <task id="LOCAL-00001" summary="Add server and client communicating over websocket">
       <created>1641415047608</created>

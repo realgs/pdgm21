@@ -8,7 +8,7 @@ class KalahaService:
     var secondPlayer: KalahaPlayer = new KalahaAI("JohnnyAI")
 
     var gameStarted: Boolean = false
-    var turn: String = ""
+    var turn = ""
     var makeMoveDeadline: Long = 0
 
     def makeMove(player: KalahaPlayer, holeNumber: Int, opponent: KalahaPlayer): Boolean =
@@ -68,6 +68,11 @@ class KalahaService:
         val stones2 = secondPlayer.stonesInHoles
         (stones1(0) == 0 && stones1(1) == 0 && stones1(2) == 0 && stones1(3) == 0 && stones1(4) == 0 && stones1(5) == 0) ||
           (stones2(0) == 0 && stones2(1) == 0 && stones2(2) == 0 && stones2(3) == 0 && stones2(4) == 0 && stones2(5) == 0)
+        
+    def getWinner =
+        if firstPlayer.score > secondPlayer.score then firstPlayer.name
+        else if firstPlayer.score < secondPlayer.score then secondPlayer.name
+        else "draw"
 
     def registerPlayer(name: String) =
         if name == firstPlayer.name || name == secondPlayer.name then throw new IllegalArgumentException("Given name is already in use!")
