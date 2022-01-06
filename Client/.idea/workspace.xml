@@ -4,157 +4,19 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9dcd2a58-7913-4203-ac33-494dbeffdc59" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/../.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.bsp/sbt.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/sbt__com_lihaoyi_cask_3_0_8_0_jar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/sbt__com_lihaoyi_cask_util_3_0_8_0_jar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/sbt__com_lihaoyi_castor_3_0_1_8_jar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/sbt__com_lihaoyi_fansi_3_0_2_14_jar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/sbt__com_lihaoyi_geny_3_0_6_10_jar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/sbt__com_lihaoyi_pprint_3_0_6_6_jar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/sbt__com_lihaoyi_sourcecode_3_0_2_7_jar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/sbt__com_lihaoyi_ujson_3_1_3_13_jar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/sbt__com_lihaoyi_upack_3_1_3_13_jar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/sbt__com_lihaoyi_upickle_3_1_3_13_jar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/sbt__com_lihaoyi_upickle_core_3_1_3_13_jar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/sbt__com_lihaoyi_upickle_implicits_3_1_3_13_jar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/sbt__io_undertow_undertow_core_2_2_3_Final_jar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/sbt__org_java_websocket_Java_WebSocket_1_5_0_jar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/sbt__org_jboss_logging_jboss_logging_3_4_1_Final_jar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/sbt__org_jboss_threads_jboss_threads_3_1_0_Final_jar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/sbt__org_jboss_xnio_xnio_api_3_8_0_Final_jar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/sbt__org_jboss_xnio_xnio_nio_3_8_0_Final_jar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/sbt__org_scala_lang_scala3_library_3_3_0_2_jar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/sbt__org_scala_lang_scala_library_2_13_6_jar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/sbt__org_slf4j_slf4j_api_1_7_25_jar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/sbt__org_wildfly_client_wildfly_client_config_1_0_1_Final_jar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/sbt__org_wildfly_common_wildfly_common_1_5_2_Final_jar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules/Client-build.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules/Client.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/runConfigurations.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/sbt.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/scala_compiler.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/scala_settings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/build.sbt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/build.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/target/config-classes/$14ec374e1a7fa3ff5815$.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/target/config-classes/$14ec374e1a7fa3ff5815.cache" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/target/config-classes/$14ec374e1a7fa3ff5815.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/target/config-classes/$20f01844b839e7a0fcf7$.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/target/config-classes/$20f01844b839e7a0fcf7.cache" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/target/config-classes/$20f01844b839e7a0fcf7.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/target/config-classes/$d3c5ad99ee78c50523f3$.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/target/config-classes/$d3c5ad99ee78c50523f3.cache" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/target/config-classes/$d3c5ad99ee78c50523f3.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/target/config-classes/$ec83a15b10a123df6438$.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/target/config-classes/$ec83a15b10a123df6438.cache" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/target/config-classes/$ec83a15b10a123df6438.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/target/scala-2.12/sbt-1.0/sync/copy-resource" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/target/scala-2.12/sbt-1.0/update/update_cache_2.12/inputs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/target/scala-2.12/sbt-1.0/update/update_cache_2.12/output" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/target/streams/_global/_global/_global/streams/out" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/target/streams/_global/_global/csrLogger/_global/streams/out" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/target/streams/_global/csrConfiguration/_global/streams/out" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/target/streams/_global/csrProject/_global/streams/out" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/target/streams/_global/dependencyPositions/_global/streams/update_cache_2.12/input_dsp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/target/streams/_global/dependencyPositions/_global/streams/update_cache_2.12/output_dsp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/target/streams/_global/ivyConfiguration/_global/streams/out" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/target/streams/_global/ivySbt/_global/streams/out" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/target/streams/_global/moduleSettings/_global/streams/out" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/target/streams/_global/projectDescriptors/_global/streams/out" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/target/streams/_global/scalaCompilerBridgeScope/_global/streams/out" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/target/streams/_global/update/_global/streams/out" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/target/streams/compile/_global/_global/compileOutputs/previous" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/target/streams/compile/_global/_global/discoveredMainClasses/data" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/target/streams/compile/bspReporter/_global/streams/out" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/target/streams/compile/compile/_global/streams/out" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/target/streams/compile/compileIncremental/_global/streams/export" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/target/streams/compile/compileIncremental/_global/streams/out" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/target/streams/compile/copyResources/_global/streams/out" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/target/streams/compile/dependencyClasspath/_global/streams/export" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/target/streams/compile/exportedProducts/_global/streams/export" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/target/streams/compile/externalDependencyClasspath/_global/streams/export" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/target/streams/compile/incOptions/_global/streams/out" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/target/streams/compile/internalDependencyClasspath/_global/streams/export" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/target/streams/compile/internalDependencyClasspath/_global/streams/out" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/target/streams/compile/managedClasspath/_global/streams/export" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/target/streams/compile/scalacOptions/_global/streams/out" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/target/streams/compile/unmanagedClasspath/_global/streams/export" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/target/streams/compile/unmanagedClasspath/_global/streams/out" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/target/streams/compile/unmanagedJars/_global/streams/export" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/target/streams/runtime/dependencyClasspath/_global/streams/export" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/target/streams/runtime/exportedProducts/_global/streams/export" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/target/streams/runtime/externalDependencyClasspath/_global/streams/export" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/target/streams/runtime/fullClasspath/_global/streams/export" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/target/streams/runtime/internalDependencyClasspath/_global/streams/export" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/target/streams/runtime/internalDependencyClasspath/_global/streams/out" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/target/streams/runtime/managedClasspath/_global/streams/export" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/target/streams/runtime/unmanagedClasspath/_global/streams/export" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/target/streams/runtime/unmanagedClasspath/_global/streams/out" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project/target/streams/runtime/unmanagedJars/_global/streams/export" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/scala/KalahaUserInterface.scala" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/scala/Main.scala" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/scala-3.0.2/classes/Main$.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/scala-3.0.2/classes/Main.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/scala-3.0.2/classes/Main.tasty" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Server/.bsp/sbt.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Server/.idea/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Server/.idea/codeStyles/Project.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Server/.idea/codeStyles/codeStyleConfig.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Server/.idea/libraries/sbt__com_lihaoyi_cask_3_0_8_0_jar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Server/.idea/libraries/sbt__com_lihaoyi_cask_util_3_0_8_0_jar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Server/.idea/libraries/sbt__com_lihaoyi_castor_3_0_1_8_jar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Server/.idea/libraries/sbt__com_lihaoyi_fansi_3_0_2_14_jar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Server/.idea/libraries/sbt__com_lihaoyi_geny_3_0_6_10_jar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Server/.idea/libraries/sbt__com_lihaoyi_pprint_3_0_6_6_jar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Server/.idea/libraries/sbt__com_lihaoyi_sourcecode_3_0_2_7_jar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Server/.idea/libraries/sbt__com_lihaoyi_ujson_3_1_3_13_jar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Server/.idea/libraries/sbt__com_lihaoyi_upack_3_1_3_13_jar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Server/.idea/libraries/sbt__com_lihaoyi_upickle_3_1_3_13_jar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Server/.idea/libraries/sbt__com_lihaoyi_upickle_core_3_1_3_13_jar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Server/.idea/libraries/sbt__com_lihaoyi_upickle_implicits_3_1_3_13_jar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Server/.idea/libraries/sbt__io_undertow_undertow_core_2_2_3_Final_jar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Server/.idea/libraries/sbt__org_java_websocket_Java_WebSocket_1_5_0_jar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Server/.idea/libraries/sbt__org_jboss_logging_jboss_logging_3_4_1_Final_jar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Server/.idea/libraries/sbt__org_jboss_threads_jboss_threads_3_1_0_Final_jar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Server/.idea/libraries/sbt__org_jboss_xnio_xnio_api_3_8_0_Final_jar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Server/.idea/libraries/sbt__org_jboss_xnio_xnio_nio_3_8_0_Final_jar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Server/.idea/libraries/sbt__org_scala_lang_scala3_library_3_3_0_2_jar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Server/.idea/libraries/sbt__org_scala_lang_scala_library_2_13_6_jar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Server/.idea/libraries/sbt__org_slf4j_slf4j_api_1_7_25_jar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Server/.idea/libraries/sbt__org_wildfly_client_wildfly_client_config_1_0_1_Final_jar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Server/.idea/libraries/sbt__org_wildfly_common_wildfly_common_1_5_2_Final_jar.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Server/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Server/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Server/.idea/modules/Server-build.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Server/.idea/modules/Server.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Server/.idea/runConfigurations.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Server/.idea/sbt.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Server/.idea/scala_compiler.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Server/.idea/scala_settings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Server/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Server/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Server/build.sbt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Server/project/build.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Server/src/main/scala/Main.scala" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Server/src/main/scala/controller/KalahaController.scala" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Server/src/main/scala/model/KalahaAI.scala" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Server/src/main/scala/model/KalahaPlayer.scala" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Server/src/main/scala/service/KalahaService.scala" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Server/src/main/scala/service/TimerRunnable.scala" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Server/target/scala-3.0.2/classes/Main$$anon$1.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Server/target/scala-3.0.2/classes/Main$.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Server/target/scala-3.0.2/classes/Main.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Server/target/scala-3.0.2/classes/Main.tasty" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Server/target/scala-3.0.2/update/update_cache_3/inputs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Server/target/scala-3.0.2/update/update_cache_3/output" afterDir="false" />
+    <list default="true" id="9dcd2a58-7913-4203-ac33-494dbeffdc59" name="Changes" comment="Add server and client communicating over websocket">
+      <change afterPath="$PROJECT_DIR$/src/main/scala/KalahaClientConnection.scala" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/scala/backup.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/KalahaUserInterface.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/KalahaUserInterface.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/Main.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/Main.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/scala-3.0.2/classes/Main$.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/scala-3.0.2/classes/Main$.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/scala-3.0.2/classes/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/scala-3.0.2/classes/Main.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/scala-3.0.2/classes/Main.tasty" beforeDir="false" afterPath="$PROJECT_DIR$/target/scala-3.0.2/classes/Main.tasty" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Server/src/main/scala/Main.scala" beforeDir="false" afterPath="$PROJECT_DIR$/../Server/src/main/scala/Main.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Server/src/main/scala/controller/KalahaController.scala" beforeDir="false" afterPath="$PROJECT_DIR$/../Server/src/main/scala/controller/KalahaController.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Server/src/main/scala/service/KalahaService.scala" beforeDir="false" afterPath="$PROJECT_DIR$/../Server/src/main/scala/service/KalahaService.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Server/src/main/scala/service/TimerRunnable.scala" beforeDir="false" afterPath="$PROJECT_DIR$/../Server/src/main/scala/service/TimerRunnable.scala" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -190,6 +52,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="restartRequiresConfirmation" value="false" />
   </component>
   <component name="RunManager">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true">
@@ -219,7 +82,16 @@
       <workItem from="1641329149487" duration="1700000" />
       <workItem from="1641381459705" duration="1657000" />
       <workItem from="1641413584468" duration="630000" />
+      <workItem from="1641469225143" duration="2089000" />
     </task>
+    <task id="LOCAL-00001" summary="Add server and client communicating over websocket">
+      <created>1641415047608</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1641415047608</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -239,5 +111,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+    <MESSAGE value="Add server and client communicating over websocket" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add server and client communicating over websocket" />
   </component>
 </project>

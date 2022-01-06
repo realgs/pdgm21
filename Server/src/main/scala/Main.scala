@@ -4,7 +4,7 @@ import cask.*
 
 object Main extends MainRoutes:
 
-    val controller = new KalahaController
+    var controller: KalahaController = null
 
     @websocket("/connect/:userName")
     def showUserProfile(userName: String): WebsocketResult =
@@ -13,33 +13,16 @@ object Main extends MainRoutes:
             WsActor {
                 case Ws.Text("") => channel.send(Ws.Close())
                 case Ws.Text(data) =>
+                    if controller == null then controller = new KalahaController(channel)
                     if data.startsWith("connect") then
-                        try
-                            controller.registerPlayer(userName)
-                            val players = controller.getPlayerNames
-                            channel.send(Ws.Text("Registered " + userName + " players registered: " + players._1 + ", " + players._2))
-                        catch
-                            case e: Exception => channel.send(Ws.Text(e.getMessage))
+                        controller.onConnect(userName)
                     else if data.startsWith("makeMove") then
-                        try
-                            val hole = data.substring(8).toInt
-                            controller.makeMove(userName, hole)
-                            controller.service.printBoard
-                            channel.send(Ws.Text(userName + " " + data))
-                        catch
-                            case e: Exception => channel.send(Ws.Text(e.getMessage))
+                        val hole = data.substring(8).toInt
+                        controller.onMakeMove(userName, hole)
                     else if data.startsWith("showPlayers") then
-                        val players = controller.getPlayerNames
-                        channel.send(Ws.Text("Players registered: " + players._1 + ", " + players._2))
+                        controller.onShowPlayers
                     else if data.startsWith("startGame") then
-                        try
-                            controller.startGame
-                            val players = controller.getPlayerNames
-                            channel.send(Ws.Text("Game started with players: " + players._1 + ", " + players._2))
-                            val thread = new Thread(new TimerRunnable(channel, controller))
-                            thread.start
-                        catch
-                            case e: IllegalStateException => channel.send(Ws.Text(e.getMessage))
+                        controller.onStartGame
             }
         }
 

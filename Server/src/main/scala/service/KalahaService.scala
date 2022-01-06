@@ -52,6 +52,17 @@ class KalahaService:
             print(s"${firstPlayer.stonesInHoles(i)} | ")
         println(firstPlayer.stonesInHoles(5))
 
+    def boardToString =
+        var s = ""
+        for (i <- (1 until 6).reverse)
+            s += s"${secondPlayer.stonesInHoles(i)} | "
+        s += s"${secondPlayer.stonesInHoles(0)}\n"
+        s += s"${secondPlayer.score}                     ${firstPlayer.score}\n"
+        for (i <- 0 until 5)
+            s += s"${firstPlayer.stonesInHoles(i)} | "
+        s += s"${firstPlayer.stonesInHoles(5)}\n"
+        s
+    
     def checkGameOver =
         val stones1 = firstPlayer.stonesInHoles
         val stones2 = secondPlayer.stonesInHoles
@@ -59,6 +70,7 @@ class KalahaService:
           (stones2(0) == 0 && stones2(1) == 0 && stones2(2) == 0 && stones2(3) == 0 && stones2(4) == 0 && stones2(5) == 0)
 
     def registerPlayer(name: String) =
+        if name == firstPlayer.name || name == secondPlayer.name then throw new IllegalArgumentException("Given name is already in use!")
         if playersRegistered == 0 then
             firstPlayer = new KalahaPlayer(name)
             playersRegistered += 1
@@ -68,7 +80,6 @@ class KalahaService:
         else throw new IllegalStateException("All players joined!")
 
     def getPlayerByUsername(name: String) =
-        println("Inside getPlayerByUsername " + firstPlayer.name + " " + secondPlayer.name)
         if firstPlayer.name == name then firstPlayer
         else if secondPlayer.name == name then secondPlayer
         else throw new IllegalArgumentException("No such user!")
