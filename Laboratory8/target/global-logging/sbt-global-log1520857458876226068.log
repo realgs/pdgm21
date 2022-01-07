@@ -1,0 +1,20 @@
+[debug] > Exec(~run, None, None)
+[debug] > Exec(__runWatch console0, None, None)
+[debug] > Exec(sbtStashOnFailure, None, None)
+[debug] > Exec(__preWatch console0, None, None)
+[debug] > Exec(run, None, None)
+[debug] Evaluating tasks: Compile / run
+[debug] Running task... Cancel: Signal, check cycles: false, forcegc: true
+[info] compiling 3 Scala sources to C:\Users\User\Desktop\Laboratory8\target\scala-3.1.0\classes ...
+[error] -- [E040] Syntax Error: C:\Users\User\Desktop\Laboratory8\src\main\scala\StartGame.scala:3:0 
+[error] 3 |object StartGame {
+[error]   |^^^^^^
+[error]   |'.' expected, but 'end of statement' found
+[error] one error found
+[error] one error found
+[error] (Compile / compileIncremental) Compilation failed
+[error] Total time: 0 s, completed 7 sty 2022, 18:05:53
+[debug] > Exec(resumeFromFailure, None, None)
+[debug] > Exec(sbtPopOnFailure, None, None)
+[debug] > Exec(__postWatch console0, None, None)
+[debug] > Exec(__waitWatch console0, None, None)

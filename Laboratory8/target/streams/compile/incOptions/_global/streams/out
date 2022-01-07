@@ -1,0 +1,35 @@
+[debug] Created transactional ClassFileManager with tempDir = C:\Users\User\Desktop\Laboratory8\target\scala-3.1.0\classes.bak
+[debug] About to delete class files:
+[debug] 	StartGame$.class
+[debug] 	KalahaBoard$.class
+[debug] 	Server.class
+[debug] 	KalahaBoard.class
+[debug] 	StartGame.class
+[debug] 	StartGame$.tasty
+[debug] 	KalahaBoard$.tasty
+[debug] 	Server.tasty
+[debug] 	KalahaBoard.tasty
+[debug] 	StartGame.tasty
+[debug] We backup class files:
+[debug] 	StartGame$.class
+[debug] 	KalahaBoard$.class
+[debug] 	Server.class
+[debug] 	KalahaBoard.class
+[debug] 	StartGame.class
+[debug] 	StartGame$.tasty
+[debug] 	KalahaBoard$.tasty
+[debug] 	Server.tasty
+[debug] 	KalahaBoard.tasty
+[debug] 	StartGame.tasty
+[debug] Registering generated classes:
+[debug] 	StartGame$.class
+[debug] 	KalahaBoard$.class
+[debug] 	Server.class
+[debug] 	KalahaBoard.class
+[debug] 	StartGame.class
+[debug] 	StartGame$.tasty
+[debug] 	KalahaBoard$.tasty
+[debug] 	Server.tasty
+[debug] 	KalahaBoard.tasty
+[debug] 	StartGame.tasty
+[debug] Removing the temporary directory used for backing up class files: C:\Users\User\Desktop\Laboratory8\target\scala-3.1.0\classes.bak

@@ -1,0 +1,21 @@
+[debug] Packaging C:\Users\User\Desktop\Laboratory8\target\scala-3.1.0\laboratory8_3-0.1.jar ...
+[debug] Input file mappings:
+[debug] 	board
+[debug] 	  C:\Users\User\Desktop\Laboratory8\target\scala-3.1.0\classes\board
+[debug] 	board\KalahaBoard$.class
+[debug] 	  C:\Users\User\Desktop\Laboratory8\target\scala-3.1.0\classes\board\KalahaBoard$.class
+[debug] 	board\KalahaBoard.class
+[debug] 	  C:\Users\User\Desktop\Laboratory8\target\scala-3.1.0\classes\board\KalahaBoard.class
+[debug] 	board\KalahaBoard.tasty
+[debug] 	  C:\Users\User\Desktop\Laboratory8\target\scala-3.1.0\classes\board\KalahaBoard.tasty
+[debug] 	Server.class
+[debug] 	  C:\Users\User\Desktop\Laboratory8\target\scala-3.1.0\classes\Server.class
+[debug] 	Server.tasty
+[debug] 	  C:\Users\User\Desktop\Laboratory8\target\scala-3.1.0\classes\Server.tasty
+[debug] 	StartGame$.class
+[debug] 	  C:\Users\User\Desktop\Laboratory8\target\scala-3.1.0\classes\StartGame$.class
+[debug] 	StartGame.class
+[debug] 	  C:\Users\User\Desktop\Laboratory8\target\scala-3.1.0\classes\StartGame.class
+[debug] 	StartGame.tasty
+[debug] 	  C:\Users\User\Desktop\Laboratory8\target\scala-3.1.0\classes\StartGame.tasty
+[debug] Done packaging.

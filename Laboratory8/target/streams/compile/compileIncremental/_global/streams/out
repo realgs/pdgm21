@@ -1,0 +1,33 @@
+[debug] [zinc] IncrementalCompile -----------
+[debug] IncrementalCompile.incrementalCompile
+[debug] previous = Stamps for: 5 products, 3 sources, 1 libraries
+[debug] current source = Set(${BASE}/src/main/scala/Server.scala, ${BASE}/src/main/scala/StartGame.scala, ${BASE}/src/main/scala/board/KalahaBoard.scala)
+[debug] > initialChanges = InitialChanges(Changes(added = Set(), removed = Set(), changed = Set(${BASE}/src/main/scala/StartGame.scala), unmodified = ...),Set(${BASE}/target/scala-3.1.0/classes/board/KalahaBoard.class),Set(),API Changes: Set())
+[debug] 
+[debug] Initial source changes:
+[debug] 	removed: Set()
+[debug] 	added: Set()
+[debug] 	modified: Set(${BASE}/src/main/scala/StartGame.scala)
+[debug] Invalidated products: Set(${BASE}/target/scala-3.1.0/classes/board/KalahaBoard.class)
+[debug] External API changes: API Changes: Set()
+[debug] Modified binary dependencies: Set()
+[debug] Initial directly invalidated classes: Set(StartGame)
+[debug] Sources indirectly invalidated by:
+[debug] 	product: Set(${BASE}/src/main/scala/board/KalahaBoard.scala)
+[debug] 	binary dep: Set()
+[debug] 	external source: Set()
+[debug] All initially invalidated classes: Set(StartGame)
+[debug] All initially invalidated sources:Set(${BASE}/src/main/scala/StartGame.scala, ${BASE}/src/main/scala/board/KalahaBoard.scala)
+[debug] Initial set of included nodes: StartGame
+[debug] Recompiling all sources: number of invalidated sources > 50.0% of all sources
+[debug] compilation cycle 1
+[info] compiling 3 Scala sources to C:\Users\User\Desktop\Laboratory8\target\scala-3.1.0\classes ...
+[debug] Returning already retrieved and compiled bridge: C:\Users\User\AppData\Local\Coursier\Cache\v1\https\repo1.maven.org\maven2\org\scala-lang\scala3-sbt-bridge\3.1.0\scala3-sbt-bridge-3.1.0.jar.
+[debug] [zinc] Running cached compiler 231ff63b for Scala Compiler version 3.1.0
+[debug] [zinc] The Scala compiler is invoked with:
+[debug] 	-bootclasspath
+[debug] 	C:\Users\User\AppData\Local\Coursier\Cache\v1\https\repo1.maven.org\maven2\org\scala-lang\scala3-library_3\3.1.0\scala3-library_3-3.1.0.jar;C:\Users\User\AppData\Local\Coursier\Cache\v1\https\repo1.maven.org\maven2\org\scala-lang\scala-library\2.13.6\scala-library-2.13.6.jar
+[debug] 	-classpath
+[debug] 	C:\Users\User\Desktop\Laboratory8\target\scala-3.1.0\classes
+[debug] Scala compilation took 0.1778122 s
+[info] done compiling
