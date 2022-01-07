@@ -7,33 +7,30 @@ import javax.swing.border.LineBorder
 import javax.swing.*
 
 class BoardPanel extends JPanel:
-    val firstPlayerHoles = Array.ofDim[JButton](6)
-    val bases = Array.ofDim[JLabel](2)
-    val secondPlayerHoles = Array.ofDim[JButton](6)
+    val firstPlayerHoles: Array[JButton] = Array.ofDim[JButton](6)
+    val bases: Array[JLabel] = Array.ofDim[JLabel](2)
+    val secondPlayerHoles: Array[JButton] = Array.ofDim[JButton](6)
 
     val firstPlayerHolesPanel: JPanel = new JPanel()
     val basesPanel: JPanel = new JPanel
     val secondPlayerHolesPanel: JPanel = new JPanel
 
-    val buttonDimension = new Dimension(60, 60)
+    private val buttonDimension = new Dimension(60, 60)
 
     for (i <- firstPlayerHoles.indices)
         firstPlayerHoles(i) = new JButton("6")
         firstPlayerHoles(i).setPreferredSize(buttonDimension)
         firstPlayerHoles(i).setBackground(new Color(0xF09287))
+        firstPlayerHoles(i).setEnabled(false)
         firstPlayerHolesPanel.add(firstPlayerHoles(i))
 
-    bases(0) = new JLabel("0", SwingConstants.CENTER)
-    bases(0).setPreferredSize(new Dimension(150, 30))
-    bases(0).setBackground(new Color(0xF09287))
-    bases(0).setBorder(new LineBorder(Color.RED, 3))
-    bases(1) = new JLabel("0", SwingConstants.CENTER)
-    bases(1).setPreferredSize(new Dimension(150, 30))
-    bases(1).setBackground(new Color(0xF09287))
-    bases(1).setBorder(new LineBorder(Color.RED, 3))
+    for (i <- bases.indices)
+        bases(i) = new JLabel("0", SwingConstants.CENTER)
+        bases(i).setPreferredSize(new Dimension(150, 30))
+        bases(i).setBackground(new Color(0xF09287))
+        bases(i).setBorder(new LineBorder(Color.RED, 3))
+        basesPanel.add(bases(i))
     basesPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 100, 0))
-    basesPanel.add(bases(0))
-    basesPanel.add(bases(1))
     basesPanel.setBorder(new LineBorder(Color.YELLOW, 3))
 
 
@@ -41,6 +38,7 @@ class BoardPanel extends JPanel:
         secondPlayerHoles(i) = new JButton("6")
         secondPlayerHoles(i).setPreferredSize(buttonDimension)
         secondPlayerHoles(i).setBackground(new Color(0xF09287))
+        secondPlayerHoles(i).setEnabled(false)
         secondPlayerHolesPanel.add(secondPlayerHoles(i))
 
     add(firstPlayerHolesPanel)

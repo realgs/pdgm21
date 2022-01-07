@@ -19,7 +19,7 @@ object Main extends MainRoutes:
                     controller.onConnect
                 case Ws.Text(s"joinGame$name") =>
                     controller.onJoinGame(name)
-                case Ws.Text(s"makeMove$name $hole") =>
+                case Ws.Text(s"makeMove $name; $hole") =>
                     controller.onMakeMove(name, hole.toInt)
                 case Ws.Text("showPlayers") =>
                     controller.onShowPlayers

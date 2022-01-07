@@ -26,4 +26,5 @@ class KalahaGuiCreator:
         contentPane.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 10))
         contentPane.setBackground(new Color(0x99BBFF))
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE)
+        frame.setMinimumSize(new Dimension(1100, 400))
         frame.setVisible(true)

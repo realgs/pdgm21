@@ -62,6 +62,17 @@ class KalahaService:
             s += s"${firstPlayer.stonesInHoles(i)} | "
         s += s"${firstPlayer.stonesInHoles(5)}\n"
         s
+        
+    def boardToWsFormat(): String =
+        var s = ""
+        for (i <- (1 until 6).reverse)
+            s += s"${secondPlayer.stonesInHoles(i)}, "
+        s += s"${secondPlayer.stonesInHoles(0)} | "
+        s += s"${secondPlayer.score} | ${firstPlayer.score} | \n"
+        for (i <- 0 until 5)
+            s += s"${firstPlayer.stonesInHoles(i)}, "
+        s += s"${firstPlayer.stonesInHoles(5)}"
+        s
     
     def checkGameOver =
         val stones1 = firstPlayer.stonesInHoles

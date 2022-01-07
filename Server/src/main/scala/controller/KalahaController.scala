@@ -22,7 +22,7 @@ class KalahaController(channel: WsChannelActor):
         try
             makeMove(name, holeNumber)
             service.printBoard
-            channel.send(Ws.Text(name + " made his move\n" + service.boardToString))
+            channel.send(Ws.Text(name + " made move: " + service.boardToWsFormat()))
             if service.checkGameOver then
                 channel.send(Ws.Text("Game over!"))
                 val winner = service.getWinner
