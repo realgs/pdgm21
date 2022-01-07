@@ -1,6 +1,8 @@
-import cask._
-import cask.util.WsClient
+package controller
+
+import cask.*
 import cask.Logger.Console.globalLogger
+import cask.util.WsClient
 import castor.Context.Simple.global
 
 class KalahaClientConnection:

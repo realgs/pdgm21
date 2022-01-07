@@ -1,4 +1,6 @@
-import scala.io.StdIn._
+import controller.KalahaClientConnection
+
+import scala.io.StdIn.*
 
 class KalahaUserInterface:
 

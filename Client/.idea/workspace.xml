@@ -5,16 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9dcd2a58-7913-4203-ac33-494dbeffdc59" name="Changes" comment="Add server and client communicating over websocket">
+      <change afterPath="$PROJECT_DIR$/src/main/scala/Gui.scala" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/scala/view/BoardPanel.scala" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/scala/view/ButtonsController.scala" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/scala/view/ConnectButtonActionListener.scala" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/scala/view/ControlsPanel.scala" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/scala/view/KalahaGuiCreator.scala" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/scala/view/StatusPanel.scala" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/scala/KalahaClientConnection.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/KalahaClientConnection.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/KalahaClientConnection.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/controller/KalahaClientConnection.scala" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/scala/KalahaUserInterface.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/KalahaUserInterface.scala" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Server/src/main/scala/Main.scala" beforeDir="false" afterPath="$PROJECT_DIR$/../Server/src/main/scala/Main.scala" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Server/src/main/scala/controller/KalahaController.scala" beforeDir="false" afterPath="$PROJECT_DIR$/../Server/src/main/scala/controller/KalahaController.scala" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Server/src/main/scala/service/KalahaService.scala" beforeDir="false" afterPath="$PROJECT_DIR$/../Server/src/main/scala/service/KalahaService.scala" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Server/target/scala-3.0.2/classes/Main$$anon$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Server/target/scala-3.0.2/classes/Main$$anon$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Server/target/scala-3.0.2/classes/Main$.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Server/target/scala-3.0.2/classes/Main$.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Server/target/scala-3.0.2/classes/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Server/target/scala-3.0.2/classes/Main.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Server/target/scala-3.0.2/classes/Main.tasty" beforeDir="false" afterPath="$PROJECT_DIR$/../Server/target/scala-3.0.2/classes/Main.tasty" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -52,7 +52,14 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="restartRequiresConfirmation" value="false" />
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Application.Gui">
+    <configuration name="Gui" type="Application" factoryName="Application" temporary="true">
+      <option name="MAIN_CLASS_NAME" value="Gui" />
+      <module name="Client" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="Main" type="Application" factoryName="Application" temporary="true">
       <option name="MAIN_CLASS_NAME" value="Main" />
       <module name="Client" />
@@ -62,6 +69,7 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.Gui" />
         <item itemvalue="Application.Main" />
       </list>
     </recent_temporary>
@@ -81,6 +89,8 @@
       <workItem from="1641381459705" duration="1657000" />
       <workItem from="1641413584468" duration="630000" />
       <workItem from="1641469225143" duration="6276000" />
+      <workItem from="1641510844348" duration="3719000" />
+      <workItem from="1641561815770" duration="2069000" />
     </task>
     <task id="LOCAL-00001" summary="Add server and client communicating over websocket">
       <created>1641415047608</created>
