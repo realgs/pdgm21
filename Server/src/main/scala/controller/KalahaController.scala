@@ -9,12 +9,12 @@ class KalahaController(channel: WsChannelActor):
     var timerThread: Thread = null
 
     def onConnect =
-        channel.send(Ws.Text("Connected succesfully"))
+        channel.send(Ws.Text("connected"))
 
     def onJoinGame(name: String) =
         try
             service.registerPlayer(name)
-            channel.send(Ws.Text("Registered " + name + ", players registered: " + service.firstPlayer.name + ", " + service.secondPlayer.name))
+            channel.send(Ws.Text("registered"))
         catch
             case e => channel.send(Ws.Text(e.getMessage))
 
@@ -38,12 +38,12 @@ class KalahaController(channel: WsChannelActor):
             case e => channel.send(Ws.Text(e.getMessage))
 
     def onShowPlayers =
-        channel.send(Ws.Text("Players registered: " + service.firstPlayer.name + ", " + service.secondPlayer.name))
+        channel.send(Ws.Text(s"players: ${service.firstPlayer.name}, ${service.secondPlayer.name}"))
 
     def onStartGame =
         try
             service.startGame
-            channel.send(Ws.Text("Game started with players: " + service.firstPlayer.name + ", " + service.secondPlayer.name))
+            channel.send(Ws.Text("game started"))
             if service.turn.endsWith("AI") then
                 var ai = service.getPlayerByUsername(service.turn).asInstanceOf[KalahaAI]
                 service.updatePredictions(ai)
@@ -78,4 +78,4 @@ class KalahaController(channel: WsChannelActor):
         service.gameStarted = false
         service.firstPlayer = new KalahaAI("AliceAI")
         service.secondPlayer = new KalahaAI("JohnnyAI")
-        channel.send(Ws.Text(s"${service.turn}, you lose, time is up!"))
+        channel.send(Ws.Text(s"${service.turn} time is up"))

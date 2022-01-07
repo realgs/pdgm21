@@ -1,4 +1,7 @@
-package view
+package view.panels
+
+import controller.KalahaClientConnection
+import controller.actionlistenersimpl.ShowPlayersButtonActionListener
 
 import java.awt.{Color, FlowLayout}
 import javax.swing.border.LineBorder
@@ -8,7 +11,7 @@ class PlayersPanel extends JPanel:
     var showPlayersButton: JButton = new JButton("Show players")
     var firstPlayerLabel: JLabel = new JLabel("AliceAI")
     var secondPlayerLabel: JLabel = new JLabel("JohnnyAI")
-    
+
     add(showPlayersButton)
     add(firstPlayerLabel)
     add(secondPlayerLabel)

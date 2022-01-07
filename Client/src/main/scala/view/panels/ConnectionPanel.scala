@@ -1,4 +1,6 @@
-package view
+package view.panels
+
+import controller.KalahaClientConnection
 
 import java.awt.{Color, FlowLayout}
 import javax.swing.border.LineBorder

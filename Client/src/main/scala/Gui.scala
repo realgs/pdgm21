@@ -6,8 +6,9 @@ import javax.swing.{JButton, JFrame, JPanel, JTextField, JTextPane, SpringLayout
 
 object Gui:
     def main(args: Array[String]): Unit =
-        val connection = new KalahaClientConnection()
-        val creator = new KalahaGuiCreator(connection)
-        creator.createBoard()
-        creator.createControls()
-        creator.show()
+        val gui: KalahaGuiCreator = new KalahaGuiCreator()
+        gui.createBoard()
+        gui.createControls()
+        gui.show()
+
+        val connection: KalahaClientConnection = new KalahaClientConnection(gui)

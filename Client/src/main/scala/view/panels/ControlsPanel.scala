@@ -1,12 +1,12 @@
-package view
+package view.panels
 
 import controller.KalahaClientConnection
 
 import java.awt.{Color, FlowLayout, GridLayout}
 import javax.swing.border.LineBorder
-import javax.swing.{JButton, JLabel, JPanel, JTextField, SwingConstants, SwingContainer}
+import javax.swing.*
 
-class ControlsPanel(connection: KalahaClientConnection) extends JPanel:
+class ControlsPanel extends JPanel:
     var connectionPanel: ConnectionPanel = new ConnectionPanel()
     var playersPanel: PlayersPanel = new PlayersPanel()
     var namePanel: NamePanel = new NamePanel()

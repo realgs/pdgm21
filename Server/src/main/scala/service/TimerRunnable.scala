@@ -9,7 +9,7 @@ class TimerRunnable(channel: WsChannelActor, controller: KalahaController) exten
             while controller.service.gameStarted do
                 val timeRemaining = (controller.service.makeMoveDeadline - System.currentTimeMillis()) / 1000
                 if timeRemaining <= 0 then controller.onTimeoutDefeat
-                channel.send(Ws.Text(controller.service.turn + "'s time remaining: " + timeRemaining + " seconds"))
+                channel.send(Ws.Text(s"${controller.service.turn} remaining $timeRemaining"))
                 Thread.sleep(5000)
         catch
             case e: InterruptedException => println("Interrupt!")

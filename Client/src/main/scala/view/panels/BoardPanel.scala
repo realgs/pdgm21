@@ -1,8 +1,10 @@
-package view
+package view.panels
 
-import java.awt.{BorderLayout, Color, Dimension, FlowLayout, GridLayout}
+import controller.KalahaClientConnection
+
+import java.awt.*
 import javax.swing.border.LineBorder
-import javax.swing.{JButton, JLabel, JPanel, JTextPane, SpringLayout, SwingConstants}
+import javax.swing.*
 
 class BoardPanel extends JPanel:
     val firstPlayerHoles = Array.ofDim[JButton](6)

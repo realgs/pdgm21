@@ -4,18 +4,26 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9dcd2a58-7913-4203-ac33-494dbeffdc59" name="Changes" comment="Repair, remove Parallel Programming">
-      <change afterPath="$PROJECT_DIR$/src/main/scala/view/ConnectionPanel.scala" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/scala/view/GamePanel.scala" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/scala/view/NamePanel.scala" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/scala/view/PlayersPanel.scala" afterDir="false" />
+    <list default="true" id="9dcd2a58-7913-4203-ac33-494dbeffdc59" name="Changes" comment="Final GUI look">
+      <change afterPath="$PROJECT_DIR$/src/main/scala/controller/actionlistenersimpl/ButtonActionListeners.scala" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/scala/Gui.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/Gui.scala" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/scala/backup.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/scala/view/BoardPanel.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/view/BoardPanel.scala" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/scala/view/ControlsPanel.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/view/ControlsPanel.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/KalahaUserInterface.scala" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/Main.scala" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/controller/KalahaClientConnection.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/controller/KalahaClientConnection.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/view/BoardPanel.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/view/panels/BoardPanel.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/view/ConnectButtonActionListener.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/controller/actionlistenersimpl/BoardActionListener.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/view/ConnectionPanel.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/view/panels/ConnectionPanel.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/view/ControlsPanel.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/view/panels/ControlsPanel.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/view/GamePanel.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/view/panels/GamePanel.scala" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/scala/view/KalahaGuiCreator.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/view/KalahaGuiCreator.scala" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/scala/view/StatusPanel.scala" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/view/NamePanel.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/view/panels/NamePanel.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/view/PlayersPanel.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/view/panels/PlayersPanel.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/scala-3.0.2/classes/Main$.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/scala-3.0.2/classes/Main.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/scala-3.0.2/classes/Main.tasty" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Server/src/main/scala/controller/KalahaController.scala" beforeDir="false" afterPath="$PROJECT_DIR$/../Server/src/main/scala/controller/KalahaController.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Server/src/main/scala/service/TimerRunnable.scala" beforeDir="false" afterPath="$PROJECT_DIR$/../Server/src/main/scala/service/TimerRunnable.scala" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -93,7 +101,7 @@
       <workItem from="1641469225143" duration="6276000" />
       <workItem from="1641510844348" duration="3719000" />
       <workItem from="1641561815770" duration="4474000" />
-      <workItem from="1641572467363" duration="2750000" />
+      <workItem from="1641572467363" duration="7437000" />
     </task>
     <task id="LOCAL-00001" summary="Add server and client communicating over websocket">
       <created>1641415047608</created>
@@ -116,7 +124,14 @@
       <option name="project" value="LOCAL" />
       <updated>1641568862268</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Final GUI look">
+      <created>1641575448970</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1641575448970</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -139,6 +154,7 @@
     <MESSAGE value="Add server and client communicating over websocket" />
     <MESSAGE value="Add first gui prototype using Java Swing" />
     <MESSAGE value="Repair, remove Parallel Programming" />
-    <option name="LAST_COMMIT_MESSAGE" value="Repair, remove Parallel Programming" />
+    <MESSAGE value="Final GUI look" />
+    <option name="LAST_COMMIT_MESSAGE" value="Final GUI look" />
   </component>
 </project>
