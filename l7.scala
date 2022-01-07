@@ -9,7 +9,7 @@ object l7 {
     val t1 = System.nanoTime()
     instruction
     val t2 = System.nanoTime()
-    print("Time: " + (t2 - t1) + " ns" )
+    print("Time: " + (t2 - t1) + " ns ")
 
   // quicksort
   def swap(tab: Array[Int])(i: Int)(j: Int) = { var aux = tab(i); tab(i) = tab(j); tab(j) = aux }
@@ -97,6 +97,56 @@ object l7 {
     measureTime(quicksortParallel(tab5.clone()))
     println()
 
-  
 
+  sealed trait BinaryTree[+A]
+  case object Empty extends BinaryTree[Nothing]
+  case class Node[+A](elem:A, left: BinaryTree[A], right: BinaryTree[A]) extends BinaryTree[A]
+
+  // productOfTree
+  def randomTree(N: Int): BinaryTree[Int] =
+    if N > 0 then Node(Random.nextInt(5), randomTree(N - 1), randomTree(N - 1)) else Empty
+
+  def productOfTree(binaryTree: BinaryTree[Int]): Int =
+    def productOfTreeIn(node: BinaryTree[Int]): Int =
+      node match
+        case Empty => 1
+        case Node(e, l, r) => e * productOfTreeIn(l) * productOfTreeIn(r)
+    if binaryTree == Empty then 0 else productOfTreeIn(binaryTree)
+
+  def productOfTreeParallel(binaryTree: BinaryTree[Int]): Int =
+    binaryTree match
+      case Empty => 0
+      case Node(e, l, r) => {
+        val lTree = Future(productOfTree(l))
+        val rTree = Future(productOfTree(r))
+
+        Await.result(lTree, Duration.Inf) + Await.result(rTree, Duration.Inf)
+      }
+
+  def productOfTreeCompare =
+    val tree1 = randomTree(10)
+    val tree2 = randomTree(20)
+    val tree3 = randomTree(25)
+
+    println("ProductOfTree:")
+    println("10 elements:")
+    print("Sequentialy: ")
+    measureTime(productOfTree(tree1))
+    print("Parallelly: ")
+    measureTime(productOfTreeParallel(tree1))
+    println()
+
+    println("20 elements:")
+    print("Sequentialy: ")
+    measureTime(productOfTree(tree2))
+    print("Parallelly: ")
+    measureTime(productOfTreeParallel(tree2))
+    println()
+
+    println("25 elements:")
+    print("Sequentialy: ")
+    measureTime(productOfTree(tree3))
+    print("Parallelly: ")
+    measureTime(productOfTreeParallel(tree3))
+    println()
 }
