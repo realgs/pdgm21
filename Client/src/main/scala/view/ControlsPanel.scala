@@ -1,14 +1,21 @@
 package view
 
-import javax.swing.{JButton, JPanel, JTextField}
+import controller.KalahaClientConnection
 
-class ControlsPanel extends JPanel:
-    var connectButton: JButton = new JButton("Connect to server")
-    var nameTextField: JTextField = new JTextField("Your name")
-    var nameSubmitButton: JButton = new JButton("Add player")
-    var showPlayersButton: JButton = new JButton("Show players")
-  
-    add(connectButton)
-    add(nameTextField)
-    add(nameSubmitButton)
-    add(showPlayersButton)
+import java.awt.{Color, FlowLayout, GridLayout}
+import javax.swing.border.LineBorder
+import javax.swing.{JButton, JLabel, JPanel, JTextField, SwingConstants, SwingContainer}
+
+class ControlsPanel(connection: KalahaClientConnection) extends JPanel:
+    var connectionPanel: ConnectionPanel = new ConnectionPanel()
+    var playersPanel: PlayersPanel = new PlayersPanel()
+    var namePanel: NamePanel = new NamePanel()
+    var gamePanel: GamePanel = new GamePanel()
+
+    add(connectionPanel)
+    add(playersPanel)
+    add(namePanel)
+    add(gamePanel)
+
+    setLayout(new GridLayout(1, 4, 10, 10))
+    setBorder(new LineBorder(Color.CYAN, 3))

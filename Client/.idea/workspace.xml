@@ -4,17 +4,18 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9dcd2a58-7913-4203-ac33-494dbeffdc59" name="Changes" comment="Add server and client communicating over websocket">
-      <change afterPath="$PROJECT_DIR$/src/main/scala/Gui.scala" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/scala/view/BoardPanel.scala" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/scala/view/ButtonsController.scala" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/scala/view/ConnectButtonActionListener.scala" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/scala/view/ControlsPanel.scala" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/scala/view/KalahaGuiCreator.scala" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/scala/view/StatusPanel.scala" afterDir="false" />
+    <list default="true" id="9dcd2a58-7913-4203-ac33-494dbeffdc59" name="Changes" comment="Repair, remove Parallel Programming">
+      <change afterPath="$PROJECT_DIR$/src/main/scala/view/ConnectionPanel.scala" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/scala/view/GamePanel.scala" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/scala/view/NamePanel.scala" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/scala/view/PlayersPanel.scala" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/scala/KalahaClientConnection.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/controller/KalahaClientConnection.scala" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/scala/KalahaUserInterface.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/KalahaUserInterface.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/Gui.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/Gui.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/backup.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/view/BoardPanel.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/view/BoardPanel.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/view/ControlsPanel.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/view/ControlsPanel.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/view/KalahaGuiCreator.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/view/KalahaGuiCreator.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/view/StatusPanel.scala" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -50,6 +51,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$USER_HOME$/Desktop/PSIO-LAB-10" />
     <property name="restartRequiresConfirmation" value="false" />
   </component>
   <component name="RunManager" selected="Application.Gui">
@@ -90,7 +92,8 @@
       <workItem from="1641413584468" duration="630000" />
       <workItem from="1641469225143" duration="6276000" />
       <workItem from="1641510844348" duration="3719000" />
-      <workItem from="1641561815770" duration="2069000" />
+      <workItem from="1641561815770" duration="4474000" />
+      <workItem from="1641572467363" duration="2750000" />
     </task>
     <task id="LOCAL-00001" summary="Add server and client communicating over websocket">
       <created>1641415047608</created>
@@ -99,7 +102,21 @@
       <option name="project" value="LOCAL" />
       <updated>1641415047608</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Add first gui prototype using Java Swing">
+      <created>1641568446352</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1641568446352</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Repair, remove Parallel Programming">
+      <created>1641568862268</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1641568862268</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -120,6 +137,8 @@
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <MESSAGE value="Add server and client communicating over websocket" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add server and client communicating over websocket" />
+    <MESSAGE value="Add first gui prototype using Java Swing" />
+    <MESSAGE value="Repair, remove Parallel Programming" />
+    <option name="LAST_COMMIT_MESSAGE" value="Repair, remove Parallel Programming" />
   </component>
 </project>
