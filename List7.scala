@@ -1,5 +1,8 @@
-import scala.concurrent.Future
+import scala.concurrent.{Await, Future}
+import scala.concurrent.duration._
 import scala.util.Random
+import scala.concurrent.ExecutionContext.Implicits.global
+import scala.language.postfixOps
 
 object List7 {
 
@@ -85,16 +88,47 @@ object List7 {
 
   def quicksortParallel3(tab: Array[Int]): Unit = quickParallel3(tab, 0,tab.length - 1)
 
+  def sumArray(array: Array[Int]): Double =
+    var sum = 0.0
+    array.foreach( sum += _)
+    sum
+
+
+  def sumArrayParallel(array: Array[Int]): Double =
+    def count(start: Int, end: Int, array: Array[Int]): Double =
+      var i = start
+      var sum = 0.0
+      while(i <= end)
+        sum += array(i)
+        i+=1
+      sum
+    val split = array.length/2
+    val f1 = Future(count(0, split, array))
+    val f2 = Future(count(split+1, array.length - 1, array))
+    Await.result(f1,1000 seconds)+Await.result(f2, 1000 seconds)
+
   def main(args: Array[String]): Unit = {
 
+    var start = System.currentTimeMillis()
+    var end = System.currentTimeMillis()
 
+    val array = Array.range(1, 501)
+
+    start = System.currentTimeMillis()
+    println(sumArray(array))
+    end = System.currentTimeMillis()
+    println("Time: " + (end-start))
+
+    start = System.currentTimeMillis()
+    println(sumArrayParallel(array))
+    end = System.currentTimeMillis()
+    println("TimeParallel: " + (end-start))
+
+/*
     var array0 = Array.fill(10)(Random.nextInt(10))
     var array1 = array0.clone()
     var array2 = array0.clone()
     var array3 = array0.clone()
-
-    var start = System.currentTimeMillis()
-    var end = System.currentTimeMillis()
 
     println("10 elems")
     start = System.currentTimeMillis()
@@ -197,7 +231,7 @@ object List7 {
     quicksortParallel3(array3)
     end = System.currentTimeMillis()
     println("Time4 " + (end-start))
-
+*/
   }
 
   }
