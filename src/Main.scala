@@ -2,6 +2,7 @@ import scala.concurrent.Future
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Await
 import scala.concurrent.duration.Duration
+import scala.io.Source
 
 object Main {
 
@@ -63,22 +64,71 @@ object Main {
 			result = result || number%n == 0
 		!result
 
-	def serialTest(range: Int): Int=
+	def primesSerialTest(range: Int): Int=
 		var  ts = System.nanoTime()
 		val s = numberOfPrimesSerial(range)
 		ts = System.nanoTime()-ts
 		println("Nano time serial: " + ts/1.0e9)
 		s
 
-	def parallerTest(range: Int): Int=
+	def primesParallerTest(range: Int): Int=
 		var tp = System.nanoTime()
 		val p = numberOfPrimesParaller(range)
 		tp = System.nanoTime()-tp
 		println("Nano time paraller: " + tp/1.0e9)
 		p
 
-	def main(args: Array[String]): Unit =
-		val range = 100000000
-		parallerTest(range)
+	def piIndexOfSerial(substring: String, file: String): Int =
+		var occurences = 0
+		val digits = Source.fromFile(file).getLines().foldLeft("")((digits, line)=> digits.concat(line))
 
+		for(n <- 0 to digits.length-substring.length)
+			if digits.charAt(n) == substring.charAt(0) then
+				var bool = true
+				for(k <- 1 until substring.length)
+					bool &= digits.charAt(n+k) == substring.charAt(k)
+				if bool then
+					occurences += 1
+		occurences
+
+	def piIndexOfParaller(substring: String, file: String): Int =
+		val digits = Source.fromFile(file).getLines().foldLeft("")((digits, line)=> digits.concat(line))
+
+		def occurs(start: Int, end: Int): Int=
+			var occurences = 0
+			for(n <- start to end)
+				if digits.charAt(n) == substring.charAt(0) then
+					var bool = true
+					for(k <- 1 until substring.length)
+						bool &= (digits.charAt(n+k) == substring.charAt(k))
+					if bool then
+						occurences += 1
+			occurences
+
+		val k = digits.length/4
+		val f1 = Future{occurs(0, k)}
+		val f2 = Future{occurs(k, 2*k)}
+		val f3 = Future{occurs(2*k, 3*k)}
+		val f4 = Future{occurs(3*k, digits.length-substring.length)}
+		Await.result(f1, Duration.Inf) + Await.result(f2, Duration.Inf)+ Await.result(f3, Duration.Inf)+Await.result(f4, Duration.Inf)
+
+	def occursSerialTest(substing: String, file: String): Int=
+		var  ts = System.nanoTime()
+		val s = piIndexOfSerial(substing, file)
+		ts = System.nanoTime()-ts
+		println("Occurs time serial: " + ts/1.0e9)
+		s
+
+	def occursParallerTest(substring: String, file: String): Int=
+		var tp = System.nanoTime()
+		val p = piIndexOfParaller(substring, file)
+		tp = System.nanoTime()-tp
+		println("Occurs time paraller: " + tp/1.0e9)
+		p
+
+	def main(args: Array[String]): Unit =
+//		val range = 100000000
+//		parallerTest(range)
+	occursSerialTest("1415", "pi-10million.txt")
+	occursParallerTest("1415", "pi-10million.txt")
 }
