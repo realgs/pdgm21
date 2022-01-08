@@ -1,0 +1,39 @@
+
+Primes
+Threads: 4
+
+Zakres: 10 000 000
+Nano time serial: 58.6525792
+Nano time paraller: 23.6171798
+
+Zakres: 1 000 000
+Nano time serial: 1.9503397
+Nano time paraller: 0.7796472
+
+Zakres: 100 000
+Nano time serial: 0.097079
+Nano time paraller: 0.0893991
+
+Zakres: 10 000
+Nano time serial: 0.015178
+Nano time paraller: 0.0688486
+
+Threads: 8
+Zakres: 10 000 000
+Nano time serial: 59.4644992
+Nano time paraller: 18.8684072
+
+Zakres: 1 000 000
+Nano time serial: 1.9456421
+Nano time paraller: 0.5967268
+
+Zakres: 100 000
+Nano time serial: 0.0804489
+Nano time paraller: 0.0889546
+
+Zakres: 10 000
+Nano time serial: 0.0145278
+Nano time paraller: 0.0710913
+
+
+
