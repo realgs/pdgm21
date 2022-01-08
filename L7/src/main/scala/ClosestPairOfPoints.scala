@@ -45,15 +45,6 @@ object ClosestPairOfPoints {
     result
   }
 
-  def calculateStrip(stripList : List[Point], size : Int, minDistance : Double) : Double = {
-    var minValue = minDistance
-    for( i <- 0 until size) {
-      for ( j <- (i+1) until Math.min(size, i + 1 + 7)) {
-        minValue = Math.min(minValue, distance(stripList(i), stripList(j)))
-      }
-    }
-    minValue
-  }
 
   def initLists(points : List[Point]) : (List[Point], List[Point]) = {
     var xList : Array[Point] = Array()
@@ -99,6 +90,16 @@ object ClosestPairOfPoints {
 
   // SEQUENTIAL
 
+  def calculateStrip(stripList : List[Point], size : Int, minDistance : Double) : Double = {
+    var minValue = minDistance
+    for( i <- 0 until size) {
+      for ( j <- (i+1) until Math.min(size, i + 1 + 7)) {
+        minValue = Math.min(minValue, distance(stripList(i), stripList(j)))
+      }
+    }
+    minValue
+  }
+
   def closest(xList : List[Point], yList : List[Point], listLength : Int) : Double = {
     if listLength <= 3 then bruteForce(xList, xList.length)
     else {
@@ -125,6 +126,18 @@ object ClosestPairOfPoints {
 
   // PARALLEL
 
+  def calculateStripParallel(stripList : List[Point], size : Int, minDistance : Double) : Double = {
+    var minValue = minDistance
+    var minValues = for( i <- 0 until size) yield Future {
+      var temp = minValue
+      for ( j <- (i+1) until Math.min(size, i + 1 + 7)) {
+        temp = Math.min(temp, distance(stripList(i), stripList(j)))
+      }
+      temp
+    }
+    minValues.map(Await.result(_, Duration.Inf)).min
+  }
+
   def closestParallel(xList : List[Point], yList : List[Point], listLength : Int) : Double = {
     if listLength <= 3 then bruteForce(xList, xList.length)
     else {
@@ -143,7 +156,7 @@ object ClosestPairOfPoints {
 
       val stripList = initStripList(yList, listLength, midPoint, minDistance)
 
-      Math.min(minDistance, calculateStrip(stripList, stripList.length, minDistance))
+      Math.min(minDistance, calculateStripParallel(stripList, stripList.length, minDistance))
     }
   }
 
