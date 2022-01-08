@@ -65,14 +65,27 @@ object Quicksort {
       randomListHelper(List(), 0)
     }
 
+    def processList(list : List[Int]) : Unit = {
+      println("---------------")
+      println("Length: " + list.length)
+      print("SEQUENTIAL:  ")
+      println(countTime(quicksort(list)))
+      print("PARALLEL:    ")
+      println(countTime(quicksortParallel(list, (list.length * 0.1).toInt)))
+      println("")
+    }
+
 
   def main(args: Array[String]) : Unit = {
-    val list = randomList(100000, 100000)
-    println(countTime({
-      var list1 = quicksort(list)
-    }))
-    println(countTime({
-      var list3 = quicksortParallel(list, (list.length * 0.9).toInt)
-    }))
+    val list0 = randomList(100, 100000)
+    val list1 = randomList(1000, 100000)
+    val list2 = randomList(10000, 100000)
+    val list3 = randomList(100000, 100000)
+    val list4 = randomList(1000000, 100000)
+    processList(list0)
+    processList(list1)
+    processList(list2)
+    processList(list3)
+    processList(list4)
   }
 }
