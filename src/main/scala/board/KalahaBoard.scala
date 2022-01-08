@@ -1,6 +1,6 @@
 package board
 
-class KalahaBoard(private val boardSize: Int = 6, private val noStartingStones: Int = 5)  {
+class KalahaBoard(private val boardSize: Int, private val noStartingStones: Int)  {
   // Board consists of 2 rows for each player and 2 bases for each player
   private var board: Array[Int] = Array.fill(boardSize * 2 + 2)(noStartingStones)
   private val player1BaseIndex = boardSize
@@ -9,26 +9,42 @@ class KalahaBoard(private val boardSize: Int = 6, private val noStartingStones: 
   board(player1BaseIndex) = 0
   board(player2BaseIndex) = 0
 
-  def printBoard(): Unit =
-    println("Current game board")
-    println("Player 2 row")
-    for (i <- player2BaseIndex - 1 to player1BaseIndex + 1 by -1)
-      print(board(i) + " ")
-    println("\nPlayer 2 current score: " + board(player2BaseIndex).toString + "\n")
-    println("Player 1 row")
-    for (i <- 0 to player1BaseIndex-1)
-      print(board(i) + " ")
-    println("\nPlayer 1 current score: " + board(player1BaseIndex).toString + "\n")
+  // The board will be printed appriopriately for every player
+  def printBoard(firstPlayerMoves: Boolean): Unit =
+    if firstPlayerMoves then {
+      println("Current game board")
+      println("Enemy row")
+      for (i <- player2BaseIndex - 1 to player1BaseIndex + 1 by -1)
+        print(board(i) + " ")
+      println("\nEnemy score: " + board(player2BaseIndex).toString + "\n")
+      println("Your row")
+      for (i <- 0 to player1BaseIndex-1)
+        print(board(i) + " ")
+      println("\nYour score: " + board(player1BaseIndex).toString + "\n")
+    }
+
+    else {
+      println("Current game board")
+      println("Enemy row")
+      for (i <- player1BaseIndex - 1 to 0 by -1)
+        print(board(i) + " ")
+      println("\nEnemy score: " + board(player1BaseIndex).toString + "\n")
+      println("Your row")
+      for (i <- player1BaseIndex + 1 to player2BaseIndex - 1)
+        print(board(i) + " ")
+      println("\nYour score: " + board(player2BaseIndex).toString + "\n")
+    }
+
 
   // Returns if the move was made correctly and what player
   // Also returns which player should make the next move
-  def makeMove(chosenHole: Int, isFirstPlayer: Boolean): (Boolean, Boolean) =
+  def makeMoveOnBoard(chosenHole: Int, firstPlayerMoves: Boolean): (Boolean, Boolean) =
     var holeIndex: Int = chosenHole - 1
-    if holeIndex < 0 || holeIndex >= boardSize then return (false, isFirstPlayer)
+    if holeIndex < 0 || holeIndex >= boardSize then return (false, firstPlayerMoves)
     // Choose correct hole based on which player starts the move
-    if !isFirstPlayer then holeIndex = holeIndex + boardSize + 1
+    if !firstPlayerMoves then holeIndex = holeIndex + boardSize + 1
     // Current hole is empty
-    if board(holeIndex) == 0 then return (false, isFirstPlayer)
+    if board(holeIndex) == 0 then return (false, firstPlayerMoves)
 
     var noStones: Int = board(holeIndex)
     board(holeIndex) = 0
@@ -41,22 +57,22 @@ class KalahaBoard(private val boardSize: Int = 6, private val noStartingStones: 
 
     // Perform specific actions mentioned in Kahala guidelines if necessary
     // Last stone is in the player's base
-    if (isFirstPlayer && holeIndex == player1BaseIndex) ||
-      (!isFirstPlayer && holeIndex == player2BaseIndex) then return (true, isFirstPlayer)
+    if (firstPlayerMoves && holeIndex == player1BaseIndex) ||
+      (!firstPlayerMoves && holeIndex == player2BaseIndex) then return (true, firstPlayerMoves)
 
     // Last stone was put in the empty player's hole (note that hole now contains one stone)
     if board(holeIndex) == 1 &&
-      ((holeIndex < player1BaseIndex && isFirstPlayer) || (holeIndex > player1BaseIndex && !isFirstPlayer)) then {
+      ((holeIndex < player1BaseIndex && firstPlayerMoves) || (holeIndex > player1BaseIndex && !firstPlayerMoves)) then {
       var oppositeHoleIndex = (boardSize * 2) - holeIndex
       board(holeIndex) = board(holeIndex) + board(oppositeHoleIndex)
       board(oppositeHoleIndex) = 0
     }
 
     // Last stone isn't in the player's base
-    return (true, !isFirstPlayer)
+    return (true, !firstPlayerMoves)
 
-  def checkIsGameFinished(isFirstPlayer: Boolean): Boolean =
-    if isFirstPlayer then {
+  def getIsGameFinished(firstPlayerMoves: Boolean): Boolean =
+    if firstPlayerMoves then {
       for (i <- 0 to player1BaseIndex-1)
         if board(i) != 0 then return false
 
