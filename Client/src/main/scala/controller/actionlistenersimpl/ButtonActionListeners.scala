@@ -16,10 +16,14 @@ class ShowPlayersButtonActionListener(conn: KalahaClientConnection) extends Acti
 
 class JoinGameButtonActionListener(conn: KalahaClientConnection, nameTextField: JTextField) extends ActionListener:
     override def actionPerformed(e: ActionEvent): Unit =
-        conn.name = nameTextField.getText()
+        conn.gameStatus.name = nameTextField.getText()
         conn.joinGame()
         conn.getPlayers()
         
 class StartGameButtonActionListener(conn: KalahaClientConnection) extends ActionListener:
     override def actionPerformed(e: ActionEvent): Unit =
         conn.startGame()
+
+class BoardActionListener(conn: KalahaClientConnection, id: Int) extends ActionListener:
+    override def actionPerformed(e: ActionEvent): Unit =
+        conn.makeMove(id)

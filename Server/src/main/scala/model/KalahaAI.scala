@@ -4,7 +4,7 @@ class KalahaAI(name: String) extends KalahaPlayer(name):
 
     val predictions: Array[Int] = Array.ofDim(6)
 
-    override def copy: KalahaAI =
+    override def copy(): KalahaAI =
         val clonePlayer = new KalahaAI(name)
         clonePlayer.score = score
         for (i <- 0 until 6)
@@ -12,12 +12,12 @@ class KalahaAI(name: String) extends KalahaPlayer(name):
             clonePlayer.predictions(i) = predictions(i)
         clonePlayer
 
-    def printPredisctions =
+    def printPredisctions() =
         for (i <- 0 until 5)
             print(s"${predictions(i)} | ")
         println(predictions(5))
 
-    def selectBestMove: Int =
+    def selectBestMove(): Int =
         var bestMove = 0
         var max = 0
         for (i <- 0 until 6)

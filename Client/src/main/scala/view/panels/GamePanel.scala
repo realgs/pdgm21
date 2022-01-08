@@ -8,7 +8,7 @@ import javax.swing.{JButton, JLabel, JPanel}
 
 class GamePanel extends JPanel:
     var startGameButton: JButton = new JButton("Start game")
-    var timeoutLabel: JLabel = new JLabel("Time remaining: 30 s")
+    var timeoutLabel: JLabel = new JLabel("Time: 30")
     
     add(startGameButton)
     add(timeoutLabel)

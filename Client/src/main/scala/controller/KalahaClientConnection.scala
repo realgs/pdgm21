@@ -5,13 +5,16 @@ import cask.Logger.Console.globalLogger
 import cask.util.WsClient
 import castor.Context.Simple.global
 import controller.actionlistenersimpl.{BoardActionListener, ConnectButtonActionListener, JoinGameButtonActionListener, ShowPlayersButtonActionListener, StartGameButtonActionListener}
+import controller.animation.MoveAnimation
+import status.GameStatus
 import view.KalahaGuiCreator
 
 import javax.swing.{JButton, JLabel, JTextField}
 
-class KalahaClientConnection(gui: KalahaGuiCreator):
-    var name = ""
+class KalahaClientConnection(gui: KalahaGuiCreator, game: GameStatus):
+    var gameStatus: GameStatus = game
     var conn: WsClient = _
+    var moveAnimation: MoveAnimation = new MoveAnimation(gui.boardPanel);
 
     var connectButton: JButton = gui.controlsPanel.connectionPanel.connectButton
     var showPlayersButton: JButton = gui.controlsPanel.playersPanel.showPlayersButton
@@ -26,33 +29,39 @@ class KalahaClientConnection(gui: KalahaGuiCreator):
 
     def connectToServer(): Unit =
         if conn != null then throw new IllegalStateException("You are already connected!")
-        conn = WsClient.connect("ws://localhost:8080/kalaha-websocket/1") {
+        conn = WsClient.connect("ws://localhost:8080/kalaha-websocket") {
             case Ws.Text("connected") =>
                 gui.controlsPanel.connectionPanel.connectStatus.setText("Connected!")
             case Ws.Text("registered") =>
                 println("Registered succesfully")
             case Ws.Text(s"players: ${firstPlayerName}, ${secondPlayerName}") =>
+                gameStatus.playerNames(0) = firstPlayerName
+                gameStatus.playerNames(1) = secondPlayerName
                 gui.controlsPanel.playersPanel.firstPlayerLabel.setText(firstPlayerName)
                 gui.controlsPanel.playersPanel.secondPlayerLabel.setText(secondPlayerName)
-                val boardButtons: Array[JButton] = (if firstPlayerName == name then gui.boardPanel.firstPlayerHoles else gui.boardPanel.secondPlayerHoles)
+                val boardButtons: Array[JButton] = (if firstPlayerName == gameStatus.name then gui.boardPanel.firstPlayerHoles else gui.boardPanel.secondPlayerHoles)
                 for (i <- boardButtons.indices)
                     boardButtons(i).addActionListener(new BoardActionListener(this, i))
-                    boardButtons(i).setEnabled(true)
             case Ws.Text("game started") =>
                 println("Game started!")
-            case Ws.Text(s"$name remaining $remaining") =>
+                val boardButtons: Array[JButton] = (if gameStatus.name == gameStatus.playerNames(0) then gui.boardPanel.firstPlayerHoles else gui.boardPanel.secondPlayerHoles)
+                for (i <- boardButtons.indices)
+                    boardButtons(i).setEnabled(true)
+            case Ws.Text(s"remaining $remaining") =>
                 gui.controlsPanel.gamePanel.timeoutLabel.setText(s"Time: $remaining")
             case Ws.Text(s"${name} time is up") =>
                 gui.controlsPanel.gamePanel.timeoutLabel.setText("You lose!")
-            case Ws.Text(s"$name made move: $boardString") =>
-                updateBoard(boardString)
+            case Ws.Text(s"$name made move: $holeNumber") =>
+                val playerNum = if name == gameStatus.playerNames(0) then 0 else 1
+                moveAnimation.animate(playerNum, holeNumber.toInt)
+                conn.send(Ws.Text("animationDone"))
             case Ws.Text(s) => println(s)
         }
         conn.send(Ws.Text("connect"))
 
     def joinGame(): Unit =
-        if name == "" then throw new IllegalStateException("Enter your name first!")
-        conn.send(Ws.Text(s"joinGame$name"))
+        if gameStatus.name == "" then throw new IllegalStateException("Enter your name first!")
+        conn.send(Ws.Text(s"joinGame${gameStatus.name}"))
 
     def getPlayers(): Unit =
         if conn == null then throw new IllegalStateException("Establish your connection first!")
@@ -65,29 +74,7 @@ class KalahaClientConnection(gui: KalahaGuiCreator):
     def makeMove(holeNumber: Int) =
         if conn == null then throw new IllegalStateException("Establish your connection first!")
         if holeNumber < 0 || holeNumber > 5 then throw new IllegalArgumentException("Illegal hole number!")
-        conn.send(Ws.Text(s"makeMove $name; $holeNumber"))
-
-    def updateBoard(boardString: String): Unit =
-        boardString match
-            case s"$f2, $e2, $d2, $c2, $b2, $a2 | $base2 | $base1 | $a1, $b1, $c1, $d1, $e1, $f1" =>
-                val firstPlayerHoles: Array[JButton] = gui.boardPanel.firstPlayerHoles
-                val bases: Array[JLabel] = gui.boardPanel.bases
-                val secondPlayerHoles: Array[JButton] = gui.boardPanel.secondPlayerHoles
-                firstPlayerHoles(0).setText(a1)
-                firstPlayerHoles(1).setText(b1)
-                firstPlayerHoles(2).setText(c1)
-                firstPlayerHoles(3).setText(d1)
-                firstPlayerHoles(4).setText(e1)
-                firstPlayerHoles(5).setText(f1)
-                bases(0).setText(base1)
-                bases(1).setText(base2)
-                secondPlayerHoles(0).setText(a2)
-                secondPlayerHoles(1).setText(b2)
-                secondPlayerHoles(2).setText(c2)
-                secondPlayerHoles(3).setText(d2)
-                secondPlayerHoles(4).setText(e2)
-                secondPlayerHoles(5).setText(f2)
-            case _ => throw new IllegalArgumentException("String format is not correct!")
+        conn.send(Ws.Text(s"makeMove ${gameStatus.name}; $holeNumber"))
 
     def disconnect(): Unit =
         conn.send(Ws.Text("disconnect"))

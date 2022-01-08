@@ -3,11 +3,10 @@ import service.{KalahaService, TimerRunnable}
 import cask.*
 
 object Main extends MainRoutes:
-
     var controller: KalahaController = null
 
-    @websocket("/kalaha-websocket/:x")
-    def wsRoute(x: String): WebsocketResult =
+    @websocket("/kalaha-websocket")
+    def wsRoute(): WebsocketResult =
         WsHandler { channel =>
             if controller == null then controller = new KalahaController(channel)
             WsActor {
@@ -16,15 +15,17 @@ object Main extends MainRoutes:
                     channel.send(Ws.Close())
                     controller.timerThread.interrupt()
                 case Ws.Text("connect") =>
-                    controller.onConnect
+                    controller.onConnect()
                 case Ws.Text(s"joinGame$name") =>
                     controller.onJoinGame(name)
                 case Ws.Text(s"makeMove $name; $hole") =>
                     controller.onMakeMove(name, hole.toInt)
+                case Ws.Text("animationDone") =>
+                    controller.onAnimationDone()
                 case Ws.Text("showPlayers") =>
-                    controller.onShowPlayers
+                    controller.onShowPlayers()
                 case Ws.Text("startGame") =>
-                    controller.onStartGame
+                    controller.onStartGame()
             }
         }
 

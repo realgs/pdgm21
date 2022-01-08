@@ -3,12 +3,12 @@ package service
 import model.{KalahaAI, KalahaPlayer}
 
 class KalahaService:
-    var playersRegistered = 0
+    var playersRegistered: Int = 0
     var firstPlayer: KalahaPlayer = new KalahaAI("AliceAI")
     var secondPlayer: KalahaPlayer = new KalahaAI("JohnnyAI")
 
     var gameStarted: Boolean = false
-    var turn = ""
+    var turn: String = ""
     var makeMoveDeadline: Long = 0
 
     def makeMove(player: KalahaPlayer, holeNumber: Int, opponent: KalahaPlayer): Boolean =
@@ -16,7 +16,7 @@ class KalahaService:
         var num = holeNumber
         var stonesToMove = pl.stonesInHoles(num)
         pl.stonesInHoles(num) = 0
-        while (stonesToMove > 0)
+        while stonesToMove > 0 do
             num += 1
             if num == 6 then
                 num = -1
@@ -36,14 +36,14 @@ class KalahaService:
                 pl.stonesInHoles(num) = 0
             false
 
-    def updatePredictions(ai: KalahaAI) =
+    def updatePredictions(ai: KalahaAI): Unit =
         for (i <- 0 until 6)
-            val aiCopy = ai.copy
-            val opponentCopy = (if ai == firstPlayer then secondPlayer else firstPlayer).copy
+            val aiCopy = ai.copy()
+            val opponentCopy = (if ai == firstPlayer then secondPlayer else firstPlayer).copy()
             makeMove(aiCopy, i, opponentCopy)
             ai.predictions(i) = aiCopy.score
 
-    def printBoard =
+    def printBoard(): Unit =
         for (i <- (1 until 6).reverse)
             print(s"${secondPlayer.stonesInHoles(i)} | ")
         println(secondPlayer.stonesInHoles(0))
@@ -51,41 +51,19 @@ class KalahaService:
         for (i <- 0 until 5)
             print(s"${firstPlayer.stonesInHoles(i)} | ")
         println(firstPlayer.stonesInHoles(5))
-
-    def boardToString =
-        var s = ""
-        for (i <- (1 until 6).reverse)
-            s += s"${secondPlayer.stonesInHoles(i)} | "
-        s += s"${secondPlayer.stonesInHoles(0)}\n"
-        s += s"${secondPlayer.score}                     ${firstPlayer.score}\n"
-        for (i <- 0 until 5)
-            s += s"${firstPlayer.stonesInHoles(i)} | "
-        s += s"${firstPlayer.stonesInHoles(5)}\n"
-        s
-        
-    def boardToWsFormat(): String =
-        var s = ""
-        for (i <- (1 until 6).reverse)
-            s += s"${secondPlayer.stonesInHoles(i)}, "
-        s += s"${secondPlayer.stonesInHoles(0)} | "
-        s += s"${secondPlayer.score} | ${firstPlayer.score} | \n"
-        for (i <- 0 until 5)
-            s += s"${firstPlayer.stonesInHoles(i)}, "
-        s += s"${firstPlayer.stonesInHoles(5)}"
-        s
     
-    def checkGameOver =
+    def checkGameOver(): Boolean =
         val stones1 = firstPlayer.stonesInHoles
         val stones2 = secondPlayer.stonesInHoles
         (stones1(0) == 0 && stones1(1) == 0 && stones1(2) == 0 && stones1(3) == 0 && stones1(4) == 0 && stones1(5) == 0) ||
           (stones2(0) == 0 && stones2(1) == 0 && stones2(2) == 0 && stones2(3) == 0 && stones2(4) == 0 && stones2(5) == 0)
         
-    def getWinner =
+    def getWinner(): String =
         if firstPlayer.score > secondPlayer.score then firstPlayer.name
         else if firstPlayer.score < secondPlayer.score then secondPlayer.name
         else "draw"
 
-    def registerPlayer(name: String) =
+    def registerPlayer(name: String): Unit =
         if name == firstPlayer.name || name == secondPlayer.name then throw new IllegalArgumentException("Given name is already in use!")
         if playersRegistered == 0 then
             firstPlayer = new KalahaPlayer(name)
@@ -95,17 +73,17 @@ class KalahaService:
             playersRegistered += 1
         else throw new IllegalStateException("All players joined!")
 
-    def getPlayerByUsername(name: String) =
+    def getPlayerByUsername(name: String): KalahaPlayer =
         if firstPlayer.name == name then firstPlayer
         else if secondPlayer.name == name then secondPlayer
         else throw new IllegalArgumentException("No such user!")
 
-    def getOpponentByUsername(name: String) =
+    def getOpponentByUsername(name: String): KalahaPlayer =
         if firstPlayer.name == name then secondPlayer
         else if secondPlayer.name == name then firstPlayer
         else throw new IllegalArgumentException("No such opponent!")
 
-    def startGame =
+    def startGame(): Unit =
         if gameStarted then throw IllegalStateException("Game started before!")
         gameStarted = true
         turn = firstPlayer.name
