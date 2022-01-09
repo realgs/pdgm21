@@ -3,14 +3,15 @@ import scala.concurrent.ExecutionContext.Implicits.global
 import scala.language.postfixOps
 import concurrent.duration.DurationInt
 import gameboard.KalahaBoard
+import gui.MainGUI
 import player.Player
 import player.HumanPlayer
 import player.AIPlayer
-
 import scala.concurrent.{Await, Future}
 
 // Server should only start when all settings are configured
 class Server() {
+  private var gui: MainGUI = _
   private var board: KalahaBoard = _
   private var player1: Player = _
   private var player2: Player = _
@@ -19,6 +20,10 @@ class Server() {
   // Max waiting time (in seconds) for hole choice
   private val MaxWaitTime: Int = 30
 
+  def getBoard() = board
+
+  def startGUI(): Unit =
+    gui = new MainGUI(this)
 
   def initializeGame(boardSize: Int, noStartingStones: Int, isHuman1: Boolean, isHuman2: Boolean): Unit =
     board = new KalahaBoard(boardSize, noStartingStones)
@@ -70,5 +75,7 @@ class Server() {
   private def printError(): Unit =
     println("Game could not end because of the lack of activity from one of the players")
     sys.exit()
+
+
 
 }
