@@ -13,7 +13,6 @@ class SocketReadingRunnable(socket: Socket, controller: KalahaController) extend
             while true do
                 val line = reader.readLine()
                 if line == null then socket.close()
-                println("Line = " + line)
                 line match
                     case "disconnect" => controller.timerThread.interrupt()
                     case s"joinGame$name" => controller.onJoinGame(port, name)

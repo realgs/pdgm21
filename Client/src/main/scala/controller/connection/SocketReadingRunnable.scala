@@ -9,7 +9,6 @@ class SocketReadingRunnable(reader: BufferedReader, controller: KalahaController
         try
             while true do
                 val line = reader.readLine()
-                println(line)
                 line match
                     case "connected" => controller.onConnected()
                     case "registered" => controller.onRegistered()

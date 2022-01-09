@@ -16,9 +16,11 @@ class ShowPlayersButtonActionListener(conn: KalahaClientConnection) extends Acti
 
 class JoinGameButtonActionListener(conn: KalahaClientConnection, controller: KalahaController) extends ActionListener:
     override def actionPerformed(e: ActionEvent): Unit =
-        controller.gameStatus.name = controller.nameTextField.getText()
-        conn.commandJoinGame()
-        conn.commandGetPlayers()
+        val typedName = controller.nameTextField.getText()
+        if !typedName.endsWith("AI") && typedName != controller.gameStatus.playerNames(0) && typedName != controller.gameStatus.playerNames(1) then
+            controller.gameStatus.name = typedName
+            conn.commandJoinGame()
+            conn.commandGetPlayers()
         
 class StartGameButtonActionListener(conn: KalahaClientConnection) extends ActionListener:
     override def actionPerformed(e: ActionEvent): Unit =

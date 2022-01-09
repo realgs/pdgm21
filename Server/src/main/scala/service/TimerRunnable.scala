@@ -15,4 +15,4 @@ class TimerRunnable(controller: KalahaController) extends Runnable:
                         controller.broadcastRemaining(remaining)
                 Thread.sleep(10)
         catch
-            case e: InterruptedException => println("Interrupt!")
+            case e: InterruptedException => println("Thread interrupted!")

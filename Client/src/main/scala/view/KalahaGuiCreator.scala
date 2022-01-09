@@ -7,7 +7,6 @@ import java.awt.{Color, Container, Dimension, FlowLayout, GridLayout}
 import javax.swing.{JButton, JFrame, JPanel, JTextField, JTextPane, SpringLayout, WindowConstants}
 
 class KalahaGuiCreator:
-    /* window elements */
     val frame: JFrame = new JFrame("Kalaha game client")
     val contentPane: Container = frame.getContentPane()
 

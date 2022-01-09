@@ -28,18 +28,14 @@ class KalahaClientConnection(controller: KalahaController):
         writer.println("showPlayers")
 
     def commandStartGame(): Unit =
-        println("commandStartGame")
         writer.println("startGame")
 
     def commandMakeMove(holeNumber: Int) =
-        println("commandMakeMove(" + holeNumber + ")")
         if holeNumber < 0 || holeNumber > 5 then throw new IllegalArgumentException("Illegal hole number!")
         writer.println(s"makeMove ${controller.gameStatus.name}; $holeNumber")
 
     def commandDisconnect(): Unit =
-        println("commandDisconnect")
         writer.println("disconnect")
 
     def commandAnimationDone(): Unit =
-        println("commandAnimationDone")
         writer.println("animationDone")

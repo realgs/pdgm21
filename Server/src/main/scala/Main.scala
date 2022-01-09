@@ -14,5 +14,4 @@ object Main:
     def main(args: Array[String]): Unit =
         while true do
             var client: Socket = serverSocket.accept()
-            println("Port = " + client.getPort())
             connections.put(client.getPort(), new ClientConnection(client, controller))

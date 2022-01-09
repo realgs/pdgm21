@@ -69,7 +69,8 @@ class KalahaController(_gui: KalahaGuiCreator, game: GameStatus):
     def onMoveAllowed(): Unit =
         val yourBoardButtons: Array[JButton] = (if gameStatus.playerNames(0) == gameStatus.name then gui.boardPanel.firstPlayerHoles else gui.boardPanel.secondPlayerHoles)
         for (button <- yourBoardButtons)
-            button.setEnabled(true)
+            if button.getText() != "0" then
+                button.setEnabled(true)
 
     def onGameOver(winner: String): Unit =
         for (button <- gui.boardPanel.firstPlayerHoles)
