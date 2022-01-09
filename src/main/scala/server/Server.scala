@@ -30,22 +30,29 @@ class Server() {
     while (!board.getIsGameFinished(firstPlayerMoves)) {
       makeMovePlayer()
     }
+    board.printBoard(firstPlayerMoves)
     this.printResults()
 
   private def printResults(): Unit =
     val (player1Results, player2Results): (Int, Int) = board.getResults()
+    println("Player 1 final score: " + player1Results.toString)
+    println("Player 2 final score: " + player2Results.toString)
     if player1Results == player2Results then println("Game ended in tie")
     else if player1Results > player2Results then println("Player 1 won")
     else println("Player 2 won")
 
   def makeMovePlayer(): Unit =
-    // board.printBoard(firstPlayerMoves)
+    board.printBoard(firstPlayerMoves)
 
+    var successfulMove: Boolean = false
     var chosenHole: Int = 0
-    if firstPlayerMoves then chosenHole = player1.chooseMove(board)
-    else chosenHole = player2.chooseMove(board)
 
-    board.makeMoveOnBoard(chosenHole, firstPlayerMoves)
+    while (!successfulMove) {
+      if firstPlayerMoves then chosenHole = player1.chooseMove(board)
+      else chosenHole = player2.chooseMove(board)
 
-
+      var results = board.makeMoveOnBoard(chosenHole, firstPlayerMoves)
+      successfulMove = results._1
+      firstPlayerMoves = results._2
+    }
 }

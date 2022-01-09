@@ -5,10 +5,8 @@ import player.AIPlayer
 
 object StartGame {
   def main(args: Array[String]): Unit = {
-    var test = Server()
-    test.initializeGame(6, 5, false, false)
-    test.makeMovePlayer()
-    test.makeMovePlayer()
-    test.makeMovePlayer()
+    val server = Server()
+    server.initializeGame(6, 5, false, false)
+    server.playGame()
   }
 }

@@ -31,7 +31,7 @@ class AIPlayer (firstPlayer: Boolean) extends Player (firstPlayer) {
       else {
         val copyBoard: KalahaBoard = kalahaBoard.copy()
         copyBoard.makeMoveOnBoard(i-startHoleIndex, firstPlayer)
-        differences(i) = getBestScoreEnemy(copyBoard)
+        differences(i-startHoleIndex) = getBestScoreEnemy(copyBoard)
       }
     }
 
