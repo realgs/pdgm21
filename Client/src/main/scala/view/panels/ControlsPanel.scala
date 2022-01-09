@@ -1,6 +1,6 @@
 package view.panels
 
-import controller.KalahaClientConnection
+import controller.connection.KalahaClientConnection
 
 import java.awt.{Color, FlowLayout, GridLayout}
 import javax.swing.border.LineBorder
@@ -18,4 +18,3 @@ class ControlsPanel extends JPanel:
     add(gamePanel)
 
     setLayout(new GridLayout(1, 4, 10, 10))
-    setBorder(new LineBorder(Color.CYAN, 3))

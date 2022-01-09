@@ -1,9 +1,10 @@
 package service
 
-import cask.*
 import controller.KalahaController
 
-class TimerRunnable(channel: WsChannelActor, controller: KalahaController) extends Runnable:
+import java.io.PrintWriter
+
+class TimerRunnable(writer: PrintWriter, controller: KalahaController) extends Runnable:
     override def run(): Unit =
         try
             var start = System.currentTimeMillis()
@@ -13,7 +14,7 @@ class TimerRunnable(channel: WsChannelActor, controller: KalahaController) exten
                         val timeRemaining = (controller.service.makeMoveDeadline - System.currentTimeMillis()) / 1000
                         if timeRemaining <= 0 then controller.onTimeoutDefeat()
                         start = System.currentTimeMillis()
-                        channel.send(Ws.Text(s"remaining $timeRemaining"))
+                        writer.println(s"remaining $timeRemaining")
                 Thread.sleep(10)
         catch
             case e: InterruptedException => println("Interrupt!")

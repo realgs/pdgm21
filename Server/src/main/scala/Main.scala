@@ -1,32 +1,15 @@
-import controller.KalahaController
+import controller.{ClientRunnable, KalahaController}
 import service.{KalahaService, TimerRunnable}
-import cask.*
 
-object Main extends MainRoutes:
+import java.net.ServerSocket
+import java.net.Socket
+import controller.ClientRunnable
+
+object Main:
     var controller: KalahaController = null
+    var serverSocket: ServerSocket = new ServerSocket(6666)
 
-    @websocket("/kalaha-websocket")
-    def wsRoute(): WebsocketResult =
-        WsHandler { channel =>
-            if controller == null then controller = new KalahaController(channel)
-            WsActor {
-                case Ws.Text("") => channel.send(Ws.Close())
-                case Ws.Text("disconnect") =>
-                    channel.send(Ws.Close())
-                    controller.timerThread.interrupt()
-                case Ws.Text("connect") =>
-                    controller.onConnect()
-                case Ws.Text(s"joinGame$name") =>
-                    controller.onJoinGame(name)
-                case Ws.Text(s"makeMove $name; $hole") =>
-                    controller.onMakeMove(name, hole.toInt)
-                case Ws.Text("animationDone") =>
-                    controller.onAnimationDone()
-                case Ws.Text("showPlayers") =>
-                    controller.onShowPlayers()
-                case Ws.Text("startGame") =>
-                    controller.onStartGame()
-            }
-        }
-
-    initialize()
+    def main(args: Array[String]): Unit =
+        while true do
+            var client: Socket = serverSocket.accept()
+            new Thread(new ClientRunnable(client)).start()

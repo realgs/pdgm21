@@ -5,26 +5,77 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9dcd2a58-7913-4203-ac33-494dbeffdc59" name="Changes" comment="Application is able to play basic game, need to improve readability and serve game ending">
-      <change afterPath="$PROJECT_DIR$/src/main/scala/status/GameStatus.scala" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Server/src/main/scala/status/GameStatus.scala" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/scala/controller/KalahaController.scala" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/scala/controller/connection/KalahaClientConnection.scala" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/scala/controller/connection/SocketReadingRunnable.scala" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Server/src/main/scala/controller/ClientRunnable.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/sbt__com_lihaoyi_cask_3_0_8_0_jar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/sbt__com_lihaoyi_cask_util_3_0_8_0_jar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/sbt__com_lihaoyi_castor_3_0_1_8_jar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/sbt__com_lihaoyi_fansi_3_0_2_14_jar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/sbt__com_lihaoyi_geny_3_0_6_10_jar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/sbt__com_lihaoyi_pprint_3_0_6_6_jar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/sbt__com_lihaoyi_sourcecode_3_0_2_7_jar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/sbt__com_lihaoyi_ujson_3_1_3_13_jar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/sbt__com_lihaoyi_upack_3_1_3_13_jar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/sbt__com_lihaoyi_upickle_3_1_3_13_jar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/sbt__com_lihaoyi_upickle_core_3_1_3_13_jar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/sbt__com_lihaoyi_upickle_implicits_3_1_3_13_jar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/sbt__io_undertow_undertow_core_2_2_3_Final_jar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/sbt__org_java_websocket_Java_WebSocket_1_5_0_jar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/sbt__org_jboss_logging_jboss_logging_3_4_1_Final_jar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/sbt__org_jboss_threads_jboss_threads_3_1_0_Final_jar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/sbt__org_jboss_xnio_xnio_api_3_8_0_Final_jar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/sbt__org_jboss_xnio_xnio_nio_3_8_0_Final_jar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/sbt__org_slf4j_slf4j_api_1_7_25_jar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/sbt__org_wildfly_client_wildfly_client_config_1_0_1_Final_jar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/sbt__org_wildfly_common_wildfly_common_1_5_2_Final_jar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules/Client.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/Client.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.sbt" beforeDir="false" afterPath="$PROJECT_DIR$/build.sbt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/scala/Main.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/Main.scala" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/scala/controller/KalahaClientConnection.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/controller/KalahaClientConnection.scala" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/scala/controller/actionlistenersimpl/BoardActionListener.scala" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/controller/KalahaClientConnection.scala" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/scala/controller/actionlistenersimpl/ButtonActionListeners.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/controller/actionlistenersimpl/ButtonActionListeners.scala" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/scala/controller/animation/MoveAnimation.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/controller/animation/MoveAnimation.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/view/KalahaGuiCreator.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/view/KalahaGuiCreator.scala" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/scala/view/panels/BoardPanel.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/view/panels/BoardPanel.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/view/panels/ConnectionPanel.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/view/panels/ConnectionPanel.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/view/panels/ControlsPanel.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/view/panels/ControlsPanel.scala" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/scala/view/panels/GamePanel.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/view/panels/GamePanel.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/view/panels/NamePanel.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/view/panels/NamePanel.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/view/panels/PlayersPanel.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/view/panels/PlayersPanel.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Server/.idea/libraries/sbt__com_lihaoyi_cask_3_0_8_0_jar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Server/.idea/libraries/sbt__com_lihaoyi_cask_util_3_0_8_0_jar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Server/.idea/libraries/sbt__com_lihaoyi_castor_3_0_1_8_jar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Server/.idea/libraries/sbt__com_lihaoyi_fansi_3_0_2_14_jar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Server/.idea/libraries/sbt__com_lihaoyi_geny_3_0_6_10_jar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Server/.idea/libraries/sbt__com_lihaoyi_pprint_3_0_6_6_jar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Server/.idea/libraries/sbt__com_lihaoyi_sourcecode_3_0_2_7_jar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Server/.idea/libraries/sbt__com_lihaoyi_ujson_3_1_3_13_jar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Server/.idea/libraries/sbt__com_lihaoyi_upack_3_1_3_13_jar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Server/.idea/libraries/sbt__com_lihaoyi_upickle_3_1_3_13_jar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Server/.idea/libraries/sbt__com_lihaoyi_upickle_core_3_1_3_13_jar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Server/.idea/libraries/sbt__com_lihaoyi_upickle_implicits_3_1_3_13_jar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Server/.idea/libraries/sbt__io_undertow_undertow_core_2_2_3_Final_jar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Server/.idea/libraries/sbt__org_java_websocket_Java_WebSocket_1_5_0_jar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Server/.idea/libraries/sbt__org_jboss_logging_jboss_logging_3_4_1_Final_jar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Server/.idea/libraries/sbt__org_jboss_threads_jboss_threads_3_1_0_Final_jar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Server/.idea/libraries/sbt__org_jboss_xnio_xnio_api_3_8_0_Final_jar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Server/.idea/libraries/sbt__org_jboss_xnio_xnio_nio_3_8_0_Final_jar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Server/.idea/libraries/sbt__org_slf4j_slf4j_api_1_7_25_jar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Server/.idea/libraries/sbt__org_wildfly_client_wildfly_client_config_1_0_1_Final_jar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Server/.idea/libraries/sbt__org_wildfly_common_wildfly_common_1_5_2_Final_jar.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Server/.idea/modules/Server.iml" beforeDir="false" afterPath="$PROJECT_DIR$/../Server/.idea/modules/Server.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Server/build.sbt" beforeDir="false" afterPath="$PROJECT_DIR$/../Server/build.sbt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Server/src/main/scala/Main.scala" beforeDir="false" afterPath="$PROJECT_DIR$/../Server/src/main/scala/Main.scala" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Server/src/main/scala/controller/KalahaController.scala" beforeDir="false" afterPath="$PROJECT_DIR$/../Server/src/main/scala/controller/KalahaController.scala" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Server/src/main/scala/model/KalahaAI.scala" beforeDir="false" afterPath="$PROJECT_DIR$/../Server/src/main/scala/model/KalahaAI.scala" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Server/src/main/scala/model/KalahaPlayer.scala" beforeDir="false" afterPath="$PROJECT_DIR$/../Server/src/main/scala/model/KalahaPlayer.scala" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Server/src/main/scala/service/KalahaService.scala" beforeDir="false" afterPath="$PROJECT_DIR$/../Server/src/main/scala/service/KalahaService.scala" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Server/src/main/scala/service/TimerRunnable.scala" beforeDir="false" afterPath="$PROJECT_DIR$/../Server/src/main/scala/service/TimerRunnable.scala" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Server/target/scala-3.0.2/classes/Main$$anon$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Server/target/scala-3.0.2/classes/Main$$anon$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Server/target/scala-3.0.2/classes/Main$$anon$1.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../Server/target/scala-3.0.2/classes/Main$.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Server/target/scala-3.0.2/classes/Main$.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Server/target/scala-3.0.2/classes/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Server/target/scala-3.0.2/classes/Main.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Server/target/scala-3.0.2/classes/Main.tasty" beforeDir="false" afterPath="$PROJECT_DIR$/../Server/target/scala-3.0.2/classes/Main.tasty" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Server/target/scala-3.0.2/update/update_cache_3/inputs" beforeDir="false" afterPath="$PROJECT_DIR$/../Server/target/scala-3.0.2/update/update_cache_3/inputs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Server/target/scala-3.0.2/update/update_cache_3/output" beforeDir="false" afterPath="$PROJECT_DIR$/../Server/target/scala-3.0.2/update/update_cache_3/output" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -113,7 +164,8 @@
       <workItem from="1641510844348" duration="3719000" />
       <workItem from="1641561815770" duration="4474000" />
       <workItem from="1641572467363" duration="9800000" />
-      <workItem from="1641647324453" duration="8445000" />
+      <workItem from="1641647324453" duration="13943000" />
+      <workItem from="1641725888743" duration="1374000" />
     </task>
     <task id="LOCAL-00001" summary="Add server and client communicating over websocket">
       <created>1641415047608</created>

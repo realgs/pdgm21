@@ -1,6 +1,6 @@
 package view
 
-import controller.KalahaClientConnection
+import controller.connection.KalahaClientConnection
 import view.panels.{BoardPanel, ControlsPanel}
 
 import java.awt.{Color, Container, Dimension, FlowLayout, GridLayout}
@@ -24,7 +24,6 @@ class KalahaGuiCreator:
 
     def show(): Unit =
         contentPane.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 10))
-        contentPane.setBackground(new Color(0x99BBFF))
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE)
         frame.setMinimumSize(new Dimension(1100, 400))
         frame.setVisible(true)

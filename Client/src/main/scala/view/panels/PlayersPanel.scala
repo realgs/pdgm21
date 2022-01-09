@@ -1,7 +1,7 @@
 package view.panels
 
-import controller.KalahaClientConnection
 import controller.actionlistenersimpl.ShowPlayersButtonActionListener
+import controller.connection.KalahaClientConnection
 
 import java.awt.{Color, FlowLayout}
 import javax.swing.border.LineBorder
@@ -16,4 +16,3 @@ class PlayersPanel extends JPanel:
     add(firstPlayerLabel)
     add(secondPlayerLabel)
     setLayout(new FlowLayout(FlowLayout.CENTER, 10, 10))
-    setBorder(new LineBorder(Color.GRAY, 3))

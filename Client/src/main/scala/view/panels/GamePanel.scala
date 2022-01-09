@@ -1,6 +1,6 @@
 package view.panels
 
-import controller.KalahaClientConnection
+import controller.connection.KalahaClientConnection
 
 import java.awt.{Color, FlowLayout}
 import javax.swing.border.LineBorder
@@ -13,4 +13,3 @@ class GamePanel extends JPanel:
     add(startGameButton)
     add(timeoutLabel)
     setLayout(new FlowLayout(FlowLayout.CENTER, 10, 10))
-    setBorder(new LineBorder(Color.GREEN, 3))

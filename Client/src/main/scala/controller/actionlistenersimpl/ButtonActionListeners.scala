@@ -1,29 +1,34 @@
 package controller.actionlistenersimpl
 
-import cask.util.{Ws, WsClient}
-import controller.KalahaClientConnection
+import controller.KalahaController
+import controller.connection.KalahaClientConnection
 
 import java.awt.event.{ActionEvent, ActionListener}
 import javax.swing.JTextField
 
 class ConnectButtonActionListener(conn: KalahaClientConnection) extends ActionListener:
     override def actionPerformed(e: ActionEvent): Unit =
+        println("connect pressed")
         conn.connectToServer()
         
 class ShowPlayersButtonActionListener(conn: KalahaClientConnection) extends ActionListener:
     override def actionPerformed(e: ActionEvent): Unit =
-        conn.getPlayers()
+        println("get players pressed")
+        conn.commandGetPlayers()
 
-class JoinGameButtonActionListener(conn: KalahaClientConnection, nameTextField: JTextField) extends ActionListener:
+class JoinGameButtonActionListener(conn: KalahaClientConnection, controller: KalahaController) extends ActionListener:
     override def actionPerformed(e: ActionEvent): Unit =
-        conn.gameStatus.name = nameTextField.getText()
-        conn.joinGame()
-        conn.getPlayers()
+        println("join game pressed")
+        controller.gameStatus.name = controller.nameTextField.getText()
+        conn.commandJoinGame()
+        conn.commandGetPlayers()
         
 class StartGameButtonActionListener(conn: KalahaClientConnection) extends ActionListener:
     override def actionPerformed(e: ActionEvent): Unit =
-        conn.startGame()
+        println("start game pressed")
+        conn.commandStartGame()
 
 class BoardActionListener(conn: KalahaClientConnection, id: Int) extends ActionListener:
     override def actionPerformed(e: ActionEvent): Unit =
-        conn.makeMove(id)
+        println("board pressed " + id)
+        conn.commandMakeMove(id)

@@ -1,4 +1,5 @@
-import controller.KalahaClientConnection
+import controller.KalahaController
+import controller.connection.KalahaClientConnection
 import status.GameStatus
 import view.KalahaGuiCreator
 
@@ -13,4 +14,4 @@ object Main:
         gui.createControls()
         gui.show()
 
-        val connection: KalahaClientConnection = new KalahaClientConnection(gui, gameStatus)
+        val connection: KalahaController = new KalahaController(gui, gameStatus)

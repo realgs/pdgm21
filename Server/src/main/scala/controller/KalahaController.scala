@@ -2,46 +2,48 @@ package controller
 
 import model.{KalahaAI, KalahaPlayer}
 import service.{KalahaService, TimerRunnable}
-import cask.*
 import status.GameStatus
 
-class KalahaController(channel: WsChannelActor):
-    val service = new KalahaService
+import java.io.PrintWriter
+
+class KalahaController(writer: PrintWriter):
+    val service = new KalahaService()
     var timerThread: Thread = null
     val gameStatus: GameStatus = new GameStatus()
 
     def onConnect(): Unit =
-        channel.send(Ws.Text("connected"))
+        println("onConnect")
+        writer.println("connected\n")
 
     def onJoinGame(name: String): Unit =
         try
             service.registerPlayer(name)
-            channel.send(Ws.Text("registered"))
+            writer.println("registered")
         catch
-            case e => channel.send(Ws.Text(e.getMessage))
+            case e => writer.println(e.getMessage)
 
     def onMakeMove(name: String, holeNumber: Int): Unit =
         try
             gameStatus.status = "animating"
             makeMove(name, holeNumber)
             service.printBoard()
-            channel.send(Ws.Text(name + " made move: " + holeNumber))
+            writer.println(s"$name made move: $holeNumber")
             if service.checkGameOver() then
-                channel.send(Ws.Text("Game over!"))
+                writer.println("Game over!")
                 val winner = service.getWinner()
-                if winner == "draw" then channel.send(Ws.Text("Result: draw"))
-                else channel.send(Ws.Text(s"$winner wins!"))
+                if winner == "draw" then writer.println("Result: draw")
+                else writer.println(s"$winner wins!")
         catch
-            case e => channel.send(Ws.Text(e.getMessage))
+            case e => writer.println(e.getMessage)
 
     def onShowPlayers(): Unit =
-        channel.send(Ws.Text(s"players: ${service.firstPlayer.name}, ${service.secondPlayer.name}"))
+        writer.println(s"players: ${service.firstPlayer.name}, ${service.secondPlayer.name}")
 
     def onStartGame(): Unit =
         try
             service.startGame()
             gameStatus.status = "waiting for move"
-            channel.send(Ws.Text("game started"))
+            writer.println("game started")
             if service.turn.endsWith("AI") then
                 var ai = service.getPlayerByUsername(service.turn).asInstanceOf[KalahaAI]
                 service.updatePredictions(ai)
@@ -49,10 +51,10 @@ class KalahaController(channel: WsChannelActor):
                 println(s"${service.turn} making move, number = $aiBestMove")
                 onMakeMove(service.turn, aiBestMove)
             else
-                timerThread = new Thread(new TimerRunnable(channel, this))
+                timerThread = new Thread(new TimerRunnable(writer, this))
                 timerThread.start
         catch
-            case e: IllegalStateException => channel.send(Ws.Text(e.getMessage))
+            case e: IllegalStateException => writer.println(e.getMessage)
 
     def makeMove(playerName: String, holeNumber: Int): Unit =
         if !service.gameStarted then throw new IllegalStateException("Game has not started yet!")
@@ -82,4 +84,4 @@ class KalahaController(channel: WsChannelActor):
         service.gameStarted = false
         service.firstPlayer = new KalahaAI("AliceAI")
         service.secondPlayer = new KalahaAI("JohnnyAI")
-        channel.send(Ws.Text(s"${service.turn} time is up"))
+        writer.println(s"${service.turn} time is up")

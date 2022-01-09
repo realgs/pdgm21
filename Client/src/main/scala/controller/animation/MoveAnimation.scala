@@ -20,7 +20,7 @@ class MoveAnimation(boardPanel: BoardPanel):
         var num = holeNumber
 
         while stonesToDistribute > 0 do
-            Thread.sleep(1000)
+            Thread.sleep(250)
             num += 1
             if num == 6 then
                 num = -1
