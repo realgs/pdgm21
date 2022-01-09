@@ -3,8 +3,8 @@ package board
 class KalahaBoard(private val boardSize: Int, private val noStartingStones: Int)  {
   // Board consists of 2 rows for each player and 2 bases for each player
   private var board: Array[Int] = Array.fill(boardSize * 2 + 2)(noStartingStones)
-  private val player1BaseIndex = boardSize
-  private val player2BaseIndex = boardSize * 2 + 1
+  private val player1BaseIndex: Int = boardSize
+  private val player2BaseIndex: Int = boardSize * 2 + 1
   // Bases should be initialized with 0
   board(player1BaseIndex) = 0
   board(player2BaseIndex) = 0
@@ -39,7 +39,7 @@ class KalahaBoard(private val boardSize: Int, private val noStartingStones: Int)
   // Returns if the move was made correctly and what player
   // Also returns which player should make the next move
   def makeMoveOnBoard(chosenHole: Int, firstPlayerMoves: Boolean): (Boolean, Boolean) =
-    var holeIndex: Int = chosenHole - 1
+    var holeIndex: Int = chosenHole
     if holeIndex < 0 || holeIndex >= boardSize then return (false, firstPlayerMoves)
     // Choose correct hole based on which player starts the move
     if !firstPlayerMoves then holeIndex = holeIndex + boardSize + 1
@@ -95,4 +95,7 @@ class KalahaBoard(private val boardSize: Int, private val noStartingStones: Int)
       player2Result = player2Result + board(i)
 
     return (player1Result, player2Result)
+
+  def getBoard(): Array[Int] = return board
+  def getBaseIndices(): (Int, Int) = return (player1BaseIndex, player2BaseIndex)
 }
