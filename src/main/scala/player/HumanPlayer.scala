@@ -1,14 +1,17 @@
 package player
-import gameboard.KalahaBoard
+import server.Server
 
 class HumanPlayer (firstPlayer: Boolean) extends Player (firstPlayer) {
-  override def chooseMove(kalahaBoard: KalahaBoard): Int =
+  override def chooseMove(server: Server): Int =
     var numberIsInteger: Boolean = false
     var chosenHole: Int = -1
     while (!numberIsInteger) {
       println("Choose hole number (hole to the left is hole number 1, hole next to it is 2 and so on)")
       val input: String = scala.io.StdIn.readLine()
       try {
+        println()
+        println(chosenHole)
+        println()
         chosenHole = input.toInt
         numberIsInteger = true
       }

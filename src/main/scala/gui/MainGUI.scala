@@ -16,6 +16,8 @@ class MainGUI(var server: Server) {
   jFrame.pack()
   jFrame.setVisible(true)
 
+  def getServer(): Server = server
+
   def changeLayoutToChooseBoardSize(): Unit = {
     val gui = new ChooseBoardSizeGUI(this)
     val panel = gui.getJPanel()
@@ -42,12 +44,11 @@ class MainGUI(var server: Server) {
     jFrame.revalidate()
   }
 
-  def changeLayoutToShowGame(isHuman1: Boolean, isHuman2: Boolean): Unit = {
+  def startGame(isHuman1: Boolean, isHuman2: Boolean): Unit = {
     server.initializeGame(boardSize, noStartingStones, isHuman1, isHuman2)
-    val gui = new ChoosePlayers(this)
-    val panel = gui.getJPanel()
     jFrame.getContentPane().removeAll()
-    jFrame.getContentPane().add(panel)
-    jFrame.revalidate()
+    jFrame.setVisible(false)
+    jFrame.dispose()
+    server.startGame()
   }
 }

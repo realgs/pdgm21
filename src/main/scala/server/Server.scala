@@ -20,7 +20,8 @@ class Server() {
   // Max waiting time (in seconds) for hole choice
   private val MaxWaitTime: Int = 30
 
-  def getBoard() = board
+  def getBoard(): KalahaBoard = board
+  def getGUI(): MainGUI = gui
 
   def startGUI(): Unit =
     gui = new MainGUI(this)
@@ -36,7 +37,7 @@ class Server() {
 
     firstPlayerMoves = true
 
-  def playGame(): Unit =
+  def startGame(): Unit =
     while (!board.getIsGameFinished(firstPlayerMoves)) {
       try {
         val f1 = Future{makeMovePlayer()}
@@ -50,14 +51,12 @@ class Server() {
     this.printResults()
 
   def makeMovePlayer(): Unit =
-    board.printBoard(firstPlayerMoves)
-
     var successfulMove: Boolean = false
     var chosenHole: Int = 0
 
     while (!successfulMove) {
-      if firstPlayerMoves then chosenHole = player1.chooseMove(board)
-      else chosenHole = player2.chooseMove(board)
+      if firstPlayerMoves then chosenHole = player1.chooseMove(this)
+      else chosenHole = player2.chooseMove(this)
 
       var results = board.makeMoveOnBoard(chosenHole, firstPlayerMoves)
       successfulMove = results._1

@@ -27,10 +27,10 @@ class ChoosePlayers(private val mainGUI: MainGUI) {
   class SelectOption(var jButton: JButton) extends ActionListener {
     override def actionPerformed(event: ActionEvent): Unit = {
       jButton.getActionCommand() match {
-        case "Human/Human" => mainGUI.changeLayoutToShowGame(true, true)
-        case "Human/AI" => mainGUI.changeLayoutToShowGame(true, false)
-        case "AI/Human" => mainGUI.changeLayoutToShowGame(false, true)
-        case "AI/AI" => mainGUI.changeLayoutToShowGame(false, false)
+        case "Human/Human" => mainGUI.startGame(true, true)
+        case "Human/AI" => mainGUI.startGame(true, false)
+        case "AI/Human" => mainGUI.startGame(false, true)
+        case "AI/AI" => mainGUI.startGame(false, false)
       }
     }
   }
