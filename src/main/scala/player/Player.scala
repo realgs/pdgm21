@@ -1,5 +1,5 @@
 package player
-import board.KalahaBoard
+import gameboard.KalahaBoard
 
 // Most of the variables used here won't be needed for the human player
 abstract class Player (firstPlayer: Boolean) {

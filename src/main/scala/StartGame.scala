@@ -1,4 +1,4 @@
-import board.KalahaBoard
+import gameboard.KalahaBoard
 import server.Server
 import player.HumanPlayer
 import player.AIPlayer

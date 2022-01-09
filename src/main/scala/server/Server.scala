@@ -1,5 +1,5 @@
 package server
-import board.KalahaBoard
+import gameboard.KalahaBoard
 import player.Player
 import player.HumanPlayer
 import player.AIPlayer
@@ -39,7 +39,7 @@ class Server() {
     else println("Player 2 won")
 
   def makeMovePlayer(): Unit =
-    board.printBoard(firstPlayerMoves)
+    // board.printBoard(firstPlayerMoves)
 
     var chosenHole: Int = 0
     if firstPlayerMoves then chosenHole = player1.chooseMove(board)

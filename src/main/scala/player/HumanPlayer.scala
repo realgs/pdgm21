@@ -1,5 +1,5 @@
 package player
-import board.KalahaBoard
+import gameboard.KalahaBoard
 
 class HumanPlayer (firstPlayer: Boolean) extends Player (firstPlayer) {
   // Human players start indexing at 1 not 0

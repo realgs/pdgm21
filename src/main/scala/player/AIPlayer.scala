@@ -1,5 +1,6 @@
 package player
-import board.KalahaBoard
+import scala.util.Random
+import gameboard.KalahaBoard
 
 class AIPlayer (firstPlayer: Boolean) extends Player (firstPlayer) {
   // Computer player can choose hole number that's higher than board size because
@@ -9,38 +10,66 @@ class AIPlayer (firstPlayer: Boolean) extends Player (firstPlayer) {
     if isNextMovePossible then return chosenHole
     else return chooseBestMove(kalahaBoard)
 
-  // Check if picking stones from any hole will guarantee any points.
-  // If yes than choose this hole. If there is more that one hole choose the first hole
+  // Pick hole after which the last stone lands in the base
+  // Always pick the hole that's closest to the base
   private def getHoleNextMoveIndex(kalahaBoard: KalahaBoard): (Boolean, Int) =
     val (startHoleIndex, baseIndex, _, _): (Int, Int, Int, Int) = getPlayersIndices(kalahaBoard)
-    for (i <- startHoleIndex to baseIndex - 1) {
+    for (i <- baseIndex - 1 to startHoleIndex by -1) {
       if kalahaBoard.getBoard()(i) + i == baseIndex then return (true, i - startHoleIndex)
     }
 
     return (false, -1)
 
-  // Choose the least detrimental move (the move that makes enemy earn the least points possible)
+  // Choose the least detrimental move (enemy points - our points = MIN)
   private def chooseBestMove(kalahaBoard: KalahaBoard): Int =
     val (startHoleIndex, baseIndex, enemyStartHoleIndex, enemyBaseIndex): (Int, Int, Int, Int) = getPlayersIndices(kalahaBoard)
-    val highestDifference: Array[Int] = Array.ofDim(baseIndex - startHoleIndex - 1)
+    val differences: Array[Int] = Array.ofDim(baseIndex - startHoleIndex)
 
-    // Select all actions
     for (i <- startHoleIndex to baseIndex - 1) {
-      if kalahaBoard.getBoard()(i) == 0 then highestDifference(i-startHoleIndex) = Int.MaxValue
+      if kalahaBoard.getBoard()(i) == 0 then differences(i-startHoleIndex) = Int.MaxValue
+
       else {
-        kalahaBoard.makeMoveOnBoard(i, isFirstPlayer)
+        val copyBoard: KalahaBoard = kalahaBoard.copy()
+        copyBoard.makeMoveOnBoard(i-startHoleIndex, firstPlayer)
+        differences(i) = getBestScoreEnemy(copyBoard)
       }
     }
 
-    return 1
+    // Randomly choose the best action
+    val minDifference = differences.min
+    var chosenHoles = List[Int]()
+    for (i <- 0 to differences.length - 1) {
+      if differences(i) == minDifference then chosenHoles = i :: chosenHoles
+    }
+
+    val random = new Random
+    return chosenHoles(random.nextInt(chosenHoles.length))
 
   // Enemy chooses the best move and returns the best score that he can achieve
-  private def enemyChoosesBestMove(kalahaBoard: KalahaBoard): Int =
-    1
+  // Note - we will give +1 point for the case where enemy manages to land his last stone in his base
+  private def getBestScoreEnemy(kalahaBoard: KalahaBoard): Int =
+    val (_, baseIndex, enemyStartHoleIndex, enemyBaseIndex): (Int, Int, Int, Int) = getPlayersIndices(kalahaBoard)
+    val differences: Array[Int] = Array.ofDim(enemyBaseIndex - enemyStartHoleIndex)
+
+    for (i <- enemyStartHoleIndex to enemyBaseIndex - 1) {
+      if kalahaBoard.getBoard()(i) == 0 then differences(i-enemyStartHoleIndex) = Int.MinValue
+
+      else {
+        val copyBoard: KalahaBoard = kalahaBoard.copy()
+        val (_, isSamePlayer): (Boolean, Boolean) = copyBoard.makeMoveOnBoard(i-enemyStartHoleIndex, !firstPlayer)
+
+        differences(i-enemyStartHoleIndex) = copyBoard.getBoard()(enemyBaseIndex) - copyBoard.getBoard()(baseIndex)
+        // Enemy can make the next move
+        if isSamePlayer == !firstPlayer then differences(i-enemyStartHoleIndex) = differences(i-enemyStartHoleIndex) + 1
+      }
+    }
+
+    return differences.max
 
   // Return your startHole, base and enemy's startHole and base index
   private def getPlayersIndices(kalahaBoard: KalahaBoard): (Int, Int, Int, Int) =
-    val (player1BaseIndex, player2BaseIndex): (Int, Int) = kalahaBoard.getBaseIndices()
+    val player1BaseIndex: Int = kalahaBoard.getPlayer1BaseIndex()
+    val player2BaseIndex: Int = kalahaBoard.getPlayer2BaseIndex()
     if isFirstPlayer then return (0, player1BaseIndex, player1BaseIndex+1, player2BaseIndex)
     else return (player1BaseIndex+1, player2BaseIndex, 0, player1BaseIndex)
 }

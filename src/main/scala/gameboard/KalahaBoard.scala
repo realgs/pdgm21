@@ -1,10 +1,10 @@
-package board
+package gameboard
 
 class KalahaBoard(private val boardSize: Int, private val noStartingStones: Int)  {
   // Board consists of 2 rows for each player and 2 bases for each player
   private var board: Array[Int] = Array.fill(boardSize * 2 + 2)(noStartingStones)
-  private val player1BaseIndex: Int = boardSize
-  private val player2BaseIndex: Int = boardSize * 2 + 1
+  private var player1BaseIndex: Int = boardSize
+  private var player2BaseIndex: Int = boardSize * 2 + 1
   // Bases should be initialized with 0
   board(player1BaseIndex) = 0
   board(player2BaseIndex) = 0
@@ -96,6 +96,15 @@ class KalahaBoard(private val boardSize: Int, private val noStartingStones: Int)
 
     return (player1Result, player2Result)
 
-  def getBoard(): Array[Int] = return board
-  def getBaseIndices(): (Int, Int) = return (player1BaseIndex, player2BaseIndex)
+  def getBoard(): Array[Int] = board
+  def getPlayer1BaseIndex(): Int = player1BaseIndex
+  def getPlayer2BaseIndex(): Int = player2BaseIndex
+
+  // Copy a board
+  def copy(): KalahaBoard =
+    val copyBoard: KalahaBoard = new KalahaBoard((board.length - 2) / 2, 0)
+    for (i <- 0 to board.length-1) {
+      copyBoard.getBoard()(i) = board(i)
+    }
+    return copyBoard
 }
