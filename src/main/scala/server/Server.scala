@@ -12,7 +12,7 @@ import scala.concurrent.{Await, Future}
 // Server should only start when all settings are configured
 class Server() {
   private var gui: MainGUI = _
-  private var board: KalahaBoard = _
+  private var kalahaBoard: KalahaBoard = _
   private var player1: Player = _
   private var player2: Player = _
   // Which player currently moves
@@ -20,14 +20,14 @@ class Server() {
   // Max waiting time (in seconds) for hole choice
   private val MaxWaitTime: Int = 30
 
-  def getBoard(): KalahaBoard = board
+  def getKalahaBoard(): KalahaBoard = kalahaBoard
   def getGUI(): MainGUI = gui
 
   def startGUI(): Unit =
     gui = new MainGUI(this)
 
   def initializeGame(boardSize: Int, noStartingStones: Int, isHuman1: Boolean, isHuman2: Boolean): Unit =
-    board = new KalahaBoard(boardSize, noStartingStones)
+    kalahaBoard = new KalahaBoard(boardSize, noStartingStones)
 
     if isHuman1 then player1 = new HumanPlayer(true)
     else player1 = new AIPlayer(true)
@@ -38,7 +38,7 @@ class Server() {
     firstPlayerMoves = true
 
   def startGame(): Unit =
-    while (!board.getIsGameFinished(firstPlayerMoves)) {
+    while (!kalahaBoard.getIsGameFinished(firstPlayerMoves)) {
       try {
         val f1 = Future{makeMovePlayer()}
         Await.result(f1, MaxWaitTime seconds)
@@ -47,7 +47,6 @@ class Server() {
         case _: java.util.concurrent.TimeoutException => printError()
       }
     }
-    board.printBoard(firstPlayerMoves)
     this.printResults()
 
   def makeMovePlayer(): Unit =
@@ -58,13 +57,13 @@ class Server() {
       if firstPlayerMoves then chosenHole = player1.chooseMove(this)
       else chosenHole = player2.chooseMove(this)
 
-      var results = board.makeMoveOnBoard(chosenHole, firstPlayerMoves)
+      var results = kalahaBoard.makeMoveOnBoard(chosenHole, firstPlayerMoves)
       successfulMove = results._1
       firstPlayerMoves = results._2
     }
 
   private def printResults(): Unit =
-    val (player1Results, player2Results): (Int, Int) = board.getResults()
+    val (player1Results, player2Results): (Int, Int) = kalahaBoard.getResults()
     println("Player 1 final score: " + player1Results.toString)
     println("Player 2 final score: " + player2Results.toString)
     if player1Results == player2Results then println("Game ended in tie")

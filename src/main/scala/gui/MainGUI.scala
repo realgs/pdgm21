@@ -18,37 +18,37 @@ class MainGUI(var server: Server) {
 
   def getServer(): Server = server
 
-  def changeLayoutToChooseBoardSize(): Unit = {
+  def changeLayoutToChooseBoardSize(): Unit =
     val gui = new ChooseBoardSizeGUI(this)
     val panel = gui.getJPanel()
     jFrame.getContentPane().removeAll()
     jFrame.getContentPane().add(panel)
     jFrame.revalidate()
-  }
 
-  def changeLayoutToChooseNumberOfStones(boardSize: Int): Unit = {
+  def changeLayoutToChooseNumberOfStones(boardSize: Int): Unit =
     this.boardSize = boardSize
     val gui = new ChooseNoStartingStonesGUI(this)
     val panel = gui.getJPanel()
     jFrame.getContentPane().removeAll()
     jFrame.getContentPane().add(panel)
     jFrame.revalidate()
-  }
 
-  def changeLayoutToChoosePlayer(noStartingStones: Int): Unit = {
+  def changeLayoutToChoosePlayer(noStartingStones: Int): Unit =
     this.noStartingStones = noStartingStones
     val gui = new ChoosePlayers(this)
     val panel = gui.getJPanel()
     jFrame.getContentPane().removeAll()
     jFrame.getContentPane().add(panel)
     jFrame.revalidate()
-  }
 
-  def startGame(isHuman1: Boolean, isHuman2: Boolean): Unit = {
+  def startGame(isHuman1: Boolean, isHuman2: Boolean): Unit =
     server.initializeGame(boardSize, noStartingStones, isHuman1, isHuman2)
-    jFrame.getContentPane().removeAll()
-    jFrame.setVisible(false)
-    jFrame.dispose()
     server.startGame()
-  }
+
+  def changeLayoutToChooseHole(): Unit =
+    val gui = new ChoosePlayers(this)
+    val panel = gui.getJPanel()
+    jFrame.getContentPane().removeAll()
+    jFrame.getContentPane().add(panel)
+    jFrame.revalidate()
 }

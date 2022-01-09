@@ -7,7 +7,7 @@ class AIPlayer (firstPlayer: Boolean) extends Player (firstPlayer) {
   // Computer player can choose hole number that's higher than board size because
   // he knows all the indexing
   override def chooseMove(server: Server): Int =
-    val kalahaBoard: KalahaBoard = server.getBoard()
+    val kalahaBoard: KalahaBoard = server.getKalahaBoard()
     val (isNextMovePossible, chosenHole) = getHoleNextMoveIndex(kalahaBoard)
     if isNextMovePossible then return chosenHole
     else return chooseBestMove(kalahaBoard)
