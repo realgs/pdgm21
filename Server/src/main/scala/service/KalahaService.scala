@@ -2,14 +2,15 @@ package service
 
 import model.{KalahaAI, KalahaPlayer}
 
-class KalahaService:
+class KalahaService():
+    var status: String = "not started"     // not started, waiting for move, animating, finished
+    var turn: String = ""
+    var turnSwitched: Boolean = false
+    var makeMoveDeadline: Long = 0
+
     var playersRegistered: Int = 0
     var firstPlayer: KalahaPlayer = new KalahaAI("AliceAI")
     var secondPlayer: KalahaPlayer = new KalahaAI("JohnnyAI")
-
-    var gameStarted: Boolean = false
-    var turn: String = ""
-    var makeMoveDeadline: Long = 0
 
     def makeMove(player: KalahaPlayer, holeNumber: Int, opponent: KalahaPlayer): Boolean =
         var pl = player
@@ -84,7 +85,16 @@ class KalahaService:
         else throw new IllegalArgumentException("No such opponent!")
 
     def startGame(): Unit =
-        if gameStarted then throw IllegalStateException("Game started before!")
-        gameStarted = true
+        if status != "not started" then throw IllegalStateException("Game started before!")
+        status = "waiting for move"
         turn = firstPlayer.name
         makeMoveDeadline = System.currentTimeMillis() + 30*1000
+        
+    def onAnimationDone(): Unit =
+        status = "waiting for move"
+        makeMoveDeadline = System.currentTimeMillis() + 30*1000
+        
+    def onTimeoutDefeat(): Unit =
+        status = "finished"
+        firstPlayer = new KalahaAI("AliceAI")
+        secondPlayer = new KalahaAI("JohnnyAI")

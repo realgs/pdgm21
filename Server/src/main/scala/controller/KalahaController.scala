@@ -1,87 +1,106 @@
 package controller
 
+import connection.ClientConnection
 import model.{KalahaAI, KalahaPlayer}
 import service.{KalahaService, TimerRunnable}
-import status.GameStatus
 
-import java.io.PrintWriter
+import java.util
+import java.util.HashMap
+import java.util.Map.Entry
 
-class KalahaController(writer: PrintWriter):
-    val service = new KalahaService()
-    var timerThread: Thread = null
-    val gameStatus: GameStatus = new GameStatus()
+class KalahaController(connections: HashMap[Int, ClientConnection]):
+    val service: KalahaService = new KalahaService()
+    val timerThread: Thread = new Thread(new TimerRunnable(this))
+    timerThread.start()
 
-    def onConnect(): Unit =
-        println("onConnect")
-        writer.println("connected\n")
+    def getSecondPort(port: Int): Int =
+        val connList: util.ArrayList[Entry[Int, ClientConnection]] = new util.ArrayList[Entry[Int, ClientConnection]](connections.entrySet())
+        var foundPort: Int = -1
+        for (i <- 0 until connList.size())
+            if connList.get(i).getKey() != port then foundPort = connList.get(i).getKey()
+        foundPort
 
-    def onJoinGame(name: String): Unit =
+    def getPortByName(name: String): Int =
+        val connList: util.ArrayList[Entry[Int, ClientConnection]] = new util.ArrayList[Entry[Int, ClientConnection]](connections.entrySet())
+        var foundPort: Int = -1
+        for (i <- 0 until connList.size())
+            if connList.get(i).getValue().name == name then foundPort = connList.get(i).getKey()
+        foundPort
+
+    def onJoinGame(port: Int, name: String): Unit =
         try
             service.registerPlayer(name)
-            writer.println("registered")
+            connections.get(port).commandRegistered(name)
         catch
-            case e => writer.println(e.getMessage)
+            case e => connections.get(port).commandError(e.getMessage())
 
-    def onMakeMove(name: String, holeNumber: Int): Unit =
+    def broadcastMakeMove(port: Int, name: String, holeNumber: Int): Unit =
         try
-            gameStatus.status = "animating"
-            makeMove(name, holeNumber)
+            makeMove(port, name, holeNumber)
             service.printBoard()
-            writer.println(s"$name made move: $holeNumber")
+            val connList: util.ArrayList[Entry[Int, ClientConnection]] = new util.ArrayList[Entry[Int, ClientConnection]](connections.entrySet())
+            for (i <- 0 until connList.size())
+                connList.get(i).getValue().commandMadeMove(name, holeNumber)
             if service.checkGameOver() then
-                writer.println("Game over!")
+                timerThread.interrupt()
                 val winner = service.getWinner()
-                if winner == "draw" then writer.println("Result: draw")
-                else writer.println(s"$winner wins!")
+                connections.get(port).commandGameOver(winner)
         catch
-            case e => writer.println(e.getMessage)
+            case e => connections.get(port).commandError(e.getMessage())
 
-    def onShowPlayers(): Unit =
-        writer.println(s"players: ${service.firstPlayer.name}, ${service.secondPlayer.name}")
+    def onShowPlayers(port: Int): Unit =
+        connections.get(port).commandPlayers(service.firstPlayer.name, service.secondPlayer.name)
 
-    def onStartGame(): Unit =
+    def onStartGame(port: Int): Unit =
         try
             service.startGame()
-            gameStatus.status = "waiting for move"
-            writer.println("game started")
+            connections.get(port).commandGameStarted()
             if service.turn.endsWith("AI") then
                 var ai = service.getPlayerByUsername(service.turn).asInstanceOf[KalahaAI]
                 service.updatePredictions(ai)
                 val aiBestMove = ai.selectBestMove()
-                println(s"${service.turn} making move, number = $aiBestMove")
-                onMakeMove(service.turn, aiBestMove)
+                broadcastMakeMove(port, service.turn, aiBestMove)
             else
-                timerThread = new Thread(new TimerRunnable(writer, this))
-                timerThread.start
+                connections.get(getPortByName(service.turn)).commandMoveAllowed()
         catch
-            case e: IllegalStateException => writer.println(e.getMessage)
+            case e => connections.get(port).commandError(e.getMessage)
 
-    def makeMove(playerName: String, holeNumber: Int): Unit =
-        if !service.gameStarted then throw new IllegalStateException("Game has not started yet!")
+    def makeMove(port: Int, playerName: String, holeNumber: Int): Unit =
+        if service.status != "waiting for move" then throw new IllegalStateException("Game has not started yet!")
         if playerName != service.turn then throw new IllegalArgumentException("This player: " + playerName + " cannot make move, it's " + service.turn + " turn")
         try
+            service.status = "animating"
             val player = service.getPlayerByUsername(playerName)
             val opponent = service.getOpponentByUsername(playerName)
             val lastStoneInBase = service.makeMove(player, holeNumber, opponent)
             if !lastStoneInBase then
+                service.turnSwitched = true
                 service.turn = (if service.turn == service.firstPlayer.name then service.secondPlayer.name else service.firstPlayer.name)
+            else service.turnSwitched = false
         catch
             case e: IllegalArgumentException => throw new IllegalArgumentException(playerName + " not found!")
 
-    def onAnimationDone(): Unit =
-        gameStatus.status = "waiting for move"
-        service.makeMoveDeadline = System.currentTimeMillis() + 30*1000
-        println("Setting new deadline: " + service.makeMoveDeadline)
+    def onAnimationDone(port: Int): Unit =
+        service.onAnimationDone()
         if service.turn.endsWith("AI") then
             Thread.sleep(3000)
             var ai: KalahaAI = service.getPlayerByUsername(service.turn).asInstanceOf[KalahaAI]
             service.updatePredictions(ai)
             val aiBestMove = ai.selectBestMove()
-            println(s"${service.turn} making move, number = $aiBestMove")
-            onMakeMove(service.turn, aiBestMove)
+            broadcastMakeMove(port, service.turn, aiBestMove)
+        else
+            service.checkGameOver()
+            var thisTurnPlayerPort = getPortByName(service.turn)
+            connections.get(thisTurnPlayerPort).commandMoveAllowed()
 
-    def onTimeoutDefeat(): Unit =
-        service.gameStarted = false
-        service.firstPlayer = new KalahaAI("AliceAI")
-        service.secondPlayer = new KalahaAI("JohnnyAI")
-        writer.println(s"${service.turn} time is up")
+    def broadcastTimeoutDefeat(): Unit =
+        timerThread.interrupt()
+        service.onTimeoutDefeat()
+        val connList: util.ArrayList[Entry[Int, ClientConnection]] = new util.ArrayList[Entry[Int, ClientConnection]](connections.entrySet())
+        for (i <- 0 until connList.size())
+            connList.get(i).getValue().commandTimeIsUp(service.turn)
+
+    def broadcastRemaining(remaining: Long): Unit =
+        val connList: util.ArrayList[Entry[Int, ClientConnection]] = new util.ArrayList[Entry[Int, ClientConnection]](connections.entrySet())
+        for (i <- 0 until connList.size())
+            connList.get(i).getValue().commandRemaining(remaining)

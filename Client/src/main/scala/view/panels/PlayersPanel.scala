@@ -12,6 +12,8 @@ class PlayersPanel extends JPanel:
     var firstPlayerLabel: JLabel = new JLabel("AliceAI")
     var secondPlayerLabel: JLabel = new JLabel("JohnnyAI")
 
+    showPlayersButton.setEnabled(false)
+    
     add(showPlayersButton)
     add(firstPlayerLabel)
     add(secondPlayerLabel)

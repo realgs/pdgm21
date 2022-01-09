@@ -1,4 +1,4 @@
-package controller.animation
+package view.animation
 
 import view.panels.BoardPanel
 
@@ -34,6 +34,7 @@ class MoveAnimation(boardPanel: BoardPanel):
                 stonesToDistribute -= 1
                 distributionSourceHole.setText(s"${distributionSourceHole.getText().toInt - 1}")
 
+        Thread.sleep(500)
         if num != -1 && currentPlayerHoles(num).getText().toInt == 1 && (currentPlayerHoles sameElements movingPlayerHoles) then
             currentPlayerBase.setText(s"${currentPlayerBase.getText().toInt + (if movingPlayer == 0 then secondPlayerHoles else firstPlayerHoles)(5-num).getText().toInt}")
             (if movingPlayer == 0 then secondPlayerHoles else firstPlayerHoles)(5-num).setText("0")

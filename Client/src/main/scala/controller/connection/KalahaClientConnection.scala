@@ -2,7 +2,7 @@ package controller.connection
 
 import controller.KalahaController
 import controller.actionlistenersimpl.*
-import controller.animation.MoveAnimation
+import view.animation.MoveAnimation
 import status.GameStatus
 import view.KalahaGuiCreator
 
@@ -22,11 +22,9 @@ class KalahaClientConnection(controller: KalahaController):
         new Thread(new SocketReadingRunnable(reader, controller)).start()
 
     def commandJoinGame(): Unit =
-        println("commandJoinGame")
         writer.println(s"joinGame${controller.gameStatus.name}")
 
     def commandGetPlayers(): Unit =
-        println("commandGetPlayers")
         writer.println("showPlayers")
 
     def commandStartGame(): Unit =
