@@ -1,8 +1,13 @@
 package server
+import scala.concurrent.ExecutionContext.Implicits.global
+import scala.language.postfixOps
+import concurrent.duration.DurationInt
 import gameboard.KalahaBoard
 import player.Player
 import player.HumanPlayer
 import player.AIPlayer
+
+import scala.concurrent.{Await, Future}
 
 // Server should only start when all settings are configured
 class Server() {
@@ -11,7 +16,7 @@ class Server() {
   private var player2: Player = _
   // Which player currently moves
   private var firstPlayerMoves: Boolean = _
-  // Max waiting time for hole choice
+  // Max waiting time (in seconds) for hole choice
   private val MaxWaitTime: Int = 30
 
 
@@ -28,18 +33,16 @@ class Server() {
 
   def playGame(): Unit =
     while (!board.getIsGameFinished(firstPlayerMoves)) {
-      makeMovePlayer()
+      try {
+        val f1 = Future{makeMovePlayer()}
+        Await.result(f1, MaxWaitTime seconds)
+      }
+      catch {
+        case _: java.util.concurrent.TimeoutException => printError()
+      }
     }
     board.printBoard(firstPlayerMoves)
     this.printResults()
-
-  private def printResults(): Unit =
-    val (player1Results, player2Results): (Int, Int) = board.getResults()
-    println("Player 1 final score: " + player1Results.toString)
-    println("Player 2 final score: " + player2Results.toString)
-    if player1Results == player2Results then println("Game ended in tie")
-    else if player1Results > player2Results then println("Player 1 won")
-    else println("Player 2 won")
 
   def makeMovePlayer(): Unit =
     board.printBoard(firstPlayerMoves)
@@ -55,4 +58,17 @@ class Server() {
       successfulMove = results._1
       firstPlayerMoves = results._2
     }
+
+  private def printResults(): Unit =
+    val (player1Results, player2Results): (Int, Int) = board.getResults()
+    println("Player 1 final score: " + player1Results.toString)
+    println("Player 2 final score: " + player2Results.toString)
+    if player1Results == player2Results then println("Game ended in tie")
+    else if player1Results > player2Results then println("Player 1 won")
+    else println("Player 2 won")
+
+  private def printError(): Unit =
+    println("Game could not end because of the lack of activity from one of the players")
+    sys.exit()
+
 }
