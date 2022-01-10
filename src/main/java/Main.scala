@@ -3,6 +3,12 @@ import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Await
 import scala.concurrent.duration.Duration
 import scala.io.Source
+import com.sksamuel.scrimage.*
+import com.sksamuel.scrimage.filter.*
+import com.sksamuel.scrimage.nio.{ImmutableImageLoader, PngWriter}
+
+import java.awt.Color
+import java.io.File
 
 object Main {
 
@@ -126,9 +132,19 @@ object Main {
 		println("Occurs time paraller: " + tp/1.0e9)
 		p
 
+	def imageProcessing(): Unit=
+		val image = ImmutableImage.loader().fromFile("test.jpg")
+		val brighted = image.brightness(0.9)
+		val resized = brighted.resizeTo(1920,1920, Position.Center)
+		val fitted = resized.fit(2560,1920, Color.GREEN)
+		val filtered = fitted.filter(new SepiaFilter)
+		filtered.output(PngWriter.NoCompression, new File("images/output/modified.png"))
+
+
 	def main(args: Array[String]): Unit =
 //		val range = 100000000
 //		parallerTest(range)
-	occursSerialTest("1415", "pi-10million.txt")
-	occursParallerTest("1415", "pi-10million.txt")
+//	occursSerialTest("1415", "pi-10million.txt")
+//	occursParallerTest("1415", "pi-10million.txt")
+	imageProcessing()
 }
