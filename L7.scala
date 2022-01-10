@@ -4,8 +4,122 @@ import scala.annotation.tailrec
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.duration.Duration
 import scala.concurrent.{Await, Future}
+import scala.math.random
 import scala.util.Random
+
 object L7 {
+
+  def printTimeMilis[A](code: => A): Unit ={
+    val time0 = System.nanoTime()
+    code
+    val time1 = System.nanoTime()
+    val elapsed = (time1-time0)/1000/1000
+
+    println(s"Time: $elapsed ms")
+
+  }
+
+
+
+
+  def swap(tab: Array[Int])(i: Int)(j: Int): Unit =
+    val aux = tab(i)
+    tab(i) = tab(j)
+    tab(j) = aux
+
+  def choose_pivot(tab: Array[Int])(m:Int)(n:Int): Int =
+    tab((m+n)/2)
+
+  def partition(tab: Array[Int])(l:Int)(r:Int): (Int,Int) =
+    var i = l
+    var j = r
+    val pivot = choose_pivot(tab)(l)(r)
+    while (i <= j)
+      while (tab(i) < pivot) i += 1
+      while (pivot < tab(j)) j -= 1
+      if (i <= j) then
+        swap(tab)(i)(j)
+        i += 1
+        j -= 1
+      else ()
+    (i,j)
+
+  def quick(tab: Array[Int])(l: Int)(r: Int): Unit =
+    if l < r then
+      val (i,j) = partition(tab)(l)(r)
+      if j-l < r-i then
+        quick(tab)(l)(j)
+        quick(tab)(i)(r)
+      else
+        quick(tab)(i)(r)
+        quick(tab)(l)(j)
+
+  def quickFuture(tab: Array[Int])(l: Int)(r: Int): Unit =
+    if l < r then
+      val (i,j) = partition(tab)(l)(r)
+      if j-l < r-i then
+        val f1 = Future(quick(tab)(l)(j))
+        val f2 = Future(quick(tab)(i)(r))
+        Await.result(f1, Duration.Inf)
+        Await.result(f2, Duration.Inf)
+      else
+        val f1 = Future(quick(tab)(i)(r))
+        val f2 = Future(quick(tab)(l)(j))
+        Await.result(f1, Duration.Inf)
+        Await.result(f2, Duration.Inf)
+
+
+  def quicksort(tab: Array[Int]): Unit =
+    quick(tab)(0)(tab.length-1)
+
+  def quicksortFuture(tab: Array[Int]): Unit =
+    quickFuture(tab)(0)(tab.length-1)
+
+  def testQuickSort(): Unit ={
+    var length = 1000
+    val multiplier = 5
+
+    val arr_10k = Array.fill(10000)(Random.nextInt(1000000))
+    val arr_100k = Array.fill(100000)(Random.nextInt(1000000))
+    val arr_1m = Array.fill(1000000)(Random.nextInt(1000000))
+    val arr_10m = Array.fill(10000000)(Random.nextInt(1000000))
+
+    println("10k elements normal")
+    printTimeMilis(quicksort(arr_10k.clone()))
+    println("10k elements future")
+    printTimeMilis(quicksortFuture(arr_10k.clone()))
+
+    println()
+
+    println("100k elements normal")
+    printTimeMilis(quicksort(arr_100k.clone()))
+    println("100k elements future")
+    printTimeMilis(quicksortFuture(arr_100k.clone()))
+
+
+    println()
+
+    println("1m elements normal")
+    printTimeMilis(quicksort(arr_1m.clone()))
+    println("1m elements future")
+    printTimeMilis(quicksortFuture(arr_1m.clone()))
+
+
+    println()
+
+    println("10m elements normal")
+    printTimeMilis(quicksort(arr_10m.clone()))
+    println("10m elements future")
+    printTimeMilis(quicksortFuture(arr_10m.clone()))
+
+
+  }
+
+
+
+
+
+
 
 
 
@@ -133,68 +247,52 @@ object L7 {
 
 
 
-  def testRep(length:Int): Unit ={
+  def printTestRepResults(length:Int): Unit ={
     val list =generateList(length,20000)
     val array = createArray(length,20000)
 
-    var time1 = System.nanoTime()
-    countRepeatsList(list,list.head)
-    var time2 = (System.nanoTime()-time1)/1000/1000
-    println(s"countRepeatsList dla $length elementow wykonano w $time2 ms")
+
+    println(s"countRepeatsList dla $length")
+    printTimeMilis(countRepeatsList(list,list.head))
 
 
-    time1 = System.nanoTime()
-    countRepeatsFutureList(list,list.head)
-    time2 = (System.nanoTime()-time1)/1000/1000
-    println(s"countRepeatsFutureList dla $length elementow wykonano w $time2 ms")
+    println(s"countRepeatsFutureList dla $length")
+    printTimeMilis(countRepeatsFutureList(list,list.head))
 
-    time1 = System.nanoTime()
-    countRepeatsFuture2List(list,list.head)
-    time2 = (System.nanoTime()-time1)/1000/1000
-    println(s"countRepeatsFuture2List dla $length elementow wykonano w $time2 ms")
+    println(s"countRepeatsFuture2List dla $length")
+    printTimeMilis(countRepeatsFuture2List(list,list.head))
+
+    println(s"countRepeatsArray dla $length")
+    printTimeMilis(countRepeatsArray(array,0,array.length,array(0)))
+
+    println(s"countRepeatsFutureArray dla $length")
+    printTimeMilis( countRepeatsFutureArray(array,array(0)))
 
     println()
-
-    time1 = System.nanoTime()
-    countRepeatsArray(array,0,array.length,array(0))
-    time2 = (System.nanoTime()-time1)/1000/1000
-    println(s"countRepeatsArray dla $length elementow wykonano w $time2 ms")
-
-    time1 = System.nanoTime()
-    countRepeatsFutureArray(array,array(0))
-    time2 = (System.nanoTime()-time1)/1000/1000
-    println(s"countRepeatsFutureArray dla $length elementow wykonano w $time2 ms")
-
-    println("\n\n\n")
+    
   }
 
   def testCountReps(): Unit ={
     val sizes = 1.to(7).map(x => 3*Math.pow(10, x).toInt)
     for(size<- sizes)
-      testRep(size)
+      printTestRepResults(size)
 
   }
 
   def testFib(n:Int): Unit ={
-    var time1 = System.nanoTime()
-    var time2=System.nanoTime()
-    time1 = System.nanoTime()
-    fibiter(n)
-    time2 = (System.nanoTime()-time1)/1000/1000
-    println(s"fibiter($n) wykonano w $time2 ms")
 
-    time1 = System.nanoTime()
-    fib(n)
-    time2 = (System.nanoTime()-time1)/1000/1000
-    println(s"fib($n) wykonano w $time2 ms")
 
-    time1 = System.nanoTime()
-    fibFuture(n)
-    time2 = (System.nanoTime()-time1)/1000/1000
-    println(s"fibFuture($n) wykonano w $time2 ms")
+    println(s"Fib($n)")
+    printTimeMilis(fib(n))
 
-    println("\n\n\n")
+    println(s"fibiter($n)")
+    printTimeMilis(fibiter(n))
 
+    println(s"fibFuture($n)")
+    printTimeMilis(fibFuture(n))
+
+    println()
+    
   }
 
 
@@ -207,8 +305,8 @@ object L7 {
 
   def main(args: Array[String]): Unit ={
     //testCountReps()
-    testFibFunctions(50)
-
+      testFibFunctions(50)
+    //[testQuickSort()
 
   }
 }
