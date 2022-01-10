@@ -11,15 +11,17 @@ import scala.concurrent.{Await, Future}
 import gameboard.KalahaBoard
 import player.Player
 
+import java.util.{Timer, TimerTask}
+
 // IMPLEMENT - END SCREEN
 // IMPLEMENT - SCREEN FOR LACK OF ACTIVITY
 class ChooseHoleGUI(private val mainGUI: MainGUI, private val kalahaBoard: KalahaBoard, player: Player) {
   private val board: Array[Int] = kalahaBoard.getBoard()
   private val player1BaseIndex: Int = kalahaBoard.getPlayer1BaseIndex()
   private val player2BaseIndex: Int = kalahaBoard.getPlayer2BaseIndex()
+  private var isHoleChosen: Boolean = false
+  private var maxWaitTime: Int = 30000
   private var startHoleIndex: Int = -1
-  // private var isHoleChosen: Boolean = false
-  // private val MaxWaitTime: Int = 30
   private val jPanel = JPanel()
   private val columnJPanel = new JPanel()
   columnJPanel.setLayout(new BoxLayout(columnJPanel, BoxLayout.Y_AXIS))
@@ -84,9 +86,19 @@ class ChooseHoleGUI(private val mainGUI: MainGUI, private val kalahaBoard: Kalah
     jPanel.add(columnJPanel)
   }
 
+  // Wait certain amount of time for user input
+  private val waiter = new Timer().schedule(
+    new TimerTask {
+      override def run(): Unit =
+        if !isHoleChosen then mainGUI.changeLayoutToLackOfActivity()
+    },
+    maxWaitTime
+  )
+
   class SelectHole(var jButton: JButton, var index: Int) extends ActionListener {
     override def actionPerformed(event: ActionEvent): Unit = {
       if board(index) != 0 then {
+        isHoleChosen = true
         mainGUI.getServer().usePlayerMove(index - startHoleIndex)
       }
     }

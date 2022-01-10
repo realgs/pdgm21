@@ -1,6 +1,6 @@
 package gui
-import javax.swing.{JFrame, JPanel}
-import java.awt.{BorderLayout, CardLayout, Dimension, FlowLayout}
+import javax.swing.{JFrame}
+import java.awt.{Dimension, FlowLayout}
 import server.Server
 import gui.ChooseBoardSizeGUI
 import player.Player
@@ -59,6 +59,14 @@ class MainGUI(var server: Server) {
 
   def changeLayoutToShowResults(): Unit =
     val gui = new ShowResultsGUI(this)
+    val panel = gui.getJPanel()
+    jFrame.getContentPane().removeAll()
+    jFrame.getContentPane().add(panel)
+    jFrame.revalidate()
+    jFrame.repaint()
+
+  def changeLayoutToLackOfActivity(): Unit =
+    val gui = new LackOfActivityGUI(this)
     val panel = gui.getJPanel()
     jFrame.getContentPane().removeAll()
     jFrame.getContentPane().add(panel)
