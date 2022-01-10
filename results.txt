@@ -49,6 +49,7 @@ Occurs time serial: 0.113284
 
 Image proccesing:
 Threads 4:
-
+Images processing time parallel: 13.0065297
+Images processing time serial: 29.630302
 
 
