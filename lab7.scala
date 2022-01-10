@@ -37,7 +37,7 @@ object lab7:
 
     val len = arr.length
 
-    if len < 1000000 then sumFibsOfArray(arr)
+    if len < 10000000 then sumFibsOfArray(arr)
     else
       val f1 = Future{ sumFibsOfArrayFutureI(0, len/4) }
       val f2 = Future{ sumFibsOfArrayFutureI(len/4, len/2) }
@@ -85,11 +85,11 @@ object lab7:
 
 //    Size: 100000
 //    Sequential SumOfFibs: 8
-//    Parallel SumOfFibs: 79
+//    Parallel SumOfFibs: 3
 
 //    Size: 1000000
-//    Sequential SumOfFibs: 27
-//    Parallel SumOfFibs: 87
+//    Sequential SumOfFibs: 28
+//    Parallel SumOfFibs: 18
 
 //    Size: 10000000
 //    Sequential SumOfFibs: 208
