@@ -1,0 +1,131 @@
+*********************************** QuickSort ***********************************
+10 000 elements: 
+Normal quick sort: Time: 4 ms
+Future quick sort: Time: 1 ms
+Parallel quick sort: Time: 1 ms
+
+100 000 elements: 
+Normal quick sort: Time: 9 ms
+Future quick sort: Time: 9 ms
+Parallel quick sort: Time: 7 ms
+
+1 000 000 elements: 
+Normal quick sort: Time: 94 ms
+Future quick sort: Time: 96 ms
+Parallel quick sort: Time: 93 ms
+
+10 000 000 elements: 
+Normal quick sort: Time: 1026 ms
+Future quick sort: Time: 710 ms
+Parallel quick sort: Time: 654 ms
+*********************************** Fibonacci ***********************************
+For 10, Threshold = 5
+Normal: Time: 671300 ns
+Future: Time: 1013300 ns
+Parallel: Time: 229400 ns
+
+For 20, Threshold = 10
+Normal: Time: 92600 ns
+Future: Time: 226951500 ns
+Parallel: Time: 2740500 ns
+
+For 30, Threshold = 21
+Normal: Time: 5098800 ns
+Future: Time: 2615100 ns
+Parallel: Time: 2174000 ns
+
+For 30, Threshold = 28
+Normal: Time: 5116700 ns
+Future: Time: 2395300 ns
+Parallel: Time: 3158900 ns
+
+For 40, Threshold = 28
+Normal: Time: 558100500 ns
+Future: Time: 192238200 ns
+Parallel: Time: 109591100 ns
+
+For 40, Threshold = 39
+Normal: Time: 563686100 ns
+Future: Time: 367644800 ns
+Parallel: Time: 352957900 ns
+*********************************** Sum of array ***********************************
+10 000 elements: 
+Normal: Time: 1031800 ns
+Future: Time: 236300 ns
+Parallel: Time: 188400 ns
+
+100 000 elements: 
+Normal: Time: 640100 ns
+Future: Time: 472700 ns
+Parallel: Time: 126900 ns
+
+1 000 000 elements: 
+Normal: Time: 447500 ns
+Future: Time: 479000 ns
+Parallel: Time: 308500 ns
+
+10 000 000 elements: 
+Normal: Time: 3196800 ns
+Future: Time: 2344500 ns
+Parallel: Time: 1790000 ns
+*********************************** Sum of tree nodes ***********************************
+Depth = 3, Threshold = 1
+Normal: Time: 42000 ns
+Future: Time: 62900 ns
+Parallel: Time: 112900 ns
+
+Depth = 3, Threshold = 2
+Normal: Time: 10200 ns
+Future: Time: 95800 ns
+Parallel: Time: 117500 ns
+
+Depth = 10, Threshold = 1
+Normal: Time: 489200 ns
+Future: Time: 236100 ns
+Parallel: Time: 85800 ns
+
+Depth = 10, Threshold = 2
+Normal: Time: 29600 ns
+Future: Time: 191900 ns
+Parallel: Time: 238200 ns
+
+Depth = 10, Threshold = 5
+Normal: Time: 27300 ns
+Future: Time: 306800 ns
+Parallel: Time: 267300 ns
+
+Depth = 10, Threshold = 8
+Normal: Time: 32400 ns
+Future: Time: 1741000 ns
+Parallel: Time: 2506700 ns
+
+Depth = 15, Threshold = 1
+Normal: Time: 280700 ns
+Future: Time: 290500 ns
+Parallel: Time: 243000 ns
+
+Depth = 15, Threshold = 2
+Normal: Time: 220000 ns
+Future: Time: 152100 ns
+Parallel: Time: 183900 ns
+
+Depth = 15, Threshold = 5
+Normal: Time: 282200 ns
+Future: Time: 241500 ns
+Parallel: Time: 155000 ns
+
+Depth = 20, Threshold = 1
+Normal: Time: 10306400 ns
+Future: Time: 4564700 ns
+Parallel: Time: 4144500 ns
+
+Depth = 20, Threshold = 2
+Normal: Time: 11442000 ns
+Future: Time: 3400100 ns
+Parallel: Time: 4298600 ns
+
+Depth = 20, Threshold = 5
+Normal: Time: 8986900 ns
+Future: Time: 2650000 ns
+Parallel: Time: 1840900 ns
+
