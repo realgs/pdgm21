@@ -39,7 +39,7 @@ class Server() {
           val chosenHole = player1.asInstanceOf[AIPlayer].chooseMove(kalahaBoard)
           var results = kalahaBoard.makeMoveOnBoard(chosenHole, firstPlayerMoves)
           firstPlayerMoves = results._2
-          if kalahaBoard.getIsGameFinished(firstPlayerMoves) then printResults()
+          if kalahaBoard.getIsGameFinished(firstPlayerMoves) then gui.changeLayoutToShowResults()
           else playGame()
         }
       }
@@ -52,7 +52,7 @@ class Server() {
           val chosenHole = player2.asInstanceOf[AIPlayer].chooseMove(kalahaBoard)
           var results = kalahaBoard.makeMoveOnBoard(chosenHole, firstPlayerMoves)
           firstPlayerMoves = results._2
-          if kalahaBoard.getIsGameFinished(firstPlayerMoves) then printResults()
+          if kalahaBoard.getIsGameFinished(firstPlayerMoves) then gui.changeLayoutToShowResults()
           else playGame()
         }
       }
@@ -61,16 +61,8 @@ class Server() {
   def usePlayerMove(chosenHole: Int): Unit =
     val results = kalahaBoard.makeMoveOnBoard(chosenHole, firstPlayerMoves)
     firstPlayerMoves = results._2
-    if kalahaBoard.getIsGameFinished(firstPlayerMoves) then printResults()
+    if kalahaBoard.getIsGameFinished(firstPlayerMoves) then gui.changeLayoutToShowResults()
     else playGame()
-
-  private def printResults(): Unit =
-    val (player1Results, player2Results): (Int, Int) = kalahaBoard.getResults()
-    println("Player 1 final score: " + player1Results.toString)
-    println("Player 2 final score: " + player2Results.toString)
-    if player1Results == player2Results then println("Game ended in tie")
-    else if player1Results > player2Results then println("Player 1 won")
-    else println("Player 2 won")
 
   private def printError(): Unit =
     println("Game could not end because of the lack of activity from one of the players")

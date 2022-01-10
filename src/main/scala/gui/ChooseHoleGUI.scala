@@ -11,6 +11,8 @@ import scala.concurrent.{Await, Future}
 import gameboard.KalahaBoard
 import player.Player
 
+// IMPLEMENT - END SCREEN
+// IMPLEMENT - SCREEN FOR LACK OF ACTIVITY
 class ChooseHoleGUI(private val mainGUI: MainGUI, private val kalahaBoard: KalahaBoard, player: Player) {
   private val board: Array[Int] = kalahaBoard.getBoard()
   private val player1BaseIndex: Int = kalahaBoard.getPlayer1BaseIndex()

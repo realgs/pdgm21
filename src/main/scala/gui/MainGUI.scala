@@ -56,4 +56,12 @@ class MainGUI(var server: Server) {
     jFrame.getContentPane().add(panel)
     jFrame.revalidate()
     jFrame.repaint()
+
+  def changeLayoutToShowResults(): Unit =
+    val gui = new ShowResultsGUI(this)
+    val panel = gui.getJPanel()
+    jFrame.getContentPane().removeAll()
+    jFrame.getContentPane().add(panel)
+    jFrame.revalidate()
+    jFrame.repaint()
 }
