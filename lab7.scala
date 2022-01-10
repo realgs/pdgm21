@@ -37,12 +37,14 @@ object lab7:
 
     val len = arr.length
 
-    val f1 = Future{ sumFibsOfArrayFutureI(0, len/4) }
-    val f2 = Future{ sumFibsOfArrayFutureI(len/4, len/2) }
-    val f3 = Future{ sumFibsOfArrayFutureI(len/2, len*3/4) }
-    val f4 = Future{ sumFibsOfArrayFutureI(len*3/4, len) }
+    if len < 1000000 then sumFibsOfArray(arr)
+    else
+      val f1 = Future{ sumFibsOfArrayFutureI(0, len/4) }
+      val f2 = Future{ sumFibsOfArrayFutureI(len/4, len/2) }
+      val f3 = Future{ sumFibsOfArrayFutureI(len/2, len*3/4) }
+      val f4 = Future{ sumFibsOfArrayFutureI(len*3/4, len) }
 
-    Await.result(f1, Duration.Inf) + Await.result(f2, Duration.Inf) + Await.result(f3, Duration.Inf) + Await.result(f4, Duration.Inf)
+      Await.result(f1, Duration.Inf) + Await.result(f2, Duration.Inf) + Await.result(f3, Duration.Inf) + Await.result(f4, Duration.Inf)
 
   //Quicksort
   def quickSort(arr: Array[Int]): Array[Int] =
