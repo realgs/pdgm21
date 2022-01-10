@@ -1,0 +1,79 @@
+WYNIKI
+
+Quicksort
+
+n = 100
+normal,   time taken:     398700 ns
+parallel, time taken:   60169500 ns
+
+n = 1000
+normal,   time taken:     766200 ns
+parallel, time taken:    3332900 ns
+
+n = 10000
+normal,   time taken:    1714000 ns
+parallel, time taken:    2134300 ns
+
+n = 100000
+normal,   time taken:   10872400 ns
+parallel, time taken:   14977100 ns
+
+n = 1000000
+normal,   time taken:   78495800 ns
+parallel, time taken:   54342800 ns
+
+n = 10000000
+normal,   time taken:  642909400 ns
+parallel, time taken:  473156100 ns
+
+
+
+Mergesort
+
+n = 100
+normal,   time taken:      3218800 ns
+parallel, time taken:     55250000 ns
+
+n = 1000
+normal,   time taken:      4788500 ns
+parallel, time taken:      2262600 ns
+
+n = 10000
+normal,   time taken:     16613200 ns
+parallel, time taken:     13964900 ns
+
+n = 100000
+normal,   time taken:     99051500 ns
+parallel, time taken:     21938900 ns
+
+n = 1000000
+normal,   time taken:   1016764000 ns
+parallel, time taken:    451207400 ns
+
+n = 10000000
+normal,   time taken:  11134374500 ns
+parallel, time taken:   7751918400 ns
+
+
+
+Binary Tree Multiplication
+
+depth = 5
+normal,   time taken:        30500 ns
+parallel, time taken:     66612900 ns
+
+depth = 10
+normal,   time taken:       535400 ns
+parallel, time taken:       719800 ns
+
+depth = 15
+normal,   time taken:       906200 ns
+parallel, time taken:      2128400 ns
+
+depth = 20
+normal,   time taken:     10262700 ns
+parallel, time taken:      7184300 ns
+
+depth = 25
+normal,   time taken:    130432900 ns
+parallel, time taken:    104301100 ns
