@@ -1,12 +1,12 @@
+import com.sksamuel.scrimage.*
+import com.sksamuel.scrimage.filter.*
+import com.sksamuel.scrimage.nio.{JpegWriter, PngWriter}
+
 import scala.concurrent.Future
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Await
 import scala.concurrent.duration.Duration
 import scala.io.Source
-import com.sksamuel.scrimage.*
-import com.sksamuel.scrimage.filter.*
-import com.sksamuel.scrimage.nio.{ImmutableImageLoader, PngWriter}
-
 import java.awt.Color
 import java.io.File
 
@@ -132,19 +132,47 @@ object Main {
 		println("Occurs time paraller: " + tp/1.0e9)
 		p
 
-	def imageProcessing(): Unit=
-		val image = ImmutableImage.loader().fromFile("test.jpg")
+	def imageProcessing(name: String, output: String): Unit=
+		val image = ImmutableImage.loader().fromFile("images/input/" + name)
 		val brighted = image.brightness(0.9)
-		val resized = brighted.resizeTo(1920,1920, Position.Center)
+		val resized = brighted.fit(1920,1920)
 		val fitted = resized.fit(2560,1920, Color.GREEN)
 		val filtered = fitted.filter(new SepiaFilter)
-		filtered.output(PngWriter.NoCompression, new File("images/output/modified.png"))
+		filtered.output(JpegWriter.NoCompression, new File(output + name))
 
+	def imageSerialTest(path: String): Unit =
+		val dirFiles = new File(path).listFiles()
+		var ts = System.nanoTime()
+		dirFiles.foreach( file => imageProcessing(file.getName, "images/outputSerial/"))
+		ts = System.nanoTime()-ts
+		println("Images processing time serial: " + ts/1.0e9)
+
+	def imageParallelTest(path: String): Unit =
+		val dirFiles = new File(path).listFiles()
+		var tp = System.nanoTime()
+		val length = dirFiles.length/4
+		val outputPath = "images/outputParallel/"
+
+		def processCertainFiles(startIndex: Int, endIndex: Int): Unit =
+			for(n <- startIndex until endIndex)
+				imageProcessing(dirFiles(n).getName, outputPath)
+		val f1 = Future{processCertainFiles(0, length)}
+		val f2 = Future{processCertainFiles(length, 2*length)}
+		val f3 = Future{processCertainFiles(2*length, 3*length)}
+		val f4 = Future{processCertainFiles(3*length, dirFiles.length)}
+		Await.result(f1, Duration.Inf)
+		Await.result(f2, Duration.Inf)
+		Await.result(f3, Duration.Inf)
+		Await.result(f4, Duration.Inf)
+		tp = System.nanoTime()-tp
+		println("Images processing time parallel: " + tp/1.0e9)
 
 	def main(args: Array[String]): Unit =
 //		val range = 100000000
 //		parallerTest(range)
 //	occursSerialTest("1415", "pi-10million.txt")
 //	occursParallerTest("1415", "pi-10million.txt")
-	imageProcessing()
+//	imageProcessing("IMG_20200710_201216.jpg")
+	imageSerialTest("images/input")
+	imageParallelTest("images/input")
 }
