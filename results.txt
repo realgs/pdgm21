@@ -4,52 +4,76 @@ Threads: 4
 
 Range: 10 000 000
 Time serial: 58.6525792
-Time paraller: 23.6171798
+Time parallel: 23.6171798
 
 Range: 1 000 000
 Time serial: 1.9503397
-Time paraller: 0.7796472
+Time parallel: 0.7796472
 
 Range: 100 000
 Time serial: 0.097079
-Time paraller: 0.0893991
+Time parallel: 0.0893991
 
 Range: 10 000
 Time serial: 0.015178
-Time paraller: 0.0688486
+Time parallel: 0.0688486
 
 Threads: 8
 Range: 10 000 000
 Time serial: 59.4644992
-Time paraller: 18.8684072
+Time parallel: 18.8684072
 
 Range: 1 000 000
 Time serial: 1.9456421
-Time paraller: 0.5967268
+Time parallel: 0.5967268
 
 Range: 100 000
 Time serial: 0.0804489
-Time paraller: 0.0889546
+Time parallel: 0.0889546
 
 Range: 10 000
 Nano time serial: 0.0145278
-Nano time paraller: 0.0710913
+Nano time parallel: 0.0710913
 
 
 Occurs in pi digits:
 Threads: 4
 
 10 millions digits
-Occurs time paraller: 0.3015982
-Occurs time serial: 0.154653
+Occurs time serial: 0.1674205
+Occurs time paraller: 0.111824
 
 1 millions digits
-Occurs time paraller: 0.0708581
+Occurs time parallel: 0.0708581
 Occurs time serial: 0.113284
 
 Image proccesing:
 Threads 4:
+23 Photos
 Images processing time parallel: 13.0065297
 Images processing time serial: 29.630302
+12 Photos
+Images processing time parallel: 5.9449746
+Images processing time serial: 15.5201175
+6 Photos
+Images processing time parallel: 5.2955977
+Images processing time serial: 7.8425066
+4 Photos
+Images processing time parallel: 4.6619341
+Images processing time serial: 3.822548
 
+
+Wnioski rezultatów:
+Zrównoleglanie operacji największy sens ma dla zadań odzielnych o wysokim obciążeniu procesora.
+Najlepsze rezultaty widać dla obróbki zdjęć, gdzie już dla 6 zdjęć stały nakład czasu na uruchomienie wątków jest mniejszy od zysków czasowych ze zrównoleglania.
+W przypadku operacji, które wymagają mniej obliczeń jak wyszukiwanie wystąpień zrównoleglanie zauważalne przyśpieszenie będzie miało dla dużych danych.
+Czas uruchomienia wątku w tym wypadku znaczenie i nie opłaca się zrównoległać dla niewielkich danych.
+Wyszukiwanie liczb pierwszych w obu przypadkach wielowątkowości ma jedynie zauważalny wzrost dla danych powyżej miliona.
+Dla 100 000 liczb zrównoleglanie na 4 wątki jest ok 10% szybsze, a dla 8 wątków jest wolniejsze 10%.
+Ma to związek ze stałym nakładem na uruchomienie procesu.
+Dla naprawdę dużych danych rzędu milionów lub miliardów zrównoleglanie ma sens wydajnościowy.
+Trzeba mieć na uwadzę również złożoność operacji na 1 danej.
+W przypadku zdjęć można bardzo szybko uzyskać optymalizacje i oszczędność czasową.
+Dla operacji na liczbach jak sprawdzanie czy liczba jest pierwsza potrzeba dużego zakresu do uzyskania oszczędności.
+W Big Data gdzie operuje się na gigabajtach danych najprostsze zrównoleglenie ma sens oszczędności czasu i pozwala lepieej wykorzystać potencjał maszyny obliczeniowej.
 
