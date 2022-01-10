@@ -74,14 +74,14 @@ object Main {
 		var  ts = System.nanoTime()
 		val s = numberOfPrimesSerial(range)
 		ts = System.nanoTime()-ts
-		println("Nano time serial: " + ts/1.0e9)
+		println("Primes time serial: " + ts/1.0e9)
 		s
 
 	def primesParallerTest(range: Int): Int=
 		var tp = System.nanoTime()
 		val p = numberOfPrimesParaller(range)
 		tp = System.nanoTime()-tp
-		println("Nano time paraller: " + tp/1.0e9)
+		println("Primes time paraller: " + tp/1.0e9)
 		p
 
 	def piIndexOfSerial(substring: String, file: String): Int =
@@ -168,11 +168,14 @@ object Main {
 		println("Images processing time parallel: " + tp/1.0e9)
 
 	def main(args: Array[String]): Unit =
-//		val range = 100000000
-//		parallerTest(range)
-//	occursSerialTest("1415", "pi-10million.txt")
-//	occursParallerTest("1415", "pi-10million.txt")
-//	imageProcessing("IMG_20200710_201216.jpg")
-	imageSerialTest("images/input")
-	imageParallelTest("images/input")
+
+		val range = 1000000
+		primesParallerTest(range)
+		primesSerialTest(range)
+
+		occursSerialTest("1415", "pi-10million.txt")
+		occursParallerTest("1415", "pi-10million.txt")
+
+		imageSerialTest("images/input")
+		imageParallelTest("images/input")
 }
