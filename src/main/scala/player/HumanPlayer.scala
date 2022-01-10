@@ -1,7 +1,7 @@
 package player
 import server.Server
 
-class HumanPlayer (firstPlayer: Boolean) extends Player (firstPlayer) {
+class HumanPlayer (isFirstPlayer: Boolean) extends Player (isFirstPlayer) {
   private var chosenHole: Int = -1
 
   override def chooseMove(server: Server): Int =

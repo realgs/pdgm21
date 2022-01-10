@@ -3,7 +3,7 @@ import scala.util.Random
 import gameboard.KalahaBoard
 import server.Server
 
-class AIPlayer (firstPlayer: Boolean) extends Player (firstPlayer) {
+class AIPlayer (isFirstPlayer: Boolean) extends Player (isFirstPlayer) {
   // Computer player can choose hole number that's higher than board size because
   // he knows all the indexing
   override def chooseMove(server: Server): Int =
@@ -32,7 +32,7 @@ class AIPlayer (firstPlayer: Boolean) extends Player (firstPlayer) {
 
       else {
         val copyBoard: KalahaBoard = kalahaBoard.copy()
-        copyBoard.makeMoveOnBoard(i-startHoleIndex, firstPlayer)
+        copyBoard.makeMoveOnBoard(i-startHoleIndex, isFirstPlayer)
         differences(i-startHoleIndex) = getBestScoreEnemy(copyBoard)
       }
     }
@@ -58,11 +58,11 @@ class AIPlayer (firstPlayer: Boolean) extends Player (firstPlayer) {
 
       else {
         val copyBoard: KalahaBoard = kalahaBoard.copy()
-        val (_, isSamePlayer): (Boolean, Boolean) = copyBoard.makeMoveOnBoard(i-enemyStartHoleIndex, !firstPlayer)
+        val (_, isSamePlayer): (Boolean, Boolean) = copyBoard.makeMoveOnBoard(i-enemyStartHoleIndex, !isFirstPlayer)
 
         differences(i-enemyStartHoleIndex) = copyBoard.getBoard()(enemyBaseIndex) - copyBoard.getBoard()(baseIndex)
         // Enemy can make the next move
-        if isSamePlayer == !firstPlayer then differences(i-enemyStartHoleIndex) = differences(i-enemyStartHoleIndex) + 1
+        if isSamePlayer == !isFirstPlayer then differences(i-enemyStartHoleIndex) = differences(i-enemyStartHoleIndex) + 1
       }
     }
 
