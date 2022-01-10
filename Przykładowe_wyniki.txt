@@ -1,0 +1,19 @@
+Quicksorts:
+1000 elements:
+Sequentialy: Time: 850500 ns Parallelly: Time: 69127100 ns 
+10000 elements:
+Sequentialy: Time: 3196300 ns Parallelly: Time: 3809400 ns 
+100000 elements:
+Sequentialy: Time: 16615300 ns Parallelly: Time: 13904100 ns 
+1000000 elements:
+Sequentialy: Time: 90357700 ns Parallelly: Time: 66557700 ns 
+10000000 elements:
+Sequentialy: Time: 639308800 ns Parallelly: Time: 543299000 ns 
+
+ProductOfTree:
+10 elements:
+Sequentialy: Time: 559600 ns Parallelly: Time: 596600 ns 
+20 elements:
+Sequentialy: Time: 7483900 ns Parallelly: Time: 3966300 ns 
+25 elements:
+Sequentialy: Time: 120220600 ns Parallelly: Time: 98271300 ns 
