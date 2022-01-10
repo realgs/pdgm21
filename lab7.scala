@@ -14,15 +14,6 @@ object lab7 {
     val right:B = Await.result(future, Duration.Inf)
     (left,right)
   }
-  def parallel2[A,B](task1: Future[A] , task2: Future[B]): (A,B) = {
-    val result =
-      for
-        right <- task1
-        left <- task2
-      yield
-        (right , left)
-    Await.result(result , Duration.Inf)
-  }
 
 sealed trait BT[+A]
   case object Empty extends BT[Nothing]
@@ -111,13 +102,7 @@ def TreeMaxPar(tree: BT[Int] , depth: Int): Int = {
     }
     return arr
   }
-  def generateList(size: Int, range: Int): List[Int] = {
-    val list = List()
-    val rnd = new Random()
-    for(i <- 0 to size-1){
-    }
-    return list
-  }
+  
   def TreeGenerator(depth: Int): BT[Int] = {
     val random = scala.util.Random
     depth match {
