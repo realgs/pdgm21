@@ -3,11 +3,10 @@ import scala.util.Random
 import gameboard.KalahaBoard
 import server.Server
 
-class AIPlayer (isFirstPlayer: Boolean) extends Player (isFirstPlayer) {
+class AIPlayer (isFirstPlayer: Boolean) extends Player (isFirstPlayer, "AI") {
   // Computer player can choose hole number that's higher than board size because
   // he knows all the indexing
-  override def chooseMove(server: Server): Int =
-    val kalahaBoard: KalahaBoard = server.getKalahaBoard()
+  def chooseMove(kalahaBoard: KalahaBoard): Int =
     val (isNextMovePossible, chosenHole) = getHoleNextMoveIndex(kalahaBoard)
     if isNextMovePossible then return chosenHole
     else return chooseBestMove(kalahaBoard)

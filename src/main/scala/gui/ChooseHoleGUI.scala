@@ -1,34 +1,82 @@
 package gui
 import java.awt.Dimension
 import java.awt.FlowLayout
-import javax.swing.{BoxLayout, JButton, JFrame, JLabel, JPanel}
+import javax.swing.{BoxLayout, JButton, JFrame, JLabel, JPanel, SwingConstants}
 import java.awt.event.ActionListener
 import java.awt.event.ActionEvent
 import gameboard.KalahaBoard
 import player.Player
 
 class ChooseHoleGUI(private val mainGUI: MainGUI, private val kalahaBoard: KalahaBoard, player: Player) {
-  private val board = kalahaBoard.getBoard()
-  private val player1BaseIndex = kalahaBoard.getPlayer1BaseIndex()
-  private val player2BaseIndex = kalahaBoard.getPlayer1BaseIndex()
+  private val board: Array[Int] = kalahaBoard.getBoard()
+  private val player1BaseIndex: Int = kalahaBoard.getPlayer1BaseIndex()
+  private val player2BaseIndex: Int = kalahaBoard.getPlayer2BaseIndex()
+  private val holeChosen: Boolean = false
   private val jPanel = JPanel()
+  private val columnJPanel = new JPanel()
+  columnJPanel.setLayout(new BoxLayout(columnJPanel, BoxLayout.Y_AXIS))
 
   if player.getIsFirstPlayer() then {
-    jPanel.add(new JLabel("Current game board"))
-    jPanel.add(new JLabel("Enemy row"))
-    for (i <- player2BaseIndex - 1 to player1BaseIndex + 1 by -1)
-      jPanel.add(new JLabel(board(i).toString + " "))
-    jPanel.add(new JLabel("Enemy score: " + board(player2BaseIndex).toString + "\n"))
-    jPanel.add(new JLabel("Your row"))
-    for (i <- 0 to player1BaseIndex-1) {
-      val jButton: JButton = JButton(board(i).toString)
-      jPanel.add(jButton)
+    columnJPanel.add(new JLabel("Current game board"))
+    columnJPanel.add(new JLabel("Enemy row"))
+
+    val rowJPanel1 = new JPanel()
+    rowJPanel1.setLayout(new BoxLayout(rowJPanel1, BoxLayout.X_AXIS))
+    for (i <- player2BaseIndex - 1 to player1BaseIndex + 1 by -1) {
+      rowJPanel1.add(new JLabel(board(i) + "   "))
     }
-    jPanel.add(new JLabel("\nYour score: " + board(player1BaseIndex).toString + "\n"))
+
+    columnJPanel.add(rowJPanel1)
+    columnJPanel.add(new JLabel(board(player2BaseIndex).toString + " <- Enemy score | Your Score -> " + board(player1BaseIndex).toString))
+    columnJPanel.add(new JLabel("Your row"))
+
+    val rowJPanel2 = new JPanel()
+    rowJPanel2.setLayout(new BoxLayout(rowJPanel2, BoxLayout.X_AXIS))
+    for (i <- 0 to player1BaseIndex-1) {
+      val jButton = JButton(board(i).toString)
+      jButton.addActionListener(new SelectHole(jButton, i))
+      rowJPanel2.add(jButton)
+    }
+
+    columnJPanel.add(rowJPanel2)
+    columnJPanel.add(new JLabel("Choose hole"))
+
+    jPanel.add(columnJPanel)
   }
 
+  else {
+    columnJPanel.add(new JLabel("Current game board"))
+    columnJPanel.add(new JLabel("Enemy row"))
 
+    val rowJPanel1 = new JPanel()
+    rowJPanel1.setLayout(new BoxLayout(rowJPanel1, BoxLayout.X_AXIS))
+    for (i <- player1BaseIndex - 1 to 0 by -1) {
+      rowJPanel1.add(new JLabel(board(i) + "   "))
+    }
 
+    columnJPanel.add(rowJPanel1)
+    columnJPanel.add(new JLabel(board(player1BaseIndex).toString + " <- Enemy score | Your Score -> " + board(player2BaseIndex).toString))
+    columnJPanel.add(new JLabel("Your row"))
+
+    val rowJPanel2 = new JPanel()
+    rowJPanel2.setLayout(new BoxLayout(rowJPanel2, BoxLayout.X_AXIS))
+    for (i <- player1BaseIndex + 1 to player2BaseIndex - 1) {
+      val jButton = JButton(board(i).toString)
+      jButton.addActionListener(new SelectHole(jButton, i))
+      rowJPanel2.add(jButton)
+    }
+
+    columnJPanel.add(rowJPanel2)
+    columnJPanel.add(new JLabel("Choose hole"))
+
+    jPanel.add(columnJPanel)
+  }
+
+  class SelectHole(var jButton: JButton, var index: Int) extends ActionListener {
+    override def actionPerformed(event: ActionEvent): Unit = {
+      println(jButton)
+    }
+  }
 
   def getJPanel(): JPanel = jPanel
 }

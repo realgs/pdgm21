@@ -37,29 +37,31 @@ class Server() {
 
     firstPlayerMoves = true
 
-  def startGame(): Unit =
-    while (!kalahaBoard.getIsGameFinished(firstPlayerMoves)) {
-      try {
-        val f1 = Future{makeMovePlayer()}
-        Await.result(f1, MaxWaitTime seconds)
-      }
-      catch {
-        case _: java.util.concurrent.TimeoutException => printError()
+  def playGame(): Unit =
+    if firstPlayerMoves then {
+      player1.getName() match {
+        case "Human" => gui.changeLayoutToChooseHole(player1)
+        case "AI" => {
+          val chosenHole = player1.asInstanceOf[AIPlayer].chooseMove(kalahaBoard)
+          var results = kalahaBoard.makeMoveOnBoard(chosenHole, firstPlayerMoves)
+          firstPlayerMoves = results._2
+          if kalahaBoard.getIsGameFinished(firstPlayerMoves) then printResults()
+          else playGame()
+        }
       }
     }
-    this.printResults()
 
-  def makeMovePlayer(): Unit =
-    var successfulMove: Boolean = false
-    var chosenHole: Int = 0
-
-    while (!successfulMove) {
-      if firstPlayerMoves then chosenHole = player1.chooseMove(this)
-      else chosenHole = player2.chooseMove(this)
-
-      var results = kalahaBoard.makeMoveOnBoard(chosenHole, firstPlayerMoves)
-      successfulMove = results._1
-      firstPlayerMoves = results._2
+    else {
+      player2.getName() match {
+        case "Human" => gui.changeLayoutToChooseHole(player2)
+        case "AI" => {
+          val chosenHole = player2.asInstanceOf[AIPlayer].chooseMove(kalahaBoard)
+          var results = kalahaBoard.makeMoveOnBoard(chosenHole, firstPlayerMoves)
+          firstPlayerMoves = results._2
+          if kalahaBoard.getIsGameFinished(firstPlayerMoves) then printResults()
+          else playGame()
+        }
+      }
     }
 
   private def printResults(): Unit =
