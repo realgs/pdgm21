@@ -24,10 +24,6 @@ object lab7 {
     Await.result(result , Duration.Inf)
   }
 
-//suma drzewa binarnego+++
-//suma tablicy
-//szukanie max w BT
-
 sealed trait BT[+A]
   case object Empty extends BT[Nothing]
   case class Node[+A](element: A, left: BT[A], right: BT[A]) extends BT[A]
