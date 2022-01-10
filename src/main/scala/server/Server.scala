@@ -71,11 +71,4 @@ class Server() {
     firstPlayerMoves = results._2
     if kalahaBoard.getIsGameFinished(firstPlayerMoves) then gui.changeLayoutToShowResults()
     else playGame()
-
-  private def printError(): Unit =
-    println("Game could not end because of the lack of activity from one of the players")
-    sys.exit()
-
-
-
 }
