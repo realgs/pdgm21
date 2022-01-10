@@ -256,8 +256,8 @@ object List7 {
     var number = 10
 
     //Generowanie drzew losowych elementow roznej glebokosci
-    val trees = Array(generateTree(2), generateTree(16), generateTree(17), generateTree(18), generateTree(19), generateTree(20))
-    val depths = Array(2, 16, 17, 18, 19, 20)
+    val trees = Array(generateTree(3), generateTree(16), generateTree(17), generateTree(18), generateTree(19), generateTree(20))
+    val depths = Array(3, 16, 17, 18, 19, 20)
 
     //Tablica kolejnych liczb Lucasa do obliczenia
     val lucasNumbers = Array(10, 15, 20, 25, 30, 40)
