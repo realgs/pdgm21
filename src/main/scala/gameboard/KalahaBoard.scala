@@ -9,33 +9,6 @@ class KalahaBoard(private val boardSize: Int, private val noStartingStones: Int)
   board(player1BaseIndex) = 0
   board(player2BaseIndex) = 0
 
-  // The board will be printed appriopriately for every player
-  def printBoard(firstPlayerMoves: Boolean): Unit =
-    if firstPlayerMoves then {
-      println("Current game board")
-      println("Enemy row")
-      for (i <- player2BaseIndex - 1 to player1BaseIndex + 1 by -1)
-        print(board(i) + " ")
-      println("\nEnemy score: " + board(player2BaseIndex).toString + "\n")
-      println("Your row")
-      for (i <- 0 to player1BaseIndex-1)
-        print(board(i) + " ")
-      println("\nYour score: " + board(player1BaseIndex).toString + "\n")
-    }
-
-    else {
-      println("Current game board")
-      println("Enemy row")
-      for (i <- player1BaseIndex - 1 to 0 by -1)
-        print(board(i) + " ")
-      println("\nEnemy score: " + board(player1BaseIndex).toString + "\n")
-      println("Your row")
-      for (i <- player1BaseIndex + 1 to player2BaseIndex - 1)
-        print(board(i) + " ")
-      println("\nYour score: " + board(player2BaseIndex).toString + "\n")
-    }
-
-
   // Returns if the move was made correctly and what player
   // Also returns which player should make the next move
   def makeMoveOnBoard(chosenHole: Int, firstPlayerMoves: Boolean): (Boolean, Boolean) =

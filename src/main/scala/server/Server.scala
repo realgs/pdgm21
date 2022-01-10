@@ -1,13 +1,9 @@
 package server
-import scala.concurrent.ExecutionContext.Implicits.global
-import scala.language.postfixOps
-import concurrent.duration.DurationInt
 import gameboard.KalahaBoard
 import gui.MainGUI
 import player.Player
 import player.HumanPlayer
 import player.AIPlayer
-import scala.concurrent.{Await, Future}
 
 // Server should only start when all settings are configured
 class Server() {
@@ -20,21 +16,19 @@ class Server() {
   // Max waiting time (in seconds) for hole choice
   private val MaxWaitTime: Int = 30
 
-  def getKalahaBoard(): KalahaBoard = kalahaBoard
   def getGUI(): MainGUI = gui
+  def getKalahaBoard(): KalahaBoard = kalahaBoard
+
 
   def startGUI(): Unit =
     gui = new MainGUI(this)
 
   def initializeGame(boardSize: Int, noStartingStones: Int, isHuman1: Boolean, isHuman2: Boolean): Unit =
     kalahaBoard = new KalahaBoard(boardSize, noStartingStones)
-
     if isHuman1 then player1 = new HumanPlayer(true)
     else player1 = new AIPlayer(true)
-
     if isHuman2 then player2 = new HumanPlayer(false)
     else player2 = new AIPlayer(false)
-
     firstPlayerMoves = true
 
   def playGame(): Unit =
@@ -63,6 +57,12 @@ class Server() {
         }
       }
     }
+
+  def usePlayerMove(chosenHole: Int): Unit =
+    val results = kalahaBoard.makeMoveOnBoard(chosenHole, firstPlayerMoves)
+    firstPlayerMoves = results._2
+    if kalahaBoard.getIsGameFinished(firstPlayerMoves) then printResults()
+    else playGame()
 
   private def printResults(): Unit =
     val (player1Results, player2Results): (Int, Int) = kalahaBoard.getResults()

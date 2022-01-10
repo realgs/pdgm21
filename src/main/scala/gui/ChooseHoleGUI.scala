@@ -4,6 +4,10 @@ import java.awt.FlowLayout
 import javax.swing.{BoxLayout, JButton, JFrame, JLabel, JPanel, SwingConstants}
 import java.awt.event.ActionListener
 import java.awt.event.ActionEvent
+import scala.concurrent.ExecutionContext.Implicits.global
+import scala.language.postfixOps
+import concurrent.duration.DurationInt
+import scala.concurrent.{Await, Future}
 import gameboard.KalahaBoard
 import player.Player
 
@@ -11,12 +15,16 @@ class ChooseHoleGUI(private val mainGUI: MainGUI, private val kalahaBoard: Kalah
   private val board: Array[Int] = kalahaBoard.getBoard()
   private val player1BaseIndex: Int = kalahaBoard.getPlayer1BaseIndex()
   private val player2BaseIndex: Int = kalahaBoard.getPlayer2BaseIndex()
-  private val holeChosen: Boolean = false
+  private var startHoleIndex: Int = -1
+  // private var isHoleChosen: Boolean = false
+  // private val MaxWaitTime: Int = 30
   private val jPanel = JPanel()
   private val columnJPanel = new JPanel()
   columnJPanel.setLayout(new BoxLayout(columnJPanel, BoxLayout.Y_AXIS))
 
   if player.getIsFirstPlayer() then {
+    startHoleIndex = 0
+
     columnJPanel.add(new JLabel("Current game board"))
     columnJPanel.add(new JLabel("Enemy row"))
 
@@ -45,6 +53,8 @@ class ChooseHoleGUI(private val mainGUI: MainGUI, private val kalahaBoard: Kalah
   }
 
   else {
+    startHoleIndex = player1BaseIndex + 1
+
     columnJPanel.add(new JLabel("Current game board"))
     columnJPanel.add(new JLabel("Enemy row"))
 
@@ -74,7 +84,9 @@ class ChooseHoleGUI(private val mainGUI: MainGUI, private val kalahaBoard: Kalah
 
   class SelectHole(var jButton: JButton, var index: Int) extends ActionListener {
     override def actionPerformed(event: ActionEvent): Unit = {
-      println(jButton)
+      if board(index) != 0 then {
+        mainGUI.getServer().usePlayerMove(index - startHoleIndex)
+      }
     }
   }
 
