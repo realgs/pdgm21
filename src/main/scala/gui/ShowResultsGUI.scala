@@ -4,8 +4,7 @@ import java.awt.FlowLayout
 import javax.swing.{BoxLayout, JLabel, JPanel}
 
 class ShowResultsGUI(private val mainGUI: MainGUI) {
-  val (player1Results, player2Results): (Int, Int) = mainGUI.getServer().getKalahaBoard().getResults()
-
+  private val (player1Results, player2Results): (Int, Int) = mainGUI.getServer().getKalahaBoard().getResults()
   private val jPanel = JPanel()
   jPanel.setLayout(new BoxLayout(jPanel, BoxLayout.Y_AXIS))
   jPanel.add(new JLabel("Player 1 final score: " + player1Results.toString))

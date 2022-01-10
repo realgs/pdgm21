@@ -13,14 +13,12 @@ import player.Player
 
 import java.util.{Timer, TimerTask}
 
-// IMPLEMENT - END SCREEN
-// IMPLEMENT - SCREEN FOR LACK OF ACTIVITY
 class ChooseHoleGUI(private val mainGUI: MainGUI, private val kalahaBoard: KalahaBoard, player: Player) {
   private val board: Array[Int] = kalahaBoard.getBoard()
   private val player1BaseIndex: Int = kalahaBoard.getPlayer1BaseIndex()
   private val player2BaseIndex: Int = kalahaBoard.getPlayer2BaseIndex()
   private var isHoleChosen: Boolean = false
-  private var maxWaitTime: Int = 30000
+  private val maxWaitTime: Int = 30000
   private var startHoleIndex: Int = -1
   private val jPanel = JPanel()
   private val columnJPanel = new JPanel()

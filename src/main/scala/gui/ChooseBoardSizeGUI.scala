@@ -29,7 +29,8 @@ class ChooseBoardSizeGUI(private val mainGUI: MainGUI) {
 
   class SelectOption(var jButton: JButton) extends ActionListener {
     override def actionPerformed(event: ActionEvent): Unit = {
-      mainGUI.changeLayoutToChooseNumberOfStones(jButton.getActionCommand().toInt)
+      mainGUI.getServer().setBoardSize(jButton.getActionCommand().toInt)
+      mainGUI.changeLayoutToChooseNumberOfStones()
     }
   }
 

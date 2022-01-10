@@ -29,7 +29,8 @@ class ChooseNoStartingStonesGUI(private val mainGUI: MainGUI) {
 
   class SelectOption(var jButton: JButton) extends ActionListener {
     override def actionPerformed(event: ActionEvent): Unit = {
-      mainGUI.changeLayoutToChoosePlayer(jButton.getActionCommand().toInt)
+      mainGUI.getServer().setNoStartingStones(jButton.getActionCommand().toInt)
+      mainGUI.changeLayoutToChoosePlayer()
     }
   }
 

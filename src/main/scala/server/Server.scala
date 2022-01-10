@@ -15,15 +15,23 @@ class Server() {
   private var firstPlayerMoves: Boolean = _
   // Max waiting time (in seconds) for hole choice
   private val MaxWaitTime: Int = 30
+  // Game parameters
+  private var boardSize: Int = 0
+  private var noStartingStones: Int = 0
+  private var isHuman1: Boolean = false
+  private var isHuman2: Boolean = false
 
   def getGUI(): MainGUI = gui
   def getKalahaBoard(): KalahaBoard = kalahaBoard
-
+  def setBoardSize(boardSize: Int): Unit = this.boardSize = boardSize
+  def setNoStartingStones(noStartingStones: Int): Unit = this.noStartingStones = noStartingStones
+  def setIsHuman1(isHuman1: Boolean): Unit = this.isHuman1 = isHuman1
+  def setIsHuman2(isHuman2: Boolean): Unit = this.isHuman2 = isHuman2
 
   def startGUI(): Unit =
     gui = new MainGUI(this)
 
-  def initializeGame(boardSize: Int, noStartingStones: Int, isHuman1: Boolean, isHuman2: Boolean): Unit =
+  def initializeGame(): Unit =
     kalahaBoard = new KalahaBoard(boardSize, noStartingStones)
     if isHuman1 then player1 = new HumanPlayer(true)
     else player1 = new AIPlayer(true)

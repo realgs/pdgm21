@@ -6,10 +6,7 @@ import gui.ChooseBoardSizeGUI
 import player.Player
 
 class MainGUI(var server: Server) {
-  private var boardSize: Int = 0
-  private var noStartingStones: Int = 0
   private val jFrame = JFrame()
-
   jFrame.setTitle("Kalaha game")
   jFrame.setMinimumSize(new Dimension(900, 450))
   jFrame.setLayout(new FlowLayout())
@@ -27,8 +24,7 @@ class MainGUI(var server: Server) {
     jFrame.revalidate()
     jFrame.repaint()
 
-  def changeLayoutToChooseNumberOfStones(boardSize: Int): Unit =
-    this.boardSize = boardSize
+  def changeLayoutToChooseNumberOfStones(): Unit =
     val gui = new ChooseNoStartingStonesGUI(this)
     val panel = gui.getJPanel()
     jFrame.getContentPane().removeAll()
@@ -36,8 +32,7 @@ class MainGUI(var server: Server) {
     jFrame.revalidate()
     jFrame.repaint()
 
-  def changeLayoutToChoosePlayer(noStartingStones: Int): Unit =
-    this.noStartingStones = noStartingStones
+  def changeLayoutToChoosePlayer(): Unit =
     val gui = new ChoosePlayers(this)
     val panel = gui.getJPanel()
     jFrame.getContentPane().removeAll()
@@ -45,8 +40,8 @@ class MainGUI(var server: Server) {
     jFrame.revalidate()
     jFrame.repaint()
 
-  def startGame(isHuman1: Boolean, isHuman2: Boolean): Unit =
-    server.initializeGame(boardSize, noStartingStones, isHuman1, isHuman2)
+  def startGame(): Unit =
+    server.initializeGame()
     server.playGame()
 
   def changeLayoutToChooseHole(player: Player): Unit =
