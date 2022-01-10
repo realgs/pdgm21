@@ -47,4 +47,8 @@ Occurs time serial: 0.154653
 Occurs time paraller: 0.0708581
 Occurs time serial: 0.113284
 
+Image proccesing:
+Threads 4:
+
+
 
