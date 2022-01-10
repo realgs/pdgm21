@@ -1,0 +1,125 @@
+number of tries : 100
+list length  : 100000
+split number : 1
+normal time   : 49070081
+parallel time : 32220910
+normal time / parallel time : 1.522926602631645
+
+number of tries : 100
+list length  : 100000
+split number : 2
+normal time   : 62341027
+parallel time : 42923086
+normal time / parallel time : 1.4523892107850773
+
+number of tries : 100
+list length  : 100000
+split number : 3
+normal time   : 51403586
+parallel time : 30877579
+normal time / parallel time : 1.6647544161412395
+
+number of tries : 100
+list length  : 100000
+split number : 4
+normal time   : 61011323
+parallel time : 36983801
+normal time / parallel time : 1.6496769220665015
+
+number of tries : 100
+list length  : 100000
+split number : 5
+normal time   : 50624291
+parallel time : 29827701
+normal time / parallel time : 1.6972240334580262
+
+number of tries : 100
+list length  : 100000
+split number : 6
+normal time   : 59607705
+parallel time : 30852286
+normal time / parallel time : 1.932035279330679
+
+number of tries : 100
+list length  : 100000
+split number : 7
+normal time   : 55366051
+parallel time : 30456053
+normal time / parallel time : 1.8178997455776689
+
+number of tries : 100
+list length  : 100000
+split number : 8
+normal time   : 58906128
+parallel time : 31242976
+normal time / parallel time : 1.8854198780551508
+
+number of tries : 100
+list length  : 100000
+split number : 9
+normal time   : 61159013
+parallel time : 32719874
+normal time / parallel time : 1.869170186902309
+
+number of tries : 100
+list length  : 100000
+split number : 10
+normal time   : 55846339
+parallel time : 33830310
+normal time / parallel time : 1.6507782222509932
+
+number of tries : 100
+list length  : 10
+split number : 6
+normal time   : 30961
+parallel time : 685621
+normal time / parallel time : 0.045157601648724295
+
+number of tries : 100
+list length  : 100
+split number : 6
+normal time   : 126230
+parallel time : 1115376
+normal time / parallel time : 0.11317259829869031
+
+number of tries : 100
+list length  : 1000
+split number : 6
+normal time   : 553032
+parallel time : 1752113
+normal time / parallel time : 0.31563717636933236
+
+number of tries : 100
+list length  : 4000
+split number : 6
+normal time   : 1802884
+parallel time : 2218303
+normal time / parallel time : 0.8127311733338503
+
+number of tries : 100
+list length  : 5000
+split number : 6
+normal time   : 2351613
+parallel time : 1982169
+normal time / parallel time : 1.1863837039122296
+
+number of tries : 100
+list length  : 10000
+split number : 6
+normal time   : 5990544
+parallel time : 3584249
+normal time / parallel time : 1.6713526320297503
+
+number of tries : 100
+list length  : 100000
+split number : 6
+normal time   : 60113821
+parallel time : 31319538
+normal time / parallel time : 1.9193712563703844
+
+number of tries : 100
+list length  : 200000
+split number : 6
+normal time   : 113801361
+parallel time : 59633476
+normal time / parallel time : 1.9083469325182385

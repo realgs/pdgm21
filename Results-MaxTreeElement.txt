@@ -1,0 +1,118 @@
+number of tries : 100
+tree depth  : 20
+split depth : 1
+normal time   : 10205340
+parallel time : 6235383
+normal time / parallel time : 1.6366821412574015
+
+number of tries : 100
+tree depth  : 20
+split depth : 2
+normal time   : 12915501
+parallel time : 8356312
+normal time / parallel time : 1.5455982256287224
+
+number of tries : 100
+tree depth  : 20
+split depth : 3
+normal time   : 13255225
+parallel time : 7548208
+normal time / parallel time : 1.7560757467202812
+
+number of tries : 100
+tree depth  : 20
+split depth : 4
+normal time   : 14405368
+parallel time : 4621519
+normal time / parallel time : 3.1170201831908515
+
+number of tries : 100
+tree depth  : 20
+split depth : 5
+normal time   : 11492974
+parallel time : 3518414
+normal time / parallel time : 3.266521222346205
+
+number of tries : 100
+tree depth  : 20
+split depth : 6
+normal time   : 10698129
+parallel time : 2812238
+normal time / parallel time : 3.8041335761766963
+
+number of tries : 100
+tree depth  : 20
+split depth : 7
+normal time   : 10772189
+parallel time : 2810578
+normal time / parallel time : 3.8327308475338526
+
+number of tries : 100
+tree depth  : 20
+split depth : 8
+normal time   : 10944544
+parallel time : 2996131
+normal time / parallel time : 3.6528923468299617
+
+number of tries : 100
+tree depth  : 20
+split depth : 9
+normal time   : 10203111
+parallel time : 3543494
+normal time / parallel time : 2.8793927688321186
+
+number of tries : 100
+tree depth  : 20
+split depth : 10
+normal time   : 12225186
+parallel time : 5300271
+normal time / parallel time : 2.3065209307222214
+
+number of tries : 100
+tree depth  : 5
+split depth : 6
+normal time   : 11833
+parallel time : 651369
+normal time / parallel time : 0.018166354247745903
+
+number of tries : 100
+tree depth  : 10
+split depth : 6
+normal time   : 13027
+parallel time : 1108001
+normal time / parallel time : 0.011757209605406493
+
+number of tries : 100
+tree depth  : 15
+split depth : 6
+normal time   : 402662
+parallel time : 1014911
+normal time / parallel time : 0.39674611862517994
+
+number of tries : 100
+tree depth  : 16
+split depth : 6
+normal time   : 589261
+parallel time : 927489
+normal time / parallel time : 0.6353293677876503
+
+number of tries : 100
+tree depth  : 17
+split depth : 6
+normal time   : 1321143
+parallel time : 1097854
+normal time / parallel time : 1.203386789135896
+
+number of tries : 100
+tree depth  : 19
+split depth : 6
+normal time   : 5934948
+parallel time : 1994571
+normal time / parallel time : 2.975551133552027
+
+number of tries : 100
+tree depth  : 20
+split depth : 6
+normal time   : 11084720
+parallel time : 2890497
+normal time / parallel time : 3.8348837587446036

@@ -1,0 +1,132 @@
+number of tries : 100
+elements to sum  : 1000000
+split number : 1
+normal time   : 33160920
+parallel time : 22332962
+normal time / parallel time : 1.4848420017013417
+
+number of tries : 100
+elements to sum  : 1000000
+split number : 2
+normal time   : 32153339
+parallel time : 26288882
+normal time / parallel time : 1.2230774591327238
+
+number of tries : 100
+elements to sum  : 1000000
+split number : 3
+normal time   : 39837124
+parallel time : 21138896
+normal time / parallel time : 1.884541368669395
+
+number of tries : 100
+elements to sum  : 1000000
+split number : 3
+normal time   : 40886207
+parallel time : 16098844
+normal time / parallel time : 2.539698316226929
+
+number of tries : 100
+elements to sum  : 1000000
+split number : 4
+normal time   : 29502820
+parallel time : 10652466
+normal time / parallel time : 2.7695765468765634
+
+number of tries : 100
+elements to sum  : 1000000
+split number : 5
+normal time   : 31905770
+parallel time : 8733221
+normal time / parallel time : 3.653379434689675
+
+number of tries : 100
+elements to sum  : 1000000
+split number : 6
+normal time   : 28043783
+parallel time : 5789801
+normal time / parallel time : 4.843652312057012
+
+number of tries : 100
+elements to sum  : 1000000
+split number : 7
+normal time   : 27293200
+parallel time : 5761054
+normal time / parallel time : 4.737535874511852
+
+number of tries : 100
+elements to sum  : 1000000
+split number : 8
+normal time   : 29777069
+parallel time : 6661746
+normal time / parallel time : 4.469859553336318
+
+number of tries : 100
+elements to sum  : 1000000
+split number : 9
+normal time   : 29163383
+parallel time : 6018937
+normal time / parallel time : 4.845271349409373
+
+number of tries : 100
+elements to sum  : 1000000
+split number : 10
+normal time   : 32486284
+parallel time : 7211151
+normal time / parallel time : 4.50500675966985
+
+number of tries : 100
+elements to sum  : 1000
+split number : 6
+normal time   : 47646
+parallel time : 1571413
+normal time / parallel time : 0.030320482266597004
+
+number of tries : 100
+elements to sum  : 10000
+split number : 6
+normal time   : 322592
+parallel time : 1010189
+normal time / parallel time : 0.3193382624439585
+
+number of tries : 100
+elements to sum  : 30000
+split number : 6
+normal time   : 875279
+parallel time : 1012552
+normal time / parallel time : 0.8644286910696932
+
+number of tries : 100
+elements to sum  : 40000
+split number : 6
+normal time   : 1162359
+parallel time : 1155264
+normal time / parallel time : 1.006141453382084
+
+number of tries : 100
+elements to sum  : 50000
+split number : 6
+normal time   : 1570694
+parallel time : 1107171
+normal time / parallel time : 1.4186552935364094
+
+number of tries : 100
+elements to sum  : 100000
+split number : 6
+normal time   : 2786582
+parallel time : 1368365
+normal time / parallel time : 2.0364317999948844
+
+number of tries : 100
+elements to sum  : 1000000
+split number : 6
+normal time   : 28566809
+parallel time : 6009317
+normal time / parallel time : 4.753753047143294
+
+number of tries : 100
+elements to sum  : 2000000
+split number : 6
+normal time   : 54447115
+parallel time : 11443014
+normal time / parallel time : 4.758109620419935
