@@ -1,0 +1,42 @@
+- czas mierzyłem w nanosekundach
+- wykonywałem wielokrotne testy przy tych samych parametrach, aby zniwelować do minimum czynniki zewnętrzne, tj. procesy na moim komputerze lub różnice w generowanych strukturach testowych
+- przez jeden test rozumiem wykonanie metody bez zrównoleglenia, a następnie metody wykorzystującej zrównoleglenie na tej samej strukturze testowej
+
+*MaxTreeElement:
+- wyszukanie największej wartość w binarnym drzewie pełnym
+- jako parametry przyjmowałem:
+	- "treeDepth" - głębokość generowanego drzewa 
+		(głębokość 27 i większe powodowały "OutOfMemoryError" przy tworzeniu drzewa)
+	- "splitDepth" - głębokość do której wykorzystywałem zrównoleglenie przy obliczaniu maksymalnej wartości w poddrzewach 
+		(głębokość 11 i większe powodowały brak zakończenia działania programu nawet dla pojedyńczego testu (ponad godzina))
+- największe skrócenie działania metody wykorzystującej zrównoleglenie, przy "treeSepth" = 20, zapewniało "splitDepth" = 6
+- zrównoleglenie skracało czas wykonywania dla bardzo dużych drzewach,
+	dla "splitDepth" = 6 było to "treeDepth" >= 17, co oznacza pełne drzewa binarne o liczbie elementów większej równej 2^(n-1) + 1 = 2^16 + 1 = 65537
+	dla coraz większych drzew zyskiwany czas był coraz większy
+
+*MergeSort:
+- sortowanie listy za pomocą algorytmu mergesort
+- jako parametry przyjmowałem:
+	- "listLength" - długość sortowanej listy
+	- "splitNumber" - ilość razy kiedy wykorzystałem zrównoleglenie przy podziale listy na dwie mniejsze części 
+		(wartości 11 i większe powodowały brak zakończenia działania programu nawet dla pojedyńczego testu (ponad godzina))
+- najkorzystniejszą wartością "spliNumber", przy "listLenght" = 100 000, wydaje się być 6,
+	mniejsze wartości zmniejszały różnice pomiędzy czasami wykonywania normalnej, a zrównoleglonej metody, większe nie powodowały dalszego powiększania się tej różnicy
+- zrównoleglenie skracało czas wykonywania dla dużych list, zawierających ponad 5000 elementów
+
+*SumMathSequence:
+- obliczenie sumy n początkowych elementów ciągu podanego przy pomocy wzoru
+- jako parametry przyjmowałem:
+	- "elementsToSum" - ilość elementów do zsumowania
+	- "splitNumber" - ilość razy kiedy wykorzystałem zrównoleglenie przy podziale problemu na mniejsze części
+		(wartości 11 i większe powodowały brak zakończenia działania programu nawet dla pojedyńczego testu (ponad godzina))
+- najkorzystniejszą wartością "spliNumber", przy "elementsToSum" = 1 000 000, wydaje się być 6,
+	mniejsze wartości zmniejszały różnice pomiędzy czasami wykonywania normalnej, a zrównoleglonej metody, większe nie powodowały dalszego powiększania się tej różnicy
+- zrównoleglenie skracało czas wykonania dla dużej ilości elementów, powyżej 40 000 elementów
+	dla bardzo dużej ilości elementów (1 000 000 +) efektywność zrównoleglenie była bardzo duża
+
+*Podsumowanie:
+- wykorzystanie zrównoleglenia jest opłacalne jeżeli zamierzamy operować na dużych strukturach,
+- należy jednak pamiętać, że tworzenie nowych wątków także kosztuje nas pewien czas i pamięć, więc aby metody wykorzystujące zrównoleglenie działały efektywnie ważnym jest
+	- odpowiednie dobranie ilości tworzonych nowych wątków do wielkości problemu
+	- dla odpowiednio małych podproblemów wykorzystanie metod nie korzystających ze zrównoleglenia
