@@ -1,11 +1,12 @@
 package controller
 
-import controller.actionlistenersimpl.{ConnectButtonActionListener, JoinGameButtonActionListener, StartGameButtonActionListener, BoardActionListener, ShowPlayersButtonActionListener}
+import controller.actionlistenersimpl.{BoardActionListener, ConnectButtonActionListener, JoinGameButtonActionListener, ShowPlayersButtonActionListener, StartGameButtonActionListener}
 import view.animation.MoveAnimation
 import controller.connection.KalahaClientConnection
 import status.GameStatus
 import view.KalahaGuiCreator
 
+import java.awt.Color
 import javax.swing.{JButton, JTextField}
 
 class KalahaController(_gui: KalahaGuiCreator, game: GameStatus):
@@ -75,7 +76,11 @@ class KalahaController(_gui: KalahaGuiCreator, game: GameStatus):
     def onGameOver(winner: String): Unit =
         for (button <- gui.boardPanel.firstPlayerHoles)
             button.setEnabled(false)
+            gui.boardPanel.bases(0).setText(s"${gui.boardPanel.bases(0).getText().toInt + button.getText().toInt}")
         for (button <- gui.boardPanel.secondPlayerHoles)
             button.setEnabled(false)
+            gui.boardPanel.bases(1).setText(s"${gui.boardPanel.bases(1).getText().toInt + button.getText().toInt}")
+        gui.boardPanel.bases(0).setBackground(Color.RED)
+        gui.boardPanel.bases(1).setBackground(Color.RED)
         gui.controlsPanel.gamePanel.timeoutLabel.setText(s"Game over, winner: $winner")
         connection.socket.close()

@@ -4,7 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9dcd2a58-7913-4203-ac33-494dbeffdc59" name="Changes" comment="Prevent registering disallowed username and making move when hole has 0 stones, remove debug prints" />
+    <list default="true" id="9dcd2a58-7913-4203-ac33-494dbeffdc59" name="Changes" comment="Prevent registering disallowed username and making move when hole has 0 stones, remove debug prints">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/controller/KalahaController.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/controller/KalahaController.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/view/KalahaGuiCreator.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/view/KalahaGuiCreator.scala" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -95,6 +99,7 @@
       <workItem from="1641647324453" duration="13943000" />
       <workItem from="1641725888743" duration="5806000" />
       <workItem from="1641755497828" duration="5580000" />
+      <workItem from="1641818869438" duration="1375000" />
     </task>
     <task id="LOCAL-00001" summary="Add server and client communicating over websocket">
       <created>1641415047608</created>

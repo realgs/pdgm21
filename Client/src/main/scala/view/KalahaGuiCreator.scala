@@ -24,5 +24,5 @@ class KalahaGuiCreator:
     def show(): Unit =
         contentPane.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 10))
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE)
-        frame.setMinimumSize(new Dimension(1100, 400))
+        frame.setMinimumSize(new Dimension(1300, 400))
         frame.setVisible(true)
