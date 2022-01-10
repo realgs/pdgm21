@@ -149,4 +149,12 @@ object l7 {
     print("Parallelly: ")
     measureTime(productOfTreeParallel(tree3))
     println()
+
+  def main: Unit = {
+    quicksortCompare
+
+    println()
+
+    productOfTreeCompare
+  }
 }
