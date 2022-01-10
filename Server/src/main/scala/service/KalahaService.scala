@@ -60,6 +60,8 @@ class KalahaService():
           (stones2(0) == 0 && stones2(1) == 0 && stones2(2) == 0 && stones2(3) == 0 && stones2(4) == 0 && stones2(5) == 0)
         
     def getWinner(): String =
+        for stones <- firstPlayer.stonesInHoles do firstPlayer.score += stones
+        for stones <- secondPlayer.stonesInHoles do secondPlayer.score += stones
         if firstPlayer.score > secondPlayer.score then firstPlayer.name
         else if firstPlayer.score < secondPlayer.score then secondPlayer.name
         else "draw"

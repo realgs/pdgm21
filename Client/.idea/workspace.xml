@@ -4,10 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9dcd2a58-7913-4203-ac33-494dbeffdc59" name="Changes" comment="All game modes work, AI vs AI, human vs AI and human vs human, add game over messages">
-      <change beforePath="$PROJECT_DIR$/src/main/scala/controller/KalahaController.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/controller/KalahaController.scala" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/scala/controller/actionlistenersimpl/ButtonActionListeners.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/controller/actionlistenersimpl/ButtonActionListeners.scala" afterDir="false" />
-    </list>
+    <list default="true" id="9dcd2a58-7913-4203-ac33-494dbeffdc59" name="Changes" comment="Prevent registering disallowed username and making move when hole has 0 stones, remove debug prints" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -97,7 +94,7 @@
       <workItem from="1641572467363" duration="9800000" />
       <workItem from="1641647324453" duration="13943000" />
       <workItem from="1641725888743" duration="5806000" />
-      <workItem from="1641755497828" duration="5270000" />
+      <workItem from="1641755497828" duration="5580000" />
     </task>
     <task id="LOCAL-00001" summary="Add server and client communicating over websocket">
       <created>1641415047608</created>
@@ -155,7 +152,14 @@
       <option name="project" value="LOCAL" />
       <updated>1641764147436</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="Prevent registering disallowed username and making move when hole has 0 stones, remove debug prints">
+      <created>1641764693608</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1641764693608</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -183,6 +187,7 @@
     <MESSAGE value="Application is able to play basic game, need to improve readability and serve game ending" />
     <MESSAGE value="Migration to Java TCP socket API, as cask.websocket connection was unstable" />
     <MESSAGE value="All game modes work, AI vs AI, human vs AI and human vs human, add game over messages" />
-    <option name="LAST_COMMIT_MESSAGE" value="All game modes work, AI vs AI, human vs AI and human vs human, add game over messages" />
+    <MESSAGE value="Prevent registering disallowed username and making move when hole has 0 stones, remove debug prints" />
+    <option name="LAST_COMMIT_MESSAGE" value="Prevent registering disallowed username and making move when hole has 0 stones, remove debug prints" />
   </component>
 </project>
