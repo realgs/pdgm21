@@ -159,13 +159,13 @@ object List7 {
     end = System.currentTimeMillis()
     println("TimeParallel: " + (end-start))
 
-    var array0 = Array.fill(1000)(Random.nextInt(10000))
+    var array0 = Array.fill(10000)(Random.nextInt(10000))
     var array1 = array0.clone()
     var array2 = array0.clone()
     var array3 = array0.clone()
 
     print("Quicksort:")
-    println("1000 elems")
+    println("10000 elems")
 
     start = System.currentTimeMillis()
     quicksort(array0)
