@@ -2,8 +2,15 @@ package player
 import server.Server
 
 class HumanPlayer (firstPlayer: Boolean) extends Player (firstPlayer) {
+  private var chosenHole: Int = -1
+
   override def chooseMove(server: Server): Int =
-    var numberIsInteger: Boolean = false
+    chosenHole = -1
+    server.getGUI().changeLayoutToChooseHole(this)
+    while (chosenHole == -1) {
+      Thread.sleep(500)
+    }
+    /*var numberIsInteger: Boolean = false
     var chosenHole: Int = -1
     while (!numberIsInteger) {
       println("Choose hole number (hole to the left is hole number 1, hole next to it is 2 and so on)")
@@ -18,8 +25,11 @@ class HumanPlayer (firstPlayer: Boolean) extends Player (firstPlayer) {
       catch {
         case _: NumberFormatException =>
       }
-    }
+    }*/
 
     // Human player start indexing from 1 not 0
-    return chosenHole-1
+
+    return 1
+
+  def setChosenHole(chosenHole: Int) = this.chosenHole = chosenHole
 }

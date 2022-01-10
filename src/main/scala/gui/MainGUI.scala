@@ -3,6 +3,7 @@ import javax.swing.{JFrame, JPanel}
 import java.awt.{BorderLayout, CardLayout, Dimension, FlowLayout}
 import server.Server
 import gui.ChooseBoardSizeGUI
+import player.Player
 
 class MainGUI(var server: Server) {
   private var boardSize: Int = 0
@@ -45,8 +46,8 @@ class MainGUI(var server: Server) {
     server.initializeGame(boardSize, noStartingStones, isHuman1, isHuman2)
     server.startGame()
 
-  def changeLayoutToChooseHole(): Unit =
-    val gui = new ChoosePlayers(this)
+  def changeLayoutToChooseHole(player: Player): Unit =
+    val gui = new ChooseHoleGUI(this, server.getKalahaBoard(), player)
     val panel = gui.getJPanel()
     jFrame.getContentPane().removeAll()
     jFrame.getContentPane().add(panel)
