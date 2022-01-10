@@ -12,7 +12,7 @@ import java.io.File
 
 object Main {
 
-	def numberOfPrimesParaller(range: Int): Int=
+	def numberOfPrimesParallel(range: Int): Int=
 		if range >= 2 then
 			var k = range/4
 			val f1 = Future{numberOfPrimesIn(2, k)}
@@ -28,7 +28,7 @@ object Main {
 			r1+r2+r3+r4
 		else 0
 
-	def numberOfPrimesParaller8Threads(range: Int): Int=
+	def numberOfPrimesParallel8Threads(range: Int): Int=
 		if range >= 2 then
 			var k = range/8
 			val f1 = Future{numberOfPrimesIn(2, k)}
@@ -77,11 +77,11 @@ object Main {
 		println("Primes time serial: " + ts/1.0e9)
 		s
 
-	def primesParallerTest(range: Int): Int=
+	def primesParallelTest(range: Int): Int=
 		var tp = System.nanoTime()
-		val p = numberOfPrimesParaller(range)
+		val p = numberOfPrimesParallel(range)
 		tp = System.nanoTime()-tp
-		println("Primes time paraller: " + tp/1.0e9)
+		println("Primes time parallel: " + tp/1.0e9)
 		p
 
 	def piIndexOfSerial(substring: String, file: String): Int =
@@ -97,7 +97,7 @@ object Main {
 					occurences += 1
 		occurences
 
-	def piIndexOfParaller(substring: String, file: String): Int =
+	def piIndexOfparallel(substring: String, file: String): Int =
 		val digits = Source.fromFile(file).getLines().foldLeft("")((digits, line)=> digits.concat(line))
 
 		def occurs(start: Int, end: Int): Int=
@@ -125,11 +125,11 @@ object Main {
 		println("Occurs time serial: " + ts/1.0e9)
 		s
 
-	def occursParallerTest(substring: String, file: String): Int=
+	def occursParallelTest(substring: String, file: String): Int=
 		var tp = System.nanoTime()
-		val p = piIndexOfParaller(substring, file)
+		val p = piIndexOfparallel(substring, file)
 		tp = System.nanoTime()-tp
-		println("Occurs time paraller: " + tp/1.0e9)
+		println("Occurs time parallel: " + tp/1.0e9)
 		p
 
 	def imageProcessing(name: String, output: String): Unit=
@@ -156,6 +156,7 @@ object Main {
 		def processCertainFiles(startIndex: Int, endIndex: Int): Unit =
 			for(n <- startIndex until endIndex)
 				imageProcessing(dirFiles(n).getName, outputPath)
+
 		val f1 = Future{processCertainFiles(0, length)}
 		val f2 = Future{processCertainFiles(length, 2*length)}
 		val f3 = Future{processCertainFiles(2*length, 3*length)}
@@ -170,12 +171,12 @@ object Main {
 	def main(args: Array[String]): Unit =
 
 		val range = 1000000
-		primesParallerTest(range)
+		primesParallelTest(range)
 		primesSerialTest(range)
 
 		occursSerialTest("1415", "pi-10million.txt")
-		occursParallerTest("1415", "pi-10million.txt")
+		occursParallelTest("1415", "pi-10million.txt")
 
-		imageSerialTest("images/input")
 		imageParallelTest("images/input")
+		imageSerialTest("images/input")
 }
