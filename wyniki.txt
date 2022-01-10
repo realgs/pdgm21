@@ -1,0 +1,263 @@
+PODSUMOWANIE TESTÓW:
+
+1. InternalPathInTree
+W miarę zwiększania głebokości pełnego drzewa, zrównoleglenie stawało się korzystniejsze. Można to zauważyć od drzewa o głębokości 15.
+W rywalizacji dwóch technik nazwanych future i parallel, zwyciężał z reguły parallel, aczkolwiek zdarzały się przypadki, w których to future był lepszy.
+Wykonałam równiez testy, jaki threshold ( do jakiej głebokości drzewa tworzyć nowe wątki) daje najlepsze wyniki.
+W tym przypadku wyniki nie były jednoznaczne, grupą lepszych wartości tego parametru były: 1, 2, 3.
+Mozna było zauważyć zależność że im wyższa wartość tego parametru, tym czas wykonywania zadania wzrastał. A powyżej 10, future i parallel nie dawały rady.
+
+2. Mergesort 
+Dosyc podobne wnioski jak w przypadku InternalPathInTree. Zrównoleglenie jest korzystniejsze dla dużego rozmiaru danych, a nie ma sensu dla małych, ponieważ koszty utworzenia wątków są zbyt duże.
+Od długości listy równej 1000, obie techniki zrównoleglania zyskiwały w stosunku do rozwiązania sekwencyjnego.
+W tym zestawieniu lepszy okazał się znowu parallel, ale róznice nie były duże.
+Testy wartości threshold były jeszcze bardziej niejednoznaczne niż w poprzednim przypadku. Jednak podobnie jak wyżej, wartość tego parametru powyżej 10 skutkowała zawieszeniem programu.
+
+
+3. AbsOfElementsInArray
+W tym przypadku zrównoleglenie zyskiwało od długości tablicy równej 1000. Również tym razem prawie we wszystkich przypadkach lepszy był parallel.
+
+Trzeba w tym miejscu zauważyć, że wyniki mocno zależały od sprzętu m.in. od ilości rdzeni, pamięci oraz liczby aktualnie działających procesów.
+
+
+Testy sciezki wewnetrznej w drzewie:
+
+Testy przy zmiennym threshold i stalej glebokosci drzewa:
+depth: 20, threshold: 1
+normal:   10168100
+future:   5065100
+parallel: 3350400
+
+depth: 20, threshold: 2
+normal:   7346600
+future:   4791100
+parallel: 4032700
+
+depth: 20, threshold: 3
+normal:   7361100
+future:   7267700
+parallel: 3565200
+
+depth: 20, threshold: 4
+normal:   7284700
+future:   7892700
+parallel: 4985300
+
+depth: 20, threshold: 5
+normal:   7392200
+future:   10937800
+parallel: 4291300
+
+depth: 20, threshold: 6
+normal:   7466900
+future:   10950500
+parallel: 5944900
+
+depth: 20, threshold: 7
+normal:   7233300
+future:   22190800
+parallel: 9778600
+
+depth: 20, threshold: 8
+normal:   10209900
+future:   47490300
+parallel: 6803700
+
+depth: 20, threshold: 9
+normal:   10443100
+future:   50881300
+parallel: 19515400
+
+Testy przy stalym threshold i zmiennej glebokosci drzewa:
+depth: 5, threshold: 1
+normal:   22900
+future:   194800
+parallel: 143400
+
+depth: 10, threshold: 1
+normal:   40900
+future:   185500
+parallel: 108300
+
+depth: 15, threshold: 1
+normal:   488300
+future:   396600
+parallel: 370900
+
+depth: 17, threshold: 1
+normal:   2220100
+future:   1140700
+parallel: 1181700
+
+depth: 20, threshold: 1
+normal:   13110800
+future:   7042500
+parallel: 7621200
+
+depth: 22, threshold: 1
+normal:   32963900
+future:   14888800
+parallel: 13511700
+
+depth: 25, threshold: 1
+normal:   185635000
+future:   168691700
+parallel: 156176800
+
+
+
+
+Testy sortowania przez scalanie:
+
+Testy przy zmiennym threshold i stalej dlugosci listy:
+length: 100000, threshold: 1
+normal:   236387700
+future:   77668800
+parallel: 60567200
+
+length: 100000, threshold: 2
+normal:   74019100
+future:   86326600
+parallel: 76625700
+
+length: 100000, threshold: 3
+normal:   83624600
+future:   73163700
+parallel: 35491000
+
+length: 100000, threshold: 4
+normal:   79411500
+future:   54544200
+parallel: 101944500
+
+length: 100000, threshold: 5
+normal:   153159200
+future:   81822800
+parallel: 51583400
+
+length: 100000, threshold: 6
+normal:   76199500
+future:   88751200
+parallel: 43592600
+
+length: 100000, threshold: 7
+normal:   62960200
+future:   72561000
+parallel: 47948200
+
+length: 100000, threshold: 8
+normal:   77314600
+future:   116165300
+parallel: 100605900
+
+length: 100000, threshold: 9
+normal:   94235800
+future:   77280100
+parallel: 50489300
+
+Testy przy stalym threshold i zmiennej dlugosci listy:
+length: 10, threshold: 1
+normal:   10200
+future:   93500
+parallel: 79300
+
+length: 50, threshold: 1
+normal:   17600
+future:   85500
+parallel: 74300
+
+length: 100, threshold: 1
+normal:   30600
+future:   107800
+parallel: 115300
+
+length: 500, threshold: 1
+normal:   159400
+future:   202700
+parallel: 191800
+
+length: 1000, threshold: 1
+normal:   515900
+future:   400900
+parallel: 408300
+
+length: 5000, threshold: 1
+normal:   3084200
+future:   1829500
+parallel: 1728900
+
+length: 10000, threshold: 1
+normal:   5752500
+future:   4491700
+parallel: 3742500
+
+length: 50000, threshold: 1
+normal:   29826200
+future:   19945000
+parallel: 17051600
+
+length: 100000, threshold: 1
+normal:   72752200
+future:   70176900
+parallel: 49710200
+
+length: 500000, threshold: 1
+normal:   471640900
+future:   526832400
+parallel: 355673500
+
+length: 1000000, threshold: 1
+normal:   1443339100
+future:   740443300
+parallel: 690943200
+
+length: 5000000, threshold: 1
+normal:   8062695600
+future:   5058812100
+parallel: 5102133300
+
+
+
+Testy wartosci bezwzglednej elementow w tablicy:
+
+Testy przy zmiennej dlugosci tablicy:
+length: 10
+normal:   16400
+future:   127500
+parallel: 104000
+
+length: 100
+normal:   61700
+future:   184400
+parallel: 102400
+
+length: 500
+normal:   56000
+future:   243900
+parallel: 143800
+
+length: 1000
+normal:   103100
+future:   343800
+parallel: 289300
+
+length: 10000
+normal:   1756800
+future:   1143000
+parallel: 749100
+
+length: 100000
+normal:   5447200
+future:   4041700
+parallel: 3193600
+
+length: 1000000
+normal:   11138700
+future:   6633800
+parallel: 6092400
+
+length: 10000000
+normal:   107488500
+future:   66880100
+parallel: 60536200
+
