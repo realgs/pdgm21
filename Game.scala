@@ -30,7 +30,7 @@ class Game():
      print("   ")
      for (i<- 0 to 5)
        print(gameBoard(i)+" ")
-     println()
+     println('\n')
    }
 
    def validateMove(chosenField:Int,playerId:Int):Boolean={
@@ -72,7 +72,7 @@ class Game():
        if playerId==2 &&hole ==Player2BaseIndex then true
        else false
    }
-
+// TODO what if draw
    def checkWin():Int={
      var notChecked1 = true
      var notChecked2 = true
@@ -133,7 +133,7 @@ class Game():
       }
       if(checkWin()== -1) then return new GameState(nextPlayer,0,gameBoard)
       else return new GameState(nextPlayer,checkWin(),gameBoard)
-    else return new GameState(nextPlayer,-1,gameBoard)
+    else return new GameState(playerId,-1,gameBoard)
    }
 
 

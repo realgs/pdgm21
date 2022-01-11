@@ -6,10 +6,11 @@ class PlayerAI(var server: Server,playerId:Int):
 
 
   def makeMove(): Int ={
-
+    Thread.sleep(180)
     //basic implementation hope to make something better tho
     if(playerId==1)then Random.nextInt(6)
     else 7+ Random.nextInt((12-7)+1)
+
 
   }
 
