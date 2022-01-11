@@ -7,8 +7,11 @@ object Main {
 
 
   def runAuto(): Unit ={
+
     val server = new Server
-    server.gameLoop()
+    val player1 = new PlayerAI(server,1)
+    val player2 = new PlayerAI(server,2)
+    server.aiVsAi(player1,player2)
   }
 
 
