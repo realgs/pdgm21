@@ -8,9 +8,11 @@ object Main {
 
   def runAuto(): Unit ={
     val server = new Server
-    val player2 = new PlayerAI(server,2)
     val player1 = new PlayerHuman(server,1)
-    server.aiVsHuman(player1,player2)
+    //val player1= new PlayerAI(server,1)
+    val player2 = new PlayerAI(server,2)
+    //server.aiVsAi(player1,player2)
+    server.play(player1,player2)
   }
 
 

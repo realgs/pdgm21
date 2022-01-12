@@ -39,6 +39,7 @@ class Game():
           return false
        else
          return true
+         
      else
        if(chosenField<7 || chosenField>12 || gameBoard(chosenField)==0) then
         return false
@@ -50,6 +51,7 @@ class Game():
      if(playerId==1)then
        if hole>0&&hole<6 then true
        else false
+       
      else
        if hole>6&&hole<13 then true
        else false
@@ -72,52 +74,76 @@ class Game():
        if playerId==2 &&hole ==Player2BaseIndex then true
        else false
    }
-// TODO what if draw
+
+
+   // returns 0 if no one won, 1 if player1 , 2 if player 2,3 if draw
    def checkWin():Int={
-     var notChecked1 = true
-     var notChecked2 = true
+     var player1Ended = true
+     var player2Ended = true
+
+     //check if any player doesnt have any stones left
      for(i<- 0 to 5)
        if(gameBoard(i)!=0) then
-         notChecked1 =  false
+         player1Ended =  false
 
      for(j<-7 to 12)
        if(gameBoard(j)!=0) then
-         notChecked2 = false
+         player2Ended = false
 
-     if(!notChecked1 && !notChecked2) then
+     if(!player1Ended && !player2Ended) then
        return 0
-     
-     if gameBoard(Player1BaseIndex)>gameBoard(Player2BaseIndex) then
-       1
+
+     if(player1Ended) then
+       for(i<- 7 to 12)
+         gameBoard(Player2BaseIndex) += gameBoard(i)
+         gameBoard(i)=0
+
      else
-       2
+       for(i<- 0 to 5)
+         gameBoard(Player1BaseIndex) += gameBoard(i)
+         gameBoard(i)=0
+
+
+     if gameBoard(Player1BaseIndex)>gameBoard(Player2BaseIndex) then
+       return 1
+     else if(gameBoard(Player1BaseIndex)<gameBoard(Player2BaseIndex))then
+       return 2
+     else
+       return 3
    }
 
 
-  // TODO think about changing boolean to int and specyfing exit codes or throwing exceptions
-  //  (exception for winning seems odd)
+
    def move(chosenFieldIndex:Int,playerId:Int):GameState={
+
+     // oscilates between player1 and player2
      var nextPlayer=0
      if(playerId%2==0)then
         nextPlayer= 1
      else
         nextPlayer= 2
 
+
      if(validateMove(chosenFieldIndex,playerId)) then
-      var numberOfStones= gameBoard(chosenFieldIndex)
+       
+      var numberOfStonesLeft= gameBoard(chosenFieldIndex)
       gameBoard(chosenFieldIndex)=0
-      var currentIndex=  chosenFieldIndex+1
+      var currentIndex=  chosenFieldIndex
       var lastIndex= -1
 
-      while (numberOfStones>0) {
-        if(numberOfStones==1)
+      while (numberOfStonesLeft>0) {
+        
+        if(numberOfStonesLeft==1)
            lastIndex = currentIndex
-        if((playerId==1 && currentIndex==13) || (playerId==2&&currentIndex==6)) then
+           
+           // skipping enemy mancala if
+        if((playerId==1 && currentIndex==Player2BaseIndex) || (playerId==2&&currentIndex==Player1BaseIndex)) then
           currentIndex = (currentIndex+1)%NumberOfHoles
         else
+          //putting stone in hole 
           gameBoard(currentIndex)+=1
           currentIndex = (currentIndex+1)%NumberOfHoles
-          numberOfStones-=1
+          numberOfStonesLeft-=1
       }
      // println(lastIndex+" " +gameBoard(lastIndex))
 
