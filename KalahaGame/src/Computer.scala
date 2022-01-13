@@ -1,10 +1,16 @@
 
 import scala.util.Random
 
-class Computer(val playerNum: Int, var board: Board) extends Player {
-  
+class Computer(playerNum: Int, val b: Board) extends Player(playerNum){
+
+  def board = b
+
+//  def board_=(newBoard: Board): Unit =
+//    b = newBoard
+
   def chooseMove(): Int = {
-    simulateMoves(board)
+    Thread.sleep(2000)
+    simulateMoves(b)
   }
 
   def simulateMoves(board: Board): Int = {
@@ -36,7 +42,6 @@ class Computer(val playerNum: Int, var board: Board) extends Player {
         }
       }
     }
-    println(movesToChoose.size)
     val myChoice = new Random().between(0, movesToChoose.size)
     movesToChoose(myChoice) + 1
   }

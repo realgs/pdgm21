@@ -1,7 +1,7 @@
 import scala.io.StdIn.*
 import scala.util.Random
 
-class HumanPlayer(val playerNum: Int) extends Player {
+class HumanPlayer(override val playerNum: Int) extends Player(playerNum) {
 
   def chooseMove(): Int = {
     var correctArg = false
