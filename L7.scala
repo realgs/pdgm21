@@ -121,13 +121,13 @@ object L7 {
   // ARRAY CHANGE ELEM BY MATH
   def makeMath(result: Array[Int], size: Int)=
     def helper(start: Int, end: Int)=
-      for(i <- start to end-1 )
+      for(i <- start to end )
         result(i) = result(i) * 2
     helper(0, size-1)
 
   def makeMathParallelDiv2Cores(result: Array[Int], size: Int) =
     def helper(start: Int, end: Int)=
-      for(i <- start to end-1 )
+      for(i <- start to end )
         result(i) = result(i) * 2
     val f1 = Future(helper(0, (size-1)*1/2))
     val f2 = Future(helper((size-1) * 1/2, (size-1)))
@@ -135,7 +135,7 @@ object L7 {
 
   def makeMathParallelDiv4Cores(result: Array[Int], size: Int) =
     def helper(start: Int, end: Int)=
-      for(i <- start to end-1 )
+      for(i <- start to end )
         result(i) = result(i) * 2
     val f1 = Future(helper(0, (size-1)*1/4))
     val f2 = Future(helper((size-1) * 1/4, (size-1) * 1/2))
