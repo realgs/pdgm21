@@ -1,3 +1,24 @@
+//NOTES:
+
+//Różnice Parallel computation- obliczanie równoległe, a Concurrent programming - programowanie współbieżne
+//równoległe:
+//optymalnie wykorzystywany sprzet do obliczeń równoległych
+//podział na podproblemy
+//problem: szybkość
+//używamy do problemów algorytmicznych, czy obliczeń
+//
+//współbieżne:
+//może, ale nie musi oferować wiele egzekucji w tym samym czasie
+//problem: wygoda, lepsza responsywność i łatwość konserwacji
+//
+//Programowanie równoległe jest znacznie trudniejsze niż programowanie sekwencyjne. To nawet utrudnia życie programistom.
+//Jednak szybkość, z jaką można uzyskać wyniki, jest dużym plusem po stronie programowania równoległego.
+//Trzeba uważać na to kiedy stosować, zależy od wielkości danych
+//
+//Dwa różne procesy nie współdzielą pamięci
+//Każdy proces zawiera współbieżne jednostki zwane wątkami
+//Wątki współdzielą tę samą przestrzeń adresową pamięci
+
 import scala.concurrent.{Await, Future}
 import concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.duration.Duration.Inf
@@ -92,6 +113,11 @@ object L7 {
 
   def quicksortParallel(tab: Array[Int]):Unit = quickParallel(tab)(0)(tab.length - 1)
 
+  // ARRAY CONSTRUCTOR
+  def tab(size: Int) : Array[Int] =
+    if(size > 0) Array.fill(size)(Random.nextInt(100000))
+    else Array()
+
   def main(args: Array[String]): Unit = {
 
     //FIBONACCI TESTS
@@ -123,9 +149,9 @@ object L7 {
     println()
     //QUICKSORT TESTS
 
-    val tab1 = Array.fill(10000)(Random.nextInt(100000))
-    val tab2 = Array.fill(100000)(Random.nextInt(100000))
-    val tab3 = Array.fill(1000000)(Random.nextInt(100000))
+    val tab1 = tab(10000)
+    val tab2 = tab(100000)
+    val tab3 = tab(1000000)
     println("Quick sort with 10 000 elem without parallel: ")
     time(quicksort(tab1))
     println("Quick sort with 10 000 elem parallel: ")
@@ -146,6 +172,11 @@ object L7 {
 }
 
 //OUTPUT FIBBONACI
+
+//Dobre używanie programowania równoległego może ułatwić życie. Trzeba je stosować rozsądnie. W Fibbonacim możemy zauważyć
+//przy małej ilości elementów ciągu <25 nie opłaca się stosować zrównoleglenia, przy 25 elementach osiągają podobny poziom
+//jesli osiągnie wartość ciągu >25, to mamy diametralną zmiane przemawiającą za stosowaniem zrównolegleń
+
 
 //Fibonacci sequence 20 without parallel:
 //Time equals: 10 ms
@@ -169,6 +200,8 @@ object L7 {
 //Time equals: 1991 ms
 
 //OUTPUT QUICKSORT
+
+//Wniosek nasuwa się bardzo podobny, zależy od ilości danych powyżej 100 000 elementów już się bardziej opłaca zrównoleglać
 
 //Quick sort with 10 000 elem without parallel:
 //Time equals: 2 ms
