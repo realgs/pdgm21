@@ -119,15 +119,13 @@ object L7 {
     else Array()
 
   // ARRAY CHANGE ELEM BY MATH
-  def makeMath(size: Int)=
-    var result = tab(size)
+  def makeMath(result: Array[Int], size: Int)=
     def helper(start: Int, end: Int)=
       for(i <- start to end-1 )
         result(i) = result(i) * 2
     helper(0, size-1)
 
-  def makeMathParallelDiv2Cores(size: Int) =
-    var result = tab(size)
+  def makeMathParallelDiv2Cores(result: Array[Int], size: Int) =
     def helper(start: Int, end: Int)=
       for(i <- start to end-1 )
         result(i) = result(i) * 2
@@ -135,8 +133,7 @@ object L7 {
     val f2 = Future(helper((size-1) * 1/2, (size-1)))
     Await.result(f1, Inf); Await.result(f2, Inf)
 
-  def makeMathParallelDiv4Cores(size: Int) =
-    var result = tab(size)
+  def makeMathParallelDiv4Cores(result: Array[Int], size: Int) =
     def helper(start: Int, end: Int)=
       for(i <- start to end-1 )
         result(i) = result(i) * 2
@@ -146,15 +143,15 @@ object L7 {
     val f4 = Future(helper((size-1)*3/4, size-1))
     Await.result(f1, Inf); Await.result(f2, Inf); Await.result(f3, Inf); Await.result(f4, Inf)
 
-  def testMakeMath(size: Int): Unit =
+  def testMakeMath(tab: Array[Int], size: Int): Unit =
     println("MakeMath of " + size + " elements without parallel: " )
-    time(makeMath(size))
+    time(makeMath(tab, size))
 
     println("MakeMath of " + size + " elements with parallel div by 2 helpers: " )
-    time(makeMathParallelDiv2Cores(size))
+    time(makeMathParallelDiv2Cores(tab, size))
 
     println("MakeMath of " + size + " elements with parallel div by 4 helpers: " )
-    time(makeMathParallelDiv4Cores(size))
+    time(makeMathParallelDiv4Cores(tab, size))
 
   def main(args: Array[String]): Unit = {
 
@@ -207,7 +204,7 @@ object L7 {
 
     //MAKEMATH on ARRAYS
 
-    testMakeMath(100)
+    testMakeMath(tab1, 10000)
 
   }
 
