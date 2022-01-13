@@ -1,0 +1,80 @@
+Wyniki są postaci uśrednionych czasów z 100 prób przypadających na każdy z przypadków
+Podczas testowania próbowałem jak najbardziej zwolnić procesor od innym procesów działających w tle,
+natomiast nadal trzeba wziąć poprawke na możliwe podwyższenia wyników
+
+Number of cores: 4
+SumOf2DArray - suma elementów dwuwymiarowej tablicy
+Time of not parallel method(SumOf2DArray 500 x 500 elem): 0.002182359s
+Time of parallel method(SumOf2DArray 500 x 500 elem): 0.003152979s
+
+Time of not parallel method(SumOf2DArray 1 000 x 1 000 elem): 0.0026492910000000002s
+Time of parallel method(SumOf2DArray 1 000 x 1 000 elem): 0.003605511s
+
+Time of not parallel method(SumOf2DArray 5 000 x 5 000elem): 0.013958407s
+Time of parallel method(SumOf2DArray 5 000 x 5 000 elem): 0.009629139s
+
+Time of not parallel method(SumOf2DArray 10 000 x 10 000 elem): 0.0567736s
+Time of parallel method(SumOf2DArray 10 000 x 10 000 elem): 0.031746314000000005s
+
+Time of not parallel method(SumOf2DArray 20 000 x 20 000 elem): 0.099027577s
+Time of parallel method(SumOf2DArray 20 000 x 20 000 elem): 0.053427483000000005s
+-------------------------------------------------------------------------------
+W tym problemie zrównoleglenie uzyskałem poprzez podzielenie macierzy na równe segmenty.
+Ilość segmentów uzależniłem od ilości dostępnych rdzeni w procesorze (w moim przypadku to 4).
+
+Dzielenie problemu na wątki i przydzielanie go rdzeniom jest kosztowne co można zauważyć w
+testach na małych macierzach, gdzie zrównoleglenie uzyskiwało gorszy czas.
+
+Dopiero od macierzy 5 000 x 5 000 zrównoleglenie zaczynało uzyskiwać prowadzenie, przyspieszenie
+dla większych rozmiarów było mniej więcej stałe i wynosiło około 2 razy więcej niż dla wyniku tradycyjną metodą
+
+20 000 x 20 000 był ostatnim możliwym testem na moim komputerze, kolejne próby zwiększania macierzy kończyły się
+przeciążeniem pamięci.
+
+-------------------------------------------------------------------------------
+QuickSort
+Time of not parallel method(QuickSort 100 elem): 6.9282E-5s
+Time of parallel method(QuickSort 100 elem): 0.0016276740000000002s
+Time of parallel method only first partition(QuickSort 100 elem): 1.22482E-4s
+
+Time of not parallel method(QuickSort 1 000 elem): 1.2122200000000001E-4s
+Time of parallel method(QuickSort 1 000 elem): 0.008210614s
+Time of parallel method only first partition(QuickSort 1 000 elem): 3.3328000000000003E-4s
+
+Time of not parallel method(QuickSort 5 000 elem): 3.66662E-4s
+Time of parallel method(QuickSort 5 000 elem): 0.003660397s
+Time of parallel method only first partition(QuickSort 5 000 elem): 7.55116E-4s
+
+Time of not parallel method(QuickSort 10 000 elem): 7.17209E-4s
+Time of parallel method(QuickSort 10 000 elem): 0.0046435240000000004s
+Time of parallel method only first partition(QuickSort 10 000 elem): 0.0014800190000000002s
+
+Time of not parallel method(QuickSort 100 000 elem): 0.007604958s
+Time of parallel method(QuickSort 100 000 elem): 0.010333273s
+Time of parallel method only first partition(QuickSort 100 000 elem): 0.007540011s
+
+Time of not parallel method(QuickSort 1 000 000 elem): 0.10192717500000001s
+Time of parallel method(QuickSort 1 000 000 elem): 0.05904605s
+Time of parallel method only first partition(QuickSort 1 000 000 elem): 0.08874448700000001s
+
+Time of not parallel method(QuickSort 10 000 000 elem): 2.9104118650000004s
+Time of parallel method(QuickSort 10 000 000 elem): 1.8226762890000001s
+Time of parallel method only first partition(QuickSort 10 000 000 elem): 2.310722075s
+-------------------------------------------------------------------------------
+Zrównoleglenie uzyskałem poprzez przydzielenie wywołań rekurencyjnych funkcji quicksort równoległym rdzeniom.
+W przypadku parallel method only first partition zrównoleglenie wykonywałem tylko dla drugiego podzielenia tablicy.
+Natomiast dla parallel method wykonywałem zrównoleglenie, aż gdy podtablic do sortowania nie było 1024
+(testowałem na róźnych wartościach, ale ta wydawała się być najefektowniejsza), wtedy w przypadku moim czyli 4 rdzenie
+4 podtablice są sortowane, następnie kolejne 4 itd. (tak 256 razy). W następnych wywołaniach rekurencyjnych przechodziłem do tradycyjnego quicksorta
+
+Wyniki znów dla mniejszych rozmiarów tablic wychodzą gorzej dla zrównoleglonych testów, dopiero dla testów 1 000 000+ widać przyspieszenie
+które wynosi okolo 1.6 raza.
+
+W przypadku parallel method only first partition te przyspieszenie jest o wiele mniejsze, natomiast można zauważyć je szybciej bo już w teście 100 000.
+Widać, że większa ilość tworzonych wątków wpływa znacząco na czas wykonania programu.
+
+Jak i w SumOf2DArray jak i w quicksort widać, że zrównoleglenie nie opłaca się dla prostych problemów, dopiero, gdy operujemy na dużych ilościach danych
+proces zrównoleglenia może przypieszyć znacząco nasz program.
+
+Szymon Sawczuk
+
