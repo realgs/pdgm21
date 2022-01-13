@@ -23,8 +23,15 @@ object Main {
     a.printGameStatus()
     println(gamestate.gameBoard.toList)
   }
+  def treeTes(): Unit ={
+    //val tree = DecisionTree(0,)
+  }
   def main(args :Array[String]): Unit = {
-    runAuto()
+    val server = new Server
+    val player = new PlayerAI(server,2)
+    val node =  player.makeTree(3)
+    println(node)
+    //runAuto()
       //debugScenario()
 //    val a = new Game()
 //    a.start()

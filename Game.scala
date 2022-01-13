@@ -5,7 +5,11 @@ import pdgm21.NumberOfHoles
 import scala.language.postfixOps
 import pdgm21.GameState
 class Game():
-   private val gameBoard :Array[Int] = Array.fill(14)(0)
+   private var gameBoard :Array[Int] = Array.fill(14)(0)
+
+   def setBoard(newBoard:Array[Int]): Unit ={
+     gameBoard = newBoard
+   }
 
 
    def start(): Unit ={

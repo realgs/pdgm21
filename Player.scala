@@ -1,6 +1,6 @@
 package pdgm21
 
 abstract class Player {
-    def makeMove():Int
+    def makeMove(gameState: GameState):Int
     def getId():Int
 }

@@ -3,7 +3,7 @@ package pdgm21
 import scala.util.Random
 
 class PlayerHuman(var server: Server,playerId:Int) extends Player:
-  def makeMove(): Int ={
+  def makeMove(gameState: GameState): Int ={
     println("poodaj pole")
     val move = scala.io.StdIn.readInt()
     return move
