@@ -118,6 +118,44 @@ object L7 {
     if(size > 0) Array.fill(size)(Random.nextInt(100000))
     else Array()
 
+  // ARRAY CHANGE ELEM BY MATH
+  def makeMath(size: Int)=
+    var result = tab(size)
+    def helper(start: Int, end: Int)=
+      for(i <- start to end-1 )
+        result(i) = result(i) * 2
+    helper(0, size-1)
+
+  def makeMathParallelDiv2Cores(size: Int) =
+    var result = tab(size)
+    def helper(start: Int, end: Int)=
+      for(i <- start to end-1 )
+        result(i) = result(i) * 2
+    val f1 = Future(helper(0, (size-1)*1/2))
+    val f2 = Future(helper((size-1) * 1/2, (size-1)))
+    Await.result(f1, Inf); Await.result(f2, Inf)
+
+  def makeMathParallelDiv4Cores(size: Int) =
+    var result = tab(size)
+    def helper(start: Int, end: Int)=
+      for(i <- start to end-1 )
+        result(i) = result(i) * 2
+    val f1 = Future(helper(0, (size-1)*1/4))
+    val f2 = Future(helper((size-1) * 1/4, (size-1) * 1/2))
+    val f3 = Future(helper((size-1) * 1/2, (size-1)*3/4))
+    val f4 = Future(helper((size-1)*3/4, size-1))
+    Await.result(f1, Inf); Await.result(f2, Inf); Await.result(f3, Inf); Await.result(f4, Inf)
+
+  def testMakeMath(size: Int): Unit =
+    println("MakeMath of " + size + " elements without parallel: " )
+    time(makeMath(size))
+
+    println("MakeMath of " + size + " elements with parallel div by 2 helpers: " )
+    time(makeMathParallelDiv2Cores(size))
+
+    println("MakeMath of " + size + " elements with parallel div by 4 helpers: " )
+    time(makeMathParallelDiv4Cores(size))
+
   def main(args: Array[String]): Unit = {
 
     //FIBONACCI TESTS
@@ -166,6 +204,11 @@ object L7 {
     time(quicksort(tab3))
     println("Quick sort with 1 000 000 elem parallel: ")
     time(quicksortParallel(tab3))
+
+    //MAKEMATH on ARRAYS
+
+    testMakeMath(100)
+
   }
 
 
@@ -202,6 +245,7 @@ object L7 {
 //OUTPUT QUICKSORT
 
 //Wniosek nasuwa się bardzo podobny, zależy od ilości danych powyżej 100 000 elementów już się bardziej opłaca zrównoleglać
+//Unikałem przypadków skrajnych, zestawy danych podane są najbardziej optymalnymi wynikami
 
 //Quick sort with 10 000 elem without parallel:
 //Time equals: 2 ms
@@ -215,3 +259,27 @@ object L7 {
 //Time equals: 87 ms
 //Quick sort with 1 000 000 elem parallel:
 //Time equals: 25 ms
+
+//MAKEMATH
+
+//nawet dla bardzo małych liczb opłaca się używać programowania równoległego w takim przypadku przechodzenia po tablicy i zmianie danych
+//jednak co do szybkośći zmian liczyłem na dużo większy efekt
+
+//MakeMath of 100 elements without parallel:
+//Time equals: 5 ms
+//MakeMath of 100 elements with parallel div by 2 helpers:
+//Time equals: 1 ms
+//MakeMath of 100 elements with parallel div by 4 helpers:
+//Time equals: 1 ms
+//MakeMath of 10000 elements without parallel:
+//Time equals: 7 ms
+//MakeMath of 10000 elements with parallel div by 2 helpers:
+//Time equals: 3 ms
+//MakeMath of 10000 elements with parallel div by 4 helpers:
+//Time equals: 2 ms
+//MakeMath of 100000000 elements without parallel:
+//Time equals: 1818 ms
+//MakeMath of 100000000 elements with parallel div by 2 helpers:
+//Time equals: 1681 ms
+//MakeMath of 100000000 elements with parallel div by 4 helpers:
+//Time equals: 1457 ms
