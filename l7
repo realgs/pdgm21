@@ -1,0 +1,16 @@
+Deadline 10/13 stycznia 2022 w zależności od grupy zajęciowej.
+Lista prezent na święta. Śmiało eksperymentujcie z nią, jeśli coś nie pójdzie do końca dobrze- nie przejmujcie się, ważny jest sam proces nauki oraz próbowanie różnych podejść.
+
+Parallel computing in scala.
+
+powiązane z tematyką zasoby:
+https://jobs.zalando.com/tech/blog/parallel-computing-with-scala/?gh_src=4n3gxh1
+https://www.kth.se/blogs/pdc/2018/11/scalability-strong-and-weak-scaling/
+https://www.lihaoyi.com/post/EasyParallelProgrammingwithScalaFutures.html
+
+1) Przeczytajcie artykuł ze zrozumieniem, mogę pytać (3pkt)
+2) Znajdźcie 2-4 problemy, inne niż te z artykułów, których rozwiązanie waszym zdaniem warto zrównoleglić
+	a) wykonajcie zrównoleglenie wybranych przez siebie zadań (3pkt)
+	b) wykonajcie to samo bez zrównoleglania (2pkt)
+	c) zmierzcie czas jaki zyskaliście / straciliście dla różnych przypadków testowych, przeanalizujcie wyniki(2pkt)
+
