@@ -1,8 +1,6 @@
 import scala.util.Random
 
-class Server(val player1: Player, val player2: Player):
-
-  val game = new Kalaha()
+class Server(private val player1: Player,private val player2: Player,private val game: Kalaha):
 
   def play(): Unit =
 
@@ -11,14 +9,17 @@ class Server(val player1: Player, val player2: Player):
     val rng = Random.nextInt()
     if rng % 2 == 1 then movingPlayer = player2
 
-    while(!game.isOver){
+    while(!game.isOver()){
       println("Player "+ movingPlayer.getId + " moving")
       game.printFields(movingPlayer.getId)
-      next = game.move(movingPlayer.getId, movingPlayer.makeMove())
+      val choice = movingPlayer.makeMove()
+      next = game.move(movingPlayer.getId, choice)
+      println("Field " + (choice + 1) + " chosen")
       if next == 1 then movingPlayer = player1
       else movingPlayer = player2
 
     }
+
     val winner = game.whoWon()
     println("GAME IS OVER!")
     if winner == 0 then println("It is a draw!!!\nCONGRATULATION")
