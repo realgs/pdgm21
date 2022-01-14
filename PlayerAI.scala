@@ -47,10 +47,6 @@ class PlayerAI(var server: Server,playerId:Int) extends Player:
       game.setBoard(gameState.gameBoard.clone())
       children(i)=node
     children
-
-
-
-
   }
 
 
@@ -106,5 +102,3 @@ class PlayerAI(var server: Server,playerId:Int) extends Player:
   override def getId():Int={
       return playerId
   }
-
-

@@ -102,8 +102,6 @@ class Game():
   * 3 - player3 won
   * */
 
-
-
      var player1Ended = true
      var player2Ended = true
 
@@ -137,7 +135,6 @@ class Game():
      else
         3
    }
-
 
 
    def move(chosenFieldIndex:Int,playerId:Int):GameState={
@@ -182,7 +179,3 @@ class Game():
       else return new GameState(nextPlayer,checkWin(),gameBoard)
     else return new GameState(playerId,-1,gameBoard)
    }
-
-
-
-

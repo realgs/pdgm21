@@ -12,3 +12,4 @@ class PlayerRandom(var server:Server,playerId:Int) extends Player:
   override def getId(): Int = {
     playerId
   }
+  

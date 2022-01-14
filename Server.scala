@@ -19,9 +19,7 @@ class Server:
     * -3 - player1 has id != 1
     *
     * */
-
-
-
+    
     var game =  new Game
     game.start()
     var gameState= new GameState(1,-2,game.gameBoard.clone())
@@ -76,7 +74,5 @@ class Server:
     else println(s"Wygral gracz${gameState.moveEndCode}")
 
     return 0
-
   }
-
-
+  
