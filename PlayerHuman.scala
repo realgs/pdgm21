@@ -2,15 +2,16 @@ package pdgm21
 
 import scala.util.Random
 
+
 class PlayerHuman(var server: Server,playerId:Int) extends Player:
-  def makeMove(gameState: GameState): Int ={
-    println("poodaj pole")
+
+  override def makeMove(gameState: GameState): Int ={
+    println("podaj pole")
     val move = scala.io.StdIn.readInt()
     return move
-
   }
 
-  def getId():Int={
+  override def getId():Int={
     return playerId
   }
 
