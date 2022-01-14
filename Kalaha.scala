@@ -26,34 +26,39 @@ class Kalaha(private val field1: Array[Int], private val field2: Array[Int]) {
       points -= 1
     }
 
-    if (id==1) == level && index <= 5 then
+    if (id == 1) == level && index <= 5 then
       val otherField = nextField(!level)
       if tmpField(index) == 1 then
         tmpField(6) += otherField(5 - index)
         otherField(5-index) = 0
 
-    if (id==1) == level && index == 6 then
-      if level then 1 else 2
+    if index == 6 then
+      if (id == 1) == level then
+        if level then 1 else 2
+      else
+        if level then 1 else 2
     else
-      if level then 2 else 1
+      if id == 1 then 2 else 1
   }
 
   def getScore(id: Int): Int =
-    if id == 1 then field1(5) - field2(5)
-    else field2(5) - field1(5)
+    if id == 1 then field1(6) - field2(6)
+    else field2(6) - field1(6)
 
-  def isOver:Boolean = {
+  def isOver():Boolean = {
 
     var isOver1 = true
     var isOver2 = true
-    field1.foreach(x => if x!=0 then {
-      isOver1 = false
-      break
-    })
-    field2.foreach(x => if x!=0 then {
-      isOver2 = false
-      break
-    })
+    var i = 0
+    while(i < 6){
+      if field1(i) != 0 then isOver1 = false
+      i += 1
+    }
+    i = 0
+    while(i < 6){
+      if field2(i) != 0 then isOver2 = false
+      i += 1
+    }
     isOver1 || isOver2
   }
 
@@ -89,7 +94,7 @@ class Kalaha(private val field1: Array[Int], private val field2: Array[Int]) {
 
   def copy(): Kalaha = new Kalaha(field1.clone(), field2.clone())
 
-  val nextField1: Int => Array[Int] = id => if id == 1 then field1 else field2
+  //val nextField1: Int => Array[Int] = id => if id == 1 then field1 else field2
 
   val nextField: Boolean => Array[Int] = value =>if value then field1 else field2
 
