@@ -1,12 +1,17 @@
-class Kalaha() {
+import scala.util.control.Breaks.break
 
-  private val field1:Array[Int] = Array(6,6,6,6,6,6,0)
-  private val field2:Array[Int] = Array(6,6,6,6,6,6,0)
+class Kalaha(private val field1: Array[Int], private val field2: Array[Int]) {
+
+  def this() = {
+
+    this(Array(6,6,6,6,6,6,0),Array(6,6,6,6,6,6,0))
+
+  }
 
   def move(id: Int, field: Int): Int ={
 
     var level = id == 1
-    var tmpField = newField(level)
+    var tmpField = nextField(level)
     var points = tmpField(field)
     tmpField(field) = 0
     var index = field
@@ -15,14 +20,14 @@ class Kalaha() {
       if index == 7 then {
         index = 0
         level = !level
-        tmpField = newField(level)
+        tmpField = nextField(level)
       }
       tmpField(index) += 1
       points -= 1
     }
 
     if (id==1) == level && index <= 5 then
-      val otherField = newField(!level)
+      val otherField = nextField(!level)
       if tmpField(index) == 1 then
         tmpField(6) += otherField(5 - index)
         otherField(5-index) = 0
@@ -33,27 +38,59 @@ class Kalaha() {
       if level then 2 else 1
   }
 
+  def getScore(id: Int): Int =
+    if id == 1 then field1(5) - field2(5)
+    else field2(5) - field1(5)
+
   def isOver:Boolean = {
 
-    var isOver1 = false
-    var isOver2 = false
-    field1.foreach(x => isOver1 = x==0)
-    field2.foreach(x => isOver2 = x==0)
+    var isOver1 = true
+    var isOver2 = true
+    field1.foreach(x => if x!=0 then {
+      isOver1 = false
+      break
+    })
+    field2.foreach(x => if x!=0 then {
+      isOver2 = false
+      break
+    })
     isOver1 || isOver2
   }
 
   def whoWon():Int = {
 
     var res = 0
-    val res1 = field1.foldLeft(0)((x, sum)=> sum + x)
-    val res2 = field2.foldLeft(0)((x, sum)=> sum + x)
+    val res1 = field1.foldLeft(0)((x, sum) => sum + x)
+    val res2 = field2.foldLeft(0)((x, sum) => sum + x)
     if res1 > res2 then res = 1
     else if res1 < res2 then res = 2
     res
   }
 
-  val newField1: Int => Array[Int] = id => if id == 1 then field1 else field2
+  def printFields(id: Int): Unit = {
 
-  val newField: Boolean => Array[Int] = value =>if value then field1 else field2
+  var playerField = field1
+  var enemyField = field2.reverse
+
+  if id == 2 then
+    playerField = field2
+    enemyField = field1.reverse
+
+  println("|---------------Enemy Field---------------|")
+  println("|Base |--6--|--5--|--4--|--3--|--2--|--1--|")
+  enemyField.foreach(x => printf("|%5d",x))
+  println("|")
+  println("|-----------------------------------------|")
+  playerField.foreach(x => printf("|%5d",x))
+  println("|")
+  println("|--1--|--2--|--3--|--4--|--5--|--6--| Base|")
+  println("|--------------Player Field---------------|")
+  }
+
+  def copy(): Kalaha = new Kalaha(field1.clone(), field2.clone())
+
+  val nextField1: Int => Array[Int] = id => if id == 1 then field1 else field2
+
+  val nextField: Boolean => Array[Int] = value =>if value then field1 else field2
 
 }
