@@ -10,5 +10,4 @@ class AIPlayer(id: Int, game: Kalaha) extends Player(id) {
     
   }
 
-  def addEnemyMove(move: Int): Unit = logicEngine.addEnemyMove(move)
 }
