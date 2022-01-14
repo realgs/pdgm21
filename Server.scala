@@ -14,44 +14,45 @@ class Server {
 
     var game =  new Game
     game.start()
-    var gameState= new GameState(1,-2,null)
+    var gameState= new GameState(1,-2,game.gameBoard.clone())
 
     if (player1.getId() != 1 || player2.getId() != 2) then return -2
 
     // main game loop
     while (!(gameState.moveEndCode== 1|| gameState.moveEndCode==2)){
       if(gameState.nextPlayer==1) then
-        println("gracz1")
 
         // server waits for player to move for 3 seconds
         try{
           val makeMove1 =Future{
-            val move = player1.makeMove(gameState);
-            gameState = game.move(move,player1.getId());
+            var move1 = player1.makeMove(gameState);
+            gameState = game.move(move1,player1.getId());
             while (gameState.moveEndCode== -1){
-              val move = player1.makeMove(gameState);
-              gameState = game.move(move,player1.getId());
+              move1 = player1.makeMove(gameState);
+              gameState = game.move(move1,player1.getId());
             }
+            println(s"Gracz1 wykonał ruch: $move1")
           }
-          Await.result(makeMove1,3.seconds)
+          Await.result(makeMove1,30000.seconds)
         }catch {
           case e: TimeoutException=> println("Przekroczono limit czasu dla gracza1")
             return -2
         }
 
       else
-        println("gracz2")
 
         try{
           val makeMove2 =Future{
-            val move = player2.makeMove(gameState);
-            gameState = game.move(move,player2.getId());
+            var move2 = player2.makeMove(gameState);
+            gameState = game.move(move2,player2.getId());
             while (gameState.moveEndCode== -1){
-              val move = player2.makeMove(gameState);
-              gameState = game.move(move,player2.getId());
+              move2 = player2.makeMove(gameState);
+              gameState = game.move(move2,player2.getId());
             }
+            println(s"Gracz2 wykonał ruch: $move2")
           }
-          Await.result(makeMove2,2.seconds)
+          Await.result(makeMove2,20.seconds)
+
         }catch {
           case e: TimeoutException=> println("Przekroczono limit czasu dla gracza2")
             return -2

@@ -2,13 +2,15 @@ package pdgm21
 import pdgm21.Game
 import pdgm21.GameState
 import pdgm21.Server
+
+import scala.collection.mutable.ArrayBuffer
 object Main {
 
 
 
   def runAuto(): Unit ={
     val server = new Server
-    val player1 = new PlayerHuman(server,1)
+    val player1 = new PlayerRandom(server,1)
     //val player1= new PlayerAI(server,1)
     val player2 = new PlayerAI(server,2)
     //server.aiVsAi(player1,player2)
@@ -27,11 +29,12 @@ object Main {
     //val tree = DecisionTree(0,)
   }
   def main(args :Array[String]): Unit = {
-    val server = new Server
-    val player = new PlayerAI(server,2)
-    val node =  player.makeTree(3)
-    println(node)
-    //runAuto()
+
+    //test tree nodes
+
+    //end
+
+      runAuto()
       //debugScenario()
 //    val a = new Game()
 //    a.start()

@@ -5,10 +5,14 @@ import pdgm21.NumberOfHoles
 import scala.language.postfixOps
 import pdgm21.GameState
 class Game():
-   private var gameBoard :Array[Int] = Array.fill(14)(0)
+  var gameBoard :Array[Int] = Array.fill(14)(0)
+
 
    def setBoard(newBoard:Array[Int]): Unit ={
+   //  println(newBoard.toList)
+     //println(gameBoard.toList)
      gameBoard = newBoard
+     //(gameBoard.toList)
    }
 
 
@@ -132,11 +136,11 @@ class Game():
        
       var numberOfStonesLeft= gameBoard(chosenFieldIndex)
       gameBoard(chosenFieldIndex)=0
-      var currentIndex=  chosenFieldIndex
+      var currentIndex=  chosenFieldIndex+1
       var lastIndex= -1
 
       while (numberOfStonesLeft>0) {
-        
+
         if(numberOfStonesLeft==1)
            lastIndex = currentIndex
            
