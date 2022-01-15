@@ -19,7 +19,7 @@ class Server(private val player1: Player,private val player2: Player,private val
       else movingPlayer = player2
 
     }
-
+    game.printFields(movingPlayer.getId)
     val winner = game.whoWon()
     println("GAME IS OVER!")
     if winner == 0 then println("It is a draw!!!\nCONGRATULATION")
