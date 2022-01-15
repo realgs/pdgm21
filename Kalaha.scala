@@ -94,6 +94,10 @@ class Kalaha(private val field1: Array[Int], private val field2: Array[Int]) {
 
   def copy(): Kalaha = new Kalaha(field1.clone(), field2.clone())
 
+  def getField(id: Int): Array[Int] =
+    if id == 1 then field1
+    else field2
+  
   //val nextField1: Int => Array[Int] = id => if id == 1 then field1 else field2
 
   val nextField: Boolean => Array[Int] = value =>if value then field1 else field2
