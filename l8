@@ -1,12 +1,23 @@
 Deadline 17 / 20 stycznia 2022
 Liczba punktów: 20
 
-W tym zadaniu wykorzystacie zarówno umiejętności nabyte podczas nauki samych struktur danych jak i programowania równoległego. Zadanie polega na tym, by zaprojektować symulację rozgrywki gry logicznej Kalaha (2 graczy - 1 na 1). Opis gry:
+W tym zadaniu wykorzystacie zarówno umiejętności nabyte podczas nauki samych struktur danych jak i programowania równoległego.
+Zadanie polega na tym, by zaprojektować symulację rozgrywki gry logicznej Kalaha (2 graczy - 1 na 1).
+Opis gry:
 https://pl.wikipedia.org/wiki/Kalaha
 
 a) przeprowadzić symulację gry po obu stronach automatycznie (4pkt)
 b) wprowadzić możliwość gry z przeciwnikiem - komputer vs użytkownik (6pkt)
-c) napisać interfejs umożliwiający komunikację dwóch silników gry w Kalaha. Załóżcie pewne standardy i zasady np. mamy 3 aplikacje nazwane: serwer + 2 klientów. Wszystkie mogą działać lokalnie na Waszym komputerze. "Serwer" przyjmuje od klientów polecenia (kolejne numery pól, z których klient chce ruszyć pionki). Klient na podjęcie takiej decyzji ma maksymalnie 30 sekund. Czasu pilnuje "serwer". Serwer pilnuje kolejności ruchów (na przemian). Załóżcie czy klient może wskazać nieprawidłowe pole (np puste) i co wtedy się stanie. Serwer może ignorować niepoprawne wartości i czekać 30 sekund na poprawną. I tak dalej. (9pkt)
+c) napisać interfejs umożliwiający komunikację dwóch silników gry w Kalaha.
+Załóżcie pewne standardy i zasady np. mamy 3 aplikacje nazwane: serwer + 2 klientów.
+Wszystkie mogą działać lokalnie na Waszym komputerze.
+"Serwer" przyjmuje od klientów polecenia (kolejne numery pól, z których klient chce ruszyć pionki).
+Klient na podjęcie takiej decyzji ma maksymalnie 30 sekund.
+Czasu pilnuje "serwer".
+Serwer pilnuje kolejności ruchów (na przemian).
+Załóżcie czy klient może wskazać nieprawidłowe pole (np puste) i co wtedy się stanie.
+Serwer może ignorować niepoprawne wartości i czekać 30 sekund na poprawną.
+I tak dalej. (9pkt)
 d) interfejs komunikacji w podstawowej wersji: printowanie w konsoli stanu gry i pobieranie inputów (ruchów) od użytkownika (0pkt - wymaganie konieczne)
 e) podstawowy interfejs graficzny GUI (1pkt)
 
