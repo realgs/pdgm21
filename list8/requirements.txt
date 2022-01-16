@@ -1,0 +1,5 @@
+coloredlogs
+PyQt5
+qtpy
+QtPyNetwork
+qrainbowstyle

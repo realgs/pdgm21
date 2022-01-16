@@ -1,0 +1,15 @@
+
+services:
+  kalaha:
+    container_name: kalaha
+    build: .
+    ports:
+      - "20202:20202"
+    # all environment variables are optional
+    environment:
+      HOST: 0.0.0.0
+      PORT: 20202
+      STONES_COUNT: 5
+      BOARD_SIZE: 6
+      TURN_TIMEOUT: 60
+      LOG_LEVEL: DEBUG
