@@ -1,4 +1,4 @@
-class Board(stones: Int, game: Game):
+class Board(stones: Int):
 	private var playerAStore: Int = 0
 	private var playerBStore: Int = 0
 	private var playerAPits = new Array[Int](6).map(a => stones)
@@ -21,7 +21,10 @@ class Board(stones: Int, game: Game):
 	def playerBAdvantagePoints(): Int =
 		playerAPoints - playerBPoints
 
-	def move(player: Int, playersPitNumber: Int) =
+	def playerAStoreAdv(): Int = playerAStore
+	def playerBStoreAdv(): Int = playerBStore
+
+	def move(player: Int, playersPitNumber: Int): Boolean=
 		require(0 <= playersPitNumber && playersPitNumber < 6)
 		val pos = boardPosition(player, playersPitNumber)
 		var stonesInHand = getStones(pos)
@@ -31,7 +34,7 @@ class Board(stones: Int, game: Game):
 	def nextPosition(position: Int): Int=
 		(position + 1)%14
 
-	def addStones(player: Int, leftStone: Int, boardPos: Int, przejazd: Int): Unit =
+	def addStones(player: Int, leftStone: Int, boardPos: Int, przejazd: Int): Boolean =
 		leftStone match
 			case 1 => handleEndMove(player, boardPos, przejazd)
 			case _ =>
@@ -49,12 +52,12 @@ class Board(stones: Int, game: Game):
 	def enemyPlayerStorePos(player: Int, boardPos: Int): Boolean =
 		(player==playerA && boardPos==13) || (player ==playerB && boardPos == 6)
 
-	def handleEndMove(player: Int, boardPos: Int, przejazd: Int): Unit =
+	def handleEndMove(player: Int, boardPos: Int, przejazd: Int): Boolean =
 		if playerStorePos(player, boardPos) && przejazd==0 then
 			addStone(boardPos)
-			//game.move(player) //todo nie podoba mi sie te odwołanie
+			true
 		else if enemyPlayerStorePos(player, boardPos) then
-			addStones(player, 1, nextPosition(boardPos), przejazd)
+			handleEndMove(player, nextPosition(boardPos), przejazd)
 		else if playerSide(boardPos) == player && emptyPit(boardPos)  && !emptyPit(mirrorPosition(boardPos)) then
 			if player == playerA then
 				playerAStore += 1
@@ -66,16 +69,17 @@ class Board(stones: Int, game: Game):
 				val position = mirrorPosition(boardPos)
 				playerBStore += getStones(position)
 				setStones(position, 0)
-		else addStone(boardPos)
+			false
+		else
+			addStone(boardPos)
+			false
 
-	def checkGameEnd(player: Int): Unit =
-		if playerSideClear(player) then
-			if pointsDiff() == 0 then
-				game.gameEnd(0)
-			else if playerAPoints > playerBPoints then
-				game.gameEnd(1)
-			else
-				game.gameEnd(2)
+	def checkGameEnd(player: Int): Int =
+		if anySideClear() then
+			if pointsDiff() == 0 then 0
+			else if playerAPoints > playerBPoints then 1
+			else 2
+		else -1
 
 	def emptyPit(pos: Int): Boolean=
 		getStones(pos) == 0
@@ -137,4 +141,4 @@ class Board(stones: Int, game: Game):
 			s"|XXXX${rowB}|:pB |\n" +
 			s"${b}----|----|----|----|----|----${a}\n" +
 			s"| pA:${rowA}|XXXX|\n" +
-			"-----------------------------------------\n\n"
+			"-----------------------------------------"
