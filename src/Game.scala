@@ -10,7 +10,7 @@ class Game:
 	var playerA :Client = _
 	var playerB :Client = _
 
-	val maxResponseTime = 5
+	val maxResponseTime = 30
 
 	def gameEnd(result: Int): Unit =
 		result match
