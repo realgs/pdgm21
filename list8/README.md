@@ -2,6 +2,12 @@
 
 ![Game window](images/image-1.jpg)
 
+## Installation
+This game requires additional Python libraries. Install them using `pip` command.
+```
+pip install -r requirements.txt
+```
+
 ## Running server
 
 ### From source
