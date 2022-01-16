@@ -55,7 +55,7 @@ object Node {
           for i <- 0 to 5 do
             if nextMoves(i) != null then nextMoves(i).calculateTree(depth - 1, false)
 
-    def calculateBestOutcome(): Unit =
+    def calculateBestOutcome(parallel: Boolean): Unit =
       var noNextMove = true
       for i <- 0 to 5 do
         if nextMoves(i) != null then noNextMove = false
@@ -66,8 +66,18 @@ object Node {
         seedsPitsA = newBoard.seedsA()
         seedsPitsB = newBoard.seedsB()
       else
-        for i <- 0 to 5 do
-          if nextMoves(i) != null then nextMoves(i).calculateBestOutcome()
+        if parallel then
+          val futures =
+            for (i <- 0 to 5 if nextMoves(i) != null) yield
+              Future {
+                nextMoves(i).calculateBestOutcome(false)
+              }
+
+          futures.map(Await.result(_, Duration.Inf))
+
+        else
+          for i <- 0 to 5 do
+            if nextMoves(i) != null then nextMoves(i).calculateBestOutcome(false)
 
         if nextPlayer == "A" then
           bestMove = newBoard.firstAvailableMoveA()

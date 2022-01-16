@@ -9,9 +9,9 @@ object DecisionTree {
     private var root: Node = new Node(new KalahaBoard(), -1, playerSymbol, "A")
     root.calculateTree(9, true)
 
-    def getNextMove(): Int =
+    def calculateNextMove(): Int =
       root.calculateTree(9, false)
-      root.calculateBestOutcome()
+      root.calculateBestOutcome(true)
 
       root.bestMove
 
