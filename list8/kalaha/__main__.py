@@ -4,7 +4,6 @@ from qtpy.QtCore import Qt, qInstallMessageHandler
 import os
 import sys
 import logging
-import argparse
 import traceback
 import qrainbowstyle
 from qrainbowstyle.extras import qt_message_handler

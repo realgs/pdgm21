@@ -1,5 +1,4 @@
 import os
-import logging
 import argparse
 
 from kalaha.config import __version__, __app_name__

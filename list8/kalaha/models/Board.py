@@ -1,4 +1,4 @@
-from qtpy.QtCore import QObject, Signal, Slot, QTimer
+from qtpy.QtCore import QObject, Slot, QTimer
 
 import random
 import logging
