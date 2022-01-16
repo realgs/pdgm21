@@ -1,3 +1,5 @@
+package players
+
 import scala.io.StdIn.*
 import scala.util.Random
 

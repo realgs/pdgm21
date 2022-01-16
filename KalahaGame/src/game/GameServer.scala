@@ -1,47 +1,41 @@
-import GameServer.{MoveChoice, NextMove, StartGame}
-import Player.{FinalScore, MoveRequest}
-import ServerTests.system
+package game
+
 import akka.actor.{Actor, ActorRef, Kill, PoisonPill, Props, actorRef2Scala}
 import akka.pattern.*
-
-import scala.concurrent.duration.*
-import scala.concurrent.ExecutionContext.Implicits.global
-import scala.util.{Failure, Random, Success}
 import akka.util.Timeout
+import game.Board
+import game.GameServer.{MoveChoice, NextMove, StartGame}
+import KalahaGame.system
+import players.*
+import Player.{MoveRequest, GameOver}
 
+import scala.concurrent.ExecutionContext.Implicits.global
+import scala.concurrent.duration.*
 import scala.io.StdIn.readInt
+import scala.util.{Failure, Random, Success}
 
 
-class GameServer(private var player1: ActorRef, private var player2: ActorRef, private val board: Board) extends Actor{
+
+class GameServer(player1Mode: Int, player2Mode: Int) extends Actor{
+  val board = new Board()
   var currentPlayer = 1
   var nextMove = false
-  implicit private val timeout: Timeout = Timeout(5.seconds)
+  implicit private val timeout: Timeout = Timeout(30.seconds)
+  val player1 = {
+    if player1Mode == 1 then system.actorOf(Props(HumanPlayer(1)), "player1")
+    else  system.actorOf(Props(Computer(1, board)), "player1")
+  }
 
-
+  val player2 = {
+    if player2Mode == 1 then system.actorOf(Props(HumanPlayer(2)), "player2")
+    else system.actorOf(Props(Computer(2, board)), "player2")
+  }
 
   def receive = {
     case StartGame =>
       printGameBoard()
       requestMove()
-
     case NextMove => requestMove()
-//      if checkIfPossible(playerNum, choice) then {
-//        printPlayersChoiceMessage(choice)
-//        var nextMove = board.move(playerNum, choice)
-//        if gameFinished() then endGame()
-//        else if nextMove then {
-//          printNextMoveMessage()
-//          printGameBoard()
-//            sender() ! MoveRequest
-//        } else{
-//          changeCurrentPlayer()
-//          printGameBoard()
-//          printTurnMessage()
-//          getCurrentPlayer() ! MoveRequest
-//        }
-//      } else
-//        println("This move is not possible")
-//        sender() ! MoveRequest
   }
 
   def requestMove(): Unit ={
@@ -56,24 +50,21 @@ class GameServer(private var player1: ActorRef, private var player2: ActorRef, p
           requestMove()
 
       case Failure(ex) =>
-        val randMove = getRandomMove(currentPlayer)
-
-        if currentPlayer == 1 then
-          system.stop(player1)
-          //player1 =  system.actorOf(Props(HumanPlayer(1)))
-        else
-          system.stop(player2)
-          //player2 =  system.actorOf(Props(HumanPlayer(2)))
-
-        println("Time is up, making random move: $randMove")
-        makeMove(currentPlayer, randMove)
+        printEndMessage()
+        changeCurrentPlayer()
+        walkoverForPlayer(currentPlayer)
     }
   }
 
   def makeMove(playerNum: Int, house: Int): Unit ={
     printPlayersChoiceMessage(house)
+    Thread.sleep(100)
     nextMove = board.move(playerNum, house)
-    if gameFinished() then endGame()
+    if gameFinished() then
+      printGameBoard()
+      printEndMessage()
+      printFinalScore()
+      endGame()
     else
       if nextMove then {
         printNextMoveMessage()
@@ -129,14 +120,35 @@ class GameServer(private var player1: ActorRef, private var player2: ActorRef, p
     board.isFinished()
   }
 
+  def printEndMessage(): Unit ={
+    println("\n-------------------GAME OVER--------------------\n")
+  }
+
 
   def endGame(): Unit ={
-    val (s1, s2): (Int, Int) = board.getFinalScore()
-    player1 ! FinalScore(s1, s2)
-    player2 ! FinalScore(s1, s2)
+    player1 ! GameOver
+    player2 ! GameOver
     self ! PoisonPill
-
     context.system.terminate()
+    System.exit(0)
+  }
+
+  def printFinalScore(): Unit ={
+    val (s1, s2): (Int, Int) = board.getFinalScore()
+    println("                  Final score                   ")
+    println(s"  Player 1: $s1                  Player 2: $s2 ")
+    if s1 > s2 then
+      println("             Player 1 is the winner!")
+    else if s2 > s1 then
+      println("             Player 2 is the winner!")
+    else println("It's a draw!")
+    println()
+  }
+
+  def walkoverForPlayer(playerNum: Int): Unit ={
+    println("                    Walkover!")
+    println(s"                 Player $playerNum wins!\n")
+    endGame()
   }
 }
 

@@ -1,3 +1,5 @@
+package game
+
 class Board(){
   var player1houses = Array(6, 6, 6, 6, 6, 6, 0)
   var player2houses = Array(6, 6, 6, 6, 6, 6, 0)
@@ -7,6 +9,7 @@ class Board(){
     player1houses = p1ar
     player2houses = p2ar
   }
+
   def move(player: Int, house: Int): Boolean = {
     var playerHouses = Array[Int]()
     var opponentHouses = Array[Int]()
@@ -35,18 +38,20 @@ class Board(){
         while(seeds > 0) {
           while (currentHouse < 7 && seeds > 0) {
             if(seeds == 1 && currentHouse < 6 && playerHouses(currentHouse) == 0) then {
-              playerHouses(baseIndex) += opponentHouses(getOppositeHouseIndex(currentHouse))
+              playerHouses(baseIndex) += opponentHouses(getOppositeHouseIndex(currentHouse)) + 1
               opponentHouses(getOppositeHouseIndex(currentHouse)) = 0
+              seeds -= 1
+            } else{
+              playerHouses(currentHouse) += 1
+              seeds -= 1
+              currentHouse += 1
             }
-            playerHouses(currentHouse) += 1
-            seeds -= 1
-            currentHouse += 1
           }
           if seeds == 0 && currentHouse == 7 then
             nextMove = true
           else {
             currentHouse = 0
-            while (currentHouse < 7 && seeds > 0) {
+            while (currentHouse < 6 && seeds > 0) {
               opponentHouses(currentHouse) += 1
               seeds -= 1
               currentHouse += 1
@@ -98,8 +103,9 @@ class Board(){
   }
   
   def printBoard(): Unit ={
-    println("                   Player 2                ")
-    println("-----------------------------------------------")
+    println("                    Player 2                ")
+    println("      6      5      4      3      2      1")
+    println("------------------------------------------------")
     var counter = player2houses.size - 2
     print("   ")
     while(counter >= 0){
@@ -108,15 +114,16 @@ class Board(){
     }
     println()
     counter = 0
-    println("("+player2houses(baseIndex)+")" + "                                          " +"("+ player1houses(baseIndex)+")" )
+    println("( "+player2houses(baseIndex)+" )" + "                                      " +"( "+ player1houses(baseIndex)+" )" )
     print("   ")
     while(counter < player1houses.size - 1){
       print(" ( " + player1houses(counter) + " ) ")
       counter += 1
     }
     println()
-    println("-----------------------------------------------")
-    println("                   Player 1                ")
+    println("------------------------------------------------")
+    println("      1      2      3      4      5      6")
+    println("                    Player 1                ")
   }
 
 }

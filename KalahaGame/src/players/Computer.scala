@@ -1,13 +1,13 @@
+package players
+
+
+import game.Board
 
 import scala.util.Random
 
 class Computer(playerNum: Int, val b: Board) extends Player(playerNum){
 
   def board = b
-
-//  def board_=(newBoard: Board): Unit =
-//    b = newBoard
-
   def chooseMove(): Int = {
     Thread.sleep(2000)
     simulateMoves(b)
@@ -22,7 +22,6 @@ class Computer(playerNum: Int, val b: Board) extends Player(playerNum){
     else {
       myHouses = board.player2houses
     }
-
     var movesToChoose = Array[Int]()
 
     var bestOption = -1
@@ -38,7 +37,6 @@ class Computer(playerNum: Int, val b: Board) extends Player(playerNum){
             bestOption = i
             bestPoints = (points._1 - points._2)
           }
-
         }
       }
     }
@@ -95,7 +93,6 @@ class Computer(playerNum: Int, val b: Board) extends Player(playerNum){
             }
           }
         }
-        //println(pointsAfterMove - initialPoints)
         (pointsAfterMove - initialPoints, bestOpponentsPoints)
       }
     }
@@ -128,40 +125,7 @@ class Computer(playerNum: Int, val b: Board) extends Player(playerNum){
       }
       else {
         var pointsAfterMove = opponentsHouses(board.baseIndex)
-        //println(pointsAfterMove - initialPoints)
         pointsAfterMove - initialPoints
       }
-
     }
-
 }
-
-    //  def checkForEmptyHouses(board: Board): (Int, Int) ={
-    //    var myHouses: Array[Int] = _
-    //    var opponentsHouses: Array[Int] =_
-    //    if playerNum == 1 then {
-    //      myHouses = board.player1houses
-    //      opponentsHouses = board.player2houses
-    //    }
-    //    else {
-    //      myHouses = board.player2houses
-    //      opponentsHouses = board.player1houses
-    //    }
-    //    var candidates = List[Int]()
-    //    var bestHouseIndex = -1
-    //    var maxPointsToCollect = -1
-    //    for(i <- 0 to myHouses.size - 2){
-    //      if(myHouses(i) != 0) then{
-    //        var seeds = myHouses(i)
-    //        if ( i + seeds < myHouses.size - 1) then {
-    //          if( myHouses(i + seeds) == 0 && opponentsHouses(board.getOppositeHouseIndex(i + seeds)) != 0) then {
-    //            if(opponentsHouses(board.getOppositeHouseIndex(i + seeds)) > maxPointsToCollect) then {
-    //              bestHouseIndex = i
-    //              maxPointsToCollect = opponentsHouses(board.getOppositeHouseIndex(i + seeds))
-    //            }
-    //          }
-    //        }
-    //      }
-    //    }
-    //    bestHouseIndex
-    //  }
