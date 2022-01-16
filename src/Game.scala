@@ -1,15 +1,23 @@
 import java.util.Scanner
-import scala.concurrent.Await
-import scala.concurrent.duration.Duration
+import scala.concurrent.{Await, Future}
+import concurrent.ExecutionContext.Implicits.global
+import scala.concurrent.duration.{DAYS, Duration}
+import scala.util.Random
 
 class Game:
-	var board = new Board(6, this)
+	var board = new Board(6)
+
+	var playerA :Client = _
+	var playerB :Client = _
+
+	val maxResponseTime = 5
 
 	def gameEnd(result: Int): Unit =
 		result match
-			case 0 => println("REMIS")
-			case 1 => println("PLAYER A WON")
-			case 2 => println("PLAYER B WON")
+			case 0 => println(s"REMIS\n${board.playerAPoints} : ${board.playerBPoints}")
+			case 1 => println(s"PLAYER A WON\n${board.playerAPoints} : ${board.playerBPoints}")
+			case 2 => println(s"PLAYER B WON\n${board.playerAPoints} : ${board.playerBPoints}")
+			case _ => ()
 
 	def printBoard(): Unit =
 		println(board.boardToString())
@@ -17,52 +25,66 @@ class Game:
 	def play() =
 		var activePlayer = 0
 		while !board.anySideClear() do
-			move(activePlayer)
-			activePlayer = enemyPlayer(activePlayer)
-			board.checkGameEnd(activePlayer)
+			var pit = 0
+			if activePlayer == 0 then
+				try {
+					pit = Await.result(Future{playerA.moveResponse(board, activePlayer)}, Duration(maxResponseTime*1000, "millis"))
+				}catch {
+					case e: java.util.concurrent.TimeoutException =>
+						pit = randomMove(board, activePlayer)
+						println(s"Time out --- random move: ${pit+1}")
+				}
+			else
+				try {
+					pit = Await.result(Future{playerB.moveResponse(board, activePlayer)}, Duration(maxResponseTime*1000, "millis"))
+				}catch {
+					case e: java.util.concurrent.TimeoutException =>
+						pit = randomMove(board, activePlayer)
+						println(s"Time out --- random move: ${pit+1}")
+				}
+
+			if !board.move(activePlayer, pit) then
+				activePlayer = enemyPlayer(activePlayer)
+
+			gameEnd(board.checkGameEnd(activePlayer))
 
 	def enemyPlayer(player: Int): Int =
 		if player == 0 then 1 else 0
 
-	def chooseHole(): Int =
-		val scanner = new Scanner(System.in)
-		println("Write number [0-5] to choose hole")
-		val hole = scanner.nextLine().toInt
-		if hole < 0 || hole > 5 then
-			println("Invalid hole number")
-			chooseHole()
-		else hole
+	def testMove(player: Int, pit: Int): Boolean=
+		val k = board.move(player, pit)
+		gameEnd(board.checkGameEnd(player))
+		k
 
-	def move(player: Int) =
-		printBoard()
-		println(s"PLAYER: ${player} MOVE")
-		val hole = chooseHole()
-		/*if board.getStonesNumberAtPos(board.playerAndPosToBoardPos(player, hole)) ==0 then
-			println("Empty hole")
-			chooseHole()*/
-		board.move(player, hole)
+	def randomMove(board: Board, player: Int): Int=
+		var k = Random.nextInt(6)
+		if board.emptyPit(board.boardPosition(player, k)) then
+			k = randomMove(board, player)
+		k
 
 	def start(): Unit =
 		println("HELLO")
 		println("IT'S KALAHA GAME\n")
-		//setup()
+		setup()
 		play()
 
 	def setup(): Unit =
 		val players = setPlayersNumber()
 		val computers = 2 - players
 		if players == 2 then
-			println("Two players")
+			playerA = new Player()
+			playerB = new Player()
 		else if players == 1 then
-			println("")
+			playerA = new Player()
+			playerB = new Computer(5)
 		else
-			println("")
-	//2 computery
-	//let's play
+			playerA = new Computer(8)
+			playerB = new Computer(8)
 
 	def setPlayersNumber(): Int =
 		val scanner = new Scanner(System.in)
-		println("How many live players would you start with? [0-2] \n Computer numbers will be set automatically")
+		println("SETUP...")
+		println("How many live players would you start with? [0-2] \nComputer numbers will be set automatically")
 		var alivePlayers = scanner.nextLine().toInt
 		if alivePlayers > 2 || alivePlayers < 0 then
 			println("Invalid players number, try again")
@@ -70,57 +92,57 @@ class Game:
 		else alivePlayers
 
 	def test(): Unit =
-		board.move(0, 4)
-		board.move(1, 1)
-		board.move(0, 1)
-		board.move(1, 0)
-		board.move(0, 2)
-		board.move(1, 5)
-		board.move(0, 3)
-		board.move(1, 3)
-		board.move(0, 0)
-		board.move(1, 3)
+		testMove(0, 4)
+		testMove(1, 1)
+		testMove(0, 1)
+		testMove(1, 0)
+		testMove(0, 2)
+		testMove(1, 5)
+		testMove(0, 3)
+		testMove(1, 3)
+		testMove(0, 0)
+		testMove(1, 3)
 
-		board.move(0, 5)
-		board.move(1, 2)
-		board.move(0, 1)
-		board.move(1, 3)
-		board.move(0, 2)
-		board.move(1, 0)
-		board.move(0, 4)
-		board.move(1, 1)
-		board.move(0, 5)
-		board.move(1, 4)
+		testMove(0, 5)
+		testMove(1, 2)
+		testMove(0, 1)
+		testMove(1, 3)
+		testMove(0, 2)
+		testMove(1, 0)
+		testMove(0, 4)
+		testMove(1, 1)
+		testMove(0, 5)
+		testMove(1, 4)
 
-		board.move(0, 1)
-		board.move(1, 2)
-		board.move(1, 4)
-		board.move(0, 0)
-		board.move(1, 1)
-		board.move(0, 4)
-		board.move(0, 2)
-		board.move(1, 3)
-		board.move(0, 5)
-		board.move(1, 0)
+		testMove(0, 1)
+		testMove(1, 2)
+		testMove(1, 4)
+		testMove(0, 0)
+		testMove(1, 1)
+		testMove(0, 4)
+		testMove(0, 2)
+		testMove(1, 3)
+		testMove(0, 5)
+		testMove(1, 0)
 
-		board.move(0, 0)
-		board.move(1, 2)
-		board.move(0, 3)
-		board.move(1, 4)
-		board.move(0, 4)
-		board.move(0, 1)
-		board.move(1, 1)
-		board.move(0, 5)
-		board.move(0, 2)
-		board.move(1, 3)
+		testMove(0, 0)
+		testMove(1, 2)
+		testMove(0, 3)
+		testMove(1, 4)
+		testMove(0, 4)
+		testMove(0, 1)
+		testMove(1, 1)
+		testMove(0, 5)
+		testMove(0, 2)
+		testMove(1, 3)
 
-		board.move(0, 3)
-		board.move(1, 5)
-		board.move(0, 4)
-		board.move(0, 3)
-		board.move(1, 0)
-		board.move(0, 2)
-		board.move(1, 1)
-		board.move(0, 1)
-		board.move(1, 2)
-		board.move(0, 5)
+		testMove(0, 3)
+		testMove(1, 5)
+		testMove(0, 4)
+		testMove(0, 3)
+		testMove(1, 0)
+		testMove(0, 2)
+		testMove(1, 1)
+		testMove(0, 1)
+		testMove(1, 2)
+		testMove(0, 5)
