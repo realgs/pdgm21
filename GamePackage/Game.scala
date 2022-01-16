@@ -111,7 +111,7 @@ class Game(private var board: Array[Int], private var activePlayer: Int) {
     else board(HOLE_PLAYER2) - board(HOLE_PLAYER1)
   }
 
-  private def countPlayersResults(): (Int, Int) = {
+  def countPlayersResults(): (Int, Int) = {
     (board.slice(INDEX1_PLAYER1, HOLE_PLAYER1 + 1).sum, board.slice(INDEX1_PLAYER2, HOLE_PLAYER2 + 1).sum)
   }
 
@@ -137,5 +137,9 @@ class Game(private var board: Array[Int], private var activePlayer: Int) {
       s"\n    ${board(12)} | ${board(11)} | ${board(10)} | ${board(9)} | ${board(8)} | ${board(7)}\n" +
       s"    (${board(13)})                                    (${board(6)})\n" +
       s"    ${board(0)} | ${board(1)} | ${board(2)} | ${board(3)} | ${board(4)} | ${board(5)}\n"
+  }
+
+  def printLackOfMove(): String = {
+    "30 seconds without a move. Game ends!\n"
   }
 }
