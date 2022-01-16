@@ -9,4 +9,4 @@ RUN \
     && pip install -r requirements.txt
 
 COPY . .
-CMD ["python", "-m", "kalaha", "--server"]
+CMD ["python", "-m", "kalaha", "server"]
