@@ -1,10 +1,19 @@
 class Board(stones: Int):
-	private var playerAStore: Int = 0
-	private var playerBStore: Int = 0
-	private var playerAPits = new Array[Int](6).map(a => stones)
-	private var playerBPits = new Array[Int](6).map(a => stones)
-	private val playerA = 0
-	private val playerB = 1
+	var playerAStore: Int = 0
+	var playerBStore: Int = 0
+	var playerAPits = new Array[Int](6).map(a => stones)
+	var playerBPits = new Array[Int](6).map(a => stones)
+	val playerA = 0
+	val playerB = 1
+
+	def copy(): Board=
+		var newBoard = new Board(0)
+		newBoard.playerAStore = playerAStore
+		newBoard.playerBStore = playerBStore
+		newBoard.playerAPits = playerAPits.clone()
+		newBoard.playerBPits = playerBPits.clone()
+		newBoard
+
 
 	def playerAPoints =
 		playerAStore + playerAPits.foldLeft(0)((points, stonesInHole) => points + stonesInHole)
