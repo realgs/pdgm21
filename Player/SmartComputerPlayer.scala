@@ -8,7 +8,7 @@ object SmartComputerPlayer {
   class SmartComputerPlayer(playerSymbol: String) extends Player() :
     private val decisionTree: DecisionTree = new DecisionTree(playerSymbol)
 
-    override def getNextMove(): Int =
+    override def chooseNextMove(): Int =
       decisionTree.calculateNextMove()
 
     override def makeMove(lastMove: Int): Unit =

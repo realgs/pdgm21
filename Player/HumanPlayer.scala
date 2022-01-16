@@ -8,7 +8,7 @@ object HumanPlayer {
 
   class HumanPlayer() extends Player() :
 
-    override def getNextMove(): Int =
+    override def chooseNextMove(): Int =
       println("Choose your next move : (choose pit number from 1 to 6)")
 
       var nextMove = readLine()

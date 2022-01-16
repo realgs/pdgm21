@@ -43,7 +43,7 @@ object Server {
       try
         while move == -1 do
           move = Await.result(Future {
-            playerA.getNextMove()
+            playerA.chooseNextMove()
           }, 30.seconds)
 
           move = board.checkMoveA(move)
@@ -68,7 +68,7 @@ object Server {
       try
         while move == -1 do
           move = Await.result(Future {
-            playerB.getNextMove()
+            playerB.chooseNextMove()
           }, 30.seconds)
 
           move = board.checkMoveB(move)

@@ -49,7 +49,7 @@ object Node {
                 nextMoves(i).calculateTree(depth - 1, false)
               }
 
-          futures.map(Await.result(_, Duration.Inf))
+          futures.map(Await.ready(_, Duration.Inf))
 
         else
           for i <- 0 to 5 do
@@ -73,7 +73,7 @@ object Node {
                 nextMoves(i).calculateBestOutcome(false)
               }
 
-          futures.map(Await.result(_, Duration.Inf))
+          futures.map(Await.ready(_, Duration.Inf))
 
         else
           for i <- 0 to 5 do

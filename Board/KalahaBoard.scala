@@ -8,10 +8,10 @@ object KalahaBoard {
     val pitsA: Array[Int] = newPitsA.clone()
     val pitsB: Array[Int] = newPitsB.clone()
 
-    def copy(): KalahaBoard =
+    override def copy(): KalahaBoard =
       new KalahaBoard(pitsA, pitsB)
 
-    def endOfGame(): Boolean =
+    override def endOfGame(): Boolean =
       var noMoreMovesA = true
       for i <- 0 to 5 do
         if pitsA(i) != 0 then noMoreMovesA = false
@@ -22,7 +22,7 @@ object KalahaBoard {
 
       noMoreMovesA || noMoreMovesB
 
-    def gamesEnd(): Unit =
+    override def gamesEnd(): Unit =
       println("************* End of the game *************")
 
       for i <- 0 to 5 do
@@ -48,7 +48,7 @@ object KalahaBoard {
           else
             println(s"Player B won with advantage of ${r * -1} points")
 
-    def showBoard(): Unit =
+    override def showBoard(): Unit =
       println()
       println(s"                 player B                  ")
       println(s"╭-----------------------------------------╮")
@@ -63,8 +63,6 @@ object KalahaBoard {
       println(s"                 player A                  ")
       println()
 
-    //Thread.sleep(1000)
-
     private def seeds(seeds: Int) =
       seeds match
         case n if n < 0 => throw new Exception("Should not happened !")
@@ -72,33 +70,33 @@ object KalahaBoard {
         case n if n < 100 => s"$n"
         case n if n >= 100 => throw new Exception("Should not happened !")
 
-    def firstAvailableMoveA(): Int =
+    override def firstAvailableMoveA(): Int =
       var nextMove = -1
       for i <- 0 to 5 do
         if pitsA(5 - i) != 0 then nextMove = 5 - i
       nextMove
 
-    def firstAvailableMoveB(): Int =
+    override def firstAvailableMoveB(): Int =
       var nextMove = -1
       for i <- 0 to 5 do
         if pitsB(5 - i) != 0 then nextMove = 5 - i
       nextMove
 
-    def checkMoveA(move: Int): Int =
+    override def checkMoveA(move: Int): Int =
       if pitsA(move) != 0 then
         move
       else
         println("Chosen pit have no seeds in it! Choose again !")
         -1
 
-    def checkMoveB(move: Int): Int =
+    override def checkMoveB(move: Int): Int =
       if pitsB(move) != 0 then
         move
       else
         println("Chosen pit have no seeds in it! Choose again !")
         -1
 
-    def nextMoveA(move: Int): Boolean =
+    override def nextMoveA(move: Int): Boolean =
       val seeds = pitsA(move)
       pitsA(move) = 0
       var pitIndex = move + 1
@@ -120,7 +118,7 @@ object KalahaBoard {
 
       pitIndex == 6
 
-    def nextMoveB(move: Int): Boolean =
+    override def nextMoveB(move: Int): Boolean =
       val seeds = pitsB(move)
       pitsB(move) = 0
       var pitIndex = move + 1
