@@ -54,6 +54,7 @@ class Engine(val player: Int, val depth: Int, val server: Server) {
       }
 
     }
+
     max_index
   }
 
@@ -66,9 +67,10 @@ class Engine(val player: Int, val depth: Int, val server: Server) {
         if node.children == null then return (-200, false)
 
         for (i <- node.children.indices) {
-          val value = search(node.children(i), depth - 1, opponent)._1 + node.vale()
-          if (max < value)
-            max = value
+          if(node.children(i).vale() != 200 || node.children(i).vale() != -200)
+            val value = search(node.children(i), depth - 1, opponent)._1 + node.vale()
+            if (max < value )
+              max = value
 
         }
         (max, true)
@@ -76,9 +78,10 @@ class Engine(val player: Int, val depth: Int, val server: Server) {
       else {
         var min: Int = 200
         for (i <- node.children.indices) {
-          val value = search(node.children(i), depth - 1, player)._1 + node.vale()
-          if (min > value)
-            min = value
+          if(node.children(i).vale() != 200 || node.children(i).vale() != -200)
+            val value = search(node.children(i), depth - 1, player)._1 + node.vale()
+            if (min > value)
+              min = value
         }
         (min, true)
       }
