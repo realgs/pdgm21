@@ -33,7 +33,7 @@ class MainGUI(var server: Server) {
     jFrame.repaint()
 
   def changeLayoutToChoosePlayer(): Unit =
-    val gui = new ChoosePlayers(this)
+    val gui = new ChoosePlayersGUI(this)
     val panel = gui.getJPanel()
     jFrame.getContentPane().removeAll()
     jFrame.getContentPane().add(panel)

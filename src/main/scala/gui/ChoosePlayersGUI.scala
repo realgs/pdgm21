@@ -5,7 +5,7 @@ import javax.swing.{BoxLayout, JButton, JFrame, JLabel, JPanel}
 import java.awt.event.ActionListener
 import java.awt.event.ActionEvent
 
-class ChoosePlayers(private val mainGUI: MainGUI) {
+class ChoosePlayersGUI(private val mainGUI: MainGUI) {
   private val jPanel = JPanel()
   private val jLabel = JLabel("Choose opponents (note AI/AI will end very quickly)")
   private val jButtonBoardSize1 = JButton("Human/Human")
