@@ -1,11 +1,34 @@
 import scala.annotation.tailrec
 
 class IllegalMoveException(message: String) extends Exception(message)
-class KalahaBoard(val housesPerSide: Int, val initialSeedAmount: Int):
-  val player1Houses = Array.tabulate(housesPerSide)(i => House(initialSeedAmount, 1, i))
-  val player2Houses = Array.tabulate(housesPerSide)(i => House(initialSeedAmount, 2, i))
-  val player1Store = Store(0, 1)
-  val player2Store = Store(0, 2)
+class KalahaBoard(
+                   val housesPerSide: Int,
+                   val initialSeedAmount: Int,
+                   val player1Houses: Array[House],
+                   val player2Houses: Array[House],
+                   val player1Store: Store,
+                   val player2Store: Store
+                 ):
+
+  def this(housesPerSide: Int, initialSeedAmount: Int) =
+    this(
+      housesPerSide,
+      initialSeedAmount,
+      Array.tabulate(housesPerSide)(i => House(initialSeedAmount, 1, i)),
+      Array.tabulate(housesPerSide)(i => House(initialSeedAmount, 2, i)),
+      Store(0, 1),
+      Store(0, 2)
+    )
+
+  def copy() =
+    new KalahaBoard(
+      housesPerSide,
+      initialSeedAmount,
+      player1Houses.clone(),
+      player2Houses.clone(),
+      player1Store.copy(),
+      player2Store.copy()
+    )
 
   @tailrec
   private def nextPitToSow(playerId: Int)(currentPit: Pit): Pit =
@@ -22,15 +45,18 @@ class KalahaBoard(val housesPerSide: Int, val initialSeedAmount: Int):
 
   def getOppositeHouse(house: House) =
     val House(_, playerId, index) = house
-    (if playerId == 1 then player1Houses else player2Houses)(housesPerSide - index - 1)
+    (if playerId == 1 then player2Houses else player1Houses)(housesPerSide - index - 1)
 
   def getOppositePlayerId(playerId: Int) = if playerId == 1 then 2 else 1
 
   def scores = (player1Store.seeds, player2Store.seeds)
 
   def isMoveLegal(playerId: Int, houseIndex: Int) =
-    val House(seeds, _, _) = houseByIds(playerId, houseIndex)
-    seeds > 0
+    if houseIndex < 0 || houseIndex > housesPerSide - 1 then
+      false
+    else
+      val House(seeds, _, _) = houseByIds(playerId, houseIndex)
+      seeds > 0
 
   //returns id of player that will be moving next
   def makeAMove(currentPlayer: Int, chosenMove: Int) =
@@ -73,13 +99,13 @@ class KalahaBoard(val housesPerSide: Int, val initialSeedAmount: Int):
 
   def printBoard() =
     val stringBuilder = new StringBuilder()
-    stringBuilder ++= ((housesPerSide - 1) to 0 by -1).mkString(" | ")
-    stringBuilder ++= "\n\n"
-    stringBuilder ++= player2Houses.map(_.seeds).reverse.mkString(" | ")
-    stringBuilder ++= "\n"
-    stringBuilder ++= "\t\t" ++= player2Store.seeds.toString ++= "\t" ++= player1Store.seeds.toString
-    stringBuilder ++= "\n"
-    stringBuilder ++= player1Houses.map(_.seeds).mkString(" | ")
-    stringBuilder ++= "\n\n"
-    stringBuilder ++= (0 until housesPerSide).mkString(" | ")
+    stringBuilder ++= Console.WHITE
+    stringBuilder += ' ' ++= ((housesPerSide - 1) to 0 by -1).mkString("  ") += '\n'
+    stringBuilder ++= Console.BLUE
+    stringBuilder += '(' ++= player2Houses.map(_.seeds).reverse.mkString(")(") += ')' += '\n'
+    stringBuilder += ' '++= player2Store.seeds.toString ++= "\t\t\t\t" ++= Console.GREEN ++= player1Store.seeds.toString += '\n'
+    stringBuilder += '(' ++= player1Houses.map(_.seeds).mkString(")(") += ')' += '\n'
+    stringBuilder ++= Console.WHITE
+    stringBuilder += ' ' ++= (0 until housesPerSide).mkString("  ")
+    stringBuilder ++= Console.RESET
     println(stringBuilder.result())
