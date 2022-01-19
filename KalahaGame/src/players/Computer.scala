@@ -9,7 +9,7 @@ class Computer(playerNum: Int, val b: Board) extends Player(playerNum){
 
   def board = b
   def chooseMove(): Int = {
-    Thread.sleep(2000)
+    Thread.sleep(3000)
     simulateMoves(b)
   }
 

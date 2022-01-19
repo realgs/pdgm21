@@ -11,6 +11,7 @@ object Player{
 }
 
 abstract class Player(val playerNum: Int) extends Actor{
+
   def receive = {
     case MoveRequest => sender() ! MoveChoice(playerNum, chooseMove())
     case GameOver => self ! PoisonPill
