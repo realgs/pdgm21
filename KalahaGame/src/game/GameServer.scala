@@ -157,5 +157,3 @@ object GameServer{
   case class StartGame()
   case class NextMove()
 }
-
-
