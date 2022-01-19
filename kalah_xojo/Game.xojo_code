@@ -96,7 +96,7 @@ Protected Class Game
 		      Return 
 		    End If
 		    
-		    If board(boardIndex) = 1 And boardIndex >= id_player * 7 + 1 And boardIndex <= id_player * 7 + 6 Then
+		    If board(boardIndex) = 1 And board(14-boardIndex) <> 0 And boardIndex >= id_player * 7 + 1 And boardIndex <= id_player * 7 + 6 Then
 		      board(7 * ((id_player + 1) Mod 2)) = board(7 * ((id_player + 1) Mod 2)) + board(boardIndex)
 		      board(boardIndex)=0
 		      board(7 * ((id_player + 1) Mod 2)) = board(7 * ((id_player + 1) Mod 2)) + board(14 - boardIndex)
