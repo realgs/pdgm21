@@ -33,8 +33,10 @@ class PlayerHandler(_socket: Socket, name: String) extends Runnable:
   private val socket: Socket = _socket
   private val dataInput: DataInputStream = new DataInputStream(socket.getInputStream)
   private val dataOutput: DataOutputStream = new DataOutputStream(socket.getOutputStream)
-  private val playerUsername: String = dataInput.readUTF()
+  private var playerUsername: String = dataInput.readUTF()
+  if players.length == 1 && players(0).playerUsername == playerUsername then playerUsername = playerUsername + "2"
   players = players :+ this
+  dataOutput.writeUTF(playerUsername)
   dataOutput.write(if _isFirstPlayer then 1 else 0)
   println(GameSpecification.STARTAMOUNTOFROCKS)
   dataOutput.write(GameSpecification.STARTAMOUNTOFROCKS)
@@ -70,7 +72,7 @@ class PlayerHandler(_socket: Socket, name: String) extends Runnable:
   def maintainSendReceive(): Unit =
     _time = 0
     _maxTimeOut = 30
-    while !socket.isClosed && _time < _maxTimeOut do
+    while !socket.isClosed && _time < _maxTimeOut && isFull2 do
       if dataInput.available() > 0 && isFull1 && isFull2 then
         _time = 0
         val moveIndex = dataInput.read()
@@ -80,17 +82,18 @@ class PlayerHandler(_socket: Socket, name: String) extends Runnable:
         println(moveIndex + " " + isEnding + " " + isNextMove + "\n")
         sendToOtherPlayer(moveIndex, isEnding, isNextMove, playerScore)
         if isEnding == 1 then
-          Thread.sleep(1000)
-          close(this)
+          isFull2 = false
+          players.foreach(elem => close(elem))
 
 
-    if _time >= _maxTimeOut then
-      dataOutput.writeUTF(TIMEOUT)
-      dataOutput.write(7)
-      dataOutput.write(1)
-      dataOutput.write(1)
-      dataOutput.write(0)
-      dataOutput.flush()
+    if !socket.isClosed && _time >= _maxTimeOut then
+      if isFull2 then
+        dataOutput.writeUTF(TIMEOUT)
+        dataOutput.write(7)
+        dataOutput.write(1)
+        dataOutput.write(1)
+        dataOutput.write(0)
+        dataOutput.flush()
       Thread.sleep(1000)
       close(this)
 
@@ -119,7 +122,7 @@ class PlayerHandler(_socket: Socket, name: String) extends Runnable:
 
   def removePlayer(playerHandler: PlayerHandler): Unit =
     players = players.filter(_ ne playerHandler)
-    println(s"$playerUsername has disconnected")
+    println(s"${playerHandler.playerUsername} has disconnected")
 
   def close(playerHandler: PlayerHandler): Unit =
     removePlayer(playerHandler)

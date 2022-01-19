@@ -65,7 +65,9 @@ object ControllerMainView:
 
         try
           Thread.sleep(500)
-          val client = new Client(new Socket("localhost", GameSpecification.PORT), name)
+          val socketClient = new Socket("localhost", GameSpecification.PORT)
+          socketClient.setSoTimeout(2000)
+          val client = new Client(socketClient, name)
           client.checkIfStarting()
           client.waitingRoom()
           scala.io.StdIn.readLine("\nPress enter to continue")

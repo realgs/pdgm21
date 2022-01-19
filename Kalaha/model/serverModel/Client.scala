@@ -58,29 +58,33 @@ class Client(_socket: Socket, _username: String):
     println("\n")
 
   def checkIfStarting(): Unit =
-    dataOutput.writeUTF(playerUsername)
-    dataOutput.flush()
-    val isStarting = dataInput.read()
-    val amountOfRocks = dataInput.read()
-    GameSpecification.resetAmountOfRocks(amountOfRocks)
-    player = new HumanPlayer(newName = playerUsername)
-    player.changeIsStarting(isStarting == 1)
-    isYourTurn = isStarting == 1
+    if socket.isConnected then
+      dataOutput.writeUTF(playerUsername)
+      dataOutput.flush()
+      val newPlayerName = dataInput.readUTF()
+      val isStarting = dataInput.read()
+      val amountOfRocks = dataInput.read()
+      GameSpecification.resetAmountOfRocks(amountOfRocks)
+      player = new HumanPlayer(newName = newPlayerName)
+      player.changeIsStarting(isStarting == 1)
+      isYourTurn = isStarting == 1
 
   def waitingRoom(): Unit =
-    MainView.drawSpace()
-    println("Waiting for another player!")
-    while !socket.isClosed && nameOfOtherPlayer == "" do
-      Thread.sleep(100)
-      if dataInput.available() > 0 then
-        timeState = dataInput.readUTF()
-        nameOfOtherPlayer = dataInput.readUTF()
+    if socket.isConnected then
+      MainView.drawSpace()
+      println("Waiting for another player!")
+      while !socket.isClosed && nameOfOtherPlayer == "" do
+        Thread.sleep(100)
+        if dataInput.available() > 0 then
+          timeState = dataInput.readUTF()
+          nameOfOtherPlayer = dataInput.readUTF()
 
-    if timeState == PlayerHandler.TIMEOUT then
-      close(true)
-    else
-      listen()
-      makeMove()
+      if timeState == PlayerHandler.TIMEOUT then
+        close(true)
+      else
+        listen()
+        makeMove()
+
 
   def makeMove(): Unit =
     while !socket.isClosed do
