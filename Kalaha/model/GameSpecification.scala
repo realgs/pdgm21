@@ -1,0 +1,33 @@
+package model
+
+object GameSpecification:
+  var AILEVEL = 5
+  val PORT = 4444
+
+  def AILEVELNAME() =
+    AILEVEL match
+      case 1 => "Bardzo latwy"
+      case 4 => "Latwy"
+      case 5 => "Sredni"
+      case 6 => "Trudny"
+      case 8 => "Bardzo trudny"
+
+  var STARTAMOUNTOFROCKS = 6
+  val ARRAYOFHOUSESSTART: Array[Int] = Array[Int](
+    STARTAMOUNTOFROCKS, STARTAMOUNTOFROCKS, STARTAMOUNTOFROCKS, STARTAMOUNTOFROCKS, STARTAMOUNTOFROCKS, STARTAMOUNTOFROCKS, 0,
+    STARTAMOUNTOFROCKS, STARTAMOUNTOFROCKS, STARTAMOUNTOFROCKS, STARTAMOUNTOFROCKS, STARTAMOUNTOFROCKS, STARTAMOUNTOFROCKS, 0)
+
+  val INDEXFIRSTSTORE = 6
+  val INDEXSECONDSTORE = 13
+  val LENGTHOFBOARD = ARRAYOFHOUSESSTART.length
+
+  val PLAYERHOUSESSTART = Array.fill(6)(STARTAMOUNTOFROCKS)
+
+  def resetAmountOfRocks(newAmount: Int = 6) =
+    STARTAMOUNTOFROCKS = newAmount
+
+    for index <- 0 until LENGTHOFBOARD do
+      if index < INDEXFIRSTSTORE then PLAYERHOUSESSTART(index) = STARTAMOUNTOFROCKS
+      if index != INDEXFIRSTSTORE && index != INDEXSECONDSTORE then
+        ARRAYOFHOUSESSTART(index) = STARTAMOUNTOFROCKS
+      else ARRAYOFHOUSESSTART(index) = 0
