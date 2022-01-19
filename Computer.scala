@@ -35,7 +35,7 @@ class Computer(s_name:String, index: Int) extends Opponent(s_name, index) {
         possiblePoints(boardIndex, board.clone())
       }
 
-      if bestPoints < Await.result(f, Duration.Inf) then
+      if bestPoints <= Await.result(f, Duration.Inf) && board(boardIndex)!=0 then
         bestPoints = Await.result(f, Duration.Inf)
         bestIndex = boardIndex
         //println("Punkty "+bestPoints+" Dołek: "+bestIndex)
@@ -57,7 +57,7 @@ class Computer(s_name:String, index: Int) extends Opponent(s_name, index) {
       seeds-=1
     }
 
-    if selfEmptyHouse(this.index, boardID, board) then
+    if selfEmptyHouse(this.index, boardID, board) && opponentNoEmptyHouse(this.index, boardID, board) then
       board(7 * ((this.index * 1) % 2))+=board(boardID)
       points += board(boardID)
       board(boardID)=0
@@ -76,6 +76,9 @@ class Computer(s_name:String, index: Int) extends Opponent(s_name, index) {
 
   private def selfEmptyHouse(playerIndex:Int, boardIndex: Int, board: Array[Int]):Boolean={
     board(boardIndex) == 1 && boardIndex >= playerIndex * 7 + 1 && boardIndex <= playerIndex * 7 + 6
-  } 
+  }
 
+  private def opponentNoEmptyHouse(playerIndex:Int, boardIndex: Int, board: Array[Int]):Boolean={
+    board(14-boardIndex) != 0 && boardIndex >= playerIndex * 7 + 1 && boardIndex <= playerIndex * 7 + 6
+  }
 }

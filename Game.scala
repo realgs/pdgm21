@@ -70,15 +70,19 @@ class Game(seeds: Int) {
         if checkEnd then return 0
         printBoard
         move(playerIndex)
-      if selfEmptyHouse(playerIndex, boardIndex) then
+      if selfEmptyHouse(boardIndex, playerIndex) && opponentNoEmptyHouse(boardIndex, playerIndex) then
         board.getBoard(7 * ((playerIndex+1)%2))+=board.getBoard(boardIndex)
         board.getBoard(boardIndex)=0
         board.getBoard(7 * ((playerIndex+1)%2))+=board.getBoard(14-boardIndex)
         board.getBoard(14-boardIndex)=0
   }
 
-  private def selfEmptyHouse(playerIndex:Int, boardIndex: Int):Boolean={
+  private def selfEmptyHouse(boardIndex: Int, playerIndex:Int):Boolean={
     board.getBoard(boardIndex) == 1 && boardIndex >= playerIndex * 7 + 1 && boardIndex <= playerIndex * 7 + 6
+  }
+
+  private def opponentNoEmptyHouse(boardIndex: Int, playerIndex:Int):Boolean={
+    board.getBoard(14-boardIndex) != 0 && boardIndex >= playerIndex * 7 + 1 && boardIndex <= playerIndex * 7 + 6
   }
 
   def checkEnd:Boolean= {
