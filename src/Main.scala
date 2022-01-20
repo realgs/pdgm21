@@ -14,27 +14,23 @@ object Main {
     var engine = new Enginee()
     var engine2 = new Enginee()
 
-    var serwer = new Serwer(engine,engine2)
-    serwer.Play()
+    println(human.getClass)
+
+    var serwer = new Serwer(List(human,human2))
+
+    human.Start()
+    human2.Start()
+
+    serwer.Main()
+
+
+
+
   }
 
 }
 
-def PrintArray(currentMapState: Array[Array[Int]]): Unit =
-  println(" ")
-  println("      Player 1      ")
-  println("--------------------")
-  print("|  |")
-  for(n <- currentMapState(0).slice(1, 7).toList)print(n +" ")
-  println("|  |")
-  println("| "+currentMapState(0)(0)+"|            | "+currentMapState(1)(0) + "|")
-  print("|  |")
-  for(n <- currentMapState(1).slice(1, 7).toList)print(n + " ")
-  println("|  |")
-  println("--------------------")
-  println("      Player 2      ")
 
-  println(" ")
 
 trait gameLogic{
   def MakeMove(newCurrentMapState: Array[Array[Int]], player: Int, move: Int): (Array[Array[Int]],Int) =
@@ -116,6 +112,21 @@ trait gameLogic{
       then{ CurrentMapState(player)(0) = CurrentMapState(player)(0) + CurrentMapState(player)(iterator);CurrentMapState(player)(iterator) = 0; pitsCounting(iterator+1,player)}
     pitsCounting(1,0)
     pitsCounting(1,1)
+
+  def PrintArray(currentMapState: Array[Array[Int]]): Unit =
+    println(" ")
+    println("      Player 1      ")
+    println("--------------------")
+    print("|  |")
+    for(n <- currentMapState(0).slice(1, 7).toList)print(n +" ")
+    println("|  |")
+    println("| "+currentMapState(0)(0)+"|            | "+currentMapState(1)(0) + "|")
+    print("|  |")
+    for(n <- currentMapState(1).slice(1, 7).toList)print(n + " ")
+    println("|  |")
+    println("--------------------")
+    println("      Player 2      ")
+    println(" ")
 }
 
 class Enginee extends Player {
@@ -324,7 +335,28 @@ class Human() extends Player{
   private var result = -1
   private var currentMapState: Array[Array[Int]] = Array.fill(2)(Array.fill(7)(0))
   private var player: Int = 0
+  private var wantPlay: Int = 0
 
+  def Start(): Unit ={
+    println("Welcome!!!" +
+      "\n1. Player vs Player" +
+      "\n2. Player vs Computer" +
+      "\n3. Computer vs Computer" +
+      "\n4. End")
+     var line = "";
+    while(line == ""){
+      line = Console.in.readLine();
+      line match
+        case "1" => wantPlay = 1
+        case "2" => wantPlay = 2
+        case "3" => wantPlay = 3
+        case "4" => wantPlay = 0
+        case _ =>
+    }
+
+  }
+
+  def GetWantPlay(): Int = wantPlay
 
   override def ReturnMove(): Int =
     if result == -1
@@ -332,7 +364,6 @@ class Human() extends Player{
       CheckAvailableMoves(currentMapState,player).head
     else
       result
-
   @Override
   override def Possibilities(startMapState: Array[Array[Int]],playerNum: Int): Unit = {
     player = playerNum
@@ -355,16 +386,37 @@ class Human() extends Player{
 
 }
 
-class Serwer(private var player0: Player, private var player1: Player) extends gameLogic {
+class Serwer(private var listOfPlayers: List[Human]) extends gameLogic {
+  private var engine = new Enginee()
+  private var engine2 = new Enginee()
 
-  def Play(): Unit =
+  def Main(): Unit ={
+    var stop = false
+    var firstPlayer: Human = null
+    while(!stop){
+      Thread.sleep(100)
+      var i = 0
+      while (i<listOfPlayers.length){
+        if listOfPlayers(i).GetWantPlay() == 1
+        then
+          if firstPlayer == null
+          then firstPlayer = listOfPlayers(i)
+          else Play(firstPlayer,listOfPlayers(i))
+        else if listOfPlayers(i).GetWantPlay() == 2
+        then Play(listOfPlayers(i),engine)
+        else if listOfPlayers(i).GetWantPlay() == 3
+        then Play(engine,engine2)
+
+        i = i+1
+      }
+    }
+  }
+
+  def Play(player0: Player, player1: Player): Unit =
     var map = Array.fill(2)(Array.fill(7)(4))
     map (0)(0) = 0
     map (1)(0) = 0
     var currentPlayer = 0;
-
-
-
     while(!IsOver(map)){
       val ectx = ExecutionContext.global
       PrintArray(map)
@@ -412,5 +464,8 @@ class Serwer(private var player0: Player, private var player1: Player) extends g
     EndingMap(map)
     PrintArray(map)
     println("-------------------------------------------------")
+
+    if player0.getClass.toString == "class Human" then player0.asInstanceOf[Human].Start()
+    if player1.getClass.toString == "class Human" then player0.asInstanceOf[Human].Start()
 
 }
