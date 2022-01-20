@@ -76,7 +76,6 @@ abstract class Player(_arrOfHomes: Array[Int] = GameSpecification.PLAYERHOUSESST
         arrayOfHousesAfterMove(index) += 1
 
       var scoreAfterMove = if isYourMove then arrayOfHousesAfterMove(indexOfYourStore) - arrayOfHousesAfterMove(indexOfEnemiesStore) else arrayOfHousesAfterMove(indexOfEnemiesStore) - arrayOfHousesAfterMove(indexOfYourStore)
-      for index <- (indexOfEnemiesStore + 1) % 14 until indexOfYourStore do
-        scoreAfterMove += arrayOfHousesAfterMove(index)
+
       SingleDecision(scoreAfterMove, isYourMoveAfterMove, arrayOfHousesAfterMove, checkIfDone(arrayOfHousesAfterMove) == 2)
 

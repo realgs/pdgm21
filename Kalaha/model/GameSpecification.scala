@@ -11,6 +11,7 @@ object GameSpecification:
       case 5 => "Sredni"
       case 6 => "Trudny"
       case 8 => "Bardzo trudny"
+      case _ => "Inny"
 
   var STARTAMOUNTOFROCKS = 6
   val ARRAYOFHOUSESSTART: Array[Int] = Array[Int](
