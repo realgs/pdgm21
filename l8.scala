@@ -94,10 +94,6 @@ class Game {
 
 class Player {
 
-    def init(): Unit = {
-        //
-    }
-
     def make_move(state: Game): Int = {
         0
     }
@@ -115,10 +111,13 @@ class HumanPlayer extends Player {
         println(s"Player ${if state.player then 2 else 1}")
         state.print_pretty()
         println("\nyour move: ")
-        var a = -1
-        while (a == -1)
-            a = scala.io.StdIn.readInt()
-        translate_move(state, a)
+        var move = -1
+        while (move == -1)
+            try
+                move = scala.io.StdIn.readInt()
+            catch
+                case _: Exception => {move = -1}
+        translate_move(state, move)
     }
 
 }
@@ -177,12 +176,18 @@ class Server(mode: Int) {
 object Main {
     def main(args: Array[String]): Unit = {
         println("Choose game mode:")
-        println("0 - Human as player 1 vs Human as player 2")
-        println("1 - Computer as player 1 vs Human as player 2")
-        println("2 - Human as player 1 vs Computer as player 2")
-        println("3 - Computer as player 1 vs Computer as player 2")
-        var a = scala.io.StdIn.readInt()
-        val server = new Server(a)
+        println("0 - Human     as player 1  VS Human     as player 2")
+        println("1 - Computer  as player 1  VS Human     as player 2")
+        println("2 - Human     as player 1  VS Computer  as player 2")
+        println("3 - Computer  as player 1  VS Computer  as player 2")
+        var mode = -1
+        while (mode == -1 || mode > 3 || mode < 0)
+            try
+                mode = scala.io.StdIn.readInt()
+                if mode > 3 || mode < 0 then throw new Exception()
+            catch
+                case _: Exception => {println("no such mode, choose again:"); mode = -1}
+        val server = new Server(mode)
         server.run()
     }
 }
