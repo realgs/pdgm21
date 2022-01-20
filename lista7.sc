@@ -81,14 +81,18 @@ object lista7 {
 
   def parallelFibonacci(num: Int): Long =
     require(num >= 0, "number can't be negative")
-    if num < 35 then //35 wynika z kilkukrotnych testów
-      if num < 2 then
-        num
+
+    def parallelFibonacciInternal(num: Int, depth: Int): Long =
+      if num < 35 || depth <= 0 then //35 wynika z kilkukrotnych testów
+        if num < 2 then
+          num
+        else
+          normalFibonacci(num - 1) + normalFibonacci(num - 2)
       else
-        normalFibonacci(num - 1) + normalFibonacci(num - 2)
-    else
-      val (fib1, fib2) = parallel(parallelFibonacci(num - 1), parallelFibonacci(num - 2))
-      fib1 + fib2
+        val (fib1, fib2) = parallel(parallelFibonacciInternal(num - 1, depth - 1), parallelFibonacciInternal(num - 2, depth - 1))
+        fib1 + fib2
+
+    parallelFibonacciInternal(num, 5)
 
 
   def normalFindPrimes(n: Int): List[Int] = {
@@ -175,7 +179,7 @@ object lista7 {
 
 
 
-
+    compare(normalFibonacci(47), parallelFibonacci(47), 47, "normalFib", "parallelFib")
     compare(normalFibonacci(45), parallelFibonacci(45), 45, "normalFib", "parallelFib")
     compare(normalFibonacci(42), parallelFibonacci(42), 42, "normalFib", "parallelFib")
     compare(normalFibonacci(40), parallelFibonacci(40), 40, "normalFib", "parallelFib")
