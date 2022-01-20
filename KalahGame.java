@@ -47,14 +47,8 @@ public class KalahGame
 								continue;
 							}
 							
-							diffInPointsInFourMoves[i][j][k][l] = (simulatedBoard.getFields()[simulatedBoard.getBaseIndexOfId(0)].getStones() +
-									simulatedBoard.getFields()[0].getStones() + simulatedBoard.getFields()[1].getStones() +
-									simulatedBoard.getFields()[2].getStones() + simulatedBoard.getFields()[3].getStones() +
-									simulatedBoard.getFields()[4].getStones() + simulatedBoard.getFields()[5].getStones()) -
-									(simulatedBoard.getFields()[simulatedBoard.getBaseIndexOfId(1)].getStones() + 
-											simulatedBoard.getFields()[7].getStones() + simulatedBoard.getFields()[8].getStones() +
-											simulatedBoard.getFields()[9].getStones() + simulatedBoard.getFields()[10].getStones() +
-											simulatedBoard.getFields()[11].getStones() + simulatedBoard.getFields()[12].getStones());
+							diffInPointsInFourMoves[i][j][k][l] = simulatedBoard.getFields()[simulatedBoard.getBaseIndexOfId(0)].getStones() -
+									simulatedBoard.getFields()[simulatedBoard.getBaseIndexOfId(1)].getStones();
 							simulatedBoard.replaceWith(gameBoard);
 						}
 					}
@@ -100,14 +94,8 @@ public class KalahGame
 								continue;
 							}
 							
-							diffInPointsInFourMoves[i][j][k][l] = (simulatedBoard.getFields()[simulatedBoard.getBaseIndexOfId(1)].getStones() + 
-									simulatedBoard.getFields()[7].getStones() + simulatedBoard.getFields()[8].getStones() +
-									simulatedBoard.getFields()[9].getStones() + simulatedBoard.getFields()[10].getStones() +
-									simulatedBoard.getFields()[11].getStones() + simulatedBoard.getFields()[12].getStones()) -
-									(simulatedBoard.getFields()[simulatedBoard.getBaseIndexOfId(0)].getStones() +
-											simulatedBoard.getFields()[0].getStones() + simulatedBoard.getFields()[1].getStones() +
-											simulatedBoard.getFields()[2].getStones() + simulatedBoard.getFields()[3].getStones() +
-											simulatedBoard.getFields()[4].getStones() + simulatedBoard.getFields()[5].getStones());
+							diffInPointsInFourMoves[i][j][k][l] = simulatedBoard.getFields()[simulatedBoard.getBaseIndexOfId(1)].getStones() -
+									simulatedBoard.getFields()[simulatedBoard.getBaseIndexOfId(0)].getStones();
 							simulatedBoard.replaceWith(gameBoard);
 						}
 					}
