@@ -4,6 +4,13 @@ class Game {
     val board = Array(4,4,4,4,4,4,0,4,4,4,4,4,4,0)
     var player = false
 
+    def copy(): Game = {
+        val game = new Game()
+        (0 until 14).foreach(i => {game.board(i) = board(i)})
+        game.player = player
+        game
+    }
+
     def check_if_legal_move(from: Int): Boolean = {
         if from / 7 != (if player then 1 else 0) then false else
         if from < 0 then false else
@@ -119,11 +126,19 @@ class HumanPlayer extends Player {
 class ComputerPlayer extends Player {
 
     override def make_move(state: Game): Int = {
-        var a = 1
-        val r = new java.util.Random()
-        while (!state.check_if_legal_move(translate_move(state, a)))
-            a = r.nextInt() % 6 + 1
-        translate_move(state, a)
+        var best_move = -1
+        var best_value = -73
+        (1 until 7).foreach(i => {
+            val move = translate_move(state, i)
+            val game = state.copy()
+            if state.check_if_legal_move(move) then
+                game.move(move)
+                val eval = if game.player == state.player then static_eval(game) else -static_eval(game)
+                if eval > best_value then
+                    best_value = eval
+                    best_move = move
+        })
+        best_move
     }
 
     def static_eval(state: Game): Int = {
@@ -161,7 +176,13 @@ class Server(mode: Int) {
 
 object Main {
     def main(args: Array[String]): Unit = {
-        val server = new Server(2)
+        println("Choose game mode:")
+        println("0 - Human as player 1 vs Human as player 2")
+        println("1 - Computer as player 1 vs Human as player 2")
+        println("2 - Human as player 1 vs Computer as player 2")
+        println("3 - Computer as player 1 vs Computer as player 2")
+        var a = scala.io.StdIn.readInt()
+        val server = new Server(a)
         server.run()
     }
 }
