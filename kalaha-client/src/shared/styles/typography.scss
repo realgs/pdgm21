@@ -1,0 +1,34 @@
+@import url("https://pl.allfont.net/allfont.css?fonts=comic-sans-ms");
+
+$ff-primary: "Comic Sans MS", sans-serif;
+
+$fw-regular: 400;
+$fw-bold: 700;
+
+@mixin type-title {
+  font-family: $ff-primary;
+  font-size: 64px;
+  font-weight: $fw-bold;
+  line-height: 38px;
+}
+
+@mixin type-input {
+  font-family: $ff-primary;
+  font-size: 16px;
+  font-weight: $fw-regular;
+  line-height: 16px;
+}
+
+@mixin type-main {
+  font-family: $ff-primary;
+  font-size: 16px;
+  font-weight: $fw-regular;
+  line-height: 38px;
+}
+
+@mixin type-hole {
+  font-family: $ff-primary;
+  font-size: 32px;
+  font-weight: $fw-regular;
+  line-height: 38px;
+}

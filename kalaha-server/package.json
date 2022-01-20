@@ -1,0 +1,24 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/Macikolej/kalaha-server.git"
+  },
+  "author": "Maciej Olejnik",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Macikolej/kalaha-server/issues"
+  },
+  "homepage": "https://github.com/Macikolej/kalaha-server#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.17.2",
+    "uuid": "^8.3.2"
+  }
+}

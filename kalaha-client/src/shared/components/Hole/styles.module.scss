@@ -1,0 +1,31 @@
+@import "shared/styles";
+
+.hole {
+  @include type-hole;
+
+  background-color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 75px;
+  height: 75px;
+  box-sizing: border-box;
+  border: 1px solid black;
+  border-radius: 50%;
+  box-shadow: 2px 2px 2px black;
+}
+
+.homeHole {
+  @include type-title;
+
+  background-color: white;
+  width: 150px;
+  height: 150px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  border: 1px solid black;
+  border-radius: 50%;
+  box-shadow: 2px 2px 2px black;
+}

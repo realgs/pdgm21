@@ -1,0 +1,82 @@
+@import "shared/styles";
+
+.cGameScreen {
+  height: 100vh;
+  width: 100vw;
+  background-image: url("../../assets/images/main-screen-background.png") !important;
+  display: flex;
+  align-items: center;
+}
+
+.sidebar {
+  background-color: silver;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0 15px 0 15px;
+  gap: 20px;
+}
+
+.playerCounter {
+  @include type-main;
+}
+
+.mainContainer {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  flex: 1;
+}
+
+.column {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 20px;
+}
+
+.gameBoard {
+  margin: auto;
+  display: flex;
+  align-items: center;
+  background-color: grey;
+  padding: 30px 30px 30px 30px;
+  box-sizing: border-box;
+  gap: 20px;
+  box-shadow: 2px 2px 2px red;
+}
+
+.gameBoardOnMove {
+  box-shadow: 2px 2px 2px lime;
+}
+
+.infoText {
+  @include type-title;
+
+  color: white;
+  display: flex;
+  justify-content: center;
+  margin-top: 40px;
+}
+
+.playerHole {
+  cursor: pointer;
+  transition: 0.3s;
+
+  &:hover {
+    background-color: black;
+    color: white;
+    transition: 0.3s;
+  }
+}
+
+.losingText {
+  color: red;
+}
+
+.winningText {
+  color: lime;
+}
