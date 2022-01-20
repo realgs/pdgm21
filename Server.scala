@@ -7,6 +7,7 @@ class Server(val player1: Player, val player2: Player):
   player2.id = 2
 
   def oppositePlayer(player: Player) = if player.id == 1 then player2 else player1
+
   def play(housesPerSide: Int, initialSeedAmount: Int) =
     val gameBoard = new KalahaBoard(housesPerSide, initialSeedAmount)
     var currentPlayer = player1
@@ -15,11 +16,13 @@ class Server(val player1: Player, val player2: Player):
         val moveIndex = Await.result(Future {
           var move = currentPlayer.requestMove(gameBoard.copy())
           while !gameBoard.isMoveLegal(currentPlayer.id, move) do
+            println(s"ILLEGAL MOVE $move by player ${currentPlayer.id}")
+            gameBoard.printBoard()
             currentPlayer.notifyOfIllegalMovement()
             move = currentPlayer.requestMove(gameBoard.copy())
 
           move
-        }, 30.seconds)
+        }, 120.seconds)
         val nextPlayerId = gameBoard.makeAMove(currentPlayer.id, moveIndex)
         currentPlayer = if nextPlayerId == 1 then player1 else player2
 

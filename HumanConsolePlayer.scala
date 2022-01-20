@@ -2,8 +2,11 @@ import scala.io.StdIn
 
 class HumanConsolePlayer extends Player:
   var id: Int = _
+
   def messageColor = if id == 1 then Console.GREEN else if id == 2 then Console.BLUE else Console.WHITE
+
   def log(message: String) = println(s"$messageColor Player$id: $message ${Console.RESET}")
+
   override def notifyOfIllegalMovement(): Unit =
     log("This move is illegal, try again")
 

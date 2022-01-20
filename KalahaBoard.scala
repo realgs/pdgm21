@@ -24,8 +24,8 @@ class KalahaBoard(
     new KalahaBoard(
       housesPerSide,
       initialSeedAmount,
-      player1Houses.clone(),
-      player2Houses.clone(),
+      player1Houses.clone().map(house => house.copy()),
+      player2Houses.clone().map(house => house.copy()),
       player1Store.copy(),
       player2Store.copy()
     )
