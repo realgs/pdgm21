@@ -20,7 +20,6 @@ class Server(p1:Player, p2:Player) {
       val fx = Future { (if p1 then player1 else player2).moveOwn() }
       try
         val x = Await.result(fx, Duration(30, SECONDS))
-        println(x)
         val moveResult = game.move(x, p1)
         player1.move(x, p1)
         player2.move(x, p1)

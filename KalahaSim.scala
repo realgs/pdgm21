@@ -3,7 +3,7 @@ import scala.annotation.tailrec
 class KalahaSim {
   private var board = Array(6, 6, 6, 6, 6, 6, 0, 6, 6, 6, 6, 6, 6, 0)   // 0-5 is P1 row, 6 is P1 base, 7-12 is P2 row, 13 is P2 base
 
-  def move(poz:Int, p1:Boolean): Int =      // -1 means wrong argument, 0 means good argument, 1 means good argument and players gets bonus move
+  def move(poz:Int, p1:Boolean): Int =      // 0 means good argument, 1 means good argument and players gets bonus move
     if poz < 0 || poz == 6 || poz > 12 || board(poz) == 0 then throw Exception("Someone allowed illegal move!") else
       val helper = board(poz)
       board.update(poz, 0)
