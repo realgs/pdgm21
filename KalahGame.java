@@ -201,7 +201,7 @@ public class KalahGame
 		}
 	}
 	
-	public void playPlayerVsAI(String playerName)
+	public void playPlayerVsAI()
 	{
 		int playersChoice = 0;
 		
@@ -259,8 +259,6 @@ public class KalahGame
 					System.out.print("Choose from which field you wanna move: ");
 					
 					playersChoice = scanner.nextInt();
-					
-					gameBoard.makeMove(playersChoice, 0);
 				}
 				
 				gameBoard.print();
@@ -326,13 +324,13 @@ public class KalahGame
 				gameBoard.getFields()[11].getStones() + gameBoard.getFields()[12].getStones() + 
 				gameBoard.getFields()[13].getStones();
 		
-		System.out.println("Points of AI1: " + ai1pts);
-		System.out.println("Points of AI2: " + ai2pts);
+		System.out.println("Points of PlayerId0: " + ai1pts);
+		System.out.println("Points of PlayerId1: " + ai2pts);
 		
 		if (ai2pts > ai1pts)
-			System.out.println("AI2 has won!");
+			System.out.println("PlayerId1 has won!");
 		else if (ai2pts < ai1pts)
-			System.out.println("AI1 has won!");
+			System.out.println("PlayerId0 has won!");
 		else
 			System.out.println("Draw!");
 	}
