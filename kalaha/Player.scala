@@ -1,0 +1,5 @@
+package kalaha
+
+class Player {
+
+}
