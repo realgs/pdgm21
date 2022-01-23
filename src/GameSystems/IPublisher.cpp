@@ -4,6 +4,7 @@
 // e-mail: kuba.szwedowicz@gmail.com 
 //
 #include "IPublisher.hpp"
+#include "ISubscriber.hpp"
 
 bool IPublisher::subscribe(ISubscriber& a_subscriber) noexcept
 {
@@ -13,9 +14,9 @@ bool IPublisher::subscribe(ISubscriber& a_subscriber) noexcept
 
 void IPublisher::synchronizeClients()
 {
-    for(auto& subscriber : m_subscribers)
+    for (auto& subscriber: m_subscribers)
     {
-        subscriber->updateBoard();
-        subscriber->updatePlayer();
+        subscriber->updateGameState();
     }
 }
+

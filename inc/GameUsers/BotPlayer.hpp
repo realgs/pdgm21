@@ -7,16 +7,21 @@
 #ifndef LIST_8_BOTPLAYER_HPP
 #define LIST_8_BOTPLAYER_HPP
 
-#include <vector>
 #include "Player.hpp"
+#include "DecisionTree.hpp"
 
-class Board;
-class PlayerScore;
+class GameState;
 class BotPlayer : public Player
 {
 public:
-    BotPlayer(const std::string& a_name, Board& a_board, std::vector<PlayerScore>& a_playersScores) noexcept;
+    BotPlayer(const std::string& a_name, const GameState& a_gameState, int a_playerID) noexcept;
+    ~BotPlayer() override = default;
+
+    int makeTurn() noexcept override;
+
 private:
+    DecisionTree m_decisionTree;
+    std::vector<int> m_moves;
 };
 
 #endif //LIST_8_BOTPLAYER_HPP

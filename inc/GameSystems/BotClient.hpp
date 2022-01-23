@@ -6,26 +6,25 @@
 
 #ifndef LIST_8_BOTCLIENT_HPP
 #define LIST_8_BOTCLIENT_HPP
-#include "Client.hpp"
 
-class BotClient : public Client
+#include <memory>
+
+#include "ISubscriber.hpp"
+#include "Player.hpp"
+#include "DecisionTree.hpp"
+
+class BotClient : public ISubscriber
 {
 public:
-    BotClient(const PlayerSettings& a_playerSettings, std::vector<PlayerScore>& a_playersScores, Board& a_board, IPublisher& a_publisher) noexcept;
+    BotClient(IPublisher& a_publisher, const GameState& a_gameState, int a_clientID) noexcept;
 
-//    const Board& getBoard() const noexcept override;
-//
-//    const PlayerScore& getPlayerScore() const noexcept override;
+    int makeTurn() const noexcept override;
 
-    int makeTurn() noexcept override;
-
-    void updateBoard() noexcept override;
-
-    void updatePlayer() noexcept override;
+    virtual void updateGameState() noexcept override;
 
 private:
-    std::vector<PlayerScore>& m_playersScores;
-    const PlayerSettings& m_playerSettings;
-    Board& m_board;
+    int m_clientID;
+    const GameState& m_gameState;
+    std::unique_ptr<Player> m_player;
 };
 #endif //LIST_8_BOTCLIENT_HPP

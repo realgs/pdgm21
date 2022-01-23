@@ -3,38 +3,27 @@
 // Date: 20.01.2022.
 // e-mail: kuba.szwedowicz@gmail.com 
 //
+
+#include <memory>
+
 #include "BotClient.hpp"
-#include "PlayerSettings.hpp"
 #include "IPublisher.hpp"
 #include "BotPlayer.hpp"
 
-BotClient::BotClient(const PlayerSettings& a_playerSettings, std::vector<PlayerScore>& a_playersScores, Board& a_board, IPublisher& a_publisher) noexcept
-        : m_playerSettings(a_playerSettings), m_playersScores(a_playersScores), Client(a_publisher), m_board(a_board)
+BotClient::BotClient(IPublisher& a_server, const GameState& a_gameState, int a_clientID) noexcept
+        : ISubscriber(a_server), m_clientID(a_clientID), m_gameState(a_gameState)
+        , m_player(std::make_unique<BotPlayer>(m_gameState.getPlayerNames()[a_clientID], m_gameState, a_clientID))
 {
-    m_player = std::make_unique<BotPlayer>(m_playerSettings.getName(), m_board, a_playersScores);
+
 }
 
-//const Board& BotClient::getBoard() const noexcept
-//{
-//    return m_board;
-//}
-//
-//const PlayerScore& BotClient::getPlayerScore() const noexcept
-//{
-//    return m_playerScore;
-//}
 
-void BotClient::updateBoard() noexcept
+void BotClient::updateGameState() noexcept
 {
     // Does nothing since BotClient runs on Server and is directly connected to Server resources via references
 }
 
-void BotClient::updatePlayer() noexcept
+int BotClient::makeTurn() const noexcept
 {
-    // Does nothing since BotClient runs on Server and is directly connected to Server resources via references
-}
-
-int BotClient::makeTurn() noexcept
-{
-    return 0;
+    return m_player->makeTurn();
 }

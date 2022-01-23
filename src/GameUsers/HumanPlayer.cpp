@@ -4,12 +4,18 @@
 // e-mail: kuba.szwedowicz@gmail.com 
 //
 
+#include <iostream>
+
 #include "HumanPlayer.hpp"
-#include "Client.hpp"
-#include "Board.hpp"
 
-HumanPlayer::HumanPlayer(const std::string& a_name, Board& a_board, std::vector<PlayerScore>& a_playersScores) noexcept : Player(a_name, a_board, a_playersScores)
-
+HumanPlayer::HumanPlayer(const std::string& a_name, const GameState& a_gameState) noexcept : Player(a_name, a_gameState)
 {
 
+}
+
+int HumanPlayer::makeTurn() noexcept
+{
+    int move;
+    std::cin >> move;
+    return move;
 }

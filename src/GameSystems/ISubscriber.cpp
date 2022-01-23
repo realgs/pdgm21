@@ -10,3 +10,4 @@ ISubscriber::ISubscriber(IPublisher& a_publisher) noexcept : m_publisher(a_publi
 {
     a_publisher.subscribe(*this);
 }
+

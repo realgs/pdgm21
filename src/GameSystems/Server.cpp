@@ -6,113 +6,137 @@
 
 #include <memory>
 #include <optional>
+#include <future>
+#include <exception>
+
 #include "Server.hpp"
-#include "Board.hpp"
 #include "HumanPlayer.hpp"
 #include "HumanClient.hpp"
 #include "BotClient.hpp"
 
-Server::Server() noexcept
-        : m_settings(nullptr), m_settingsChanged(false), m_playersScores(), m_clients(), m_board(nullptr)
+Server::Server(const GameState& a_startingGameState) noexcept
+        : m_startingGameState(a_startingGameState), m_currentGameState(m_startingGameState), m_clients()
 {
 
 }
 
-void Server::run(Settings* a_settings) noexcept
+void Server::run() noexcept
 {
-    prepareGame(a_settings);
+    prepareGame();
     runGame();
+}
+
+// PRIVATE
+void Server::prepareGame() noexcept
+{
+    m_clients.clear();
+    m_currentGameState = m_startingGameState;
+    for (int i = 0; i < m_currentGameState.getNumberOfHumanPayers(); i++)
+        m_clients.push_back(std::make_unique<HumanClient>(*this, i));
+
+    for (int i = m_currentGameState.getNumberOfHumanPayers(); i < m_currentGameState.getNumberOfPlayers(); i++)
+        m_clients.push_back(std::make_unique<BotClient>(*this, m_currentGameState, i));
+
+    synchronizeClients();
 }
 
 void Server::runGame() noexcept
 {
-    for (int i = 0; i < m_settings->m_numbersInfo.m_numberOfPlayers.second; i++)
+    int turnCounter = 1;
+    bool running = true;
+
+    try
     {
-//        if(m_settings->m_players[i].getPlayerType() == PlayerType::human)
-        std::cout << "Turn of player: " << m_settings->m_players[i].getName() << std::endl;
-        int move = m_clients[i]->makeTurn();
-        if (validateMove(move, i))
+        while (running)
         {
-            m_board->unloadHole(move);
-        } else
-        {
-            std::cout << "You tried making illegal move!" << std::endl;
-            i--;
+            for (int i = 0; i < m_currentGameState.getNumberOfPlayers(); i++, turnCounter++)
+            {
+                std::cout << "Turn " << turnCounter << ": " << m_currentGameState.getPlayerNames()[i] << std::endl;
+                std::cout << "Rocks left: " << m_currentGameState.getRocksLeft()[i] << std::endl;
+                std::cout << "Points: " << m_currentGameState.getPoints()[i] << std::endl;
+                std::cout << m_currentGameState << std::endl;
+
+                if (m_currentGameState.getRocksLeft()[i] == 0)  // Game ends if moving player has no more rocks to play
+                {
+                    std::cout << "Player: " << m_currentGameState.getPlayerNames()[i]
+                              << " has no more moves. Game ends." << std::endl;
+                    running = false;
+                    m_currentGameState.finishGame(i);
+                    break;
+                }
+
+                int lastHolePutInto = oneValidTurn(i);
+
+                if (lastHolePutInto == (i + 1) * m_currentGameState.getHolesPerSide() - 1) // Extra move
+                {
+                    i--;
+                }
+                synchronizeClients();
+            }
         }
-
-    }
-}
-
-bool Server::validateMove(int a_move, int a_playerIndex) const noexcept
-{
-    return a_move >= m_board->validateMove(a_move, a_playerIndex);
-}
-
-// PRIVATE
-void Server::prepareGame(Settings* a_settings) noexcept
-{
-    changeSettings(a_settings);
-    applySettings();
-}
-
-void Server::changeSettings(Settings* a_settings) noexcept
-{
-    if (m_settings == nullptr || a_settings->getSettingsID() != m_settings->getSettingsID())
+        annouceTheWinner();
+    } catch (const std::exception& ex)
     {
-        m_settings = a_settings;
-        m_settingsChanged = true;
+        std::cout << "Something went terribly wrong! \n" << ex.what() << std::endl;
     }
 }
 
-void Server::applySettings() noexcept
+
+GameState Server::getCurrentGameState() const noexcept
 {
-    if (m_settingsChanged)
+    return m_currentGameState;
+}
+
+void Server::annouceTheWinner() const noexcept
+{
+    const auto& points = m_currentGameState.getPoints();
+    auto winnerPoints = std::max_element(points.cbegin(), points.cend());
+    int winnerIndex = std::distance(points.cbegin(), winnerPoints);
+    std::cout << m_currentGameState.getPlayerNames()[winnerIndex] << " won with " << *winnerPoints << std::endl;
+}
+
+int Server::oneValidTurn(int a_playerIndex)
+{
+    bool validMoveWasMade = false;
+    int patience = 3;
+    int lastHouse = -1;
+    while (!validMoveWasMade && patience != 0)
     {
-        init();
-        synchronizeClients();
-        m_settingsChanged = false;
+        std::future<int> clientThread = std::async(std::launch::async, &ISubscriber::makeTurn,
+                                                   m_clients[a_playerIndex].get());
+
+        std::future_status status = std::future_status::deferred;
+        while (status != std::future_status::ready && patience != 0)
+        {
+            using namespace std::chrono_literals;
+            switch (status = clientThread.wait_for(30s); status)
+            {
+                case std::future_status::ready:
+                {
+                    int move = clientThread.get();
+                    if (m_currentGameState.validateMove(move, a_playerIndex))
+                    {
+                        lastHouse = m_currentGameState.unloadHouse(move, a_playerIndex);
+                        validMoveWasMade = true;
+                    } else
+                    {
+                        std::cout << "You tried making illegal move!"
+                                     "\nChoose again." << std::endl;
+                    }
+                    break;
+                }
+                case std::future_status::timeout:
+                    std::cout << "30 seconds have passed, you have to make a decision!" << std::endl;
+                    patience--;
+                    break;
+                case std::future_status::deferred:
+                    throw std::runtime_error("Deferred state of clientThread!");
+            }
+        }
     }
-    m_board->init(m_clients);
-}
-
-void Server::init() noexcept
-{
-    m_settings->init();
-    m_playersScores.clear();
-    for (int i = 0; i < m_settings->m_numbersInfo.m_numberOfPlayers.second; i++)
-        m_playersScores.push_back(0);
-
-    m_board = std::make_unique<Board>(m_settings->m_numbersInfo.m_numberOfPlayers.second,
-                                      m_settings->m_numbersInfo.m_numberOfHousesPerSide.second,
-                                      m_settings->m_numbersInfo.m_numberOfRocksPerHouse.second);
-
-    for (int i = 0; i < m_settings->m_numbersInfo.m_numberOfHumanPlayers.second; i++)
+    if (patience == 0)
     {
-        m_clients.push_back(std::make_unique<HumanClient>(m_settings->m_players[i], m_playersScores, *this));
+        std::cout << "You didn't make any decision. Your turn is skipped." << std::endl;
     }
-    for (int i = 0; i < m_settings->m_numbersInfo.m_numberOfSiPlayers.second; i++)
-    {
-        m_clients.push_back(std::make_unique<BotClient>(m_settings->m_players[i], m_playersScores, *m_board, *this));
-    }
+    return lastHouse;
 }
-
-std::optional<Board> Server::getBoard(PlayerSettings a_playerSetting) const noexcept
-{
-    return (verifyPlayerSettings(a_playerSetting)) ? std::make_optional(Board(*m_board)) : std::nullopt;
-}
-
-std::optional<std::vector<PlayerScore>> Server::getPlayersScore(PlayerSettings a_playerSetting) const noexcept
-{
-    return verifyPlayerSettings(a_playerSetting) ? std::make_optional(
-            m_playersScores) : std::nullopt;
-}
-
-bool Server::verifyPlayerSettings(const PlayerSettings& a_playerSettings) const noexcept
-{
-    return (m_settings->m_players.size() > a_playerSettings.getPlayerID())
-           && (m_settings->m_players[a_playerSettings.getPlayerID()].getName() == a_playerSettings.getName());
-}
-
-
-
-

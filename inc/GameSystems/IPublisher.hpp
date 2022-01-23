@@ -6,23 +6,21 @@
 
 #ifndef LIST_8_IPUBLISHER_HPP
 #define LIST_8_IPUBLISHER_HPP
-#include <list>
-#include <optional>
-#include "ISubscriber.hpp"
-#include "Board.hpp"
-#include "PlayerScore.hpp"
-#include "PlayerSettings.hpp"
 
+#include <vector>
+
+#include "GameState.hpp"
+
+class ISubscriber;
 class IPublisher
 {
 public:
     virtual ~IPublisher() = default;
     bool subscribe(ISubscriber& a_subscriber) noexcept;
-    virtual std::optional<Board> getBoard(PlayerSettings a_playerSetting) const noexcept = 0;
-    virtual std::optional<std::vector<PlayerScore>> getPlayersScore(PlayerSettings a_playerSetting) const noexcept = 0;
+    virtual GameState getCurrentGameState() const noexcept = 0;
 protected:
     void synchronizeClients();
 private:
-    std::list<ISubscriber*> m_subscribers;
+    std::vector<ISubscriber*> m_subscribers;
 };
 #endif //LIST_8_IPUBLISHER_HPP

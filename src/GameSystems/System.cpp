@@ -4,26 +4,22 @@
 // e-mail: kuba.szwedowicz@gmail.com 
 //
 
-#include <iostream>
 #include "System.hpp"
+#include "GameState.hpp"
 
-System::System() noexcept
-{
-}
 
-void System::changeSettings() noexcept
+//System::System() noexcept : m_gameSettings({"Player1", "Bot1"})
+System::System() noexcept : m_gameSettings({"Bot1", "Bot2"}, 0, 2)
 {
-    m_settings.changeSetting();
+
 }
 
 void System::startGame() noexcept
 {
-    if (m_settings.areOk())
-    {
-        if(m_gameServer == nullptr) m_gameServer = std::make_unique<Server>();
-        m_gameServer->run(&m_settings);
-    }
-
+    if (m_gameServer == nullptr)
+        m_gameServer = std::make_unique<Server>(m_gameSettings);
+    m_gameServer->run();
 }
+
 
 

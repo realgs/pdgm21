@@ -7,21 +7,19 @@
 #ifndef LIST_8_SYSTEM_HPP
 #define LIST_8_SYSTEM_HPP
 
+#include <memory>
 #include "Server.hpp"
-
 
 class System
 {
 public:
     System() noexcept;
 
-    void changeSettings() noexcept;
-
     void startGame() noexcept;
 
 private:
+    GameState m_gameSettings;
     std::unique_ptr<Server> m_gameServer;
-    Settings m_settings;
 };
 
 #endif //LIST_8_SYSTEM_HPP

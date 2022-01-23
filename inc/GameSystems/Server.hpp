@@ -7,44 +7,39 @@
 #ifndef LIST_8_SERVER_HPP
 #define LIST_8_SERVER_HPP
 
-#include "../GameUtils/Settings.hpp"
-#include "IPublisher.hpp"
-#include "Client.hpp"
+#include <memory>
 
+#include "IPublisher.hpp"
+#include "GameState.hpp"
+#include "ISubscriber.hpp"
+
+//class ISubscriber;
 class Server : public IPublisher
 {
 public:
     // CTOR
-    Server() noexcept;
+    Server(const GameState& a_startingGameState) noexcept;
+
+    ~Server() override = default;
 
     // FUNCTIONS
-    void run(Settings* a_settings) noexcept;
+    void run() noexcept;
 
     // GETTERS
-    std::optional<Board> getBoard(PlayerSettings a_playerSetting) const noexcept override;
-
-    std::optional<std::vector<PlayerScore>> getPlayersScore(PlayerSettings a_playerSetting) const noexcept override;
+    GameState getCurrentGameState() const noexcept override;
 
 private:
     void runGame() noexcept;
 
-    bool validateMove(int a_move, int a_playerIndex) const noexcept;
+    void prepareGame() noexcept;
 
-    void prepareGame(Settings* a_settings) noexcept;
+    void annouceTheWinner() const noexcept;
 
-    void changeSettings(Settings* a_settings) noexcept;
+    int oneValidTurn(int a_playerIndex);
 
-    void applySettings() noexcept;
-
-    void init() noexcept;
-
-    bool verifyPlayerSettings(const PlayerSettings& a_playerSettings) const noexcept;
-
-    bool m_settingsChanged;
-    Settings* m_settings;
-    std::vector<PlayerScore> m_playersScores;
-    std::vector<std::unique_ptr<Client>> m_clients;
-    std::unique_ptr<Board> m_board;
+    GameState m_startingGameState;
+    GameState m_currentGameState;
+    std::vector<std::unique_ptr<ISubscriber>> m_clients;
 };
 
 #endif //LIST_8_SERVER_HPP

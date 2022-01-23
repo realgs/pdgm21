@@ -7,27 +7,21 @@
 #ifndef LIST_8_PLAYER_HPP
 #define LIST_8_PLAYER_HPP
 
-#include <vector>
 #include <string>
 
-#include "PlayerType.hpp"
-#include "PlayerScore.hpp"
-
-class Board;
-
 class PlayerScore;
+class GameState;
 
 class Player
 {
 public:
-    Player(const std::string& a_name, Board& a_board, std::vector<PlayerScore>& a_playersScores) noexcept;
-    int makeTurn() noexcept;
+    Player(const std::string& a_name, const GameState& a_gameState) noexcept;
     virtual ~Player() = default;
-private:
-    void printBoard() const noexcept;
+    virtual int makeTurn() noexcept = 0;
+protected:
     const std::string& m_name;
-    Board& m_board;
-    std::vector<PlayerScore>& m_playersScores;
+    const GameState& m_gameState;
+private:
 };
 
 #endif //LIST_8_PLAYER_HPP
