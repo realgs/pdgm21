@@ -10,14 +10,22 @@ class Kalaha:
 
     startingPlayerHouses(index) = 0
     for(i <- 0 until iterations)
+      println(iterations)
       index = index + 1
       (index, startingPlayerSide) match
         case (6, _) =>
           index = -1
-          if startingPlayerSide then startingPlayerPointsGained = startingPlayerPointsGained + 1
-          else otherPlayerPointsGained = otherPlayerPointsGained + 1
-          startingPlayerSide = !startingPlayerSide;
-        case (_, true) => startingPlayerHouses(index) = startingPlayerHouses(index) + 1
+          if startingPlayerSide then
+            startingPlayerPointsGained = startingPlayerPointsGained + 1
+          else
+            otherPlayerPointsGained = otherPlayerPointsGained + 1
+          startingPlayerSide = !startingPlayerSide
+        case (_, true) =>
+          if i != iterations - 1 then
+            startingPlayerHouses(index) = startingPlayerHouses(index) + 1
+          else if startingPlayerHouses(index) == 0 then
+            startingPlayerPointsGained = startingPlayerPointsGained + otherPlayerHouses(6 - index - 1) + 1
+            otherPlayerHouses(6 - index - 1) = 0
         case (_, false) => otherPlayerHouses(index) = otherPlayerHouses(index) + 1
 
     val player1PointsGained = if player1Turn then startingPlayerPointsGained else otherPlayerPointsGained
@@ -28,6 +36,6 @@ class Kalaha:
     var state1 = 0
     var state2 = 0
     for(i <-0 until player1.length)
-      state1 = state1 + player1[i]
-      state2 = state2 + player2[i]
+      state1 = state1 + player1(i)
+      state2 = state2 + player2(i)
     state1 == 0 || state2 == 0

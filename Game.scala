@@ -1,6 +1,6 @@
 class Game:
-  var player1 = Array(4, 4, 4, 4, 4, 4)
-  var player2 = Array(4, 4, 4, 4, 4, 4)
+  var player1 = Array(8, 3, 2, 4, 0, 1)
+  var player2 = Array(4, 8, 4, 4, 4, 4)
   var player1Points = 0
   var player2Points = 0
   val k = Kalaha()
