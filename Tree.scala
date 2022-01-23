@@ -1,52 +1,4 @@
 import scala.annotation.tailrec
-/*
-class Node[T](var value: T, val size: Int) {
-
-  private val kids = new Array[Node[T]](size)
-  private var index = 0
-
-  def getValue:T = value
-
-  def setValue(newValue: T): Unit = value = newValue
-
-  def hasKids: Boolean = index != 0
-
-  def getKids: Array[Node[T]] = kids
-
-  def getIndex: Int = index
-
-  def addKid(newKid: Node[T]): Unit =
-    kids(index) = newKid
-    if index == -1 then index = 1
-    else index += 1
-
-  def addNewKid(value: T): Unit =
-    kids(index) = new Node[T](value, kids.length)
-    if index == -1 then index = 1
-    else index += 1
-
-  def addKidAt(newKid: Node[T], index: Int): Unit =
-    kids(index) = newKid
-    if this.index == 0 then this.index = -1
-
-  def addNewKidAt(value: T, index: Int): Unit =
-    kids(index) = new Node[T](value, kids.length)
-    if this.index == 0 then this.index = -1
-
-  def findPaths(): Array[(T, List[Int])] =
-    var res = new Array[(T, List[Int])](0)
-    def search(curr: Node[T], path: List[Int]): Unit =
-      if curr.hasKids then
-        var i = 0
-        while(i < size){
-          res = res:+(curr.getKids(i).getValue, path:+i)
-          search(curr.getKids(i), path:+i)
-          i += 1
-        }
-    search(this,List())
-    res
-}
-*/
 
 def aToPowerb(a: Int, b:Int): Int =
   @tailrec
@@ -157,42 +109,22 @@ class Node(var value: (Int, Kalaha, Int), val size: Int) {
       else counter(rest - aToPowerb(size, power), power + 1)
     counter(nodesAmount,0)
 
- def bestChoice(playerId: Int): Array[(Int, Int)] =
-   val res = Array.fill(6)((0, 0))
-
-   def iterator(curr: Node, index: Int, depth: Int): Unit =
-     if curr.hasKids && depth >= 0 then {
+  def bestChoice(playerId: Int): Array[(Int, Int)] =
+    val res = Array.fill(6)((0, 0))
+    def iterator(curr: Node, index: Int, depth: Int): Unit =
+      if curr.hasKids && depth >= 0 then {
        res(index) = (curr.chooseBest(curr.value._3 == playerId), curr.value._3)
        curr.kids.foreach(kid => {
          iterator(kid, index, depth - 1)
        })
      }
-
-   var i = 0
-   val depth: Int = fullHeight()
-   kids.foreach(kid => {
-     iterator(kid, i, depth - 2)
-     i += 1
-   })
-   res
-
-  /*
-  def bestChoice2(playerId: Int): Array[(Int, Int)] =
-    val res = Array((kids(0).value._1, kids(0).value._3), (kids(1).value._1, kids(1).value._3), (kids(2).value._1, kids(2).value._3), (kids().value._1, kids(3).value._3), (kids(4).value._1, kids(4).value._3), (kids(5).value._1, kids(5).value._3))
-    def iterator(curr: Node, index: Int): Unit =
-      if curr.hasKids then {
-        res(index) = (curr.chooseBest(curr.value._3 == playerId), curr.value._3)
-        curr.kids.foreach(kid =>{
-          iterator(kid, index)
-        })
-      }
     var i = 0
-    kids.foreach(kid =>{
-      iterator(kid, i)
+    val depth: Int = fullHeight()
+    kids.foreach(kid => {
+      iterator(kid, i, depth - 2)
       i += 1
     })
     res
-*/
 
   def countSubtree(): Unit =
     def kidCount(): Int =
