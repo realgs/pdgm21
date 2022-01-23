@@ -74,22 +74,22 @@ class Kalaha(private val field1: Array[Int], private val field2: Array[Int]) {
 
   def printFields(id: Int): Unit = {
 
-  var playerField = field1
-  var enemyField = field2.reverse
+    var playerField = field1
+    var enemyField = field2.reverse
 
-  if id == 2 then
-    playerField = field2
-    enemyField = field1.reverse
+    if id == 2 then
+      playerField = field2
+      enemyField = field1.reverse
 
-  println("|---------------Enemy Field---------------|")
-  println("|Base |--6--|--5--|--4--|--3--|--2--|--1--|")
-  enemyField.foreach(x => printf("|%5d",x))
-  println("|")
-  println("|-----------------------------------------|")
-  playerField.foreach(x => printf("|%5d",x))
-  println("|")
-  println("|--1--|--2--|--3--|--4--|--5--|--6--| Base|")
-  println("|--------------Player Field---------------|")
+    println("|---------------Enemy Field---------------|")
+    println("|Base |--6--|--5--|--4--|--3--|--2--|--1--|")
+    enemyField.foreach(x => printf("|%5d",x))
+    println("|")
+    println("|-----------------------------------------|")
+    playerField.foreach(x => printf("|%5d",x))
+    println("|")
+    println("|--1--|--2--|--3--|--4--|--5--|--6--| Base|")
+    println("|--------------Player Field---------------|")
   }
 
   def copy(): Kalaha = new Kalaha(field1.clone(), field2.clone())
@@ -97,7 +97,7 @@ class Kalaha(private val field1: Array[Int], private val field2: Array[Int]) {
   def getField(id: Int): Array[Int] =
     if id == 1 then field1
     else field2
-  
+
   //val nextField1: Int => Array[Int] = id => if id == 1 then field1 else field2
 
   val nextField: Boolean => Array[Int] = value =>if value then field1 else field2

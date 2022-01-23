@@ -1,64 +1,105 @@
+import scala.annotation.tailrec
 import scala.concurrent.{Await, Future}
-import scala.concurrent.duration._
+import scala.concurrent.duration.*
 import scala.concurrent.ExecutionContext.Implicits.global
 
 class LogicEngine(val game: Kalaha, val playerId: Int) {
 
   var moves: List[Int] = List[Int]()
   val decisions = new MyTree(6, game)
+  var bestMove: Int = 0
 
-  def makeMove(): Int =
+  def updateEnemyMove(move: Int): Unit = moves = moves :+ move
 
-    if !decisions.getNode(moves).hasKids then {
-    decisions.getNode(moves).setValue(game.getScore(playerId), game)
+  def makeMove(time: Int): Int = {
+    val start = System.currentTimeMillis()
+    if decisions.getRoot.getValue._3 == 0 then
+      if moves.isEmpty then decisions.getRoot.setValue(decisions.getRoot.getValue._1, decisions.getRoot.getValue._2, playerId)
+      else {
+        decisions.getRoot.setValue(game.getScore(playerId), game, playerId)
+        moves = List()
+      }
+    var root = decisions.getRoot
+    moves.foreach(move =>{
+      if !root.hasKids then {
+        fillChildren()
+        root = root.getKids(move)
+      }
+      else root = root.getKids(move)
 
-    simulate()
-    }
-    var bestMove = -1
-    var bestScore = -100
-    val simResult = decisions.getNode(moves).findPaths()
-    simResult.foreach(elem =>
-      if elem._1._1 > bestScore && game.getField(playerId)(elem._2.head) != 0 then {
-        bestScore = elem._1._1
-        bestMove = elem._2.head
-      })
-    moves = moves :+ bestMove
+    })
+    moves = List()
+    simulate(time*1000, start)
+    decisions.setRoot(decisions.getRoot.getKids(bestMove))
     bestMove
+  }
+
+  def fillChildren(): Unit ={
+    @tailrec
+    def fillKid(curr: Node, restOfMoves: List[Int]):Unit =
+      restOfMoves match {
+        case List() => ()
+        case h::t =>
+          simulateIteration(h, curr, curr.getValue._3)
+          fillKid(curr.getKids(h),t)
+      }
 
 
-  def simulate(): Unit =
-    def simulateMove(path: List[Int]): Unit =
-      /*
-      val move0 = simulateIteration(0, moves:::path)
-      val move1 = simulateIteration(1, moves:::path)
-      val move2 = simulateIteration(2, moves:::path)
-      val move3 = simulateIteration(3, moves:::path)
-      val move4 = simulateIteration(4, moves:::path)
-      val move5 = simulateIteration(5, moves:::path)
-      */
+  }
 
-      val move0 = Await.result(Future(simulateIteration(0, moves:::path)), Duration.Inf)
-      val move1 = Await.result(Future(simulateIteration(1, moves:::path)), Duration.Inf)
-      val move2 = Await.result(Future(simulateIteration(2, moves:::path)), Duration.Inf)
-      val move3 = Await.result(Future(simulateIteration(3, moves:::path)), Duration.Inf)
-      val move4 = Await.result(Future(simulateIteration(4, moves:::path)), Duration.Inf)
-      val move5 = Await.result(Future(simulateIteration(5, moves:::path)), Duration.Inf)
+  def updateBestMove(): Unit =
+    var choiceMove = (0,0)
+    var bestScore = -100
+    var i = 0
+    decisions.getRoot.bestChoice(playerId).foreach((res, next) =>{
+      if game.getField(playerId)(i) != 0 then {
+        if res > bestScore then
+          bestScore = res
+          choiceMove = (i, next)
+        else if choiceMove._2 != playerId && res == bestScore && next == playerId then
+          bestScore = res
+          choiceMove = (i, next)
+      }
+      i += 1
+    })
+    bestMove = choiceMove._1
 
-      if move0 == playerId then simulateMove(path:+0)
-      if move1 == playerId then simulateMove(path:+1)
-      if move2 == playerId then simulateMove(path:+2)
-      if move3 == playerId then simulateMove(path:+3)
-      if move4 == playerId then simulateMove(path:+4)
-      if move5 == playerId then simulateMove(path:+5)
-    simulateMove(List())
+  def simulate(time: Int, start: Long): Unit =
 
+    def simulateMove(curr: Node): Unit =
+      if (System.currentTimeMillis() - start) < (time* 3 / 4) then {
+        if curr.hasKids then
+          curr.getKids.foreach(kid =>{
+            simulateMove(kid)
+          })
+        else
+          val f1 = Future(simulateIteration(0,curr, curr.getValue._3))
+          val f2 = Future(simulateIteration(1,curr, curr.getValue._3))
+          val f3 = Future(simulateIteration(2,curr, curr.getValue._3))
+          val f4 = Future(simulateIteration(3,curr, curr.getValue._3))
+          val f5 = Future(simulateIteration(4,curr, curr.getValue._3))
+          val f6 = Future(simulateIteration(5,curr, curr.getValue._3))
+          if ((System.currentTimeMillis() - start) < (time * 4 / 5)) {
+            Await.result(f1, Duration.Inf)
+            Await.result(f2, Duration.Inf)
+            Await.result(f3, Duration.Inf)
+            Await.result(f4, Duration.Inf)
+            Await.result(f5, Duration.Inf)
+            Await.result(f6, Duration.Inf)
+          }
+          else ()
+      }
+    while((System.currentTimeMillis() - start) < (time* 4 / 5)){
+      simulateMove(decisions.getRoot)
+      decisions.getRoot.countSubtree()
+      updateBestMove()
+    }
 
-  def simulateIteration(fieldNumber: Int, way: List[Int]): Int =
-    val curr = decisions.getNode(way)
+  def simulateIteration(fieldNumber: Int, curr: Node, currPlayerId: Int): Unit = {
     val simulationGame = curr.getValue._2.copy()
-    val whoseNext = simulationGame.move(playerId, fieldNumber)
-    curr.addNewKidAt((simulationGame.getScore(playerId), simulationGame),fieldNumber)
-    whoseNext
+    val whoseNext = simulationGame.move(currPlayerId, fieldNumber)
+    curr.addNewKidAt((simulationGame.getScore(playerId), simulationGame, whoseNext), fieldNumber)
+  }
 
-
+  def showTree(): Unit = decisions.print()
 }
