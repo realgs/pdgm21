@@ -23,3 +23,11 @@ class Kalaha:
     val player1PointsGained = if player1Turn then startingPlayerPointsGained else otherPlayerPointsGained
     val player2PointsGained = if player1Turn then otherPlayerPointsGained else startingPlayerPointsGained
     (player1, player2, player1PointsGained, player2PointsGained)
+
+  def isGameOver(player1: Array[Int], player2: Array[Int]): Boolean =
+    var state1 = 0
+    var state2 = 0
+    for(i <-0 until player1.length)
+      state1 = state1 + player1[i]
+      state2 = state2 + player2[i]
+    state1 == 0 || state2 == 0
