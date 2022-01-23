@@ -1,7 +1,7 @@
 package players
 
-import players.Player
+import players.PlayerID.PlayerID
 
-class AIPlayer(id: Int) extends Player(id):
+class AIPlayer(id: PlayerID) extends Player(id):
 
   def makeMove(): Int = 0

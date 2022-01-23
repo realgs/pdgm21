@@ -2,6 +2,7 @@ package game_system
 
 import board.Board
 import players.Player
+import players.PlayerID.PlayerID
 
 import scala.concurrent.*
 import scala.concurrent.duration.*
@@ -14,7 +15,6 @@ class GameService {
   private var player1: Player = _
   private var player2: Player = _
   private var currentPlayer: Player = _
-  private var currentPlayerId: Int = _
   private var winner: Player = _
   private var isGameOver: Boolean = false
   private var hasNextMove: Boolean = false
@@ -25,7 +25,6 @@ class GameService {
     this.player1 = player1
     this.player2 = player2
     currentPlayer = player1
-    currentPlayerId = player1.id
 
     while !isGameOver do
       board.printBoard()
@@ -33,20 +32,17 @@ class GameService {
       update()
       checkResult()
       switchPlayer()
-      //println("curr_id: " + currentPlayerId)
-    captureRestStones() //problem when time out
+    captureRestStones()
     board.printBoard()
     chooseWinner()
 
 
   def switchPlayer(): Unit =
     if !hasNextMove then
-      if currentPlayerId == player1.id then
+      if currentPlayer.id == player1.id then
         currentPlayer = player2
-        currentPlayerId = player2.id
       else
         currentPlayer = player1
-        currentPlayerId = player1.id
     else
       hasNextMove = false
 
@@ -58,12 +54,12 @@ class GameService {
         while !validateMove(userChoice) do
           userChoice = currentPlayer.makeMove()
       }
-      Await.result(playerMoveFut, Duration(GameServer.TIME_PER_PLAYER_MOVE, "s"))
+      Await.result(playerMoveFut, Duration(GameParameters.TIME_PER_PLAYER_MOVE, "s"))
     catch
       case _: Throwable =>
         isGameOver = true
         println("Time is out.")
-        if currentPlayerId == player1.id then //punish player for not playing
+        if currentPlayer.id == player1.id then //punish player for not playing
           board.player1Base = -10
         else
           board.player2Base = -10
@@ -73,7 +69,7 @@ class GameService {
     if isGameOver then return
 
     var houseVal = 0
-    if currentPlayerId == player1.id then
+    if currentPlayer.id == player1.id then
       houseVal = board.player1Houses(userChoice - 1)
     else
       houseVal = board.player2Houses(userChoice - 1)
@@ -94,7 +90,7 @@ class GameService {
     if lastPos == boardApprox.length / 2 then //base - another turn for the same player
       boardApprox(lastPos) += 1
       hasNextMove = true
-    else if (boardApprox(lastPos) == 0) && (lastPos < GameServer.HOUSE_NR) then //empty house on the player site - player gets opponent's stones
+    else if (boardApprox(lastPos) == 0) && (lastPos < GameParameters.HOUSE_NR) then //empty house on the player site - player gets opponent's stones
       boardApprox(boardApprox.length / 2) += boardApprox(boardApprox.length - lastPos - 1)
       boardApprox(boardApprox.length - lastPos - 1) = 0
       boardApprox(lastPos) += 1
@@ -108,7 +104,7 @@ class GameService {
     if !isGameOver then
 
       isGameOver = true
-      if currentPlayerId == player1.id then
+      if currentPlayer.id == player1.id then
         board.player1Houses.foreach(elem => {
           if (elem != 0) isGameOver = false
         })
@@ -150,13 +146,13 @@ class GameService {
 
   private def validateMove(userMove: Int): Boolean =
     //out of range move
-    if(userMove < 1 || userMove > GameServer.HOUSE_NR)
+    if(userMove < 1 || userMove > GameParameters.HOUSE_NR)
       println("Incorrect.")
       return false
 
     //empty house move
     var houseVal = -1
-    if currentPlayerId == player1.id then
+    if currentPlayer.id == player1.id then
       houseVal = board.player1Houses(userChoice - 1)
     else
       houseVal = board.player2Houses(userChoice - 1)
@@ -169,7 +165,7 @@ class GameService {
 
   //convert board to 1D array depending on current player
   private def approximateBoard(): Array[Int] =
-    if currentPlayerId == player1.id then
+    if currentPlayer.id == player1.id then
       board.player1Houses ++ Array(board.player1Base) ++ board.player2Houses
     else
       board.player2Houses ++ Array(board.player2Base) ++ board.player1Houses
@@ -177,7 +173,7 @@ class GameService {
 
   //apply changes to the board
   private def updateBoard(boardApprox: Array[Int]): Unit =
-    if currentPlayerId == player1.id then
+    if currentPlayer.id == player1.id then
       board.player1Houses.indices.foreach(i => board.player1Houses(i) = boardApprox(i))
       board.player1Base = boardApprox(boardApprox.length / 2)
       board.player2Houses.indices.foreach(i => board.player2Houses(i) = boardApprox(boardApprox.length / 2 + 1 + i))

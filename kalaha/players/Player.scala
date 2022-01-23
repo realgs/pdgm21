@@ -1,5 +1,7 @@
 package players
 
-abstract class Player(val id: Int, val name: String = ""):
+import players.PlayerID.PlayerID
+
+abstract class Player(val id: PlayerID, name: String = ""):
 
     def makeMove(): Int

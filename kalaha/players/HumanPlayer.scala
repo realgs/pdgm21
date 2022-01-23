@@ -1,10 +1,10 @@
 package players
 
-import players.Player
+import players.PlayerID.PlayerID
 
 import scala.io.StdIn.readInt
 
-class HumanPlayer(id: Int) extends Player(id):
+class HumanPlayer(id: PlayerID) extends Player(id):
 
   def makeMove(): Int =
     readUserChoice()

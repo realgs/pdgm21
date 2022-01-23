@@ -2,13 +2,11 @@ package game_system
 
 import board.Board
 import players.*
+import game_system.GameParameters.*
 
 import scala.io.StdIn.readInt
 
 class GameServer {
-
-  import GameServer.STONES_PER_HOUSE
-  import GameServer.HOUSE_NR
 
   def start(): Unit =
     printMenu()
@@ -16,7 +14,7 @@ class GameServer {
 
   private def printMenu(): Unit =
     println("Welcome in Kalaha game!")
-    println("In this game each player has 30 seconds to move. After that time player loses.")
+    println("In this game each player has " + TIME_PER_PLAYER_MOVE + " seconds to move. After that time player loses.")
     println("How do you want to play?")
     println("1. Player vs Player")
     println("2. Player vs AI")
@@ -30,13 +28,13 @@ class GameServer {
     while !isCorrectChoice do
       readUserInput() match
         case 1 =>
-          gameService.initialize(board, new HumanPlayer(1), new HumanPlayer(2))
+          gameService.initialize(board, new HumanPlayer(PlayerID.first), new HumanPlayer(PlayerID.second))
           isCorrectChoice = true
         case 2 =>
-          gameService.initialize(board, new HumanPlayer(1), new AIPlayer(2))
+          gameService.initialize(board, new HumanPlayer(PlayerID.first), new AIPlayer(PlayerID.second))
           isCorrectChoice = true
         case 3 =>
-          gameService.initialize(board, new AIPlayer(1), new AIPlayer(2))
+          gameService.initialize(board, new AIPlayer(PlayerID.first), new AIPlayer(PlayerID.second))
           isCorrectChoice = true
         case _ =>
           println("Incorrect. Try again")
@@ -54,10 +52,4 @@ class GameServer {
     }
     userChoice
 
-}
-
-object GameServer{
-  final val HOUSE_NR = 6
-  final val STONES_PER_HOUSE = 4
-  final val TIME_PER_PLAYER_MOVE = 20
 }
