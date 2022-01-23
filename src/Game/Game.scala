@@ -24,7 +24,7 @@ object Game {
       if (whoseTurn == PLAYER_1 && input >= START_1 && input < MANCALA_1 || whoseTurn == PLAYER_2 && input >= START_2 && input < MANCALA_2) && board(input) != EMPTY_HOLE then true
       else false
     }
-    
+
     def getValidMoves(): List[Int] = {
       if isEnd() then List()
       else {
@@ -33,11 +33,12 @@ object Game {
           if current == end then result
           else if checkInput(current) then inner(current :: result, current + 1, end) else inner(result, current + 1, end)
         }
+
         if whoseTurn == PLAYER_1 then inner(List(), START_1, MANCALA_1)
         else inner(List(), START_2, MANCALA_2)
       }
     }
-    
+
     def isOpponentMancala(hole: Int): Boolean = {
       if whoseTurn == PLAYER_1 && hole == MANCALA_2 || whoseTurn == PLAYER_2 && hole == MANCALA_1 then true
       else false
@@ -59,6 +60,7 @@ object Game {
       if inOwnHole(hole) && board(hole) == EMPTY_HOLE + 1 && board(oppositeHole(hole)) != EMPTY_HOLE then true
       else false
     }
+
     def stealStones(hole: Int): Unit = {
       if whoseTurn == PLAYER_1 then board(MANCALA_1) += board(oppositeHole(hole)) + 1
       else board(MANCALA_2) += board(oppositeHole(hole)) + 1
@@ -85,8 +87,13 @@ object Game {
     }
 
     def getDifference(): Int = {
-      if whoseTurn == PLAYER_1 then board(MANCALA_1) - board(MANCALA_2)
-      else board(MANCALA_2) - board(MANCALA_1)
+      whoseTurn match
+        case PLAYER_1 =>
+          val stonesLeftOnBoard = if isEnd() then sumOfStones(START_1, MANCALA_1) - sumOfStones(START_2, MANCALA_2) else 0
+          board(MANCALA_1) - board(MANCALA_2) + stonesLeftOnBoard
+        case PLAYER_2 =>
+          val stonesLeftOnBoard = if isEnd() then sumOfStones(START_2, MANCALA_2) - sumOfStones(START_1, MANCALA_1) else 0
+          board(MANCALA_2) - board(MANCALA_1) + stonesLeftOnBoard
     }
 
     def isEnd(): Boolean = {
@@ -100,25 +107,30 @@ object Game {
     }
 
     def printBoard(): String = {
-      "\n---------------------------------------------" +
-        "\n--------------- PLayer 2 area ---------------" +
-        s"\n       12----11----10----9-----8-----7     " +
-        "\n---------------------------------------------" +
-        s"\n       ${board(12)}     ${board(11)}     ${board(10)}     ${board(9)}     ${board(8)}     ${board(7)}     " +
-        s"\n   ${board(13)}                                      ${board(6)}" +
-        s"\n       ${board(0)}     ${board(1)}     ${board(2)}     ${board(3)}     ${board(4)}     ${board(5)}         " +
-        "\n---------------------------------------------" +
-        s"\n       0-----1-----2-----3-----4-----5         " +
-        "\n--------------- PLayer 1 area ---------------" +
-        "\n---------------------------------------------\n"
+       "\n---------------------------------------------" +
+       "\n--------------- PLayer 2 area ---------------" +
+       "\n      12----11----10-----9-----8-----7" +
+       "\n---------------------------------------------" +
+       "\n      %2d    %2d    %2d    %2d    %2d    %2d".format(board(12), board(11), board(10), board(9), board(8), board(7)) +
+       "\n  %2d                                     %2d".format(board(13), board(6)) +
+       "\n      %2d    %2d    %2d    %2d    %2d    %2d".format(board(0), board(1), board(2), board(3), board(4), board(5)) +
+       "\n---------------------------------------------" +
+       "\n       0-----1-----2-----3-----4-----5" +
+       "\n--------------- PLayer 1 area ---------------" +
+       "\n---------------------------------------------\n"
     }
     
     def printPlayerOptions(): String = {
       "\n 1) Player" +
-      "\n 2) Computer random" +
-      "\n 3) Computer AI, minimax depth: 1" +
-      "\n 4) Computer AI, minimax depth: 5" +
-      "\n Your choice: "
+        "\n 2) Computer random" +
+        "\n 3) Computer AI, minimax depth: 1" +
+        "\n 4) Computer AI, minimax depth: 5" +
+        "\n Your choice: "
     }
+  }
+
+  def main(args: Array[String]): Unit = {
+    val game = new Game(Array(4, 4, 4, 4, 4, 4, 10, 4, 4, 4, 4, 4, 4, 10))
+    println(game.printBoard())
   }
 }

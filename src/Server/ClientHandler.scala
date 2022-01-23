@@ -24,9 +24,9 @@ object ClientHandler {
 
   def gamePlay(): Unit = {
     var endOfGame = false
-    var caught = false
+    var caughtError = false
 
-    while (clientHandlers(PLAYER_1).socket.isConnected() && clientHandlers(PLAYER_2).socket.isConnected() && !caught && !endOfGame) {
+    while (clientHandlers(PLAYER_1).socket.isConnected() && clientHandlers(PLAYER_2).socket.isConnected() && !caughtError && !endOfGame) {
       if readyToPlay() then {
         try {
           val activeID = game.whoseTurn
@@ -41,6 +41,7 @@ object ClientHandler {
           Thread.sleep(100)
           endOfGame = game.isEnd()
           if (endOfGame) {
+            game.printResult(game.getWinner())
             clientHandlers(activeID).broadcastMessage(game.printResult(game.getWinner()), PLAYER_1)
             clientHandlers(activeID).broadcastMessage(game.printResult(game.getWinner()), PLAYER_2)
           }
@@ -49,7 +50,7 @@ object ClientHandler {
         } catch case _: IOException =>
           clientHandlers(PLAYER_1).closeEverything(clientHandlers(PLAYER_1).socket, clientHandlers(PLAYER_1).br, clientHandlers(PLAYER_1).bw)
           clientHandlers(PLAYER_2).closeEverything(clientHandlers(PLAYER_2).socket, clientHandlers(PLAYER_2).br, clientHandlers(PLAYER_2).bw)
-          caught = true
+          caughtError = true
       } else Thread.sleep(1000)
     }
   }
@@ -120,12 +121,14 @@ object ClientHandler {
         case _ =>
           var incorrect = true
           broadcastMessage("Enter a number of hole: ", ID)
-          var timer = 300
+          var timer = 100
           while (incorrect && timer > 0) {
             try {
               if br.ready() then {
-                hole = Integer.parseInt(br.readLine())
-                if game.checkInput(hole) then incorrect = false
+                var input = Integer.parseInt(br.readLine())
+                if game.checkInput(input) then
+                  hole = input
+                  incorrect = false
                 else broadcastMessage(s"Incorrect hole number. Please, try again. ${timer / 10} seconds left...", ID)
               }
             } catch case _: Exception => broadcastMessage("That's impossible. Please, try again: ", ID)
