@@ -122,28 +122,6 @@ class ComputerAI (private var enemyPlayer : Player = Player()) extends Player {
       min
     }
   }
-
-  def printTree() : Unit = {
-    for(node <- tree) {
-      print(node.diff + " ")
-    }
-    print("\n")
-    for(node <- tree) {
-      printTree(node.children)
-    }
-  }
-
-  def printTree(nodes : Array[Node]) : Unit = {
-    for(node <- nodes) {
-      print(node.diff + " ")
-    }
-    print("\n")
-    for(node <- nodes) {
-      if node.children != Array[Node]() then {
-        printTree(node.children)
-      }
-    }
-  }
   
   def setEnemyPlayer(player : Player) : Unit = {
     enemyPlayer = player

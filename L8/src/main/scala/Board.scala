@@ -21,7 +21,7 @@ class Board(private var player1 : Player = Player(), private var player2 : Playe
         println("Player1's MOVE (30 seconds to move)")
       }
       else {
-        println("Player2's MOVE (30 seconds to move")
+        println("Player2's MOVE (30 seconds to move)")
       }
       print("Choose house: ")
 
