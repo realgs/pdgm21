@@ -3,16 +3,12 @@ package boards
 import players.Player.Player
 
 object Board {
-  class Board{
-  /*class Board(var Player1Row: Array[Int] = Array(0,0,0,0,0,0), var Player1House: Int = 0, var Player2Row: Array[Int] = Array(0,0,0,0,0,0),
-              var Player2House: Int = 0, val ALL_STONES:Int = 72, var Player1: Player, var Player2: Player) {*/
+  class Board(){
     var Player1Row: Array[Int] = Array(0,0,0,0,0,0)
     var Player1House: Int = 0
     var Player2Row: Array[Int] = Array(0,0,0,0,0,0)
     var Player2House: Int = 0
     val ALL_STONES = 72
-    //var Player1: Player
-    //var Player2: Player
 
     def setBoard(): Unit ={
       var temp : Int = ALL_STONES/12
@@ -42,7 +38,7 @@ object Board {
 
     def moveInFirstRow(stones:Int, player:Int, start:Int):Int={
       if player==1 then{
-        if (start == 0 && Player1Row(0)==0) stones
+        if (start == -1 ) stones
         else{
           var i =start
           var newSt = stones
@@ -82,8 +78,7 @@ object Board {
         newSt
       }
       else{
-        println("I'M HERE!")
-        if (start==Player2Row.size-1 && Player2Row(Player2Row.size-1)==0) stones
+        if (start==Player2Row.size) stones
         else{
           var i =start
           var newSt = stones
@@ -92,7 +87,6 @@ object Board {
               Player2House = Player2House + Player1Row(i)
               Player1Row(i) = 0;
             }
-            println(i+": "+Player2Row(i)+"...stones: "+newSt)
             Player2Row(i) += 1
             i+=1
             newSt -= 1
@@ -108,10 +102,9 @@ object Board {
         var stones = Player1Row(index)
         Player1Row(index) = 0
         var i = index - 1
-        if i == -1 then i = 0
+        //if i == -1 then i = 0
         while (stones != 0) {
           stones = moveInFirstRow(stones, 1, i)
-          //println("kamienie"+stones)
           if (stones == 1) {
             Player1House += 1
             return true
@@ -123,7 +116,6 @@ object Board {
             i = 0
           }
           stones = moveInSecRow(stones, 1, i)
-          //println("kamieniePoSec"+stones)
         }
         false
       }
@@ -131,11 +123,8 @@ object Board {
         var stones = Player2Row(index)
         Player2Row(index) = 0
         var i = index + 1
-        if i == Player2Row.size then i = Player2Row.size-1
         while(stones!=0){
-          if i == Player2Row.size-1 then println("Somthings wrong with stones, before "+ stones)
           stones = moveInSecRow(stones, 2, i)
-          if i == Player2Row.size-1 then println("Somthings wrong with stones "+ stones)
 
           if (stones == 1) {
             Player2House += 1
@@ -180,6 +169,29 @@ object Board {
       if(Player1House>ALL_STONES/2 || Player2House>ALL_STONES/2) then true
       else if(checkRow(Player1Row)||checkRow(Player2Row)) then true
       else false
+    }
+
+    def copyRow(row: Array[Int]): Array[Int]={
+      var temp: Array[Int] = new Array[Int](row.size)
+      var index = 0
+      while(index>row.size){
+        temp(index) = row(index)
+      }
+      temp
+    }
+
+    def copy(): Board ={
+      var temp = new Board()
+      temp.Player1House = Player1House
+      temp.Player2House = Player2House
+
+
+
+
+      temp.Player1Row = Player1Row.clone()
+      temp.Player2Row = Player2Row.clone()
+      temp
+
     }
   }
 
