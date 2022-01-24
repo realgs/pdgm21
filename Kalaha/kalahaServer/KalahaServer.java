@@ -35,41 +35,6 @@ public class KalahaServer {
 		}
 	}
 	
-	/*void playGame(int gameIndex) throws IOException {
-		GameInstance game = gamesList.get(gameIndex);
-		int whatPlayer = 0;
-		String command = "";
-		ClientService player1 = clients.get(game.player1);
-		ClientService player2 = clients.get(game.player2);
-		
-		while(!"GameEnd".equalsIgnoreCase(command)) {
-			if ((whatPlayer % 2) == 0) {
-				while(!"TurnEnd".equalsIgnoreCase(command)) {
-					command = player1.reader.readLine();
-					System.out.println(command);
-					player2.writer.println(command);
-				}
-				
-				player2.writer.println("YourTurn");
-			}
-			else {
-				//player2.writer.println("Player 2\nHole number? ");
-				command = player2.reader.readLine();
-				while(!"TurnEnd".equalsIgnoreCase(command)) {
-					command = player2.reader.readLine();
-					System.out.println(command);
-					player1.writer.println(command);
-				}
-				
-				player1.writer.println("YourTurn");
-			}
-			
-			whatPlayer++;
-		}
-		
-		player2.gameEnded = true;
-	}*/
-	
 	private String printGames() {
 		String result = "";
 		
@@ -185,14 +150,22 @@ public class KalahaServer {
 		
 		void playGame() throws IOException {
 			GameInstance gameBuffer = gamesList.get(gameIndex);
-			KalahaGame game = new KalahaGame(gameBuffer.stonesNumber);
-			
+			KalahaGame game = gameBuffer.game;
+			String[] toSend;
 			String command = "";
 			
 			if (index == gameBuffer.player2) {
-				writer.println(gameBuffer.take(index));
+				toSend = gameBuffer.take(index).split(":");
+				
+				for (int i = 0; i < toSend.length; i++) {
+					writer.println(toSend[i]);
+					writer.flush();
+				}
+				
+				writer.println("YourTurn");
 				writer.flush();
 			}
+			
 			
 			while (!game.ifEndOfGame()) {
 				int correctMove = -1;
@@ -202,7 +175,7 @@ public class KalahaServer {
 					writer.flush();	
 					
 					command = reader.readLine();
-					System.out.println("Player" + index + "move: " + command);
+					System.out.println("Player " + index + " move: " + command);
 					
 					gameBuffer.put(index, command);
 					correctMove = game.makeMove(Integer.parseInt(command));
@@ -215,12 +188,19 @@ public class KalahaServer {
 						writer.println("Wrong move!");
 
 					writer.flush();	
-						
 				}
+				
+				gameBuffer.setTurnCompleted(index, true);
+				
+				toSend = gameBuffer.take(index).split(":");
+				
+				for (int i = 0; i < toSend.length; i++) {
+					writer.println(toSend[i]);
+					writer.flush();
 					
-				command = gameBuffer.take(index);
-				writer.println(command);
-				game.makeMove(Integer.parseInt(command));
+					game.makeMove(Integer.parseInt(toSend[i]));
+				}
+				
 				writer.println("YourTurn");
 				writer.flush();
 				command = "";	
@@ -236,7 +216,9 @@ public class KalahaServer {
 		int player2;
 		volatile int turn;
 		volatile boolean gameStarted;
+		volatile boolean[] isTurnCompleted;
 		ArrayList<String> buffer;
+		KalahaGame game;
 		
 		public GameInstance(int StonesNumber, int Player1) {
 			stonesNumber = StonesNumber;
@@ -244,7 +226,11 @@ public class KalahaServer {
 			player2 = -1;
 			gameStarted = false;
 			turn = player1;
+			isTurnCompleted = new boolean[2];
+			isTurnCompleted[0] = false;
+			isTurnCompleted[1] = false;
 			buffer = new ArrayList<String>();
+			game = new KalahaGame(stonesNumber);
 		}
 		
 		public synchronized void put(int index, String s) {
@@ -262,7 +248,7 @@ public class KalahaServer {
 	    }
 
 	    public synchronized String take(int index) {
-	        while (index == turn || buffer.isEmpty()) {
+	        while (index == turn || buffer.isEmpty() || index == player1 ? !isTurnCompleted[1] : !isTurnCompleted[0]) {
 	        	try {
 		        	  wait(); 
 		         } 
@@ -271,10 +257,18 @@ public class KalahaServer {
 		        }
 	        }
 	        
-	        String s = buffer.get(0);
+	        String s = "";
+	        
+	        for (int i = 0; i < buffer.size(); i++) {
+	        	s = s.concat(buffer.get(i));
+	        	s = s.concat(":");
+	        }
+	        	
+	        
 	        buffer.clear();
 	        turn = player1 == turn ? player2 : player1;
-	        notify();
+	        
+	        setTurnCompleted(index == player1 ? player2 : player1, false);
 	        
 	        return s;
 	    }
@@ -283,35 +277,15 @@ public class KalahaServer {
 			player2 = index;
 			gameStarted = true;
 		}
+		
+		synchronized void setTurnCompleted(int index, boolean completed) {
+			if (index == player1)
+				isTurnCompleted[0] = completed;
+			else 
+				isTurnCompleted[1] = completed;
+			
+			notify();
+		}
 	}
 	
 }
-
-/*
- * void playGame() throws IOException {
-			GameInstance gameBuffer = gamesList.get(gameIndex);
-			KalahaGame game = new KalahaGame(gameBuffer.stonesNumber);
-			
-			String command = "";
-			
-			if (index == gameBuffer.player2) {
-				writer.println(gameBuffer.take(index));
-				writer.flush();
-			}
-			
-			while(!"GameEnd".equalsIgnoreCase(command)) {
-				while(!"TurnEnd".equalsIgnoreCase(command)) {
-					command = reader.readLine();
-					System.out.println("Player" + index + "move: " + command);
-					gameBuffer.put(index, command);
-					command = reader.readLine();
-				}
-					
-				writer.println(gameBuffer.take(index));
-				writer.println("YourTurn");
-				writer.flush();
-				command = "";	
-			}
-			
-		}
- */

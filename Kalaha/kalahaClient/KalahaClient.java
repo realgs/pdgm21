@@ -262,96 +262,38 @@ public class KalahaClient {
 		System.out.println("Game started!");
 		
 		if (player == 1) {
-			command = reader.readLine();
+			while (!(command = reader.readLine()).equalsIgnoreCase("YourTurn")) 
 			game.makeMove(Integer.parseInt(command));
 		}
 		
 		while (!game.ifEndOfGame()) {
-			int correctMove = -1;
-			
-			while (correctMove == -1 || correctMove == 1) {
+			while (!"EndTurn".equalsIgnoreCase(command)) {
 				System.out.println(game.getBoardToPrint());
 				System.out.println("Player " + (player + 1));
-				System.out.print("Hole number? ");
+
+				command = reader.readLine();
+				System.out.println(command);
 				
 				int move = scanner.nextInt();
-				correctMove = game.makeMove(move);
+				writer.println(move);
+				writer.flush();
 				
-				if (correctMove == 0 || correctMove == 1) {
-					if (correctMove == 1) 	
-						System.out.println("You have another turn!");
-					
-					writer.println(move);
-					writer.flush();
-				}
-				else 
-					System.out.println("Wrong move!");
-									
+				command = reader.readLine();
+				
+				if (!"Wrong move!".equalsIgnoreCase(command))
+					game.makeMove(move);
+				
+				if (!"EndTurn".equalsIgnoreCase(command)) 
+					System.out.println(command);
 			}
-			
-			writer.println("TurnEnd");
-			writer.flush();
 			
 			while (!(command = reader.readLine()).equalsIgnoreCase("YourTurn")) 
 				game.makeMove(Integer.parseInt(command));
 			
 		}	
-		
-		writer.println("GameEnd");
-		writer.flush();
 		
 		System.out.println(game.getBoardToPrint());
 		System.out.println(game.getResults());	
 	}
 }
 
-/*
- * private void playMultiGame(int stones) throws IOException {
-		game = new KalahaGame(stones);
-		String command = "";
-		
-		System.out.println("Game started!");
-		
-		if (player == 1) {
-			command = reader.readLine();
-			game.makeMove(Integer.parseInt(command));
-		}
-		
-		while (!game.ifEndOfGame()) {
-			int correctMove = -1;
-			
-			while (correctMove == -1 || correctMove == 1) {
-				System.out.println(game.getBoardToPrint());
-				System.out.println("Player " + (player + 1));
-				System.out.print("Hole number? ");
-				
-				int move = scanner.nextInt();
-				correctMove = game.makeMove(move);
-				
-				if (correctMove == 0 || correctMove == 1) {
-					if (correctMove == 1) 	
-						System.out.println("You have another turn!");
-					
-					writer.println(move);
-					writer.flush();
-				}
-				else 
-					System.out.println("Wrong move!");
-									
-			}
-			
-			writer.println("TurnEnd");
-			writer.flush();
-			
-			while (!(command = reader.readLine()).equalsIgnoreCase("YourTurn")) 
-				game.makeMove(Integer.parseInt(command));
-			
-		}	
-		
-		writer.println("GameEnd");
-		writer.flush();
-		
-		System.out.println(game.getBoardToPrint());
-		System.out.println(game.getResults());	
-	}
- */
