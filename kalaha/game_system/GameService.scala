@@ -1,7 +1,7 @@
 package game_system
 
 import board.Board
-import players.Player
+import players.{AIPlayer, Player}
 import players.PlayerID.PlayerID
 
 import scala.concurrent.*
@@ -32,7 +32,8 @@ class GameService {
       update()
       checkResult()
       switchPlayer()
-    captureRestStones()
+      //println("curr_id: " + currentPlayerId)
+    captureRestStones() //problem when time out
     board.printBoard()
     chooseWinner()
 
@@ -49,10 +50,14 @@ class GameService {
   def checkMove(): Unit =
     try
       val playerMoveFut = Future {
-        userChoice = currentPlayer.makeMove()
+        currentPlayer match
+          case player: AIPlayer => userChoice = player.makeMove(board)
+          case _ => userChoice = currentPlayer.makeMove()
 
         while !validateMove(userChoice) do
-          userChoice = currentPlayer.makeMove()
+          currentPlayer match
+            case player: AIPlayer => userChoice = player.makeMove(board)
+            case _ => userChoice = currentPlayer.makeMove()
       }
       Await.result(playerMoveFut, Duration(GameParameters.TIME_PER_PLAYER_MOVE, "s"))
     catch
@@ -66,53 +71,14 @@ class GameService {
 
 
   def update(): Unit =
-    if isGameOver then return
-
-    var houseVal = 0
-    if currentPlayer.id == player1.id then
-      houseVal = board.player1Houses(userChoice - 1)
-    else
-      houseVal = board.player2Houses(userChoice - 1)
-    if houseVal == 0 then return //empty house means there's no need to move
-
-    val boardApprox = approximateBoard()
-
-    //distribute all stones except 1
-    boardApprox(userChoice - 1) = 0
-    var iter = userChoice
-    while houseVal > 1 do
-      boardApprox(iter % boardApprox.length) += 1
-      iter += 1
-      houseVal -= 1
-
-    //what to do with the last one stone:
-    val lastPos = iter % boardApprox.length
-    if lastPos == boardApprox.length / 2 then //base - another turn for the same player
-      boardApprox(lastPos) += 1
-      hasNextMove = true
-    else if (boardApprox(lastPos) == 0) && (lastPos < GameParameters.HOUSE_NR) then //empty house on the player site - player gets opponent's stones
-      boardApprox(boardApprox.length / 2) += boardApprox(boardApprox.length - lastPos - 1)
-      boardApprox(boardApprox.length - lastPos - 1) = 0
-      boardApprox(lastPos) += 1
-    else  //normal turn
-      boardApprox(lastPos) += 1
-
-    updateBoard(boardApprox)
+    if !isGameOver then
+      board.executeMove(userChoice, currentPlayer.id)
+      hasNextMove = board.checkIfTheSamePlayerHasNextMove()
 
 
   def checkResult(): Unit =
     if !isGameOver then
-
-      isGameOver = true
-      if currentPlayer.id == player1.id then
-        board.player1Houses.foreach(elem => {
-          if (elem != 0) isGameOver = false
-        })
-      else
-        board.player2Houses.foreach(elem => {
-          if (elem != 0) isGameOver = false
-        })
-    else ()
+      isGameOver = !board.checkIfMoreMovesPossible(currentPlayer.id)
 
 
   def chooseWinner(): Unit =
@@ -151,34 +117,9 @@ class GameService {
       return false
 
     //empty house move
-    var houseVal = -1
-    if currentPlayer.id == player1.id then
-      houseVal = board.player1Houses(userChoice - 1)
-    else
-      houseVal = board.player2Houses(userChoice - 1)
-    if(houseVal == 0)
+    if(board.checkIfEmptyHouse(userMove - 1, currentPlayer.id))
       println("Incorrect. Empty house.")
       return false
 
     true
-
-
-  //convert board to 1D array depending on current player
-  private def approximateBoard(): Array[Int] =
-    if currentPlayer.id == player1.id then
-      board.player1Houses ++ Array(board.player1Base) ++ board.player2Houses
-    else
-      board.player2Houses ++ Array(board.player2Base) ++ board.player1Houses
-
-
-  //apply changes to the board
-  private def updateBoard(boardApprox: Array[Int]): Unit =
-    if currentPlayer.id == player1.id then
-      board.player1Houses.indices.foreach(i => board.player1Houses(i) = boardApprox(i))
-      board.player1Base = boardApprox(boardApprox.length / 2)
-      board.player2Houses.indices.foreach(i => board.player2Houses(i) = boardApprox(boardApprox.length / 2 + 1 + i))
-    else
-      board.player2Houses.indices.foreach(i => board.player2Houses(i) = boardApprox(i))
-      board.player2Base = boardApprox(boardApprox.length / 2)
-      board.player1Houses.indices.foreach(i => board.player1Houses(i) = boardApprox(boardApprox.length / 2 +  1 + i))
 }

@@ -1,8 +1,8 @@
 package game_system
 
 import board.Board
+import GameParameters.*
 import players.*
-import game_system.GameParameters.*
 
 import scala.io.StdIn.readInt
 
