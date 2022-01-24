@@ -3,9 +3,11 @@ import Board.Board
 import Player.Player
 import _root_.Player.PlayerHuman
 import _root_.Player.AI
-
+import scala.concurrent.duration.Duration
 import scala.concurrent.{Await, Future}
 import scala.io.StdIn.readLine
+import java.util.concurrent.{TimeUnit, TimeoutException}
+import concurrent.ExecutionContext.Implicits.global
 
 
 
@@ -64,27 +66,51 @@ class Server {
     def getActBoard(): Board =
       return Board
 
-  def Humangame(): Unit =
+  def Humangame(): Unit = {
     Board.PrintBoard()
     if CurrentPlayer == 0 then {
-        println(s"${Player1.getName()} is moving")
-        var Res = Board.Move(readLine().toInt, Player1.getPlayerNum())
+      println(s"${Player1.getName()} is moving")
+      var Res = Future {
+        Board.Move(readLine().toInt, Player1.getPlayerNum())
+      }
+      try {
+        val choise = Await.result(Res, Duration(5, TimeUnit.SECONDS))
+        CurrentPlayer = choise
         if Board.IsFinished(CurrentPlayer) then println(s"${Player1.getName()} wygrał")
         else Humangame()
-
+      }
+      catch {
+        case _: TimeoutException => {
+          println("Time is over")
+          CurrentPlayer = 1
+          Humangame()
+        }
+      }
     }
     else {
       println(s"${Player2.getName()} is moving")
-      var Res = Board.Move(readLine().toInt, Player2.getPlayerNum())
-      if Board.IsFinished(CurrentPlayer) then
-        Board.Result() match {
-          case 0 => println(s"${Player1.getName()} wygrał")
-          case 1 => println(s"${Player2.getName()} wygrał")
-        }
-      else
-        CurrentPlayer = Res
-        Humangame()
+      var makemove = Future {
+        Board.Move(readLine().toInt, Player2.getPlayerNum())
+      }
+      try {
+        var Res = Await.result(makemove, Duration(5, TimeUnit.SECONDS))
+        if Board.IsFinished(CurrentPlayer) then
+          Board.Result() match {
+            case 0 => println(s"${Player1.getName()} wygrał")
+            case 1 => println(s"${Player2.getName()} wygrał")
+          }
+        else
+          CurrentPlayer = Res
+          Humangame()
+      }
+      catch {
+        case _: TimeoutException =>
+          println("Time is over")
+          CurrentPlayer = 0
+          Humangame()
+      }
     }
+  }
 
   def AiGame(): Unit = {
     Board.PrintBoard()
@@ -103,7 +129,7 @@ class Server {
     }
     else {
       println(s"${Player2.getName()} is moving")
-      val hole = Player2.asInstanceOf[AI].BestScore(Board, CurrentPlayer)._4
+      val hole = Player2.asInstanceOf[AI].BestScore(Board, CurrentPlayer)
       val Res = Board.Move(hole, Player2.getPlayerNum())
       if Board.IsFinished(CurrentPlayer) then
         Board.Result() match {
@@ -120,19 +146,30 @@ class Server {
     Board.PrintBoard()
     if CurrentPlayer == 0 then {
       println(s"${Player1.getName()} is moving")
-      var Res = Board.Move(readLine().toInt, Player1.getPlayerNum())
-      if Board.IsFinished(CurrentPlayer) then
-        Board.Result() match {
-          case 0 => println(s"${Player1.getName()} wygrał")
-          case 1 => println(s"${Player2.getName()} wygrał")
-        }
-      else
-        CurrentPlayer = Res
-        HumanAiGame()
+      var makemove = Future {
+        Board.Move(readLine().toInt, Player1.getPlayerNum())
+      }
+      try {
+        val Res = Await.result(makemove, Duration(5, TimeUnit.SECONDS))
+        if Board.IsFinished(CurrentPlayer) then
+          Board.Result() match {
+            case 0 => println(s"${Player1.getName()} wygrał")
+            case 1 => println(s"${Player2.getName()} wygrał")
+          }
+        else
+          CurrentPlayer = Res
+          HumanAiGame()
+      }
+      catch {
+        case _: TimeoutException =>
+          println("Time is over")
+          CurrentPlayer = Player2.getPlayerNum()
+          HumanAiGame()
+      }
     }
     else {
       println(s"${Player2.getName()} is moving")
-      val hole = Player2.asInstanceOf[AI].BestScore(Board, CurrentPlayer)._4
+      val hole = Player2.asInstanceOf[AI].BestScore2(Board)
       val Res = Board.Move(hole, Player2.getPlayerNum())
       if Board.IsFinished(CurrentPlayer) then
         Board.Result() match {
@@ -142,8 +179,6 @@ class Server {
       else
         CurrentPlayer = Res
         HumanAiGame()
-
-
     }
   }
 }
