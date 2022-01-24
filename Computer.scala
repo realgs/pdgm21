@@ -1,6 +1,5 @@
 package KalahaGame
 import KalahaGame._
-import scala.concurrent.{Await, Future, TimeoutException, blocking}
 
 
 class Computer extends Player {
@@ -31,7 +30,7 @@ class Computer extends Player {
   }
 
   def countResult(fieldNumber: Int, board: Board): Int = {
-    if(!board.ifCorrectFieldNumber(fieldNumber)) return Int.MinValue
+    //if(!board.ifCorrectFieldNumber(fieldNumber)) return Int.MinValue
     val ifPlayer1Move = board.isPlayer1Move
     board.makeMove(fieldNumber)
     val scoresAfterMove = board.getScores

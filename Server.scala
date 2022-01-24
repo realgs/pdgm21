@@ -31,11 +31,6 @@ class Server {
     print("Selected option: ")
   }
 
-  def tryAgain(player: Player): Unit = {
-    println("Wrong input. Try again.")
-    makeMove(player)
-  }
-
   private def play(): Unit = {
     printMenu()
     var choice = 0
@@ -55,7 +50,7 @@ class Server {
         player1 = new Computer()
         player2 = new Computer()
       case _ =>
-        println("Wrong input. Try again!\n")
+        println("\nWrong input. Try again!\n")
         play()
     }
     makeMove(player1)
@@ -76,6 +71,7 @@ class Server {
             println("\nYou have one more move!\n")
             makeMove(player)
           }
+
           else if board.isPlayer1Move then makeMove(player1)
           else makeMove(player2)
       }
