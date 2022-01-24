@@ -5,10 +5,10 @@ import KalahaGame._
 import scala.language.postfixOps
 
 class Board {
-  val numberOfStones: Int = 6
+  private val numberOfStones: Int = 6
   val board: Array[Int] = createBoard()
-  var if1PlayerMove = true
-  var ifOneMoreMove = false
+  private var if1PlayerMove = true
+  private var ifOneMoreMove = false
   var ifGameIsOver = false
 
   def getScores:(Int, Int) = (board(6), board(13))
@@ -53,6 +53,7 @@ class Board {
       }
 
       ifEndOfGame()
+
       true
     }
   }
@@ -96,20 +97,31 @@ class Board {
     fieldNumber >= 1 && fieldNumber <= 6 && board(fieldNumber + (if(if1PlayerMove) -1 else + 6)) != 0
 
   def printBoard(): Unit = {
-      printf(f"      [${board(12)}%2d ] - [${board(11)}%2d ] - [${board(10)}%2d ] - [${board(9)}%2d ] - [${board(8)}%2d ] - [${board(7)}%2d ] %n" +
-      f"(${board(13)}%2d )                                               (${board(6)}%2d ) %n" +
-      f"      [${board(0)}%2d ] - [${board(1)}%2d ] - [${board(2)}%2d ] - [${board(3)}%2d ] - [${board(4)}%2d ] - [${board(5)}%2d ]")
+      printf(f"      ${board(12)}%2d - ${board(11)}%2d - ${board(10)}%2d - ${board(9)}%2d - ${board(8)}%2d - ${board(7)}%2d %n" +
+      f"(${board(13)}%2d )                              (${board(6)}%2d ) %n" +
+      f"      ${board(0)}%2d - ${board(1)}%2d - ${board(2)}%2d - ${board(3)}%2d - ${board(4)}%2d - ${board(5)}%2d")
   }
 
   def printScore(): Unit = {
     val playerScore1 = board(6)
     val playerScore2 = board(13)
 
-    println("-> 1. player score: " + playerScore1)
+    println("\n-> 1. player score: " + playerScore1)
     println("-> 2. player score: " + playerScore2)
     if(playerScore1 == playerScore2)
       println("DRAW")
     else println("WINNER: " + (if(playerScore1 > playerScore2) "1. player: " + playerScore1 else "2. player: " + playerScore2))
+  }
+
+  def printScoreAfterTimeOut(): Unit = {
+    ifGameIsOver = true
+    for(i <- 0 to 5) {
+      board(6) += board(i)
+      board(13) += board(i + 7)
+      board(i) = 0
+      board(i + 7) = 0
+    }
+    printScore()
   }
 
 }
