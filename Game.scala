@@ -1,6 +1,4 @@
-class Game:
-  var player1 = Array(3, 4, 2, 8, 1, 3)
-  var player2 = Array(0, 2, 0, 0, 1, 1)
+class Game(var player1: Array[Int] = Array(4, 4, 4, 4, 4, 4), var player2: Array[Int] = Array(4, 4, 4, 4, 4, 4)):
   var player1Points = 0
   var player2Points = 0
   var player1Turn = false
@@ -27,3 +25,4 @@ class Game:
       print("|" + i)
     println("|")
     println("Player 1: " + player1Points + "\tPlayer 2: " + player2Points)
+    println("---------------------------------")
