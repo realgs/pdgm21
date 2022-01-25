@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="9dcd2a58-7913-4203-ac33-494dbeffdc59" name="Changes" comment="Prevent registering disallowed username and making move when hole has 0 stones, remove debug prints">
+      <change afterPath="$PROJECT_DIR$/src/main/scala/kalaha/connection/Connection.scala" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/scala/kalaha/player/Player.scala" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/scala/kalaha/service/Service.scala" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/scala/kalaha/view/panels/BoardPanel.scala" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Server/src/main/scala/kalaha/ServerApplication.scala" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Server/src/main/scala/kalaha/connection/Connection.scala" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Server/src/main/scala/kalaha/connection/ConnectionsManager.scala" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Server/src/main/scala/kalaha/connection/Response.scala" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Server/src/main/scala/kalaha/controller/Controller.scala" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Server/src/main/scala/kalaha/player/PlayerAI.scala" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Server/src/main/scala/kalaha/service/GameStatus.scala" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Server/src/main/scala/kalaha/service/Service.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/Main.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/Main.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/controller/KalahaController.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/kalaha/controller/Controller.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/controller/actionlistenersimpl/ButtonActionListeners.scala" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/controller/connection/KalahaClientConnection.scala" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/controller/connection/SocketReadingRunnable.scala" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/status/GameStatus.scala" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/view/KalahaGuiCreator.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/kalaha/view/GuiCreator.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/view/animation/MoveAnimation.scala" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/view/panels/BoardPanel.scala" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/view/panels/ConnectionPanel.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/kalaha/view/panels/ConnectionPanel.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/view/panels/ControlsPanel.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/kalaha/view/panels/ControlsPanel.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/view/panels/GamePanel.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/kalaha/view/panels/GamePanel.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/view/panels/NamePanel.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/kalaha/view/panels/NamePanel.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/view/panels/PlayersPanel.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/kalaha/view/panels/PlayersPanel.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Server/src/main/scala/Main.scala" beforeDir="false" afterPath="$PROJECT_DIR$/../Server/src/main/scala/Main.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Server/src/main/scala/connection/ClientConnection.scala" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Server/src/main/scala/connection/SocketReadingRunnable.scala" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Server/src/main/scala/controller/KalahaController.scala" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Server/src/main/scala/model/KalahaAI.scala" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Server/src/main/scala/model/KalahaPlayer.scala" beforeDir="false" afterPath="$PROJECT_DIR$/../Server/src/main/scala/kalaha/player/Player.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Server/src/main/scala/service/KalahaService.scala" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Server/src/main/scala/service/TimerRunnable.scala" beforeDir="false" afterPath="$PROJECT_DIR$/../Server/src/main/scala/kalaha/service/TimerRunnable.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Server/target/scala-3.0.2/classes/Main$.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Server/target/scala-3.0.2/classes/Main$.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Server/target/scala-3.0.2/classes/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Server/target/scala-3.0.2/classes/Main.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Server/target/scala-3.0.2/classes/Main.tasty" beforeDir="false" afterPath="$PROJECT_DIR$/../Server/target/scala-3.0.2/classes/Main.tasty" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CodeStyleSettingsInfer">
+    <option name="done" value="true" />
+  </component>
+  <component name="ExternalProjectsData">
+    <projectState path="$PROJECT_DIR$">
+      <ProjectState />
+    </projectState>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Package Object" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="ProjectCodeStyleSettingsMigration">
+    <option name="version" value="2" />
+  </component>
+  <component name="ProjectId" id="23FU5j1r8aXxxJaX3GqJekt2D1K" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
+    <property name="ASKED_MARK_IGNORED_FILES_AS_EXCLUDED" value="true" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$USER_HOME$/Desktop/Server" />
+    <property name="restartRequiresConfirmation" value="false" />
+  </component>
+  <component name="RunManager" selected="Application.Main (1)">
+    <configuration name="Gui" type="Application" factoryName="Application" temporary="true">
+      <option name="MAIN_CLASS_NAME" value="Gui" />
+      <module name="Client" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Main (1)" type="Application" factoryName="Application" temporary="true">
+      <option name="MAIN_CLASS_NAME" value="kalaha.Main" />
+      <module name="Client" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="kalaha.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Main" type="Application" factoryName="Application" temporary="true">
+      <option name="MAIN_CLASS_NAME" value="Main" />
+      <module name="Client" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.Main (1)" />
+        <item itemvalue="Application.Main" />
+        <item itemvalue="Application.Gui" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="ScalaProjectSettings">
+    <option name="scala3DisclaimerShown" value="true" />
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="9dcd2a58-7913-4203-ac33-494dbeffdc59" name="Changes" comment="" />
+      <created>1641329147839</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1641329147839</updated>
+      <workItem from="1641329149487" duration="1700000" />
+      <workItem from="1641381459705" duration="1657000" />
+      <workItem from="1641413584468" duration="630000" />
+      <workItem from="1641469225143" duration="6276000" />
+      <workItem from="1641510844348" duration="3719000" />
+      <workItem from="1641561815770" duration="4474000" />
+      <workItem from="1641572467363" duration="9800000" />
+      <workItem from="1641647324453" duration="13943000" />
+      <workItem from="1641725888743" duration="5806000" />
+      <workItem from="1641755497828" duration="5580000" />
+      <workItem from="1641818869438" duration="1689000" />
+      <workItem from="1642442549726" duration="1110000" />
+      <workItem from="1642453207946" duration="608000" />
+      <workItem from="1642793044361" duration="1282000" />
+      <workItem from="1642968528363" duration="3902000" />
+      <workItem from="1643054639396" duration="1435000" />
+      <workItem from="1643066158918" duration="5251000" />
+      <workItem from="1643113934935" duration="5266000" />
+      <workItem from="1643131775706" duration="3567000" />
+      <workItem from="1643137645503" duration="609000" />
+    </task>
+    <task id="LOCAL-00001" summary="Add server and client communicating over websocket">
+      <created>1641415047608</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1641415047608</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Add first gui prototype using Java Swing">
+      <created>1641568446352</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1641568446352</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Repair, remove Parallel Programming">
+      <created>1641568862268</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1641568862268</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Final GUI look">
+      <created>1641575448970</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1641575448970</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Split code into view and controller parts, first business logic functionalities">
+      <created>1641588335124</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1641588335124</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Application is able to play basic game, need to improve readability and serve game ending">
+      <created>1641590349108</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1641590349108</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Migration to Java TCP socket API, as cask.websocket connection was unstable">
+      <created>1641727506396</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1641727506396</updated>
+    </task>
+    <task id="LOCAL-00008" summary="All game modes work, AI vs AI, human vs AI and human vs human, add game over messages">
+      <created>1641764147436</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1641764147436</updated>
+    </task>
+    <task id="LOCAL-00009" summary="Prevent registering disallowed username and making move when hole has 0 stones, remove debug prints">
+      <created>1641764693608</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1641764693608</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+    <MESSAGE value="Add server and client communicating over websocket" />
+    <MESSAGE value="Add first gui prototype using Java Swing" />
+    <MESSAGE value="Repair, remove Parallel Programming" />
+    <MESSAGE value="Final GUI look" />
+    <MESSAGE value="Split code into view and controller parts, first business logic functionalities" />
+    <MESSAGE value="Application is able to play basic game, need to improve readability and serve game ending" />
+    <MESSAGE value="Migration to Java TCP socket API, as cask.websocket connection was unstable" />
+    <MESSAGE value="All game modes work, AI vs AI, human vs AI and human vs human, add game over messages" />
+    <MESSAGE value="Prevent registering disallowed username and making move when hole has 0 stones, remove debug prints" />
+    <option name="LAST_COMMIT_MESSAGE" value="Prevent registering disallowed username and making move when hole has 0 stones, remove debug prints" />
+  </component>
+</project>
