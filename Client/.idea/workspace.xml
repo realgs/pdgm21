@@ -5,9 +5,44 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9dcd2a58-7913-4203-ac33-494dbeffdc59" name="Changes" comment="Prevent registering disallowed username and making move when hole has 0 stones, remove debug prints">
+      <change afterPath="$PROJECT_DIR$/src/main/scala/kalaha/connection/Connection.scala" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/scala/kalaha/player/Player.scala" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/scala/kalaha/service/Service.scala" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/scala/kalaha/view/panels/BoardPanel.scala" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Server/src/main/scala/kalaha/ServerApplication.scala" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Server/src/main/scala/kalaha/connection/Connection.scala" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Server/src/main/scala/kalaha/connection/ConnectionsManager.scala" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Server/src/main/scala/kalaha/connection/Response.scala" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Server/src/main/scala/kalaha/controller/Controller.scala" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Server/src/main/scala/kalaha/player/PlayerAI.scala" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Server/src/main/scala/kalaha/service/GameStatus.scala" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Server/src/main/scala/kalaha/service/Service.scala" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/scala/controller/KalahaController.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/controller/KalahaController.scala" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/scala/view/KalahaGuiCreator.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/view/KalahaGuiCreator.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/Main.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/Main.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/controller/KalahaController.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/kalaha/controller/Controller.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/controller/actionlistenersimpl/ButtonActionListeners.scala" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/controller/connection/KalahaClientConnection.scala" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/controller/connection/SocketReadingRunnable.scala" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/status/GameStatus.scala" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/view/KalahaGuiCreator.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/kalaha/view/GuiCreator.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/view/animation/MoveAnimation.scala" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/view/panels/BoardPanel.scala" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/view/panels/ConnectionPanel.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/kalaha/view/panels/ConnectionPanel.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/view/panels/ControlsPanel.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/kalaha/view/panels/ControlsPanel.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/view/panels/GamePanel.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/kalaha/view/panels/GamePanel.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/view/panels/NamePanel.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/kalaha/view/panels/NamePanel.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/view/panels/PlayersPanel.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/kalaha/view/panels/PlayersPanel.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Server/src/main/scala/Main.scala" beforeDir="false" afterPath="$PROJECT_DIR$/../Server/src/main/scala/Main.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Server/src/main/scala/connection/ClientConnection.scala" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Server/src/main/scala/connection/SocketReadingRunnable.scala" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Server/src/main/scala/controller/KalahaController.scala" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Server/src/main/scala/model/KalahaAI.scala" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Server/src/main/scala/model/KalahaPlayer.scala" beforeDir="false" afterPath="$PROJECT_DIR$/../Server/src/main/scala/kalaha/player/Player.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Server/src/main/scala/service/KalahaService.scala" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Server/src/main/scala/service/TimerRunnable.scala" beforeDir="false" afterPath="$PROJECT_DIR$/../Server/src/main/scala/kalaha/service/TimerRunnable.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Server/target/scala-3.0.2/classes/Main$.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Server/target/scala-3.0.2/classes/Main$.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Server/target/scala-3.0.2/classes/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Server/target/scala-3.0.2/classes/Main.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Server/target/scala-3.0.2/classes/Main.tasty" beforeDir="false" afterPath="$PROJECT_DIR$/../Server/target/scala-3.0.2/classes/Main.tasty" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -26,14 +61,12 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Package Object" />
+        <option value="Class" />
       </list>
     </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
-  </component>
-  <component name="HighlightingSettingsPerFile">
-    <setting file="file://$PROJECT_DIR$/src/main/scala/view/animation/MoveAnimation.scala" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="ProjectCodeStyleSettingsMigration">
     <option name="version" value="2" />
@@ -53,13 +86,26 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$USER_HOME$/Desktop/PSIO-LAB-10" />
+    <property name="last_opened_file_path" value="$USER_HOME$/Desktop/Server" />
     <property name="restartRequiresConfirmation" value="false" />
   </component>
-  <component name="RunManager" selected="Application.Main">
+  <component name="RunManager" selected="Application.Main (1)">
     <configuration name="Gui" type="Application" factoryName="Application" temporary="true">
       <option name="MAIN_CLASS_NAME" value="Gui" />
       <module name="Client" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Main (1)" type="Application" factoryName="Application" temporary="true">
+      <option name="MAIN_CLASS_NAME" value="kalaha.Main" />
+      <module name="Client" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="kalaha.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -73,6 +119,7 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.Main (1)" />
         <item itemvalue="Application.Main" />
         <item itemvalue="Application.Gui" />
       </list>
@@ -99,7 +146,16 @@
       <workItem from="1641647324453" duration="13943000" />
       <workItem from="1641725888743" duration="5806000" />
       <workItem from="1641755497828" duration="5580000" />
-      <workItem from="1641818869438" duration="1375000" />
+      <workItem from="1641818869438" duration="1689000" />
+      <workItem from="1642442549726" duration="1110000" />
+      <workItem from="1642453207946" duration="608000" />
+      <workItem from="1642793044361" duration="1282000" />
+      <workItem from="1642968528363" duration="3902000" />
+      <workItem from="1643054639396" duration="1435000" />
+      <workItem from="1643066158918" duration="5251000" />
+      <workItem from="1643113934935" duration="5266000" />
+      <workItem from="1643131775706" duration="3567000" />
+      <workItem from="1643137645503" duration="609000" />
     </task>
     <task id="LOCAL-00001" summary="Add server and client communicating over websocket">
       <created>1641415047608</created>

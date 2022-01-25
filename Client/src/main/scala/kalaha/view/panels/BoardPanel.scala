@@ -1,6 +1,6 @@
-package view.panels
+package kalaha.view.panels
 
-import controller.connection.KalahaClientConnection
+import kalaha.connection.Connection
 
 import java.awt.*
 import javax.swing.border.LineBorder

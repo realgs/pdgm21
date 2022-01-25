@@ -1,12 +1,12 @@
-package view
+package kalaha.view
 
-import controller.connection.KalahaClientConnection
-import view.panels.{BoardPanel, ControlsPanel}
+import kalaha.connection.Connection
+import kalaha.view.panels.{BoardPanel, ControlsPanel}
 
 import java.awt.{Color, Container, Dimension, FlowLayout, GridLayout}
 import javax.swing.{JButton, JFrame, JPanel, JTextField, JTextPane, SpringLayout, WindowConstants}
 
-class KalahaGuiCreator:
+class GuiCreator:
     val frame: JFrame = new JFrame("Kalaha game client")
     val contentPane: Container = frame.getContentPane()
 
