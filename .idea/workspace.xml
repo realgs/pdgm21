@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CMakePresetLoader">{
+  &quot;useNewFormat&quot;: true
+}</component>
+  <component name="CMakeReloadState">
+    <option name="reloaded" value="true" />
+  </component>
+  <component name="CMakeRunConfigurationManager">
+    <generated>
+      <config projectName="List 8" targetName="LIB_GAMEUTILS" />
+      <config projectName="List 8" targetName="LIB_GAMEUSERS" />
+      <config projectName="List 8" targetName="APP" />
+      <config projectName="List 8" targetName="LIB_GAMESYSTEMS" />
+    </generated>
+  </component>
+  <component name="CMakeSettings" AUTO_RELOAD="true">
+    <configurations>
+      <configuration PROFILE_NAME="Debug" ENABLED="true" CONFIG_NAME="Debug" />
+    </configurations>
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="1591b287-98ff-44ea-8203-b7ae0148240a" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.gitmodules" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/.name" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/pdgm21.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Python/.idea/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Python/.idea/Python.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Python/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Python/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Python/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Python/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Python/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Python/main.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libs/cppzmq" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/libs/cppzmq/build/_deps/catch2-src/misc/installOpenCppCoverage.ps1" beforeDir="false" afterPath="$PROJECT_DIR$/libs/cppzmq/build/_deps/catch2-src/misc/installOpenCppCoverage.ps1" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/libs/cppzmq/build/_deps/catch2-src/projects/XCode/OCTest/OCTest.xcodeproj/project.pbxproj" beforeDir="false" afterPath="$PROJECT_DIR$/libs/cppzmq/build/_deps/catch2-src/projects/XCode/OCTest/OCTest.xcodeproj/project.pbxproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/libs/libzmq/COPYING" beforeDir="false" afterPath="$PROJECT_DIR$/libs/libzmq/COPYING" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/libs/libzmq/COPYING.LESSER" beforeDir="false" afterPath="$PROJECT_DIR$/libs/libzmq/COPYING.LESSER" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/libs/libzmq/INSTALL" beforeDir="false" afterPath="$PROJECT_DIR$/libs/libzmq/INSTALL" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/libs/libzmq/Jenkinsfile" beforeDir="false" afterPath="$PROJECT_DIR$/libs/libzmq/Jenkinsfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/libs/libzmq/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/libs/libzmq/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/libs/libzmq/builds/cmake/NSIS.template32.in" beforeDir="false" afterPath="$PROJECT_DIR$/libs/libzmq/builds/cmake/NSIS.template32.in" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/libs/libzmq/builds/cmake/NSIS.template64.in" beforeDir="false" afterPath="$PROJECT_DIR$/libs/libzmq/builds/cmake/NSIS.template64.in" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/libs/libzmq/builds/deprecated-msvc/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/libs/libzmq/builds/deprecated-msvc/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/libs/libzmq/builds/zos/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/libs/libzmq/builds/zos/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/libs/libzmq/doc/zmq_poll.txt" beforeDir="false" afterPath="$PROJECT_DIR$/libs/libzmq/doc/zmq_poll.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/libs/libzmq/doc/zmq_poller.txt" beforeDir="false" afterPath="$PROJECT_DIR$/libs/libzmq/doc/zmq_poller.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/libs/libzmq/doc/zmq_ppoll.txt" beforeDir="false" afterPath="$PROJECT_DIR$/libs/libzmq/doc/zmq_ppoll.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/libs/libzmq/doc/zmq_socket.txt" beforeDir="false" afterPath="$PROJECT_DIR$/libs/libzmq/doc/zmq_socket.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/main.cpp" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ClangdSettings">
+    <option name="formatViaClangd" value="false" />
+  </component>
+  <component name="ExecutionTargetManager" SELECTED_TARGET="CMakeBuildProfile:Debug" />
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="CMakeLists.txt" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/libs/libzmq" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectApplicationVersion">
+    <option name="ide" value="CLion" />
+    <option name="majorVersion" value="2022" />
+    <option name="minorVersion" value="2.4" />
+  </component>
+  <component name="ProjectId" id="2I9lHtaJf84kSROssFRzeaspriH" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.cidr.known.project.marker": "true",
+    "WebServerToolWindowFactoryState": "true",
+    "cf.first.check.clang-format": "false",
+    "cidr.known.project.marker": "true",
+    "nodejs_package_manager_path": "npm"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/GameLogic" />
+      <recent name="$PROJECT_DIR$/inc/GameLogic" />
+    </key>
+  </component>
+  <component name="RunManager" selected="CMake Application.APP">
+    <configuration default="true" type="CLionExternalRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true">
+      <method v="2">
+        <option name="CLION.EXTERNAL.BUILD" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="APP" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="List 8" TARGET_NAME="APP" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="List 8" RUN_TARGET_NAME="APP">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="LIB_GAMESYSTEMS" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="List 8" TARGET_NAME="LIB_GAMESYSTEMS" CONFIG_NAME="Debug">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="LIB_GAMEUSERS" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="List 8" TARGET_NAME="LIB_GAMEUSERS" CONFIG_NAME="Debug">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="LIB_GAMEUTILS" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="List 8" TARGET_NAME="LIB_GAMEUTILS" CONFIG_NAME="Debug">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <list>
+      <item itemvalue="CMake Application.APP" />
+      <item itemvalue="CMake Application.LIB_GAMESYSTEMS" />
+      <item itemvalue="CMake Application.LIB_GAMEUSERS" />
+      <item itemvalue="CMake Application.LIB_GAMEUTILS" />
+    </list>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="1591b287-98ff-44ea-8203-b7ae0148240a" name="Changes" comment="" />
+      <created>1669601596385</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1669601596385</updated>
+      <workItem from="1669601598233" duration="9286000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>

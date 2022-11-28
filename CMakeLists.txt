@@ -10,6 +10,8 @@ project(${PROJECT_NAME}
         LANGUAGES CXX)
 
 set(INCLUDES_DIR "${PROJECT_SOURCE_DIR}/inc/")
+set(INCLUDES_GAMELOGIC_DIR "${INCLUDES_DIR}/GameLogic")
+
 add_subdirectory(src)
 
 set(MAIN_APP_SOURCES main.cpp)
@@ -17,6 +19,10 @@ set(MAIN_APP APP)
 
 add_executable(${MAIN_APP} ${MAIN_APP_SOURCES})
 
-target_include_directories(${MAIN_APP} PRIVATE ${INCLUDES_DIR}/GameSystems)
+target_include_directories(${MAIN_APP} PRIVATE ${INCLUDES_GAMELOGIC_DIR}/GameSystems)
 
 target_link_libraries(${MAIN_APP} PRIVATE LIB_GAMESYSTEMS)
+
+#find cppzmq wrapper, installed by make of cppzmq
+find_package(cppzmq)
+target_link_libraries(${MAIN_APP} PRIVATE cppzmq)
