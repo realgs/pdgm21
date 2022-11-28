@@ -2,4 +2,4 @@ set(GAMEUTILS_SOURCES GameState.cpp)
 
 add_library(LIB_GAMEUTILS ${GAMEUTILS_SOURCES})
 
-target_include_directories(LIB_GAMEUTILS PUBLIC ${INCLUDES_DIR}/GameUtils)
+target_include_directories(LIB_GAMEUTILS PUBLIC ${INCLUDES_GAMELOGIC_DIR}/GameUtils)

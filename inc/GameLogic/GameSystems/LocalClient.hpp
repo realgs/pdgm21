@@ -4,19 +4,19 @@
 // e-mail: kuba.szwedowicz@gmail.com 
 //
 
-#ifndef LIST_8_BOTCLIENT_HPP
-#define LIST_8_BOTCLIENT_HPP
+#ifndef LIST_8_LOCALCLIENT_HPP
+#define LIST_8_LOCALCLIENT_HPP
 
 #include <memory>
 
-#include "ISubscriber.hpp"
+#include "IClient.hpp"
 #include "Player.hpp"
 #include "DecisionTree.hpp"
 
-class BotClient : public ISubscriber
+class LocalClient : public IClient
 {
 public:
-    BotClient(IPublisher& a_publisher, const GameState& a_gameState, int a_clientID) noexcept;
+    LocalClient(IPublisher& a_publisher, const GameState& a_gameState, int a_clientID) noexcept;
 
     int makeTurn() const noexcept override;
 
@@ -27,4 +27,4 @@ private:
     const GameState& m_gameState;
     std::unique_ptr<Player> m_player;
 };
-#endif //LIST_8_BOTCLIENT_HPP
+#endif //LIST_8_LOCALCLIENT_HPP

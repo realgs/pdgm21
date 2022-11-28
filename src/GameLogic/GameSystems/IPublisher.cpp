@@ -4,9 +4,9 @@
 // e-mail: kuba.szwedowicz@gmail.com 
 //
 #include "IPublisher.hpp"
-#include "ISubscriber.hpp"
+#include "IClient.hpp"
 
-bool IPublisher::subscribe(ISubscriber& a_subscriber) noexcept
+bool IPublisher::subscribe(IClient& a_subscriber) noexcept
 {
     m_subscribers.push_back(&a_subscriber);
     return true;

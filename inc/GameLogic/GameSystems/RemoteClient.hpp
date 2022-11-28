@@ -8,15 +8,15 @@
 #define LIST_8_PLAYERCLIENT_HPP
 
 #include "memory"
-#include "ISubscriber.hpp"
+#include "IClient.hpp"
 #include "Player.hpp"
 
-class HumanClient : public ISubscriber
+class RemoteClient : public IClient
 {
 public:
-    HumanClient(IPublisher& a_publisher, int a_clientID) noexcept;
-    HumanClient(const HumanClient&) = delete;
-    HumanClient(HumanClient*&) = delete;
+    RemoteClient(IPublisher& a_publisher, int a_clientID) noexcept;
+    RemoteClient(const RemoteClient&) = delete;
+    RemoteClient(RemoteClient*&) = delete;
 
     int makeTurn() const noexcept override;
 

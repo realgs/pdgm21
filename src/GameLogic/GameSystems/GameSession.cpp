@@ -9,38 +9,39 @@
 #include <future>
 #include <exception>
 
-#include "Server.hpp"
+#include "GameSession.hpp"
+#include "IClient.hpp"
 #include "HumanPlayer.hpp"
-#include "HumanClient.hpp"
-#include "BotClient.hpp"
+#include "RemoteClient.hpp"
+#include "LocalClient.hpp"
 
-Server::Server(const GameState& a_startingGameState) noexcept
+GameSession::GameSession(const GameState& a_startingGameState) noexcept
         : m_startingGameState(a_startingGameState), m_currentGameState(m_startingGameState), m_clients()
 {
 
 }
 
-void Server::run() noexcept
+void GameSession::run() noexcept
 {
     prepareGame();
     runGame();
 }
 
 // PRIVATE
-void Server::prepareGame() noexcept
+void GameSession::prepareGame() noexcept
 {
     m_clients.clear();
     m_currentGameState = m_startingGameState;
     for (int i = 0; i < m_currentGameState.getNumberOfHumanPayers(); i++)
-        m_clients.push_back(std::make_unique<HumanClient>(*this, i));
+        m_clients.push_back(std::make_unique<RemoteClient>(*this, i));
 
     for (int i = m_currentGameState.getNumberOfHumanPayers(); i < m_currentGameState.getNumberOfPlayers(); i++)
-        m_clients.push_back(std::make_unique<BotClient>(*this, m_currentGameState, i));
+        m_clients.push_back(std::make_unique<LocalClient>(*this, m_currentGameState, i));
 
     synchronizeClients();
 }
 
-void Server::runGame() noexcept
+void GameSession::runGame() noexcept
 {
     int turnCounter = 1;
     bool running = true;
@@ -56,10 +57,10 @@ void Server::runGame() noexcept
                 std::cout << "Points: " << m_currentGameState.getPoints()[i] << std::endl;
                 std::cout << m_currentGameState << std::endl;
 
-                if (m_currentGameState.getRocksLeft()[i] == 0)  // Game ends if moving player has no more rocks to play
+                if (m_currentGameState.getRocksLeft()[i] == 0)  // GameSession ends if moving player has no more rocks to play
                 {
                     std::cout << "Player: " << m_currentGameState.getPlayerNames()[i]
-                              << " has no more moves. Game ends." << std::endl;
+                              << " has no more moves. GameSession ends." << std::endl;
                     running = false;
                     m_currentGameState.finishGame(i);
                     break;
@@ -82,12 +83,12 @@ void Server::runGame() noexcept
 }
 
 
-GameState Server::getCurrentGameState() const noexcept
+GameState GameSession::getCurrentGameState() const noexcept
 {
     return m_currentGameState;
 }
 
-void Server::annouceTheWinner() const noexcept
+void GameSession::annouceTheWinner() const noexcept
 {
     const auto& points = m_currentGameState.getPoints();
     auto winnerPoints = std::max_element(points.cbegin(), points.cend());
@@ -95,14 +96,14 @@ void Server::annouceTheWinner() const noexcept
     std::cout << m_currentGameState.getPlayerNames()[winnerIndex] << " won with " << *winnerPoints << std::endl;
 }
 
-int Server::oneValidTurn(int a_playerIndex)
+int GameSession::oneValidTurn(int a_playerIndex)
 {
     bool validMoveWasMade = false;
     int patience = 3;
     int lastHouse = -1;
     while (!validMoveWasMade && patience != 0)
     {
-        std::future<int> clientThread = std::async(std::launch::async, &ISubscriber::makeTurn,
+        std::future<int> clientThread = std::async(std::launch::async, &IClient::makeTurn,
                                                    m_clients[a_playerIndex].get());
 
         std::future_status status = std::future_status::deferred;

@@ -4,23 +4,23 @@
 // e-mail: kuba.szwedowicz@gmail.com 
 //
 
-#ifndef LIST_8_SERVER_HPP
-#define LIST_8_SERVER_HPP
+#ifndef LIST_8_GAMESESSION_HPP
+#define LIST_8_GAMESESSION_HPP
 
 #include <memory>
 
 #include "IPublisher.hpp"
 #include "GameState.hpp"
-#include "ISubscriber.hpp"
+#include "IClient.hpp"
 
-//class ISubscriber;
-class Server : public IPublisher
+//class IClient;
+class GameSession : public IPublisher
 {
 public:
     // CTOR
-    Server(const GameState& a_startingGameState) noexcept;
+    GameSession(const GameState& a_startingGameState) noexcept;
 
-    ~Server() override = default;
+    ~GameSession() override = default;
 
     // FUNCTIONS
     void run() noexcept;
@@ -39,7 +39,7 @@ private:
 
     GameState m_startingGameState;
     GameState m_currentGameState;
-    std::vector<std::unique_ptr<ISubscriber>> m_clients;
+    std::vector<std::unique_ptr<IClient>> m_clients;
 };
 
-#endif //LIST_8_SERVER_HPP
+#endif //LIST_8_GAMESESSION_HPP

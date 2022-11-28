@@ -11,16 +11,16 @@
 
 #include "GameState.hpp"
 
-class ISubscriber;
+class IClient;
 class IPublisher
 {
 public:
     virtual ~IPublisher() = default;
-    bool subscribe(ISubscriber& a_subscriber) noexcept;
+    bool subscribe(IClient& a_subscriber) noexcept;
     virtual GameState getCurrentGameState() const noexcept = 0;
 protected:
     void synchronizeClients();
 private:
-    std::vector<ISubscriber*> m_subscribers;
+    std::vector<IClient*> m_subscribers;
 };
 #endif //LIST_8_IPUBLISHER_HPP

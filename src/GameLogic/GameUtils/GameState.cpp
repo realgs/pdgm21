@@ -6,6 +6,7 @@
 #include <iostream>
 #include <vector>
 #include <string>
+#include <utility>
 
 #include "GameState.hpp"
 
@@ -107,7 +108,7 @@ int GameState::unloadHouse(int a_house, int a_player) noexcept
         }
         m_board[a_house]++;
     }
-//    if (m_rocksLeft[a_player] == 0) // Game ends when player that is about to move
+//    if (m_rocksLeft[a_player] == 0) // GameSession ends when player that is about to move
 //    {
 //        finishGame(a_player);
 //        return -1;
