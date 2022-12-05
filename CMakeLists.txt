@@ -14,7 +14,7 @@ set(INCLUDES_GAMELOGIC_DIR "${INCLUDES_DIR}/GameLogic")
 
 add_subdirectory(src)
 
-set(MAIN_APP_SOURCES main.cpp)
+set(MAIN_APP_SOURCES main.cpp inc/GameLogic/GameSystems/IRemoteSession.hpp inc/GameLogic/GameSystems/ILocalHandler.hpp inc/GameLogic/GameSystems/IRemoteHandler.hpp inc/GameLogic/GameSystems/ILocalSession.hpp inc/GameLogic/GameSystems/ISession.hpp inc/GameLogic/GameSystems/IHandler.hpp inc/GameLogic/GameSystems/GameSessionSate.hpp inc/GameLogic/GameSystems/PlayerMoveState.hpp inc/GameLogic/GameSystems/PlayerMove.hpp)
 set(MAIN_APP APP)
 
 add_executable(${MAIN_APP} ${MAIN_APP_SOURCES})

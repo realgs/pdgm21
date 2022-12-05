@@ -19,15 +19,19 @@ public:
     void finishGame(int a_finishingPlayer) noexcept;
     bool validateMove(int a_move, int a_playerIndex) const noexcept;
     void updateRocksPointsBoardWithOther(GameState&& a_gameState) noexcept;
+    void incrementTurnNumber() noexcept;
+
     // GETTERS
     int getNumberOfPlayers() const noexcept;
     int getNumberOfHumanPayers() const noexcept;
     int getNumberOfBotPlayers() const noexcept;
     int getHolesPerSide() const noexcept;
+    int getTurnNumber() const noexcept;
     const std::vector<int>& getPoints() const noexcept;
-    const std::vector<int>& getBoard() const noexcept;
     const std::vector<int>& getRocksLeft() const noexcept;
+    const std::vector<int>& getBoard() const noexcept;
     const std::vector<std::string>& getPlayerNames() const noexcept;
+    const std::string& getPlayerName(int a_playerId) const noexcept;
 
     // SETTERS
     void setPoints(int a_player, int a_newValue) noexcept;
@@ -39,6 +43,7 @@ private:
     int m_holesPerSide;
     int m_holesOnBoard;
     int m_numberOfStartingRocks;
+    int m_currentTurn;
     std::vector<int> m_rocksLeft;
     std::vector<int> m_points;
     std::vector<int> m_board;

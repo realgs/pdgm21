@@ -9,11 +9,11 @@
 
 #include <memory>
 
-#include "IPublisher.hpp"
 #include "GameState.hpp"
-#include "IClient.hpp"
+#include "../GameUsers/IPlayer.hpp"
 
-//class IClient;
+
+//class IPlayer;
 class GameSession : public IPublisher
 {
 public:
@@ -28,6 +28,7 @@ public:
     // GETTERS
     GameState getCurrentGameState() const noexcept override;
 
+
 private:
     void runGame() noexcept;
 
@@ -39,7 +40,7 @@ private:
 
     GameState m_startingGameState;
     GameState m_currentGameState;
-    std::vector<std::unique_ptr<IClient>> m_clients;
+    std::vector<std::unique_ptr<IPlayer>> m_clients;
 };
 
 #endif //LIST_8_GAMESESSION_HPP

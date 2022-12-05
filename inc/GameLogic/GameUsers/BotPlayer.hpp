@@ -7,19 +7,23 @@
 #ifndef LIST_8_BOTPLAYER_HPP
 #define LIST_8_BOTPLAYER_HPP
 
-#include "Player.hpp"
+#include "IPlayer.hpp"
 #include "DecisionTree.hpp"
 
 class GameState;
-class BotPlayer : public Player
+class BotPlayer : public IPlayer
 {
 public:
-    BotPlayer(const std::string& a_name, const GameState& a_gameState, int a_playerID) noexcept;
+    BotPlayer(ISession& a_session, int a_playerID) noexcept;
     ~BotPlayer() override = default;
 
-    int makeTurn() noexcept override;
+    int getMove() noexcept override;
+    bool acceptMove(int a_move) noexcept override;
+    bool declineMove(int a_move) noexcept override;
 
 private:
+    void buildNewMoves() noexcept;
+
     DecisionTree m_decisionTree;
     std::vector<int> m_moves;
 };

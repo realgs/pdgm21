@@ -1,4 +1,4 @@
-set(GAMEUSERS_SOURCES HumanPlayer.cpp BotPlayer.cpp Player.cpp ../GameUtils/DecisionTree.cpp)
+set(GAMEUSERS_SOURCES IPlayer.cpp HumanPlayer.cpp BotPlayer.cpp ../GameUtils/DecisionTree.cpp)
 
 add_library(LIB_GAMEUSERS ${GAMEUSERS_SOURCES})
 

@@ -10,7 +10,7 @@
 #include <exception>
 
 #include "GameSession.hpp"
-#include "IClient.hpp"
+#include "IPlayer.hpp"
 #include "HumanPlayer.hpp"
 #include "RemoteClient.hpp"
 #include "LocalClient.hpp"
@@ -103,7 +103,7 @@ int GameSession::oneValidTurn(int a_playerIndex)
     int lastHouse = -1;
     while (!validMoveWasMade && patience != 0)
     {
-        std::future<int> clientThread = std::async(std::launch::async, &IClient::makeTurn,
+        std::future<int> clientThread = std::async(std::launch::async, &IPlayer::makeTurn,
                                                    m_clients[a_playerIndex].get());
 
         std::future_status status = std::future_status::deferred;

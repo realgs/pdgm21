@@ -1,0 +1,170 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"childIndexes" : 
+					[
+						1
+					],
+					"jsonFile" : "directory-.-Debug-f5ebdc15457944623624.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.16"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0
+					]
+				},
+				{
+					"build" : "src",
+					"childIndexes" : 
+					[
+						2
+					],
+					"jsonFile" : "directory-src-Debug-b6cf2213fc5053b67c22.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.16"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 0,
+					"source" : "src"
+				},
+				{
+					"build" : "src/GameLogic",
+					"childIndexes" : 
+					[
+						3,
+						4,
+						5
+					],
+					"jsonFile" : "directory-src.GameLogic-Debug-4cb48a79937bf3d33a37.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.16"
+					},
+					"parentIndex" : 1,
+					"projectIndex" : 0,
+					"source" : "src/GameLogic"
+				},
+				{
+					"build" : "src/GameLogic/GameUtils",
+					"jsonFile" : "directory-src.GameLogic.GameUtils-Debug-a599895f6031ca7c9cdd.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.16"
+					},
+					"parentIndex" : 2,
+					"projectIndex" : 0,
+					"source" : "src/GameLogic/GameUtils",
+					"targetIndexes" : 
+					[
+						3
+					]
+				},
+				{
+					"build" : "src/GameLogic/GameSystems",
+					"jsonFile" : "directory-src.GameLogic.GameSystems-Debug-653a889ad5e0af6fca7e.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.16"
+					},
+					"parentIndex" : 2,
+					"projectIndex" : 0,
+					"source" : "src/GameLogic/GameSystems",
+					"targetIndexes" : 
+					[
+						1
+					]
+				},
+				{
+					"build" : "src/GameLogic/GameUsers",
+					"jsonFile" : "directory-src.GameLogic.GameUsers-Debug-6d051596b15ac541087c.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.16"
+					},
+					"parentIndex" : 2,
+					"projectIndex" : 0,
+					"source" : "src/GameLogic/GameUsers",
+					"targetIndexes" : 
+					[
+						2
+					]
+				}
+			],
+			"name" : "Debug",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3,
+						4,
+						5
+					],
+					"name" : "List 8",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "APP::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-APP-Debug-7bbb40926e3235c01de0.json",
+					"name" : "APP",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 4,
+					"id" : "LIB_GAMESYSTEMS::@9478e010a87097d35ac8",
+					"jsonFile" : "target-LIB_GAMESYSTEMS-Debug-8f6427676711223ce5db.json",
+					"name" : "LIB_GAMESYSTEMS",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 5,
+					"id" : "LIB_GAMEUSERS::@0ad1f779b5a133dd78ef",
+					"jsonFile" : "target-LIB_GAMEUSERS-Debug-2ebda281f360dab49f00.json",
+					"name" : "LIB_GAMEUSERS",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 3,
+					"id" : "LIB_GAMEUTILS::@bdb0303d3ec1a516594d",
+					"jsonFile" : "target-LIB_GAMEUTILS-Debug-c07c6064bd2f424edc27.json",
+					"name" : "LIB_GAMEUTILS",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "/home/jakubszwedowicz/Dev/OCaml_Scala/Project/pdgm21/cmake-build-debug",
+		"source" : "/home/jakubszwedowicz/Dev/OCaml_Scala/Project/pdgm21"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 4
+	}
+}

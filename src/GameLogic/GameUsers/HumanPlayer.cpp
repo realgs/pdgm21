@@ -8,14 +8,29 @@
 
 #include "HumanPlayer.hpp"
 
-HumanPlayer::HumanPlayer(const std::string& a_name, const GameState& a_gameState) noexcept : Player(a_name, a_gameState)
+HumanPlayer::HumanPlayer(ISession& a_session, int a_playerID) noexcept : IPlayer(a_session, a_playerID)
 {
 
 }
 
-int HumanPlayer::makeTurn() noexcept
+int HumanPlayer::getMove() noexcept
 {
+    // TODO: doesnt make sense with client-server architecture
     int move;
     std::cin >> move;
     return move;
+}
+
+
+
+bool HumanPlayer::acceptMove(int a_move) noexcept
+{
+    std::cout << __func__ << ": called" << std::endl;
+    return true;
+}
+
+bool HumanPlayer::declineMove(int a_move) noexcept
+{
+    std::cout << __func__ << ": called" << std::endl;
+    return true;
 }

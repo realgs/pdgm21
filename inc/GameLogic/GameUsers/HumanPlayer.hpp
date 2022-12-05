@@ -7,14 +7,19 @@
 #ifndef LIST_8_HUMANPLAYER_HPP
 #define LIST_8_HUMANPLAYER_HPP
 
-#include "Player.hpp"
+#include <string>
 
-class HumanPlayer : public Player
-{
+#include "IPlayer.hpp"
+
+class HumanPlayer : public IPlayer {
 public:
-    HumanPlayer(const std::string& a_name, const GameState& a_gameState) noexcept;
+    HumanPlayer(ISession &a_session, int a_playerID) noexcept;
 
-    int makeTurn() noexcept override;
+    int getMove() noexcept override;
+
+    bool acceptMove(int a_move) noexcept;
+
+    bool declineMove(int a_move) noexcept;
 
 private:
 };

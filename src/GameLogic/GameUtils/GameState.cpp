@@ -20,6 +20,7 @@ GameState::GameState(const std::vector<std::string>& a_playerNames, int a_number
         , m_holesPerSide(m_housesPerSide + 1)
         , m_holesOnBoard(m_numberOfPlayers * m_holesPerSide)
         , m_numberOfStartingRocks(a_numberOfStartingRocks)
+        , m_currentTurn(0)
         , m_rocksLeft(m_numberOfPlayers, m_housesPerSide * m_numberOfStartingRocks)
         , m_points(m_numberOfPlayers, 0)
         , m_playerNames(a_playerNames)
@@ -147,6 +148,11 @@ void GameState::updateRocksPointsBoardWithOther(GameState&& a_gameState) noexcep
     m_board = std::move(a_gameState.m_board);
 }
 
+void GameState::incrementTurnNumber() noexcept
+{
+    m_currentTurn++;
+}
+
 int GameState::getNumberOfPlayers() const noexcept
 {
     return m_numberOfPlayers;
@@ -167,6 +173,11 @@ int GameState::getHolesPerSide() const noexcept
     return m_holesPerSide;
 }
 
+int GameState::getTurnNumber() const noexcept
+{
+    return m_currentTurn;
+}
+
 const std::vector<int>& GameState::getPoints() const noexcept
 {
     return m_points;
@@ -185,6 +196,14 @@ const std::vector<int>& GameState::getRocksLeft() const noexcept
 const std::vector<std::string>& GameState::getPlayerNames() const noexcept
 {
     return m_playerNames;
+}
+
+const std::string& GameState::getPlayerName(int a_playerId) const noexcept
+{
+    if (a_playerId >= m_playerNames.size())
+    {
+        throw {"Cry me a river"};
+    }
 }
 
 void GameState::setPoints(int a_player, int a_newValue) noexcept

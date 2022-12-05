@@ -1,0 +1,16 @@
+/home/jakubszwedowicz/Dev/OCaml_Scala/Project/pdgm21/cmake-build-debug/CMakeFiles/APP.dir
+/home/jakubszwedowicz/Dev/OCaml_Scala/Project/pdgm21/cmake-build-debug/CMakeFiles/edit_cache.dir
+/home/jakubszwedowicz/Dev/OCaml_Scala/Project/pdgm21/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/home/jakubszwedowicz/Dev/OCaml_Scala/Project/pdgm21/cmake-build-debug/src/CMakeFiles/edit_cache.dir
+/home/jakubszwedowicz/Dev/OCaml_Scala/Project/pdgm21/cmake-build-debug/src/CMakeFiles/rebuild_cache.dir
+/home/jakubszwedowicz/Dev/OCaml_Scala/Project/pdgm21/cmake-build-debug/src/GameLogic/CMakeFiles/edit_cache.dir
+/home/jakubszwedowicz/Dev/OCaml_Scala/Project/pdgm21/cmake-build-debug/src/GameLogic/CMakeFiles/rebuild_cache.dir
+/home/jakubszwedowicz/Dev/OCaml_Scala/Project/pdgm21/cmake-build-debug/src/GameLogic/GameUtils/CMakeFiles/LIB_GAMEUTILS.dir
+/home/jakubszwedowicz/Dev/OCaml_Scala/Project/pdgm21/cmake-build-debug/src/GameLogic/GameUtils/CMakeFiles/edit_cache.dir
+/home/jakubszwedowicz/Dev/OCaml_Scala/Project/pdgm21/cmake-build-debug/src/GameLogic/GameUtils/CMakeFiles/rebuild_cache.dir
+/home/jakubszwedowicz/Dev/OCaml_Scala/Project/pdgm21/cmake-build-debug/src/GameLogic/GameSystems/CMakeFiles/LIB_GAMESYSTEMS.dir
+/home/jakubszwedowicz/Dev/OCaml_Scala/Project/pdgm21/cmake-build-debug/src/GameLogic/GameSystems/CMakeFiles/edit_cache.dir
+/home/jakubszwedowicz/Dev/OCaml_Scala/Project/pdgm21/cmake-build-debug/src/GameLogic/GameSystems/CMakeFiles/rebuild_cache.dir
+/home/jakubszwedowicz/Dev/OCaml_Scala/Project/pdgm21/cmake-build-debug/src/GameLogic/GameUsers/CMakeFiles/LIB_GAMEUSERS.dir
+/home/jakubszwedowicz/Dev/OCaml_Scala/Project/pdgm21/cmake-build-debug/src/GameLogic/GameUsers/CMakeFiles/edit_cache.dir
+/home/jakubszwedowicz/Dev/OCaml_Scala/Project/pdgm21/cmake-build-debug/src/GameLogic/GameUsers/CMakeFiles/rebuild_cache.dir
